@@ -12,7 +12,7 @@ useEffect(() => {
   return (
     <>
         <div className="nav__logo">
-        <div>
+        <div className="nav__logo__img">
           <Link to="/" style={{ cursor: "pointer" }}>
             <img
               src={require("../../Images/logo.png")}
@@ -27,7 +27,7 @@ useEffect(() => {
             alt="user_image"
             className="img-fluid dashboard-user"
           />
-          {/* <p className="user-name">{Userdata.username}</p> */}
+          <p className="user-name">{Userdata.username}</p>
         </div>
       </div>
     </>
