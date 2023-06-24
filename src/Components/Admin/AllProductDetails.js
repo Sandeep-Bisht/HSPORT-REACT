@@ -150,12 +150,12 @@ export default function AllProductsDetails() {
   };
   return (
     <>
-      <section id="body-pd">
+      <section id="body-pd" className="allProducts-section">
         <div className="container-fluid">
 
           <div className="row px-0 dashboard-container">
             
-            <div className="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8 mt-2">
+            <div className="col-12 mt-2">
               <div className="all-products-details-section">
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
