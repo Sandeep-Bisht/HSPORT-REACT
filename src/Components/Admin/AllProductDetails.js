@@ -7,7 +7,6 @@ import { MdOutlineEditNote } from 'react-icons/md';
 import { MdPlaylistAdd } from 'react-icons/md';
 import "./Dashboard.css"
 
-var Userdata="";
 
 export default function AllProductsDetails() {
 

@@ -11,7 +11,7 @@ var Userdata;
 const ProductForm = (props) => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
-  const [manufactureres, setManufactureres] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [warehouse, setWarehouse] = useState([]);
   const [products, Setproducts] = useState([]);
   const [shwoTable, setShowTable] = useState(false);
@@ -29,10 +29,16 @@ const [editableData] = useState(props);
     dollerMrp: "",
     inrDiscount: "",
     dollerDiscount: "",
-    manufacturer: "",
+    brand: "",
     type: "",
     image: [],
     otherImage: [],
+    gender:"",
+    height:"",
+    width:"",
+    weight:"",
+    reorderQuantity:"",
+    maximumOrder:""
   });
 
   const navigate = useNavigate();
@@ -66,8 +72,8 @@ const [editableData] = useState(props);
     if (!Value.quantity) {
       error.quantity = "This field is required";
     }
-    if (!Value.manufacturer) {
-      error.manufacturer = "This field is required";
+    if (!Value.brand) {
+      error.brand = "This field is required";
     }
     if (Value.image.length === 0) {
       error.image = "This field is required";
@@ -75,14 +81,38 @@ const [editableData] = useState(props);
     if (Value.otherImage.length === 0) {
       error.otherImage = "This field is required";
     }
+    if(!Value.height)
+    {
+      error.height = "This field is required";
+    }
+    if(!Value.width)
+    {
+      error.width = "This field is required";
+    }
+    if(!Value.weight)
+    {
+      error.weight = "This field is required";
+    }
+    if(!Value.reorderQuantity)
+    {
+      error.reorderQuantity = "This field is required";
+    }
+    if(!Value.maximumOrder)
+    {
+      error.maximumOrder = "This field is required";
+    }
+    if(!Value.gender)
+    {
+      error.gender = "This field is required";
+    }
     return error;
   };
 
    const submitData = async (e) => {
     e.preventDefault();
 
-//     const errors = validateForm(data);
-//     setFormErrors(errors);
+    const errors = await validateForm(data);
+    await setFormErrors(errors);
    
 //     if (Object.keys(errors).length === 0) {
 //       const formData = new FormData();
@@ -378,54 +408,26 @@ const [editableData] = useState(props);
                               {formErrors.subcategory}
                             </p>
                           </div>
-
-                          
-                            <div className="col-6 p-2 required">
-                              <div className="mt-2">
-                            <span className="category-select-div">Vendor</span>
-                              <select
-                                className="form-control Dashborad-search custom-select"
-                                value={data.subcategory}
-                                name="subcategory"
-                                onChange={(e) => {
-                                  Setdata({
-                                    ...data,
-                                    subcategory: e.target.value,
-                                  });
-                                  handleInputChange(e);
-                                }}
-                                onBlur={handleBlur}
-                              >
-                                <option value="" disabled hidden>
-                                  Select Vendor
-                                </option>
-                                {subcategories.map((el, ind) => (
-                                  <option value={el._id} key={ind}>{el.name}</option>
-                                ))}
-                              </select>
-                              </div>
-                            </div>                         
-
                           <div className="col-6 p-2 required">
                           <div className="mt-2">
-                            <span className="category-select-div">Manufacturer</span>
+                            <span className="category-select-div">Brand</span>
                             <select
                               className="form-control Dashborad-search custom-select"
-                              value={data.manufacturer}
-                              name="manufacturer"
+                              value={data.brand}
+                              name="brand"
                               onChange={(e) => {
                                 Setdata({
                                   ...data,
-                                  manufacturer: e.target.value,
+                                  brand: e.target.value,
                                 });
                                 handleInputChange(e);
                               }}
                               onBlur={handleBlur}
                             >
                               <option value="" disabled hidden>
-                                Select Manufacturer
+                                Select Brands
                               </option>
-                              {manufactureres.map((el, ind) =>
+                              {brands.map((el, ind) =>
                                 Userdata.role === "superAdmin" ? (
                                   <option value={el._id} key={ind}>{el.name}</option>
                                 ) : Userdata._id === el.creatorId &&
@@ -436,7 +438,7 @@ const [editableData] = useState(props);
                             </select>
                             </div>
                             <p className="formerror">
-                              {formErrors.manufacturer}
+                              {formErrors.brand}
                             </p>
                           </div>
 
@@ -471,6 +473,34 @@ const [editableData] = useState(props);
                             </div>
                             <p className="formerror">{formErrors.warehouse}</p>
                           </div>
+                          <div className="col-6 p-2 required">
+                          <div className="mt-2">
+                            <span className="category-select-div">Gender</span>
+                            <select
+                              className="form-control Dashborad-search custom-select"
+                              value={data.gender}
+                              name="gender"
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  gender: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            >
+                              <option value="" disabled hidden>
+                                Select Gender
+                              </option>
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>Unisex</option>
+                            </select>
+                            </div>
+                            <p className="formerror">
+                              {formErrors.gender}
+                            </p>
+                          </div>
                           <div className="col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">
@@ -494,6 +524,48 @@ const [editableData] = useState(props);
                             </div>
                             
                             <p className="formerror">{formErrors.quantity}</p>
+                          </div>
+                          <div className="col-3 p-2 form-floating">
+                            <div className="mt-2">
+                            <span className="category-select-div">Height</span>
+                            <input
+                              type="number"
+                              id="floatingform"
+                              name="height"
+                              className="form-control Dashborad-search"
+                              defaultValue={data.height}
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  height: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            />
+                            </div>
+                            <p className="formerror">{formErrors.inrMrp}</p>
+                          </div>
+                          <div className="col-3 p-2 form-floating">
+                            <div className="mt-2">
+                            <span className="category-select-div">Width</span>
+                            <input
+                              type="number"
+                              id="floatingform"
+                              name="width"
+                              className="form-control Dashborad-search"
+                              defaultValue={data.width}
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  width: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            />
+                            </div>
+                            <p className="formerror">{formErrors.width}</p>
                           </div>
                           <div className="col-3 p-2 form-floating">
                             <div className="mt-2">
@@ -539,6 +611,48 @@ const [editableData] = useState(props);
                           </div>
                           <div className="col-3 p-2 form-floating">
                             <div className="mt-2">
+                            <span className="category-select-div">Re-Order Quantity</span>
+                            <input
+                              type="number"
+                              id="floatingform"
+                              name="reorderQuantity"
+                              className="form-control Dashborad-search"
+                              defaultValue={data.reorderQuantity}
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  reorderQuantity: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            />
+                            </div>
+                            <p className="formerror">{formErrors.reorderQuantity}</p>
+                          </div>
+                          <div className="col-3 p-2 form-floating">
+                            <div className="mt-2">
+                            <span className="category-select-div">Maximum Order</span>
+                            <input
+                              type="number"
+                              id="floatingform"
+                              name="maximumOrder"
+                              className="form-control Dashborad-search"
+                              defaultValue={data.maximumOrder}
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  maximumOrder: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            />
+                            </div>
+                            <p className="formerror">{formErrors.maximumOrder}</p>
+                          </div>
+                          <div className="col-3 p-2 form-floating">
+                            <div className="mt-2">
                             <span className="category-select-div">MRP In Dollar</span>
                             <input
                               type="number"
@@ -581,6 +695,29 @@ const [editableData] = useState(props);
                             </div>
                             <p className="formerror">{formErrors.dollerDiscount}</p>
                           </div>
+                          <div className="col-3 p-2 form-floating">
+                            <div className="mt-2">
+                            <span className="category-select-div">Weight</span>
+                            <input
+                              type="number"
+                              id="floatingform"
+                              name="weight"
+                              className="form-control Dashborad-search"
+                              defaultValue={data.inrMrp}
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  weight: e.target.value,
+                                });
+                                handleInputChange(e);
+                              }}
+                              onBlur={handleBlur}
+                            />
+                            </div>
+                            <p className="formerror">{formErrors.weight}</p>
+                          </div>
+                          <div className="col-3 p-2 form-floating">
+                          </div>
                           <div className="col-6 p-2">
                           <div className="mt-2">
                             <span className="category-select-div">Product Type</span>
@@ -622,7 +759,7 @@ const [editableData] = useState(props);
                           </div>
 
                           <div className="row">
-                            {editableData ? (
+                            {/* {editableData ? (
                               <div className="col-6 p-2">
                                 <button
                                   className="btn btn-registration"
@@ -631,7 +768,9 @@ const [editableData] = useState(props);
                                   Update
                                 </button>
                               </div>
-                            ) : (
+                            )  */}
+                            {/* :  */}
+                            {/* ( */}
                               <div className="col-6 p-2">
                                 <button
                                   className="btn btn-primary submit"
@@ -641,7 +780,8 @@ const [editableData] = useState(props);
                                   Submit
                                 </button>
                               </div>
-                            )}
+                            {/* ) */}
+                            {/* } */}
                           </div>
                         </div>
                       </div>
