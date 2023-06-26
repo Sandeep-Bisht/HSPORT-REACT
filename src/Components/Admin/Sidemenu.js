@@ -136,7 +136,7 @@ const Sidemenu = () => {
                 <div
                   id="collapseTwo"
                   className={`accordion-collapse collapse ${
-                    pathName.includes("Configuration") && "show"
+                    pathName.includes("/dashboard") && "show"
                   }`}
                   aria-labelledby="headingTwo"
                   data-bs-parent="#accordionExample"

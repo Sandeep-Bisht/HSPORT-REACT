@@ -142,7 +142,6 @@ export default function AllProductsDetails() {
   );
 
   const rowClassName = (record) => {
-    console.log(record,"recordddddddddddddd")
     if (record.quantity < 5) {
       return "red-row";
     }
