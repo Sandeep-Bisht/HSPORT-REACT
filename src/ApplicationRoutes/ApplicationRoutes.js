@@ -15,6 +15,8 @@ import ShippedOrder from '../Components/Admin/ShippedOrder'
 import DeliveredOrder from '../Components/Admin/DeliveredOrder'
 import CancelOrder from '../Components/Admin/CancelOrder'
 import NewOrder from '../Components/Admin/NewOrder';
+import Cart from '../Components/Cart/Cart';
+import Wishlist from '../Components/Wishlist/Wishlist';
 
 const ApplicationRoutes = () => {
   return (
@@ -27,7 +29,6 @@ const ApplicationRoutes = () => {
         <Route path='/dashboard/allBrands' element={<AllBrandsDetails/>}/>
         <Route path='/dashboard/create-product' element={< ProductForm />} />
         <Route path='/dashboard/create-category' element={< CategoryForm />} />
-
         <Route path='/dashboard/Order/Pending' element={<NewOrder/>} />
         <Route path='/dashboard/Order/InProgress' element={<InProgressOrder/>} />
         <Route path='/dashboard/Order/Canceled' element={<PackedOrder/>} />
@@ -37,6 +38,8 @@ const ApplicationRoutes = () => {
         <Route/>
         </Route>
       <Route path="/PageNotFound" element={ <PageNotFound />} />
+      <Route path="/cart" element={< Cart />} />
+      <Route path="/wishlist" element={< Wishlist />} />
     </Routes>
   )
 }
