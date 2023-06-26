@@ -13,7 +13,6 @@ function App() {
     {
       (match.pathname.includes("/dashboard")) ? null : <Footer />    
     }
-    {/* <Footer /> */}
     </>  
   );
 }
