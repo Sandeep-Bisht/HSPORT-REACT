@@ -33,7 +33,7 @@ const CategoryForm = (props) => {
   };
   const submitData = async (e) => {
     e.preventDefault();
-    // const errors = ValidationFrom(data);
+    const errors = ValidationFrom(data);
     // setFormerror(errors);
     // if (Object.keys(errors).length === 0) {
     //   const formData = new FormData();
