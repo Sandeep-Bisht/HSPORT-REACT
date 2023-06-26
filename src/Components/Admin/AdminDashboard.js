@@ -39,14 +39,14 @@ const AdminDashboard = () => {
           </div>
 
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/Configuration/" + "AllProductsDetails"}>
+            <Link to={"/dashboard/allBrands"}>
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>
                         <GiBoxUnpacking className="cardicon" />
-                        <h6 className="cardheads">Products </h6>
+                        <h6 className="cardheads">Top Brand </h6>
                       </div>
                       <div>
                         <span className="count1">{products}</span>
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/Configuration/" + "AllCategoriesDetails"}>
+            <Link to={"/dashboard/allCategories"}>
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -95,6 +95,7 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
+       
         </div>
       </main>
     </div>

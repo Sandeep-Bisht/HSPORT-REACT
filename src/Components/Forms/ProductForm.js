@@ -259,10 +259,10 @@ const [editableData] = useState(props);
 
   return (
     <>
-      <section id="body-pd">
+      <section>
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">            
-            <div className="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8 px-0">
+            <div className="col-12 px-0">
             
                   <form>
                     <div className="col-12 px-0">

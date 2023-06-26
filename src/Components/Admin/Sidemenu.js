@@ -44,7 +44,7 @@ const Sidemenu = () => {
           <div className="nav__link active">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingOne">
-                <div className="d-flex align-items-center justify-content-center div1">
+                <div className="d-flex align-items-center  div1">
                   <BsCartPlus className="nav__icon" />
                   <button
                     className="accordion-button collapsed"
@@ -61,49 +61,49 @@ const Sidemenu = () => {
               <div
                 id="collapseOne"
                 className={`accordion-collapse collapse ${
-                  pathName.includes("NewOrder") && "show"
+                  pathName.includes("/dashboard/Order/") && "show"
                 }`}
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
               >
                 <div className="dashboard-accordion-body">
                   <ul className="Configration-List">
-                    <Link to={"/NewOrder/" + "Pending"}>
+                    <Link to={"/dashboard/Order/Pending"}>
                       <li>
                         {" "}
                         <FaCartPlus className="configuration-icons-wrap" />
                         New Orders
                       </li>
                     </Link>
-                    <Link to={"/NewOrder/" + "InProgress"}>
+                    <Link to={"/dashboard/Order/InProgress"}>
                       <li>
                         {" "}
                         <GrInProgress className="configuration-icons-wrap" />
                         In Progress
                       </li>
                     </Link>
-                    <Link to={"/NewOrder/" + "Packed"}>
+                    <Link to={"/dashboard/Order/Packed"}>
                       <li>
                         {" "}
                         <BsBox className="configuration-icons-wrap" />
                         Packed
                       </li>
                     </Link>
-                    <Link to={"/NewOrder/" + "Shipped"}>
+                    <Link to={"/dashboard/Order/Shipped"}>
                       <li>
                         {" "}
                         <FaShippingFast className="configuration-icons-wrap" />
                         Shipped
                       </li>
                     </Link>
-                    <Link to={"/NewOrder/" + "Delivered"}>
+                    <Link to={"/dashboard/Order/Delivered"}>
                       <li>
                         {" "}
                         <MdRealEstateAgent className="configuration-icons-wrap" />
                         Delivered
                       </li>
                     </Link>
-                    <Link to={"/NewOrder/" + "Canceled"}>
+                    <Link to={"/dashboard/Order/Canceled"}>
                       <li>
                         {" "}
                         <BsCartXFill className="configuration-icons-wrap" />
@@ -119,7 +119,7 @@ const Sidemenu = () => {
             <div className="accordion" id="accordionExample">
               <div className="accordion-item">
                 <h2 className="accordion-header" id="headingTwo">
-                  <div className="d-flex align-items-center justify-content-center div1">
+                  <div className="d-flex align-items-center div1">
                     <GrConfigure className="nav__icon" />
                     <button
                       className="accordion-button collapsed"
@@ -143,13 +143,13 @@ const Sidemenu = () => {
                 >
                   <div className="dashboard-accordion-body">
                     <ul className="Configration-List">
-                      <Link to={"/Configuration/" + "AllManufactureDetails"}>
+                      <Link to={"/dashboard/allBrands"}>
                         <li className="nav-name">
                           <GiFactory className="configuration-icons-wrap" />
                           Top Brands
                         </li>
                       </Link>
-                      <Link to={"/Configuration/" + "AllCategoriesDetails"}>
+                      <Link to={"/dashboard/allCategories"}>
                         <li>
                           <BiCategory className="configuration-icons-wrap" />
                           Category
