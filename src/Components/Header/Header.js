@@ -4,8 +4,11 @@ import '../../Css/Common.css'
 import logo from '../../Images/logo.png'
 import { Link } from "react-router-dom";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2"
+import {AiOutlineSearch,AiOutlineShoppingCart,AiOutlineUser} from "react-icons/ai"
+import {BsBagHeart} from "react-icons/bs"
 const Header = () => {
   return (
+    <>
     <header>
       <nav className="navbar navbar-expand-lg ">
         <div className="container-fluid">
@@ -33,30 +36,26 @@ const Header = () => {
                       </Link>
                     </div>
                     <div className='header-middle'>
-                      <form className="d-flex" role="search">
+                      <form className="d-flex header-search-feild" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                        <button className="search-btn" type="submit"><AiOutlineSearch/></button>
                       </form>
                     </div>
                     <div className='header-right'>
                       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                          <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li className="nav-item">
-                          <a className="nav-link" href="#">Link</a>
-                        </li>
-                        <li className="nav-item dropdown">
-                          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                          </a>
-                          <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Action</a></li>
-                            <li><a className="dropdown-item" href="#">Another action</a></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="#">Something else here</a></li>
-                          </ul>
-                        </li>
+                        
+                        <Link className="nav-link header-right-link me-lg-4" to="/">
+                              <span><AiOutlineShoppingCart/></span>
+                              Cart
+                        </Link>
+                        <Link className="nav-link header-right-link  me-lg-4" to="/">
+                              <span><BsBagHeart/></span>
+                              Wishlist
+                        </Link>
+                         <button className='header-right-link nav-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                         <span><AiOutlineUser/></span>
+                              Login/Register
+                         </button>
 
                       </ul>
                     </div>
@@ -72,6 +71,29 @@ const Header = () => {
       </nav>
 
     </header>
+ 
+   
+    
+    
+   <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+      </div>
+      <div className="modal-body">
+        ...
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </>
   )
 }
 

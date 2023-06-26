@@ -3,6 +3,8 @@
 
 body {
     background-color: antiquewhite;
+
+
 }
 .f1 {
     font-family: 'Montserrat', sans-serif;
@@ -11,3 +13,8 @@ body {
 .f2 {
     font-family: 'Roboto', sans-serif;
 }
+.form-control:focus
+{
+    box-shadow: none;
+}
+
