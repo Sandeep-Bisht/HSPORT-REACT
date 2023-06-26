@@ -1,0 +1,29 @@
+header{
+    background-color:#008acc;
+}
+.main-logo
+{
+    width: 80px;
+}
+.all-sports-toggler
+{
+    display: flex;
+    margin-right: 50px;
+}
+.all-sports-toggler svg 
+{
+    height: 20px;
+}
+.all-sports-toggler span{
+    color: #fff;
+}
+.header-wrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-left
+{
+    display:flex;
+}
