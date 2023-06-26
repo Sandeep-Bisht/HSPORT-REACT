@@ -16,10 +16,10 @@ function App() {
     {
       (match.pathname.includes("/dashboard")) ? null : <Footer />    
     }
-    <OrderRoutes />
+    {/* <OrderRoutes />
     {
        (match.pathname.includes("/dashboard/Order")) ? null : <Footer />
-    }
+    } */}
     {/* <Footer /> */}
     </>  
   );
