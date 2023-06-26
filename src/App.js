@@ -8,7 +8,9 @@ function App() {
   const match=useLocation();
   return (  
     <>
-    <Header />
+    {
+      (match.pathname.includes("/dashboard")) ? null : <Header />    
+    }
     <ApplicationRoutes />
     {
       (match.pathname.includes("/dashboard")) ? null : <Footer />    

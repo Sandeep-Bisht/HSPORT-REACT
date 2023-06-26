@@ -7,7 +7,10 @@ const Wishlist = () => {
 
     const navigate = useNavigate()
   return (
+
+    
     <section className="wishlist-section">
+      
       <div className="row">
         <div className="col-md-12">
           <div className="wishlist-card">

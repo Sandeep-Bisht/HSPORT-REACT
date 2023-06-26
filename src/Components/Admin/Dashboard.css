@@ -291,9 +291,9 @@ textarea.textarea{
 
 
 /*Show navbar movil*/
-.show{
+/* .show{
   left: 0;
-}
+} */
 
 /*Add padding body movil*/
 .body-pd{
@@ -343,9 +343,9 @@ textarea.textarea{
   }
   
   /*Show navbar desktop*/
-   .show{
+   /* .show{
     width: calc(var(--nav-width) + 156px) ;
-  }
+  } */
   .dasboard-nav .show{
     width: calc(var(--nav-width) + 156px) !important;
   }

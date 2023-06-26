@@ -61,7 +61,7 @@ const Footer = () => {
                       <ul className="footer-contact-info px-0">
                         <li>
                           <span className='contact-heading'>Phone:</span>{" "}
-                          <Link to="tel:+91-7500872014" className='footer-links f2'>+91-7500872014</Link>
+                          <Link to="tel:+91-7500872014" className='footer-links f2'>+91-98975 77558</Link>
                         </li>
                         <li>
                           <span className='contact-heading'>Email:</span>{" "}
@@ -70,8 +70,9 @@ const Footer = () => {
                           </Link>
                         </li>
                         <li >
-                          <span className='contact-heading'>Address:</span>{" "} <span className='address-footer f2'>NutraZik Corp 539 W. Commerce
-                          Suite #6696 Dallas, TX 75208</span>{" "}
+                          <span className='contact-heading'>Address:</span>{" "} <span className='address-footer f2'>22 Connaught Place
+Dehradun, Uttarakhand 248001, India
+                          </span>{" "}
                         </li>
                       </ul>
                     </div>
