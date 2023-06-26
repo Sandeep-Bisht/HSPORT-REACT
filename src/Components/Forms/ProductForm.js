@@ -5,7 +5,6 @@ import axios from "axios";
 import "../Admin/Dashboard.css"
 
 
-var Userdata;
 
 
 const ProductForm = (props) => {
@@ -426,12 +425,9 @@ const [editableData] = useState(props);
                                 Select Manufacturer
                               </option>
                               {manufactureres.map((el, ind) =>
-                                Userdata.role === "superAdmin" ? (
+                                (
                                   <option value={el._id} key={ind}>{el.name}</option>
-                                ) : Userdata._id === el.creatorId &&
-                                  Userdata.role === "Vendor" ? (
-                                  <option value={el._id}>{el.name}</option>
-                                ) : null
+                                ) 
                               )}
                             </select>
                             </div>
@@ -460,12 +456,9 @@ const [editableData] = useState(props);
                                 Select warehouse
                               </option>
                               {warehouse.map((el, ind) =>
-                                Userdata.role === "superAdmin" ? (
+                                (
                                   <option value={el._id} key={ind}>{el.name}</option>
-                                ) : Userdata._id === el.creatorId &&
-                                  Userdata.role === "Vendor" ? (
-                                  <option value={el._id}>{el.name}</option>
-                                ) : null
+                                ) 
                               )}
                             </select>
                             </div>

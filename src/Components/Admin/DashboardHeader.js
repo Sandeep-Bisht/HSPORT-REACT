@@ -2,12 +2,9 @@ import React, { useEffect,useState } from "react";
  import UserImg from "../../Images/user3.jpg";
 import {Link} from "react-router-dom"
 
-var Userdata = " ";
 
 function DashboardHeaader() {
-useEffect(() => {
-    Userdata = JSON.parse(localStorage.getItem("Userdata"));
-  },[]);
+
 
   return (
     <>
@@ -27,7 +24,7 @@ useEffect(() => {
             alt="user_image"
             className="img-fluid dashboard-user"
           />
-          <p className="user-name">{Userdata.username}</p>
+          <p className="user-name">User</p>
         </div>
       </div>
     </>

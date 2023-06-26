@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { AiFillCaretDown } from "react-icons/ai";
 import "react-toastify/dist/ReactToastify.css";
 
-var Userdata = "";
 const CancelOrder = () => {
   const [orders, setOrders] = useState([]);
   const [OrderDetails, setOrderDetails] = useState([]);
@@ -20,10 +19,6 @@ const CancelOrder = () => {
   const [vendor,setVendor]=useState(false);
   const history = useNavigate();
 
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetOrders();
-//   }, []);
 
   const GetOrders = async () => {
     // setLoading(true);

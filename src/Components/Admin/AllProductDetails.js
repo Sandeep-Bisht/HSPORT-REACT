@@ -7,7 +7,6 @@ import { MdOutlineEditNote } from 'react-icons/md';
 import { MdPlaylistAdd } from 'react-icons/md';
 import "./Dashboard.css"
 
-var Userdata="";
 
 export default function AllProductsDetails() {
 
@@ -19,12 +18,7 @@ export default function AllProductsDetails() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
 
-  const navigate=useNavigate();
-
-
-//   useEffect(() => {
-//     Userdata=JSON.parse(localStorage.getItem("Userdata"));
-//   }, [])
+  const navigate=useNavigate()
 
 
 
