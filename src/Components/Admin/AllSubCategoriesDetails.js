@@ -109,7 +109,7 @@ export default function AllSubCategoriesDetails() {
 
   return (
     <>
-      <section id="body-pd">
+      <section id="body-pd" className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">
             <div className="col-xl-12 mt-2">

@@ -3,6 +3,7 @@ import './HomePage.css'
 import slider1 from '../../Images/slider1.jpg'
 import slider2 from '../../Images/slider2.jpg'
 import slider3 from '../../Images/slider3.jpg'
+import ProductCard from '../ProductCard/ProductCard'
 
 const HomePage = () => {
   return (
@@ -61,6 +62,7 @@ const HomePage = () => {
     </button>
        </div>
      </div>
+     <ProductCard/>
 
     </>
   )

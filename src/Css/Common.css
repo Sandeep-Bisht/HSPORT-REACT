@@ -17,17 +17,24 @@ body {
 {
     box-shadow: none;
 }
+.common-heading
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 35px;
+    font-weight: 700;
+    color: #212121;
+}
 .common-btn
 {
     position: relative;
     padding: 13px 74px 13px 24px;
     z-index: 1;
     overflow: hidden;
-    border: 1px solid #008acc;
+    
     display: inline-block;
     padding: 13px 35px;
-     color: #212121!important;
-    background-color:#008acc;
+     color: #fff!important;
+    background-color:#cc0034;
     font-size: 12px;
     font-family: 'Montserrat', sans-serif;
     -webkit-transition: 0.5s;
@@ -38,16 +45,4 @@ body {
 }
 .common-btn span{
     margin-right: 10px!important;
-}
-.common-btn::after
-{
-    position: absolute;
-    content: "";
-    right: -26px;
-    top: 8px;
-    width: 55%;
-    height: 129%;
-    background-color:#f7f8f9;
-    z-index: -1;
-    transform: rotate(121deg);
 }
