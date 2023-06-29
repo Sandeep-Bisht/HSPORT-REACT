@@ -219,7 +219,7 @@ const InProgressOrder = () => {
       <div>
         <Modal
           title="Order Details"
-          visible={isModalVisible}
+          open={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
           closeIcon={<CustomCloseIcon />}

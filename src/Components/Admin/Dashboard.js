@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <>
       
-          <section  className="dashboard-section">
+          <section  className="dashboard-section ">
             <div className="container-fluid">
               <DashboardHeaader />
               <div className="row px-0 dashboard-container">

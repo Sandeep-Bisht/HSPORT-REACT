@@ -1,5 +1,8 @@
 header{
-    background-color:#008acc;
+    background-color: #1e2737;
+    position: sticky;
+    top:0;
+    z-index: 100;
 }
 .main-logo
 {
@@ -9,15 +12,25 @@ header{
 {
     display: flex;
     margin-right: 50px;
+    color: #a7afbe;
+}
+.all-sports-toggler:hover{
+    color: #fff;
 }
 .all-sports-toggler svg 
 {
     height: 45px;
     width: 45px;
-
 }
+
+
 .all-sports-toggler span{
-    color: #fff;
+  
+    text-shadow: 0 0 10px #fff6, 1px 2px #1e2737;
+    color: #a7afbe;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  
 }
 .header-wrapper
 {
@@ -67,7 +80,7 @@ header{
 }
 .header-right-link
 {
-    color: #fff;
+   
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 400;
@@ -76,6 +89,8 @@ header{
     display: flex;
     align-items: center;
     flex-direction: column;
+    text-shadow: 0 0 10px #fff6, 1px 2px #1e2737;
+    color: #a7afbe;
 }
 .header-right-link span
 {
@@ -103,8 +118,9 @@ header{
 
 }
 .registration-section {
-    width: 700px; /* Width */
-    height: 550px; /* Height */
+    width: 750px; /* Width */
+    height: 470px; /* Height */
+    border-radius: 0px!important;
 }
 
 .form-fields {
@@ -112,6 +128,39 @@ header{
     padding: 3px 9px;
 }
  .left-login-modal {
-    background: #4f505f!important;
+    display: flex;
+    justify-content: center;
+    background: #eff1f3!important;
     color: #f7f8f9;
+    margin-left: -4px!important;
+    margin-bottom: -4px;
+}
+.login-left-first{
+    --tw-text-opacity: 1;
+    color: rgba(179,186,195,var(--tw-text-opacity));
+    font-size: 1.25rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+}
+.login-left-mid{
+    --tw-text-opacity: 1;
+    color: rgba(52,68,80,var(--tw-text-opacity));
+    font-size: 1.8rem;
+}
+.login-left-second{
+    --tw-text-opacity: 1;
+    color: rgba(0,125,188,var(--tw-text-opacity));
+    font-size: 1.8rem;
+}
+.inside-modal-body{
+    min-height: 400px;
+}
+.modal-header-top{
+    border-bottom: 0px!important;
+}
+.modal-dialog{
+max-width: fit-content!important;
+}
+.login-btn{
+    border: 0px;
 }

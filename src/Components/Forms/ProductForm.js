@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import { baseUrl } from "../../utils/services";
+import { baseUrl } from "../../Utils/Service";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../Admin/Dashboard.css"
 
 
@@ -10,7 +9,6 @@ import "../Admin/Dashboard.css"
 const ProductForm = (props) => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
-  const [manufactureres, setManufactureres] = useState([]);
   const [brands, setBrands] = useState([]);
   const [warehouse, setWarehouse] = useState([]);
   const [products, Setproducts] = useState([]);
@@ -26,9 +24,7 @@ const [editableData] = useState(props);
     subcategory: "",
     quantity: "",
     inrMrp: "",
-    dollerMrp: "",
     inrDiscount: "",
-    dollerDiscount: "",
     brand: "",
     type: "",
     image: [],
@@ -60,14 +56,8 @@ const [editableData] = useState(props);
     if (!Value.inrMrp) {
       error.inrMrp = "This field is required";
     }
-    if (!Value.dollerMrp) {
-      error.dollerMrp = "This field is required";
-    }
     if (!Value.inrDiscount) {
       error.inrDiscount = "This field is required";
-    }
-    if (!Value.dollerDiscount) {
-      error.dollerDiscount = "This field is required";
     }
     if (!Value.quantity) {
       error.quantity = "This field is required";
@@ -107,48 +97,50 @@ const [editableData] = useState(props);
     }
     return error;
   };
-
    const submitData = async (e) => {
     e.preventDefault();
-
-    const errors = await validateForm(data);
-    await setFormErrors(errors);
-   
-//     if (Object.keys(errors).length === 0) {
-//       const formData = new FormData();
-//       await formData.append("description", data.description);
-//       await formData.append("name", data.name);
-//       await formData.append("warehouse", data.warehouse);
-//       await formData.append("category", data.category);
-//       await formData.append("subcategory", data.subcategory);
-//       await formData.append("quantity", data.quantity);
-//       await formData.append("inrMrp", data.inrMrp);
-//       await formData.append("dollerMrp", data.dollerMrp);
-//       await formData.append("inrDiscount", data.inrDiscount);
-//       await formData.append("dollerDiscount", data.dollerDiscount);
-//       await formData.append("manufacturer", data.manufacturer);
-//       await formData.append("type", data.type);
-//       await formData.append("image", data.image);
-//       for (let item of data.otherImage) {
-//         await formData.append("otherImage", item);
-//       }
-//       const url = `${baseUrl}/api/product/add_product`;
-//       await fetch(url, {
-//         method: "POST",
-//         body: formData,
-//       })
-//         .then((res) => {
-//           res.json();
-//           navigate("/Configuration/" + "AllProductsDetails");
-//         })
-//         .then((res) => {
-//           GetData();
-//           this.getAddOn();
-//         })
-//         .catch((err) => console.log(err));
-//     } else {
-//       console.log("Form has errors. Please correct them.");
-//     }
+    const errors =  validateForm(data);
+     setFormErrors(errors);
+     console.log(data,"check the all the data of producys");
+    if (Object.keys(errors).length === 0) {
+      const formData = new FormData();
+      formData.append("description", data.description);
+      formData.append("name", data.name);
+      formData.append("warehouse", data.warehouse);
+      formData.append("category", data.category);
+      formData.append("subcategory", data.subcategory);
+      formData.append("quantity", data.quantity);
+      formData.append("height", data.height);
+      formData.append("width", data.width);
+      formData.append("weight", data.weight);
+      formData.append("inrMrp", data.inrMrp);
+      formData.append("reorderQuantity", data.reorderQuantity);
+      formData.append("maximumOrder", data.maximumOrder);
+      formData.append("gender", data.gender);
+      formData.append("inrDiscount", data.inrDiscount);
+      formData.append("brand", data.brand);
+      formData.append("type", data.type);
+      formData.append("image", data.image);
+      for (let item of data.otherImage) {
+        formData.append("otherImage", item);
+      }
+      const url = `${baseUrl}/api/product/add_product`;
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => {
+          res.json();
+          // navigate("/dashboard/allPrdoucts");
+        })
+        .then((res) => {
+          // GetData();
+          this.getAddOn();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log("Form has errors. Please correct them.");
+    }
   };
 
   const UpdateProduct = async (e, _id) => {
@@ -165,9 +157,7 @@ const [editableData] = useState(props);
 //     await formData.append("subcategory", data.subcategory);
 //     await formData.append("quantity", data.quantity);
 //     await formData.append("inrMrp", data.inrMrp);
-//     await formData.append("dollerMrp", data.dollerMrp);
 //     await formData.append("inrDiscount", data.inrDiscount);
-//     await formData.append("dollerDiscount", data.dollerDiscount);
 //     await formData.append("manufacturer", data.manufacturer);
 //     await formData.append("type", data.type);
 //     await formData.append("image", data.image);
@@ -195,62 +185,73 @@ const [editableData] = useState(props);
   };
 
 
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     // GetManufacturer();
-//     // GetData();
-//     if (editableData) {
-//       let {
-//         category,
-//         subcategory,
-//         manufacturer,
-//         type,
-//         ...restData
-//       } = editableData;
-//       {
-//         category
-//           ? (restData.category = category._id)
-//           : (restData.category = "");
-//       }
-//       {
-//         subcategory
-//           ? (restData.subcategory = subcategory._id)
-//           : (restData.subcategory = "");
-//       }
-//       {
-//         manufacturer
-//           ? (restData.manufacturer = manufacturer._id)
-//           : (restData.manufacturer = "");
-//       }
-//       {
-//         type ? (restData.type = type._id) : (restData.type = "");
-//       }
-//       Setdata(restData);
-//     }
-//   }, []);
+  useEffect(() => {
+    // Userdata = JSON.parse(localStorage.getItem("Userdata"));
+    GetBrand();
+    GetCategory()
+    GetSubCategory();
+    // GetData();
+    // if (editableData) {
+    //   let {
+    //     category,
+    //     subcategory,
+    //     manufacturer,
+    //     type,
+    //     ...restData
+    //   } = editableData;
+    //   {
+    //     category
+    //       ? (restData.category = category._id)
+    //       : (restData.category = "");
+    //   }
+    //   {
+    //     subcategory
+    //       ? (restData.subcategory = subcategory._id)
+    //       : (restData.subcategory = "");
+    //   }
+    //   {
+    //     manufacturer
+    //       ? (restData.manufacturer = manufacturer._id)
+    //       : (restData.manufacturer = "");
+    //   }
+    //   {
+    //     type ? (restData.type = type._id) : (restData.type = "");
+    //   }
+    //   Setdata(restData);
+    // }
+  }, []);
 
-//   const GetCategory = async () => {
-//     await fetch(`${baseUrl}/api/category/all_category`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         setCategories(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err, "error");
-//       });
-//   };
-
+  const GetCategory = async () => {
+    await fetch(`${baseUrl}/api/category/all_category`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setCategories(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  };
+  const GetSubCategory = async () => {
+    await fetch(`${baseUrl}/api/subcategory/all_subcategory`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setSubCategories(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  };
  
-//   const GetManufacturer = async () => {
-//     await fetch(`${baseUrl}/api/manufacture/all_manufacture`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         setManufactureres(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err, "errors");
-//       });
-//   };
+  const GetBrand = async () => {
+    await fetch(`${baseUrl}/api/brands/all_brands`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setBrands(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "errors");
+      });
+  };
 
 //   const GetData = async () => {
 //     await fetch(`${baseUrl}/api/product/all_product`)
@@ -289,7 +290,7 @@ const [editableData] = useState(props);
 
   return (
     <>
-      <section>
+      <section className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">            
             <div className="col-12 px-0">
@@ -427,7 +428,7 @@ const [editableData] = useState(props);
                               <option value="" disabled hidden>
                                 Select Brands
                               </option>
-                              {manufactureres.map((el, ind) =>
+                              {brands.map((el, ind) =>
                                 (
                                   <option value={el._id} key={ind}>{el.name}</option>
                                 ) 
@@ -458,11 +459,14 @@ const [editableData] = useState(props);
                               <option value="" disabled hidden>
                                 Select warehouse
                               </option>
-                              {warehouse.map((el, ind) =>
+                              {/* {warehouse.map((el, ind) =>
                                 (
                                   <option value={el._id} key={ind}>{el.name}</option>
                                 ) 
-                              )}
+                              )} */}
+                              <option>
+                              Hindustan Sports Dehradun
+                              </option>
                             </select>
                             </div>
                             <p className="formerror">{formErrors.warehouse}</p>
@@ -523,7 +527,7 @@ const [editableData] = useState(props);
                             <div className="mt-2">
                             <span className="category-select-div">Height</span>
                             <input
-                              type="number"
+                              type="text"
                               id="floatingform"
                               name="height"
                               className="form-control Dashborad-search"
@@ -544,7 +548,7 @@ const [editableData] = useState(props);
                             <div className="mt-2">
                             <span className="category-select-div">Width</span>
                             <input
-                              type="number"
+                              type="text"
                               id="floatingform"
                               name="width"
                               className="form-control Dashborad-search"
@@ -647,57 +651,13 @@ const [editableData] = useState(props);
                           </div>
                           <div className="col-3 p-2 form-floating">
                             <div className="mt-2">
-                            <span className="category-select-div">MRP In Dollar</span>
-                            <input
-                              type="number"
-                              id="floatingform"
-                              name="dollerMrp"
-                              className="form-control Dashborad-search"
-                              defaultValue={data.dollerMrp}
-                              onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  dollerMrp: e.target.value,
-                                });
-                                handleInputChange(e);
-                              }}
-                              onBlur={handleBlur}
-                            />
-                            </div>
-                            <p className="formerror">{formErrors.dollerMrp}</p>
-
-                          </div>
-
-                          <div className="col-3 p-2 form-floating">
-                            <div className="mt-2">
-                            <span className="category-select-div">MRP after Discount In Dollar</span>
-                            <input
-                              type="number"
-                              id="floatingform"
-                              name="dollerDiscount"
-                              className="form-control Dashborad-search"
-                              defaultValue={data.dollerDiscount}
-                              onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  dollerDiscount: e.target.value,
-                                });
-                                handleInputChange(e);
-                              }}
-                              onBlur={handleBlur}
-                            />
-                            </div>
-                            <p className="formerror">{formErrors.dollerDiscount}</p>
-                          </div>
-                          <div className="col-3 p-2 form-floating">
-                            <div className="mt-2">
                             <span className="category-select-div">Weight</span>
                             <input
-                              type="number"
+                              type="text"
                               id="floatingform"
                               name="weight"
                               className="form-control Dashborad-search"
-                              defaultValue={data.inrMrp}
+                              defaultValue={data.weight}
                               onChange={(e) => {
                                 Setdata({
                                   ...data,

@@ -168,7 +168,7 @@ const Header = () => {
       >
         <div class="modal-dialog">
           <div class="modal-content registration-section">
-            <div class="modal-header">
+            <div class="modal-header modal-header-top">
               <button
                 type="button"
                 class="btn-close"
@@ -177,15 +177,20 @@ const Header = () => {
               ></button>
             </div>
             <div class="modal-body">
-              <div className="row">
+              <div className="row inside-modal-body">
                 <div className="col-md-6 left-login-modal">
-                  <div className="">
-                    <p>LOGIN</p>
-                    <p>Get access to personalised shopping experience</p>
+                  <div className="m-3">
+                    <h3 className="login-left-first">LOGIN</h3>
+                    <div className="mt-5">
+                      <h3 className="login-left-mid pt-2">Get</h3>
+                      <h3 className="login-left-mid pt-2">access to</h3>
+                      <h3 className="login-left-second pt-2">personalised</h3>
+                      <h3 className="login-left-mid pt-2">shopping experience</h3>
+                    </div>
                   </div>
                 </div>
 
-                <div className="col-md-6 mx-auto">
+                <div className="col-md-6 mx-auto mt-3">
                   <div className="row">
                     <ul
                       class="nav nav-pills mb-3 login-section"
@@ -282,7 +287,7 @@ const Header = () => {
                                 </div>
 
                                 <div className="form-fields">
-                                  <button className="common-btn w-100">
+                                  <button className="common-btn w-100 login-btn">
                                     LOGIN
                                   </button>
                                 </div>
@@ -396,7 +401,7 @@ const Header = () => {
                                 </div>
 
                                 <div className="form-fields">
-                                  <button className="common-btn w-100">
+                                  <button className="common-btn w-100 login-btn">
                                     SIGNUP
                                   </button>
                                 </div>

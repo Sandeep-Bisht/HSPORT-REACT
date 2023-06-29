@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-// import { baseUrl } from "../../utils/services";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { baseUrl } from "../../Utils/Service";
+import { useNavigate,useLocation } from "react-router-dom";
 import "../Admin/Dashboard.css"
 
 
 const CategoryForm = (props) => {
   const [categories, setCategories] = useState([]);
   const [formerror, setFormerror] = useState({});
-  const [editableArray,setEditableArray]=useState([]);
-  const [data, Setdata] = useState({
+  const [editableArray, setEditableArray] = useState([]);
+    const [data, Setdata] = useState({
     name: "",
     description: "",
     featuredCategories: "",
     image: [],
   });
-  const history = useNavigate();
-  // const [editableData] = useState(props.history.location.state);
   const [editableData] = useState(props); 
+
+  const history = useNavigate();
+  const location = useLocation();
+  console.log(location,"location get for props");
+  
   const ValidationFrom = (value) => {
     const error = {};
     if (!value.name) {
@@ -34,90 +36,90 @@ const CategoryForm = (props) => {
   const submitData = async (e) => {
     e.preventDefault();
     const errors = ValidationFrom(data);
-    // setFormerror(errors);
-    // if (Object.keys(errors).length === 0) {
-    //   const formData = new FormData();
-    //   await formData.append("description", data.description);
-    //   await formData.append("name", data.name);
-    //   await formData.append("featuredCategories", data.featuredCategories);
-    //   await formData.append("image", data.image);
-    //   const url = `${baseUrl}/api/category/add_category`;
-    //   await fetch(url, {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((res) => {
-    //       res.json()
-    //       history.push("Configuration/" + "AllCategoriesDetails");
-    //     })
-    //     .then((res) => {
-    //       GetCategory();
+    setFormerror(errors);
+    if (Object.keys(errors).length === 0) {
+      const formData = new FormData();
+      formData.append("description", data.description);
+       formData.append("name", data.name);
+       formData.append("featuredCategories", data.featuredCategories);
+       formData.append("image", data.image);
+      const url = `${baseUrl}/api/category/add_category`;
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => {
+          res.json()
+          history.push("/dashboard/allCategories");
+        })
+        .then((res) => {
+          // GetCategory();
 
-    //       this.getAddOn();
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+          this.getAddOn();
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
 
-//   useEffect(()=>{
-//     const arr=[];
-//     if (editableData) {
-//       arr.push(editableData)
-//       }
-//       setEditableArray(arr)
-//   },[])
+  useEffect(()=>{
+    const arr=[];
+    if (editableData) {
+      arr.push(editableData)
+      }
+      setEditableArray(arr)
+  },[])
 
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetCategory();
-//     if (editableData) {
-//       let { featuredCategories, ...restData } = editableData;
-//       {
-//         featuredCategories
-//           ? (restData.featuredCategories = featuredCategories)
-//           : (restData.featuredCategories = "");
-//       }
-//       Setdata(restData);
-//     }
-//   }, []);
+  useEffect(() => {
+    // Userdata = JSON.parse(localStorage.getItem("Userdata"));
+    GetCategory();
+    if (editableData) {
+      let { featuredCategories, ...restData } = editableData;
+      {
+        featuredCategories
+          ? (restData.featuredCategories = featuredCategories)
+          : (restData.featuredCategories = "");
+      }
+      Setdata(restData);
+    }
+  }, []);
 
-//   const GetCategory = async () => {
-//     await fetch(`${baseUrl}/api/category/all_category`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         setCategories(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err, "error");
-//       });
-//   };
+  const GetCategory = async () => {
+    await fetch(`${baseUrl}/api/category/all_category`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setCategories(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  };
 
   const UpdateCategory = async (e, _id) => {
     e.preventDefault();
-//     const errors = ValidationFrom(data);
-//     setFormerror(errors);
-//     if (Object.keys(errors).length === 0) {
-//       const formData = new FormData();
-//       formData.append("_id", data._id);
-//       formData.append("description", data.description);
-//       formData.append("name", data.name);
-//       formData.append("image", data.image);
-//       formData.append("slideShow", false);
+    const errors = ValidationFrom(data);
+    setFormerror(errors);
+    if (Object.keys(errors).length === 0) {
+      const formData = new FormData();
+      formData.append("_id", data._id);
+      formData.append("description", data.description);
+      formData.append("name", data.name);
+      formData.append("image", data.image);
+      formData.append("slideShow", false);
 
-//       fetch(`${baseUrl}/api/category/update_category_by_id`, {
-//         method: "PUT",
-//         body: formData,
-//       })
-//         .then((res) => res.json())
-//         .then((data) => {
-//           history.push("Configuration/AllCategoriesDetails");
-//           GetCategory();
-//         })
-//         .catch((err) => {
-//           console.log(err, "error");
-//         });
-//     }
+      fetch(`${baseUrl}/api/category/update_category_by_id`, {
+        method: "PUT",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          history.push("dashboard/allCategories");
+          GetCategory();
+        })
+        .catch((err) => {
+          console.log(err, "error");
+        });
+    }
   };
 
 
@@ -144,7 +146,7 @@ const CategoryForm = (props) => {
   };
   return (
     <>
-      <section>
+      <section className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">
             <div className="col-12 px-0">
@@ -268,7 +270,7 @@ const CategoryForm = (props) => {
                                 Submit
                               </button>
                             </div>
-                          )}
+                             )}  
                         </div>
                       </div>
                     </div>
