@@ -24,7 +24,7 @@ function DashboardHeaader() {
             alt="user_image"
             className="img-fluid dashboard-user"
           />
-          {/* <p className="user-name">{Userdata.username}</p> */}
+          <p className="user-name">User</p>
         </div>
       </div>
     </>

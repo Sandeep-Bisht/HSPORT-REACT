@@ -18,12 +18,7 @@ export default function AllProductsDetails() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
 
-  const navigate=useNavigate();
-
-
-//   useEffect(() => {
-//     Userdata=JSON.parse(localStorage.getItem("Userdata"));
-//   }, [])
+  const navigate=useNavigate()
 
 
 

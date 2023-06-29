@@ -19,10 +19,6 @@ const CancelOrder = () => {
   const [vendor,setVendor]=useState(false);
   const history = useNavigate();
 
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetOrders();
-//   }, []);
 
   const GetOrders = async () => {
     // setLoading(true);
