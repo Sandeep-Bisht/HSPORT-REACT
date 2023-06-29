@@ -23,15 +23,15 @@ const [editableData]=useState(props);
     Userdata = JSON.parse(localStorage.getItem("Userdata"));
     GetSubCategory();
     GetCategory();
-    if (editableData) {
-      let { category, ...restData } = editableData;
-      {
-        category
-          ? (restData.category = category)
-          : (restData.category = "");
-      }
-      Setdata(restData);
-    }
+    // if (editableData) {
+    //   let { category, ...restData } = editableData;
+    //   {
+    //     category
+    //       ? (restData.category = category)
+    //       : (restData.category = "");
+    //   }
+    //   Setdata(restData);
+    // }
   }, []);
 
   useEffect(()=>{
@@ -59,39 +59,39 @@ const [editableData]=useState(props);
     e.preventDefault();
     const errors = ValidationFrom(data);
     Setformerror(errors);
-    // if (Object.keys(errors).length === 0) {
-    //   const formData = new FormData();
-    //   await formData.append("description", data.description);
-    //   await formData.append("category", data.category);
-    //   await formData.append("name", data.name);
-    //   formData.append("image", data.image);
-    //   const url = `${baseUrl}/api/subcategory/add_subcategory`;
-    //   await fetch(url, {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((res) => {
-    //       res.json();
-    //       history.push("Configuration/"+"AllSubCategoriesDetails");
-    //     })
-    //     .then((res) => {
-    //       GetSubCategory();
+    if (Object.keys(errors).length === 0) {
+      const formData = new FormData();
+      await formData.append("description", data.description);
+      await formData.append("category", data.category);
+      await formData.append("name", data.name);
+      formData.append("image", data.image);
+      const url = `${baseUrl}/api/subcategory/add_subcategory`;
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => {
+          res.json();
+          history.push("/dashboard/AllSubCategories");
+        })
+        .then((res) => {
+          GetSubCategory();
 
-    //       this.getAddOn();
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+          this.getAddOn();
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const GetCategory = async () => {
-    // await fetch(`${baseUrl}/api/category/all_category`)
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //     setCategories(data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "error");
-    //   });
+    await fetch(`${baseUrl}/api/category/all_category`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setCategories(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
   };
   const GetSubCategory = async () => {
     // await fetch(`${baseUrl}/api/subcategory/all_subcategory`)
@@ -151,7 +151,7 @@ const [editableData]=useState(props);
 
   return (
     <>
-      <section>
+      <section className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">
             <div className="col-xl-12 px-0">

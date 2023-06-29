@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../../Utils/Service";
 import "../Admin/Dashboard.css"
 
 // var Userdata;
@@ -11,6 +12,7 @@ const TopBrandsForm = (props) => {
     name: "",
     description: "",
     image: [],
+    featuredBrands:"",
     creatorId: "",
   });
   const history = useNavigate();
@@ -19,10 +21,17 @@ const TopBrandsForm = (props) => {
   // useEffect(() => {
   //   // Userdata = JSON.parse(localStorage.getItem("Userdata"));
   //   GetBrands();
-  //   if (editableData) {
-  //     Setdata(editableData);
+  // if (editableData) {
+  //   let { featuredBrands, ...restData } = editableData;
+  //   {
+  //     featuredBrands
+  //       ? (restData.featuredBrands = featuredBrands)
+  //       : (restData.featuredBrands = "");
   //   }
+  //   Setdata(restData);
+  // }
   // }, []);
+
 
   const ValidattionForm = (value) => {
     const error = {};
@@ -32,46 +41,50 @@ const TopBrandsForm = (props) => {
     if (!value.name) {
       error.name = "This field is required";
     }
+    if (!value.featuredBrands) {
+      error.featuredBrands = "This field is required";
+    }
     return error;
   };
   const submitData = async (e) => {
     e.preventDefault();
     const errors = ValidattionForm(data);
     setFormerror(errors);
-    // if (Object.keys(errors).length === 0) {
-    //   // data.creatorId = Userdata._id;
-    //   const formData = new FormData();
-    //   await formData.append("description", data.description);
-    //   await formData.append("name", data.name);
-    //   await formData.append("image", data.image);
-    //   await formData.append("creatorId", data.creatorId);
-    //   const url = `${baseUrl}/api/manufacture/add_manufacture`;
-    //   await fetch(url, {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((res) => {
-    //       res.json();
-    //       history.push("Configuration/"+"AllManufactureDetails");
-    //     })
-    //     .then((res) => {
-    //       GetBrands();
-    //       this.getAddOn();
-    //     })
+    if (Object.keys(errors).length === 0) {
+      // data.creatorId = Userdata._id;
+      const formData = new FormData();
+      formData.append("description", data.description);
+      formData.append("name", data.name);
+      formData.append("image", data.image);
+      formData.append("featuredBrands", data.featuredBrands);
+      formData.append("creatorId", data.creatorId);
+      const url = `${baseUrl}/api/brands/add_brands`;
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => {
+          res.json();
+          history.push("/dashboard/allBrands");
+        })
+        .then((res) => {
+          GetBrands();
+          this.getAddOn();
+        })
 
-    //     .catch((err) => console.log(err));
-    // }
+        .catch((err) => console.log(err));
+    }
   };
 
   const GetBrands = async () => {
-    // await fetch(`${baseUrl}/api/manufacture/all_manufacture`)
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //     setManufactureres(data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "errors");
-    //   });
+    await fetch(`${baseUrl}/api/brands/all_brands`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setBrands(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "errors");
+      });
   };
   const UpdateBrands = async (e, _id) => {
     e.preventDefault();
@@ -83,6 +96,8 @@ const TopBrandsForm = (props) => {
   //   await formData.append("description", data.description);
   //   await formData.append("name", data.name);
   //   await formData.append("image", data.image);
+      //formData.append("featuredBrands", data.featuredBrands);
+
   //   try {
   //     const response = await axios.put(
   //       `${baseUrl}/api/manufacture/update_manufacturer_by_id`,
@@ -130,7 +145,7 @@ const TopBrandsForm = (props) => {
   };
   return (
     <>
-      <section>
+      <section className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">
             <div className="col-xl-12 px-0">
@@ -201,6 +216,26 @@ const TopBrandsForm = (props) => {
                             />
                             </div>
                             <p className="formerror">{formerror.name}</p>
+                          </div>
+                          <div className="col-md-6 col-12 p-2">
+                            <div>
+                              <span className="category-select-div">Featured Brands</span>
+                              <select
+                                className="form-control Dashborad-search custom-select"
+                                value={data.featuredBrands}
+                                name="featuredBrands"
+                                onChange={(e) => {
+                                  Setdata({ ...data, featuredBrands: e.target.value });
+                                  handleInputChange(e);
+                                }}
+                              >
+                                <option value="" hidden>
+                                  Select Brand Type
+                                </option>
+                                <option value="Featured Categories">Featured Brands</option>
+                              </select>
+                            </div>
+                            <p className="formerror">{formerror.featuredBrands}</p>
                           </div>
                           <div className="col-md-6 col-12 p-2">
                             <div>

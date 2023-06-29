@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space, Popconfirm, Typography } from "antd";
 import "./Dashboard.css";
+import axios from "axios";
+import { baseUrl } from "../../Utils/Service";
 import { BiSearchAlt } from 'react-icons/bi';
 import { useNavigate, Link } from "react-router-dom";
 import { FaTrashAlt } from 'react-icons/fa';
@@ -20,32 +22,18 @@ export default function AllSubCategoriesDetails() {
 
   const history = useNavigate();
 
-//   useEffect(() => {
-//     fetchUsers();
-//     GetSubCategory();
-//   }, [])
-
-
-  const GetSubCategory = async () => {
-    // await fetch(`${baseUrl}/api/subcategory/all_subcategory`)
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //     setSubCategories(data.data.length);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "error");
-    //   });
-  };
+  useEffect(() => {
+    fetchUsers();
+    // GetSubCategory();
+  }, [])
 
 
 
   const fetchUsers = async () => {
-    // setLoading(true);
-    // const response = await axios.get(
-    //   `${baseUrl}/api/subcategory/all_subcategory`
-    // );
-    // setGetuser(response.data.data);
-    // setLoading(false);
+    setLoading(true);
+    const response = await axios.get(`${baseUrl}/api/subcategory/all_subcategory`);
+    setGetuser(response.data.data);
+    setLoading(false);
   };
 
   const onChangeHandler = (e) => {
@@ -56,10 +44,10 @@ export default function AllSubCategoriesDetails() {
   };
 
   const searchHandler = () => {
-    const filteredData = getuser.filter((value) => {
-      return value.name.toLowerCase().includes(searchVal.toLowerCase());
-    });
-    setGetuser(filteredData);
+    // const filteredData = getuser.filter((value) => {
+    //   return value.name.toLowerCase().includes(searchVal.toLowerCase());
+    // });
+    // setGetuser(filteredData);
   };
 
   const handleDelete = async (_id) => {
@@ -89,7 +77,7 @@ export default function AllSubCategoriesDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-    //   render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} />,
+      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
     },
     {
 

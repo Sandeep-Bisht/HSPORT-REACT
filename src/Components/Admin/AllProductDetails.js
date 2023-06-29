@@ -6,6 +6,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { MdOutlineEditNote } from 'react-icons/md';
 import { MdPlaylistAdd } from 'react-icons/md';
 import "./Dashboard.css"
+import { baseUrl } from "../../Utils/Service";
+import axios from "axios";
 
 
 export default function AllProductsDetails() {
@@ -14,13 +16,15 @@ export default function AllProductsDetails() {
   const [loading, setLoading] = useState(false);
   const [searchVal, setSearchVal] = useState("");
   const [filteredData] = useState([]);
-  const [products, Setproducts] = useState("");
+  const [products, Setproducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
 
   const navigate=useNavigate()
 
-
+useEffect(()=>{
+  GetProducts();
+},[]);
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
@@ -33,6 +37,13 @@ export default function AllProductsDetails() {
       return value.name.toLowerCase().includes(searchVal.toLowerCase());
     });
     setGetuser(filteredData);
+  };
+
+  const GetProducts = async () => {
+    setLoading(true);
+    const response=await axios.get(`${baseUrl}/api/product/all_product`)
+    setGetuser(response.data.data);
+    setLoading(false);
   };
 
   const showModal = (order) => {
@@ -72,11 +83,26 @@ export default function AllProductsDetails() {
       key: "quantity",
     },
     {
+    title: "Height",
+    dataIndex: "height",
+    key: "height",
+  },
+  {
+    title: "Width",
+    dataIndex: "width",
+    key: "width",
+  },
+  {
+    title: "Weight",
+    dataIndex: "weight",
+    key: "weight",
+  },
+    {
       title: "Image",
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-    //   render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} />,
+      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
     },
     {
       title: "Action",
@@ -192,7 +218,7 @@ export default function AllProductsDetails() {
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Manufacturer</th>
+                <th scope="col">Brand</th>
                 <th scope="col">Category</th>
                 <th scope="col">Subcatrgory</th>
               </tr>
@@ -206,17 +232,17 @@ export default function AllProductsDetails() {
                       <tr key={ind}>
                         <td className="width-adjust-of-td">
                           <div className="width-adjust-of-image">
-                            {/* <img
+                            <img
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer" }}
                               src={`${baseUrl}/${item.image[0].path}`}
-                            ></img> */}
+                            ></img>
                           </div>
                         </td>
                         <td className="width-adjust-of-td">{item.name}</td>
                         <td className="width-adjust-of-td">{item.inrDiscount}</td>
                         <td className="width-adjust-of-td">{item.quantity}</td>
-                        <td className="width-adjust-of-td">{item.manufacturer.name}</td>
+                        <td className="width-adjust-of-td">{item.brand.name}</td>
                         <td className="width-adjust-of-td">{item.category.name}</td>
                         <td className="width-adjust-of-td">{item.subcategory.name}</td>
                       </tr>

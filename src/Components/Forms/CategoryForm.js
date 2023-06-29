@@ -146,7 +146,7 @@ const CategoryForm = (props) => {
   };
   return (
     <>
-      <section>
+      <section className="allProducts-section">
         <div className="container-fluid">
           <div className="row px-0 dashboard-container">
             <div className="col-12 px-0">

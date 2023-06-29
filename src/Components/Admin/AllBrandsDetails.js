@@ -1,43 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space, Popconfirm, Typography } from "antd";
 import "./Dashboard.css";
+import axios from "axios";
 import { BiSearchAlt } from "react-icons/bi";
 import { useNavigate, Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdOutlineEditNote } from "react-icons/md";
 import { MdPlaylistAdd } from "react-icons/md";
+import { baseUrl } from "../../Utils/Service";
 
 export default function AllBrandsDetails() {
   const [getuser, setGetuser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchVal, setSearchVal] = useState("");
   const [filteredData] = useState([]);
-  const [categories, setCategories] = useState("");
+  const [brands, setBrands] = useState("");
 
 
   const history = useNavigate();
 
-  // useEffect(() => {
-  //   fetchUsers();
-  //   GetCategory();
-  // }, []);
-
-  // const GetCategory = async () => {
-  //   await fetch(`${baseUrl}/api/category/all_category`)
-  //     .then((res) => res.json())
-  //     .then(async (data) => {
-  //       setCategories(data.data.length);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "error");
-  //     });
-  // };
+  useEffect(() => {
+    fetchUsers();
+    // GetBrands();
+  }, []);
+  const GetBrands = async () => {
+    await fetch(`${baseUrl}/api/brands/all_brands`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setBrands(data.data);
+      })
+      .catch((err) => {
+        console.log(err, "errors");
+      });
+  };
 
   const fetchUsers = async () => {
-    // setLoading(true);
-    // const response = await axios.get(`${baseUrl}/api/category/all_category`);
-    // setGetuser(response.data.data);
-    // setLoading(false);
+    setLoading(true);
+    const response = await axios.get(`${baseUrl}/api/brands/all_brands`);
+    setGetuser(response.data.data);
+    setLoading(false);
   };
 
   const onChangeHandler = (e) => {
@@ -80,7 +81,7 @@ export default function AllBrandsDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      // render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} />,
+      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
     },
     {
       title: "Action",
@@ -129,7 +130,7 @@ export default function AllBrandsDetails() {
             <div className="col-12 mt-2">
               <div className="category-details-section all-products-details-section">
                 <h3 className="all-products-head">
-                  All Brands <span className="count">{categories}</span>
+                  All Brands <span className="count">{brands}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <Link to="/dashboard/create-brand" className="add-icon">
