@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import { Link } from "react-router-dom";
-import axios from "axios";
 import {FaTelegramPlane} from "react-icons/fa";
 import './Footer.css'
 import { useForm } from "react-hook-form";

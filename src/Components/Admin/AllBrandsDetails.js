@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space, Popconfirm, Typography } from "antd";
-import axios from "axios";
 import "./Dashboard.css";
 import { BiSearchAlt } from "react-icons/bi";
 import { useNavigate, Link } from "react-router-dom";
@@ -133,10 +132,10 @@ export default function AllBrandsDetails() {
                   All Brands <span className="count">{categories}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
-                  {/* <Link to="/dashboard/create-category" className="add-icon">
+                  <Link to="/dashboard/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
-                  </Link> */}
+                  </Link>
                   <div>
                   <input
                     type="text"

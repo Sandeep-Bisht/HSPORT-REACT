@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { baseUrl } from "../../utils/services";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../Admin/Dashboard.css"
 
 
@@ -26,9 +25,7 @@ const [editableData] = useState(props);
     subcategory: "",
     quantity: "",
     inrMrp: "",
-    dollerMrp: "",
     inrDiscount: "",
-    dollerDiscount: "",
     brand: "",
     type: "",
     image: [],
@@ -60,14 +57,8 @@ const [editableData] = useState(props);
     if (!Value.inrMrp) {
       error.inrMrp = "This field is required";
     }
-    if (!Value.dollerMrp) {
-      error.dollerMrp = "This field is required";
-    }
     if (!Value.inrDiscount) {
       error.inrDiscount = "This field is required";
-    }
-    if (!Value.dollerDiscount) {
-      error.dollerDiscount = "This field is required";
     }
     if (!Value.quantity) {
       error.quantity = "This field is required";
@@ -123,9 +114,7 @@ const [editableData] = useState(props);
 //       await formData.append("subcategory", data.subcategory);
 //       await formData.append("quantity", data.quantity);
 //       await formData.append("inrMrp", data.inrMrp);
-//       await formData.append("dollerMrp", data.dollerMrp);
 //       await formData.append("inrDiscount", data.inrDiscount);
-//       await formData.append("dollerDiscount", data.dollerDiscount);
 //       await formData.append("manufacturer", data.manufacturer);
 //       await formData.append("type", data.type);
 //       await formData.append("image", data.image);
@@ -165,9 +154,7 @@ const [editableData] = useState(props);
 //     await formData.append("subcategory", data.subcategory);
 //     await formData.append("quantity", data.quantity);
 //     await formData.append("inrMrp", data.inrMrp);
-//     await formData.append("dollerMrp", data.dollerMrp);
 //     await formData.append("inrDiscount", data.inrDiscount);
-//     await formData.append("dollerDiscount", data.dollerDiscount);
 //     await formData.append("manufacturer", data.manufacturer);
 //     await formData.append("type", data.type);
 //     await formData.append("image", data.image);
@@ -650,50 +637,6 @@ const [editableData] = useState(props);
                             />
                             </div>
                             <p className="formerror">{formErrors.maximumOrder}</p>
-                          </div>
-                          <div className="col-3 p-2 form-floating">
-                            <div className="mt-2">
-                            <span className="category-select-div">MRP In Dollar</span>
-                            <input
-                              type="number"
-                              id="floatingform"
-                              name="dollerMrp"
-                              className="form-control Dashborad-search"
-                              defaultValue={data.dollerMrp}
-                              onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  dollerMrp: e.target.value,
-                                });
-                                handleInputChange(e);
-                              }}
-                              onBlur={handleBlur}
-                            />
-                            </div>
-                            <p className="formerror">{formErrors.dollerMrp}</p>
-
-                          </div>
-
-                          <div className="col-3 p-2 form-floating">
-                            <div className="mt-2">
-                            <span className="category-select-div">MRP after Discount In Dollar</span>
-                            <input
-                              type="number"
-                              id="floatingform"
-                              name="dollerDiscount"
-                              className="form-control Dashborad-search"
-                              defaultValue={data.dollerDiscount}
-                              onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  dollerDiscount: e.target.value,
-                                });
-                                handleInputChange(e);
-                              }}
-                              onBlur={handleBlur}
-                            />
-                            </div>
-                            <p className="formerror">{formErrors.dollerDiscount}</p>
                           </div>
                           <div className="col-3 p-2 form-floating">
                             <div className="mt-2">

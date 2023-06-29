@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Space, Popconfirm, Typography } from "antd";
 import axios from "axios";
+import { baseUrl } from "../../Utils/Service";
 import "./Dashboard.css";
 import { BiSearchAlt } from "react-icons/bi";
 import { useNavigate, Link } from "react-router-dom";
@@ -18,27 +19,27 @@ export default function AllCategoriesDetails() {
 
   const history = useNavigate();
 
-  // useEffect(() => {
-  //   fetchUsers();
-  //   GetCategory();
-  // }, []);
+  useEffect(() => {
+    fetchUsers();
+    // GetCategory();
+  }, []);
 
-  // const GetCategory = async () => {
-  //   await fetch(`${baseUrl}/api/category/all_category`)
-  //     .then((res) => res.json())
-  //     .then(async (data) => {
-  //       setCategories(data.data.length);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "error");
-  //     });
-  // };
+  const GetCategory = async () => {
+    await fetch(`${baseUrl}/api/category/all_category`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setCategories(data.data.length);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  };
 
   const fetchUsers = async () => {
-    // setLoading(true);
-    // const response = await axios.get(`${baseUrl}/api/category/all_category`);
-    // setGetuser(response.data.data);
-    // setLoading(false);
+    setLoading(true);
+    const response = await axios.get(`${baseUrl}/api/category/all_category`);
+    setGetuser(response.data.data);
+    setLoading(false);
   };
 
   const onChangeHandler = (e) => {
@@ -56,13 +57,13 @@ export default function AllCategoriesDetails() {
   };
 
   const handleDelete = async (_id) => {
-    // try {
-    //   const DeletedData = await axios.delete(
-    //     `${baseUrl}/api/category/delete_category_by_id`,
-    //     { data: { _id: _id } }
-    //   );
-    //   fetchUsers();
-    // } catch (error) {}
+    try {
+      const DeletedData = await axios.delete(
+        `${baseUrl}/api/category/delete_category_by_id`,
+        { data: { _id: _id } }
+      );
+      fetchUsers();
+    } catch (error) {}
   };
 
   const columns = [
@@ -81,14 +82,16 @@ export default function AllCategoriesDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      // render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} />,
+      render: (text, record) => <img src={`${baseUrl}/${record.image[0].path}`} style={{width:"100%"}} />,
     },
     {
       title: "Action",
       dataIndex: "Action",
       width: "20%",
-      render: (_, record) =>
-        getuser.length >= 1 ? (
+      render: (_, record) => {
+        console.log("record:", record); // Add this line to log the record object
+  
+        return getuser.length >= 1 ? (
           <Space size="middle">
             <Popconfirm
               title="Sure to delete?"
@@ -104,12 +107,7 @@ export default function AllCategoriesDetails() {
             </Popconfirm>
             <Typography.Link>
               <Link
-                to={{
-                  pathname: "/Category",
-                  state: {
-                    ...record,
-                  },
-                }}
+                to={{ pathname: "/dashboard/create-category", query: {state: { ...record }} }}
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
@@ -118,9 +116,11 @@ export default function AllCategoriesDetails() {
               </Link>
             </Typography.Link>
           </Space>
-        ) : null,
+        ) : null;
+      },
     },
   ];
+  
 
   return (
     <>

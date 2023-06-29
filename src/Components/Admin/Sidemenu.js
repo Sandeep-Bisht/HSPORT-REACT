@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { RxDashboard } from "react-icons/rx";
-import { BsCartPlus } from "react-icons/bs";
+import { BsCartPlus,BsListNested } from "react-icons/bs";
 import { GiFactory } from "react-icons/gi";
 import { BiCategory } from "react-icons/bi";
 import { GiBoxUnpacking } from "react-icons/gi";
@@ -155,7 +155,14 @@ const Sidemenu = () => {
                           Category
                         </li>
                       </Link>
-
+                      <Link
+                              to={"/dashboard/AllSubCategories"}
+                            >
+                              <li>
+                                <BsListNested className="configuration-icons-wrap" />
+                                SubCategory
+                              </li>
+                            </Link>
                       <Link to="/dashboard/allPrdoucts">
                         <li>
                           <GiBoxUnpacking className="configuration-icons-wrap" />

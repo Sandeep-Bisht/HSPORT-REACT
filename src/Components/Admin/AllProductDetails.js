@@ -185,7 +185,7 @@ export default function AllProductsDetails() {
           <Modal
           className="product-details New-order-details"
           title="Order Details"
-          visible={isModalVisible}
+          open={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
           closeIcon={<CustomCloseIcon />}

@@ -15,6 +15,14 @@ import ShippedOrder from '../Components/Admin/ShippedOrder'
 import DeliveredOrder from '../Components/Admin/DeliveredOrder'
 import CancelOrder from '../Components/Admin/CancelOrder'
 import NewOrder from '../Components/Admin/NewOrder';
+import TermsConditions from '../Components/TermsConditions';
+import ReturnRefund from '../Components/ReturnRefund';
+import ShippingPolicy from '../Components/ShippingPolicy';
+import PrivacyPolicy from '../Components/PrivacyPolicy';
+import Faq from '../Components/Faq';
+import TopBrandsForm from '../Components/Forms/TopBrandsForm';
+import SubCategoryForm from '../Components/Forms/SubCategoryForm';
+import AllSubCategoriesDetails from '../Components/Admin/AllSubCategoriesDetails';
 
 const ApplicationRoutes = () => {
   return (
@@ -24,9 +32,13 @@ const ApplicationRoutes = () => {
       <Route index element={< AdminDashboard/>} />
         <Route path='/dashboard/allPrdoucts' element={< AllProductsDetails />} />
         <Route path='/dashboard/allCategories' element={<AllCategoriesDetails/>}/>
+        <Route path='/dashboard/allSubCategories' element={<AllSubCategoriesDetails/>}/>
         <Route path='/dashboard/allBrands' element={<AllBrandsDetails/>}/>
         <Route path='/dashboard/create-product' element={< ProductForm />} />
-        <Route path='/dashboard/create-category' element={< CategoryForm />} />
+        <Route path='/dashboard/create-brand' element={<TopBrandsForm/>}/>
+        <Route path='/dashboard/create-category' element={< CategoryForm />} />SubCategoryForm
+        <Route path='/dashboard/create-subCategory' element={< SubCategoryForm />} />
+
 
         <Route path='/dashboard/Order/Pending' element={<NewOrder/>} />
         <Route path='/dashboard/Order/InProgress' element={<InProgressOrder/>} />
@@ -37,6 +49,12 @@ const ApplicationRoutes = () => {
         <Route/>
         </Route>
       <Route path="/PageNotFound" element={ <PageNotFound />} />
+      <Route path="/terms&condition" element={ <TermsConditions />} />
+      <Route path="/return&refund" element={ <ReturnRefund />} />
+      <Route path="/shippingPolicy" element={ <ShippingPolicy />} />
+      <Route path='/privacy&policy' element={<PrivacyPolicy/>}/>
+      <Route path='/faq' element={<Faq/>}/>
+
     </Routes>
   )
 }
