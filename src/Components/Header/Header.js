@@ -3,6 +3,7 @@ import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import {
   AiOutlineSearch,
@@ -10,7 +11,47 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
+
 const Header = () => {
+  // ----Login Form ---------
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onBlur",
+  });
+
+  const handleLogin = (data) => {
+    console.log(data, "inside handle login");
+  };
+
+  // ------Registration Form---------
+
+  const {
+    register: registrationRegister,
+    handleSubmit: registration,
+    formState: { errors: registrationError },
+    reset: resetRegistration,
+    watch,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onBlur",
+  });
+
+  const handleRegistration = (data) => {
+    console.log(data, "inside registration");
+  };
+
   return (
     <>
       <header>
@@ -126,11 +167,8 @@ const Header = () => {
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content registration-section">
             <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
-                Modal title
-              </h5>
               <button
                 type="button"
                 class="btn-close"
@@ -138,24 +176,247 @@ const Header = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Understood
-              </button>
+            <div class="modal-body">
+              <div className="row">
+                <div className="col-md-6 left-login-modal">
+                  <div className="">
+                    <p>LOGIN</p>
+                    <p>Get access to personalised shopping experience</p>
+                  </div>
+                </div>
+
+                <div className="col-md-6 mx-auto">
+                  <div className="row">
+                    <ul
+                      class="nav nav-pills mb-3 login-section"
+                      id="pills-tab"
+                      role="tablist"
+                    >
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link active"
+                          id="pills-home-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-home"
+                          type="button"
+                          role="tab"
+                          aria-controls="pills-home"
+                          aria-selected="true"
+                        >
+                          LOGIN
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="pills-profile-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-profile"
+                          type="button"
+                          role="tab"
+                          aria-controls="pills-profile"
+                          aria-selected="false"
+                        >
+                          SIGNUP
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                      <div
+                        class="tab-pane fade show active"
+                        id="pills-home"
+                        role="tabpanel"
+                        aria-labelledby="pills-home-tab"
+                      >
+                        <div className="col-md-12">
+                          <form
+                            className="newsletter-form"
+                            onSubmit={handleSubmit(handleLogin)}
+                          >
+                            <div className="row">
+                              <div className="col-md-12">
+                              <div className="form-fields">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    {...register("email", {
+                                      required: true,
+                                      pattern:
+                                        /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
+                                    })}
+                                  />
+
+                                    {errors?.email?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+
+                                  {errors?.email?.type === "pattern" && (
+                                    <p className="text-danger">
+                                      Please enter Valid email Address
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    autoComplete="off"
+                                    placeholder="Password"
+                                    {...register("password", {
+                                      required: true,
+                                    })}
+                                  />
+
+                                  {errors?.password?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <button className="common-btn w-100">
+                                    LOGIN
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+
+                          <div className="text-center">
+                            <span>NEW TO HINDUSTAN SPORTS ?</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="pills-profile"
+                        role="tabpanel"
+                        aria-labelledby="pills-profile-tab"
+                      >
+                        <div className="col-md-12">
+                          <form
+                            className="newsletter-form"
+                            onSubmit={registration(handleRegistration)}
+                          >
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="form-fields">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    // onInput={() => setMessage("")}
+                                    {...registrationRegister("email", {
+                                      required: true,
+                                      pattern:
+                                        /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
+                                    })}
+                                  />
+
+                                    {registrationError?.email?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+
+                                  {registrationError?.email?.type === "pattern" && (
+                                    <p className="text-danger">
+                                      Please enter Valid email Address
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    autoComplete="off"
+                                    placeholder="Password"
+                                    {...registrationRegister("password", {
+                                      required: true,
+                                      pattern:
+                                        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                                    })}
+                                  />
+                                  {registrationError?.password?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+                                  {registrationError?.password?.type === "pattern" && (
+                                    <p className="text-danger password-err">
+                                      Must have atleast 8 characters, one
+                                      number, upper & lowercase letters &
+                                      special character
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="confirmPassword"
+                                    autoComplete="off"
+                                    placeholder="Confirm Password"
+                                    {...registrationRegister("confirmPassword", {
+                                      required: true,
+                                      validate: (val) => {
+                                        if (watch("password") !== val) {
+                                          return "Your Password Does not Match";
+                                        }
+                                      },
+                                    })}
+                                    
+                                  />
+                                  {registrationError?.confirmPassword?.type === "required" && (
+                                  <p className="text-danger">
+                                    This field is required
+                                  </p>
+                                )}
+                                {registrationError?.confirmPassword?.type === "validate" && (
+                                  <p className="text-danger">
+                                    Password does not match
+                                  </p>
+                                )}
+
+
+                                  
+                                </div>
+
+                                <div className="form-fields">
+                                  <button className="common-btn w-100">
+                                    SIGNUP
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+
+                          <div className="text-center">
+                            <span>ALREADY HAVE AN ACCOUNT LOGIN ?</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      
     </>
   );
 };
