@@ -17,12 +17,7 @@ const NewOrder = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
   const [vendor,setVendor]=useState(false);
-  const history = useNavigate();
-
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetOrders();
-//   }, []);
+  const navigate = useNavigate();
 
   const GetOrders = async () => {
     // setLoading(true);
@@ -205,7 +200,7 @@ const NewOrder = () => {
   ];
 
   const imageHandler = (id) => {
-    history.push("/SingleProduct/" + id);
+    navigate("/SingleProduct/" + id);
   };
 
   return (

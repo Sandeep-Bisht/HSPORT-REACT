@@ -16,13 +16,9 @@ const DeliveredOrder = () => {
   const [searchVal, setSearchVal] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
-  const [vendor,setVendor]=useState(false);
   const history = useNavigate();
 
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetOrders();
-//   }, []);
+
 
   const GetOrders = async () => {
     // setLoading(true);

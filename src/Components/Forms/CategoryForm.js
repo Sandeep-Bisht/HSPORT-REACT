@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { baseUrl } from "../../Utils/Service";
 import { useNavigate,useLocation } from "react-router-dom";
 import "../Admin/Dashboard.css"
-var Userdata;
+
+
 const CategoryForm = (props) => {
   const [categories, setCategories] = useState([]);
   const [formerror, setFormerror] = useState({});

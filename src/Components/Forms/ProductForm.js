@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "../Admin/Dashboard.css"
 
 
-var Userdata;
 
 
 const ProductForm = (props) => {
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubCategories] = useState([]);
+  const [manufactureres, setManufactureres] = useState([]);
   const [brands, setBrands] = useState([]);
   const [warehouse, setWarehouse] = useState([]);
   const [products, Setproducts] = useState([]);
@@ -414,13 +414,10 @@ const [editableData] = useState(props);
                               <option value="" disabled hidden>
                                 Select Brands
                               </option>
-                              {brands.map((el, ind) =>
-                                Userdata.role === "superAdmin" ? (
+                              {manufactureres.map((el, ind) =>
+                                (
                                   <option value={el._id} key={ind}>{el.name}</option>
-                                ) : Userdata._id === el.creatorId &&
-                                  Userdata.role === "Vendor" ? (
-                                  <option value={el._id}>{el.name}</option>
-                                ) : null
+                                ) 
                               )}
                             </select>
                             </div>
@@ -449,12 +446,9 @@ const [editableData] = useState(props);
                                 Select warehouse
                               </option>
                               {warehouse.map((el, ind) =>
-                                Userdata.role === "superAdmin" ? (
+                                (
                                   <option value={el._id} key={ind}>{el.name}</option>
-                                ) : Userdata._id === el.creatorId &&
-                                  Userdata.role === "Vendor" ? (
-                                  <option value={el._id}>{el.name}</option>
-                                ) : null
+                                ) 
                               )}
                             </select>
                             </div>
