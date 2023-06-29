@@ -1,102 +1,429 @@
-import React from 'react'
-import './Header.css'
-import '../../Css/Common.css'
-import logo from '../../Images/logo.png'
+import React from "react";
+import "./Header.css";
+import "../../Css/Common.css";
+import logo from "../../Images/logo.png";
 import { Link } from "react-router-dom";
-import { HiOutlineBars3BottomLeft } from "react-icons/hi2"
-import {AiOutlineSearch,AiOutlineShoppingCart,AiOutlineUser} from "react-icons/ai"
-import {BsBagHeart} from "react-icons/bs"
+import { useForm } from "react-hook-form";
+import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
+import {
+  AiOutlineSearch,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
+} from "react-icons/ai";
+import { BsBagHeart } from "react-icons/bs";
+
 const Header = () => {
+  // ----Login Form ---------
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onBlur",
+  });
+
+  const handleLogin = (data) => {
+    console.log(data, "inside handle login");
+  };
+
+  // ------Registration Form---------
+
+  const {
+    register: registrationRegister,
+    handleSubmit: registration,
+    formState: { errors: registrationError },
+    reset: resetRegistration,
+    watch,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onBlur",
+  });
+
+  const handleRegistration = (data) => {
+    console.log(data, "inside registration");
+  };
+
   return (
     <>
-    <header>
-      <nav className="navbar navbar-expand-lg ">
-        <div className="container-fluid">
+      <header>
+        <nav className="navbar navbar-expand-lg ">
+          <div className="container-fluid">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" 
-          aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
-
-
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className='container-fluid'>
-              <div className='row'>
-                <div className='col-lg-12'>
-                  <div className='header-wrapper'>
-                    <div className='header-left'>
-                      <Link className="all-sports-toggler" to="/">
-                        <div className='me-2'><HiOutlineBars3BottomLeft className='' /></div>
-                        <div><span className='f1 text-uppercase '>
-                          All<br />
-                          Sports
-                        </span></div>
-                      </Link>
-                      <Link className="navbar-brand p-0" to="/">
-                        <img src={logo} alt="" className="img-fluid main-logo" />
-                      </Link>
-                    </div>
-                    <div className='header-middle'>
-                      <form className="d-flex header-search-feild" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="search-btn" type="submit"><AiOutlineSearch/></button>
-                      </form>
-                    </div>
-                    <div className='header-right'>
-                      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        
-                        <Link className="nav-link header-right-link me-lg-4" to="/">
-                              <span><AiOutlineShoppingCart/></span>
-                              Cart
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="header-wrapper">
+                      <div className="header-left">
+                        <div className="all-sports-toggler">
+                          <div className="me-2">
+                            <HiOutlineBars3BottomLeft className="text-white" />
+                          </div>
+                          <div>
+                            <span className="f1 text-uppercase text-white">
+                              All
+                              <br />
+                              Sports
+                            </span>
+                          </div>
+                        </div>
+                        <Link className="navbar-brand p-0" to="/">
+                          <img
+                            src={logo}
+                            alt=""
+                            className="img-fluid main-logo"
+                          />
                         </Link>
-                        <Link className="nav-link header-right-link  me-lg-4" to="/">
-                              <span><BsBagHeart/></span>
-                              Wishlist
-                        </Link>
-                         <button className='header-right-link nav-link' data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                         <span><AiOutlineUser/></span>
-                              Login/Register
-                         </button>
-
-                      </ul>
+                      </div>
+                      <div className="header-middle">
+                        <form
+                          className="d-flex header-search-feild"
+                          role="search"
+                        >
+                          <input
+                            className="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                          />
+                          <button className="search-btn" type="submit">
+                            <AiOutlineSearch />
+                          </button>
+                        </form>
+                      </div>
+                      <div className="header-right">
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                          <Link
+                            className="nav-link header-right-link me-lg-4"
+                            to="/cart"
+                          >
+                            <span>
+                              <AiOutlineShoppingCart />
+                            </span>
+                            Cart
+                          </Link>
+                          <Link
+                            className="nav-link header-right-link  me-lg-4"
+                            to="/wishlist"
+                          >
+                            <span>
+                              <BsBagHeart />
+                            </span>
+                            Wishlist
+                          </Link>
+                          <button
+                            className="header-right-link nav-link btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                            type="button"
+                          >
+                            <span>
+                              <AiOutlineUser />
+                            </span>
+                            Login/Register
+                          </button>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </nav>
+      </header>
+
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content registration-section">
+            <div class="modal-header modal-header-top">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div className="row inside-modal-body">
+                <div className="col-md-6 left-login-modal">
+                  <div className="m-3">
+                    <h3 className="login-left-first">LOGIN</h3>
+                    <div className="mt-5">
+                      <h3 className="login-left-mid pt-2">Get</h3>
+                      <h3 className="login-left-mid pt-2">access to</h3>
+                      <h3 className="login-left-second pt-2">personalised</h3>
+                      <h3 className="login-left-mid pt-2">shopping experience</h3>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-md-6 mx-auto mt-3">
+                  <div className="row">
+                    <ul
+                      class="nav nav-pills mb-3 login-section"
+                      id="pills-tab"
+                      role="tablist"
+                    >
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link active"
+                          id="pills-home-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-home"
+                          type="button"
+                          role="tab"
+                          aria-controls="pills-home"
+                          aria-selected="true"
+                        >
+                          LOGIN
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button
+                          class="nav-link"
+                          id="pills-profile-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#pills-profile"
+                          type="button"
+                          role="tab"
+                          aria-controls="pills-profile"
+                          aria-selected="false"
+                        >
+                          SIGNUP
+                        </button>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                      <div
+                        class="tab-pane fade show active"
+                        id="pills-home"
+                        role="tabpanel"
+                        aria-labelledby="pills-home-tab"
+                      >
+                        <div className="col-md-12">
+                          <form
+                            className="newsletter-form"
+                            onSubmit={handleSubmit(handleLogin)}
+                          >
+                            <div className="row">
+                              <div className="col-md-12">
+                              <div className="form-fields">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    {...register("email", {
+                                      required: true,
+                                      pattern:
+                                        /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
+                                    })}
+                                  />
+
+                                    {errors?.email?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+
+                                  {errors?.email?.type === "pattern" && (
+                                    <p className="text-danger">
+                                      Please enter Valid email Address
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    autoComplete="off"
+                                    placeholder="Password"
+                                    {...register("password", {
+                                      required: true,
+                                    })}
+                                  />
+
+                                  {errors?.password?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <button className="common-btn w-100 login-btn">
+                                    LOGIN
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+
+                          <div className="text-center">
+                            <span>NEW TO HINDUSTAN SPORTS ?</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="pills-profile"
+                        role="tabpanel"
+                        aria-labelledby="pills-profile-tab"
+                      >
+                        <div className="col-md-12">
+                          <form
+                            className="newsletter-form"
+                            onSubmit={registration(handleRegistration)}
+                          >
+                            <div className="row">
+                              <div className="col-md-12">
+                                <div className="form-fields">
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    autoComplete="off"
+                                    name="email"
+                                    placeholder="Enter your email address"
+                                    // onInput={() => setMessage("")}
+                                    {...registrationRegister("email", {
+                                      required: true,
+                                      pattern:
+                                        /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
+                                    })}
+                                  />
+
+                                    {registrationError?.email?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+
+                                  {registrationError?.email?.type === "pattern" && (
+                                    <p className="text-danger">
+                                      Please enter Valid email Address
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    autoComplete="off"
+                                    placeholder="Password"
+                                    {...registrationRegister("password", {
+                                      required: true,
+                                      pattern:
+                                        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                                    })}
+                                  />
+                                  {registrationError?.password?.type === "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+                                  {registrationError?.password?.type === "pattern" && (
+                                    <p className="text-danger password-err">
+                                      Must have atleast 8 characters, one
+                                      number, upper & lowercase letters &
+                                      special character
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="password"
+                                    className="form-control"
+                                    name="confirmPassword"
+                                    autoComplete="off"
+                                    placeholder="Confirm Password"
+                                    {...registrationRegister("confirmPassword", {
+                                      required: true,
+                                      validate: (val) => {
+                                        if (watch("password") !== val) {
+                                          return "Your Password Does not Match";
+                                        }
+                                      },
+                                    })}
+                                    
+                                  />
+                                  {registrationError?.confirmPassword?.type === "required" && (
+                                  <p className="text-danger">
+                                    This field is required
+                                  </p>
+                                )}
+                                {registrationError?.confirmPassword?.type === "validate" && (
+                                  <p className="text-danger">
+                                    Password does not match
+                                  </p>
+                                )}
 
 
+                                  
+                                </div>
 
+                                <div className="form-fields">
+                                  <button className="common-btn w-100 login-btn">
+                                    SIGNUP
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+
+                          <div className="text-center">
+                            <span>ALREADY HAVE AN ACCOUNT LOGIN ?</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
-
-    </header>
- 
-   
-    
-    
-   <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
       </div>
-      <div className="modal-body">
-        ...
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
-
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
