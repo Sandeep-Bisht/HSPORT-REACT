@@ -6,6 +6,7 @@ import PageNotFound from '../PageNotFound';
 import AllProductsDetails from '../Components/Admin/AllProductDetails';
 import AdminDashboard from '../Components/Admin/AdminDashboard';
 import ProductForm from '../Components/Forms/ProductForm';
+import ProductCard from '../Components/ProductCard/ProductCard';
 
 const ApplicationRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const ApplicationRoutes = () => {
         <Route path='/dashboard/create-product' element={< ProductForm />} />
         </Route>
       <Route path="/PageNotFound" element={ <PageNotFound />} />
+      <Route path='/product-card' element={ <ProductCard />} />
     </Routes>
   )
 }

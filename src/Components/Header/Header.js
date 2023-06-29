@@ -13,7 +13,9 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg ">
         <div className="container-fluid">
 
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" 
+          aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
 
@@ -25,8 +27,8 @@ const Header = () => {
                   <div className='header-wrapper'>
                     <div className='header-left'>
                       <Link className="all-sports-toggler" to="/">
-                        <div className='me-2'><HiOutlineBars3BottomLeft className='text-white' /></div>
-                        <div><span className='f1 text-uppercase text-white'>
+                        <div className='me-2'><HiOutlineBars3BottomLeft className='' /></div>
+                        <div><span className='f1 text-uppercase '>
                           All<br />
                           Sports
                         </span></div>

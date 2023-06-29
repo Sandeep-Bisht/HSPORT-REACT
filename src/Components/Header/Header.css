@@ -1,5 +1,8 @@
 header{
-    background-color:#008acc;
+    background-color: #1e2737;
+    position: sticky;
+    top:0;
+    z-index: 100;
 }
 .main-logo
 {
@@ -9,15 +12,25 @@ header{
 {
     display: flex;
     margin-right: 50px;
+    color: #a7afbe;
+}
+.all-sports-toggler:hover{
+    color: #fff;
 }
 .all-sports-toggler svg 
 {
     height: 45px;
     width: 45px;
-
 }
+
+
 .all-sports-toggler span{
-    color: #fff;
+  
+    text-shadow: 0 0 10px #fff6, 1px 2px #1e2737;
+    color: #a7afbe;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  
 }
 .header-wrapper
 {
@@ -67,7 +80,7 @@ header{
 }
 .header-right-link
 {
-    color: #fff;
+   
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 400;
@@ -76,6 +89,8 @@ header{
     display: flex;
     align-items: center;
     flex-direction: column;
+    text-shadow: 0 0 10px #fff6, 1px 2px #1e2737;
+    color: #a7afbe;
 }
 .header-right-link span
 {
