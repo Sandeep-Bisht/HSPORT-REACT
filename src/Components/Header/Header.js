@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Header.css'
 import '../../Css/Common.css'
 import logo from '../../Images/logo.png'
@@ -7,6 +7,7 @@ import { HiOutlineBars3BottomLeft } from "react-icons/hi2"
 import {AiOutlineSearch,AiOutlineShoppingCart,AiOutlineUser} from "react-icons/ai"
 import {BsBagHeart} from "react-icons/bs"
 const Header = () => {
+  
   return (
     <>
     <header>
@@ -33,6 +34,7 @@ const Header = () => {
                           Sports
                         </span></div>
                       </Link>
+
                       <Link className="navbar-brand p-0" to="/">
                         <img src={logo} alt="" className="img-fluid main-logo" />
                       </Link>
