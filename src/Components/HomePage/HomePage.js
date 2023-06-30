@@ -26,7 +26,7 @@ const HomePage = () => {
             7 Days, 8 Night Tour
 
           </p> */}
-           <a href="#" className="common-btn"><span>Book Now</span></a>
+           <a href="#" className="common-btn"><span>Shop Now</span></a>
         </div>
       </div>
       <div className="carousel-item active">
@@ -37,7 +37,7 @@ const HomePage = () => {
           {/* <p className="tour-info">
             7 Days, 8 Night Tour
           </p> */}
-          <a href="#" className="common-btn"><span className=''>Book Now</span></a>
+          <a href="#" className="common-btn"><span className=''>Shop Now</span></a>
         </div>
       </div>
       <div className="carousel-item">
@@ -48,7 +48,7 @@ const HomePage = () => {
           {/* <p className="tour-info">
             7 Days, 8 Night Tour
           </p> */}
-          <a href="#" className="common-btn"><span className=''>Book Now</span></a>
+          <a href="#" className="common-btn"><span className=''>Shop Now</span></a>
         </div>
       </div>
     </div>
