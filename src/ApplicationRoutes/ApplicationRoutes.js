@@ -25,6 +25,7 @@ import SubCategoryForm from '../Components/Forms/SubCategoryForm';
 import AllSubCategoriesDetails from '../Components/Admin/AllSubCategoriesDetails';
 import Cart from '../Components/Cart/Cart';
 import Wishlist from '../Components/Wishlist/Wishlist';
+import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
 
 const ApplicationRoutes = () => {
   return (
@@ -58,6 +59,7 @@ const ApplicationRoutes = () => {
       <Route path='/faq' element={<Faq/>}/>
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/wishlist' element={<Wishlist/>}/>
+      <Route path='/product/:id' element={<ProductDetailPage />} />
 
 
     </Routes>
