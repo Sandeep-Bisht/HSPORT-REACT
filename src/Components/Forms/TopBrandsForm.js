@@ -65,7 +65,7 @@ const TopBrandsForm = (props) => {
       })
         .then((res) => {
           res.json();
-          history.push("/dashboard/allBrands");
+          history("/dashboard/allBrands");
         })
         .then((res) => {
           GetBrands();

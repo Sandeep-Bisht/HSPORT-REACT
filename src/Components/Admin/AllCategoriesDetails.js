@@ -20,32 +20,21 @@ export default function AllCategoriesDetails() {
   const history = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-    // GetCategory();
+    GetCategory();
   }, []);
 
   const GetCategory = async () => {
-    await fetch(`${baseUrl}/api/category/all_category`)
-      .then((res) => res.json())
-      .then(async (data) => {
-        setCategories(data.data.length);
-      })
-      .catch((err) => {
-        console.log(err, "error");
-      });
-  };
-
-  const fetchUsers = async () => {
     setLoading(true);
     const response = await axios.get(`${baseUrl}/api/category/all_category`);
     setGetuser(response.data.data);
+    setCategories(response.data.data.length);
     setLoading(false);
   };
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
     if (e.target.value === "") {
-      fetchUsers();
+      GetCategory();
     }
   };
 
@@ -62,7 +51,7 @@ export default function AllCategoriesDetails() {
         `${baseUrl}/api/category/delete_category_by_id`,
         { data: { _id: _id } }
       );
-      fetchUsers();
+      GetCategory();
     } catch (error) {}
   };
 

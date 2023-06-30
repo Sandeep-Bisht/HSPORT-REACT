@@ -72,7 +72,7 @@ const [editableData]=useState(props);
       })
         .then((res) => {
           res.json();
-          history.push("/dashboard/AllSubCategories");
+          history("/dashboard/AllSubCategories");
         })
         .then((res) => {
           GetSubCategory();

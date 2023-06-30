@@ -23,23 +23,23 @@ export default function AllSubCategoriesDetails() {
   const history = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-    // GetSubCategory();
+    GetSubCategory();
   }, [])
 
 
 
-  const fetchUsers = async () => {
+  const GetSubCategory = async () => {
     setLoading(true);
     const response = await axios.get(`${baseUrl}/api/subcategory/all_subcategory`);
     setGetuser(response.data.data);
+    setSubCategories(response.data.data.length)
     setLoading(false);
   };
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
     if (e.target.value == "") {
-      fetchUsers();
+      GetSubCategory();
     }
   };
 
@@ -53,7 +53,7 @@ export default function AllSubCategoriesDetails() {
   const handleDelete = async (_id) => {
     // try {
     //   const DeletedData = await axios.delete(`${baseUrl}/api/subcategory/delete_subcategory_by_id`, { data: { _id: _id } });
-    //   fetchUsers();
+    //   GetSubCategory();
     // } catch (error) {
 
     // }

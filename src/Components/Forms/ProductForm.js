@@ -131,7 +131,7 @@ const [editableData] = useState(props);
       })
         .then((res) => {
           res.json();
-          // navigate("/dashboard/allPrdoucts");
+          navigate("/dashboard/allPrdoucts");
         })
         .then((res) => {
           // GetData();

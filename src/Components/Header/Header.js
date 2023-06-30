@@ -11,6 +11,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
+import axios from "axios";
 
 const Header = () => {
   // ----Login Form ---------
@@ -49,7 +50,10 @@ const Header = () => {
   });
 
   const handleRegistration = (data) => {
-    console.log(data, "inside registration");
+    // const response=axios.post("http://localhost:8080/api/auth/register");
+    // if(response.success==200){
+    //   console.log()
+    // }
   };
 
   return (

@@ -50,7 +50,7 @@ const CategoryForm = (props) => {
       })
         .then((res) => {
           res.json()
-          history.push("/dashboard/allCategories");
+          history("/dashboard/allCategories");
         })
         .then((res) => {
           // GetCategory();
@@ -250,7 +250,7 @@ const CategoryForm = (props) => {
                             </div>
                             <p className="formerror">{formerror.featuredCategories}</p>
                           </div>
-                          {editableData ? (
+                          {/* {editableData ? (
                             <div className="col-12 p-2">
                               <button
                                 className="btn btn-primary"
@@ -259,7 +259,7 @@ const CategoryForm = (props) => {
                                 Update
                               </button>
                             </div>
-                          ) : (
+                          ) : ( */}
                             <div className="col-12 p-1">
                               <button
                                 className="btn btn-primary"
@@ -270,7 +270,7 @@ const CategoryForm = (props) => {
                                 Submit
                               </button>
                             </div>
-                             )}  
+                             {/* )}   */}
                         </div>
                       </div>
                     </div>
