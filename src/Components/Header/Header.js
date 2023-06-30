@@ -1,8 +1,7 @@
-import React from "react";
-import "./Header.css";
-import "../../Css/Common.css";
-import logo from "../../Images/logo.png";
+import React, { useState, useRef } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import {
@@ -11,15 +10,22 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
-import axios from "axios";
+import "./Header.css";
+import "../../Css/Common.css";
+import logo from "../../Images/logo.png";
 
 const Header = () => {
+
+  const [successMsg, setSuccessMsg] = useState()
+  const loginModalRef = useRef(null);
+  const [errorMsg, setErrorMsg] = useState()
+
   // ----Login Form ---------
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    reset : resetLoginForm,
   } = useForm({
     defaultValues: {
       email: "",
@@ -28,9 +34,34 @@ const Header = () => {
     mode: "onBlur",
   });
 
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     console.log(data, "inside handle login");
+    let url = "http://localhost:8080/api/auth/login";
+
+    let response = await axios.post(url, data);
+    try {
+      if(response){
+        if(response?.data.succcess === 200){
+          console.log(response.data, "inside login")
+          resetLoginForm();
+          Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
+          loginModalRef.current.click();
+        } else{
+          setErrorMsg(response.data.error)
+        }
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
   };
+
+  // const closeModal = () => {
+  //   const modal = document.getElementById('staticBackdrop');
+  //   const modalInstance = bootstrap.Modal.getInstance(modal);
+  //   modalInstance.hide();
+  // };
 
   // ------Registration Form---------
 
@@ -49,11 +80,22 @@ const Header = () => {
     mode: "onBlur",
   });
 
-  const handleRegistration = (data) => {
-    // const response=axios.post("http://localhost:8080/api/auth/register");
-    // if(response.success==200){
-    //   console.log()
-    // }
+  const handleRegistration = async (data) => {
+    console.log(data, "inside registration");
+    data["role"] = "user";
+    console.log(data, "before sending api")
+    let url = "http://localhost:8080/api/auth/register";
+
+    let response = await axios.post(url, data);
+    try {
+      if(response){
+        console.log(response.data, "inside response")
+        resetRegistration();
+        setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -174,7 +216,8 @@ const Header = () => {
           <div class="modal-content registration-section">
             <div class="modal-header modal-header-top">
               <button
-                type="button"
+               ref={loginModalRef}
+               type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -189,7 +232,9 @@ const Header = () => {
                       <h3 className="login-left-mid pt-2">Get</h3>
                       <h3 className="login-left-mid pt-2">access to</h3>
                       <h3 className="login-left-second pt-2">personalised</h3>
-                      <h3 className="login-left-mid pt-2">shopping experience</h3>
+                      <h3 className="login-left-mid pt-2">
+                        shopping experience
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -211,6 +256,7 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
+                          onClick={()=>setSuccessMsg("")}
                         >
                           LOGIN
                         </button>
@@ -225,6 +271,7 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
+                          onClick={()=>setErrorMsg()}
                         >
                           SIGNUP
                         </button>
@@ -244,7 +291,7 @@ const Header = () => {
                           >
                             <div className="row">
                               <div className="col-md-12">
-                              <div className="form-fields">
+                                <div className="form-fields">
                                   <input
                                     type="text"
                                     className="form-control"
@@ -258,7 +305,7 @@ const Header = () => {
                                     })}
                                   />
 
-                                    {errors?.email?.type === "required" && (
+                                  {errors?.email?.type === "required" && (
                                     <p className="text-danger">
                                       This field is required
                                     </p>
@@ -302,6 +349,11 @@ const Header = () => {
                           <div className="text-center">
                             <span>NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
+                          <div className="text-center text-danger">
+                            <p>
+                            {errorMsg}
+                            </p>
+                          </div>
                         </div>
                       </div>
                       <div
@@ -332,13 +384,15 @@ const Header = () => {
                                     })}
                                   />
 
-                                    {registrationError?.email?.type === "required" && (
+                                  {registrationError?.email?.type ===
+                                    "required" && (
                                     <p className="text-danger">
                                       This field is required
                                     </p>
                                   )}
 
-                                  {registrationError?.email?.type === "pattern" && (
+                                  {registrationError?.email?.type ===
+                                    "pattern" && (
                                     <p className="text-danger">
                                       Please enter Valid email Address
                                     </p>
@@ -358,12 +412,14 @@ const Header = () => {
                                         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                                     })}
                                   />
-                                  {registrationError?.password?.type === "required" && (
+                                  {registrationError?.password?.type ===
+                                    "required" && (
                                     <p className="text-danger">
                                       This field is required
                                     </p>
                                   )}
-                                  {registrationError?.password?.type === "pattern" && (
+                                  {registrationError?.password?.type ===
+                                    "pattern" && (
                                     <p className="text-danger password-err">
                                       Must have atleast 8 characters, one
                                       number, upper & lowercase letters &
@@ -379,33 +435,35 @@ const Header = () => {
                                     name="confirmPassword"
                                     autoComplete="off"
                                     placeholder="Confirm Password"
-                                    {...registrationRegister("confirmPassword", {
-                                      required: true,
-                                      validate: (val) => {
-                                        if (watch("password") !== val) {
-                                          return "Your Password Does not Match";
-                                        }
-                                      },
-                                    })}
-                                    
+                                    {...registrationRegister(
+                                      "confirmPassword",
+                                      {
+                                        required: true,
+                                        validate: (val) => {
+                                          if (watch("password") !== val) {
+                                            return "Your Password Does not Match";
+                                          }
+                                        },
+                                      }
+                                    )}
                                   />
-                                  {registrationError?.confirmPassword?.type === "required" && (
-                                  <p className="text-danger">
-                                    This field is required
-                                  </p>
-                                )}
-                                {registrationError?.confirmPassword?.type === "validate" && (
-                                  <p className="text-danger">
-                                    Password does not match
-                                  </p>
-                                )}
-
-
-                                  
+                                  {registrationError?.confirmPassword?.type ===
+                                    "required" && (
+                                    <p className="text-danger">
+                                      This field is required
+                                    </p>
+                                  )}
+                                  {registrationError?.confirmPassword?.type ===
+                                    "validate" && (
+                                    <p className="text-danger">
+                                      Password does not match
+                                    </p>
+                                  )}
                                 </div>
 
                                 <div className="form-fields">
-                                  <button className="common-btn w-100 login-btn">
+                                  <button className="common-btn w-100 login-btn"                                  
+                                  >
                                     SIGNUP
                                   </button>
                                 </div>
@@ -415,6 +473,9 @@ const Header = () => {
 
                           <div className="text-center">
                             <span>ALREADY HAVE AN ACCOUNT LOGIN ?</span>
+                          </div>
+                          <div className=" text-center text-success ">
+                            <p>{successMsg}</p>
                           </div>
                         </div>
                       </div>
