@@ -41,7 +41,8 @@ const Header = () => {
     let response = await axios.post(url, data);
     try {
       if(response){
-        if(response?.data.success === 200){
+        console.log(response, "api tressss")
+        if(response?.data?.success === 200){
           console.log(response.data, "inside login")
           resetLoginForm();
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
