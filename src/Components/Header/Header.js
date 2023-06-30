@@ -41,7 +41,8 @@ const Header = () => {
     let response = await axios.post(url, data);
     try {
       if(response){
-        if(response?.data.succcess === 200){
+        console.log(response, "api tressss")
+        if(response?.data?.success === 200){
           console.log(response.data, "inside login")
           resetLoginForm();
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
@@ -57,11 +58,7 @@ const Header = () => {
 
   };
 
-  // const closeModal = () => {
-  //   const modal = document.getElementById('staticBackdrop');
-  //   const modalInstance = bootstrap.Modal.getInstance(modal);
-  //   modalInstance.hide();
-  // };
+
 
   // ------Registration Form---------
 
