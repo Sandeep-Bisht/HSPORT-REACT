@@ -1,5 +1,6 @@
 import React from "react";
 import "./ProductCard.css";
+import Cookies from "js-cookie";
 import product1 from "../../Images/product/product1.jpg";
 import product2 from "../../Images/product/product2.jpg";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -7,6 +8,7 @@ import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import { async } from "q";
 
 const ProductCard = (props) => {
   const { productList } = props;
@@ -15,11 +17,19 @@ const ProductCard = (props) => {
 
   console.log(productList, "product list in product car");
 
+  // Re Direction to single product page  
   let redirectToProductDiscriptionPage = (name) => {
     // navigate(`/product/${name}`, { state: productId });
-    navigate(`/product/${name}`)
-
+    navigate(`/product/${name}`);
   };
+
+  // Add to wishlist
+  const onClickWishListHandler = async(productId) => {
+    const cookieValue = Cookies.get("userdata");
+const userdata = JSON.parse(decodeURIComponent(cookieValue));
+console.log(userdata, "userdata")
+    console.log(productId, "productId productId")
+  }
 
   return (
     <>
@@ -43,33 +53,39 @@ const ProductCard = (props) => {
                         <img
                           src={`${url}${item.image[0].path}`}
                           onClick={() =>
-                            redirectToProductDiscriptionPage(item.name)}
+                            redirectToProductDiscriptionPage(item.name)
+                          }
                           className="img-fluid"
                           alt="..."
-                          
                         />
                         <div className="product-content-lower">
                           <ul>
                             <li>
-                              <Link className="" to="/">
+                              
                                 <span className="product-card-icon">
                                   <AiOutlineShoppingCart />
                                 </span>
-                              </Link>
+                             
                             </li>
 
-                            <li>
-                              <Link className="" to="/">
-                                <span className="product-card-icon">
+                            <li onClick={()=>onClickWishListHandler(item._id)}>
+                             
+                                <span className="product-card-icon"
+                                
+                                >
                                   <BsBagHeart />
                                 </span>
-                              </Link>
+                              
                             </li>
                           </ul>
                         </div>
                       </div>
-                      <div className="product-content"  onClick={() =>
-                            redirectToProductDiscriptionPage(item.name)}>
+                      <div
+                        className="product-content"
+                        onClick={() =>
+                          redirectToProductDiscriptionPage(item.name)
+                        }
+                      >
                         <div className="product-content-upper">
                           <p className="product-name f1">{item?.brand.name}</p>
                           <p className="product-desc">{item.name}</p>
