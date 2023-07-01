@@ -56,11 +56,7 @@ const ProductDetailPage = () => {
                 />
               </div>
             </div>
-            {/* desktop view ends */}
-
-            {/* mobile view */}
-
-            {/* mobile view ends */}
+            
             <div className="col-md-6">
               <div className="product-details">
                 <h2 className="title-wrap common-heading">
