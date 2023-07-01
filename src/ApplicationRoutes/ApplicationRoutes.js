@@ -26,6 +26,7 @@ import AllSubCategoriesDetails from '../Components/Admin/AllSubCategoriesDetails
 import Cart from '../Components/Cart/Cart';
 import Wishlist from '../Components/Wishlist/Wishlist';
 import AllProducts from '../Components/AllProducts/AllProducts';
+import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
 
 const ApplicationRoutes = () => {
   return (
@@ -60,6 +61,7 @@ const ApplicationRoutes = () => {
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/wishlist' element={<Wishlist/>}/>
       <Route path='/allproducts' element={<AllProducts/>}/>
+      <Route path='/product/:id' element={<ProductDetailPage />} />
 
 
     </Routes>
