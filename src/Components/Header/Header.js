@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
+import { IoMdClose } from "react-icons/io"
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -19,13 +20,14 @@ const Header = () => {
   const [successMsg, setSuccessMsg] = useState()
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState()
+  const [toggle, setToggle] = useState()
 
   // ----Login Form ---------
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset : resetLoginForm,
+    reset: resetLoginForm,
   } = useForm({
     defaultValues: {
       email: "",
@@ -40,17 +42,17 @@ const Header = () => {
 
     let response = await axios.post(url, data);
     try {
-      if(response){
+      if (response) {
         console.log(response, "api tressss")
-        if(response?.data?.success === 200){
+        if (response?.data?.success === 200) {
           console.log(response.data, "inside login")
           resetLoginForm();
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           loginModalRef.current.click();
-        } else{
+        } else {
           setErrorMsg(response.data.error)
         }
-       
+
       }
     } catch (error) {
       console.log(error)
@@ -85,7 +87,7 @@ const Header = () => {
 
     let response = await axios.post(url, data);
     try {
-      if(response){
+      if (response) {
         console.log(response.data, "inside response")
         resetRegistration();
         setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`)
@@ -108,10 +110,133 @@ const Header = () => {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
+
             >
               <span className="navbar-toggler-icon" />
             </button>
 
+            <div className="all-sports-toggler" onClick={() => setToggle(true)}>
+              <div className="me-2">
+                <HiOutlineBars3BottomLeft className="text-white" />
+              </div>
+              <div>
+                <span className="f1 text-uppercase text-white">
+                  All
+                  <br />
+                  Sports
+                </span>
+              </div>
+            </div>
+            {toggle && (
+              <div className="mega-menu visible">
+                <div className="close-box"><span onClick={() => setToggle(false)}><IoMdClose /></span></div>
+                <div className="mega-menu-tab">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <div>
+                          <ul className="nav nav-pills mb-3 mega-menu-tab-heading" id="pills-tab" role="tablist">
+                            <li className="nav-item" role="presentation">
+                              <button className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">All Sports</button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                              <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                              <button className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                              <button className="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
+                            </li>
+                          </ul>
+                          <div className="tab-content mega-menu-tab-content" id="pills-tabContent">
+                            <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabIndex={0}>
+                              <div className="row">
+                                <div className="col-lg-3">
+                                  <p className="mega-menu-sub-heading">
+                                  Outdoor Sports
+                                  </p>
+                                  <ul className="mega-menu-sub-heading-list">
+                                     
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
+                                    
+                                  </ul>
+                                </div>
+                                <div className="col-lg-3">
+                                  <p className="mega-menu-sub-heading">
+                                  Outdoor Sports
+                                  </p>
+                                  <ul className="mega-menu-sub-heading-list">
+                                     
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
+                                    
+                                  </ul>
+                                </div>
+                                <div className="col-lg-3">
+                                  <p className="mega-menu-sub-heading">
+                                  Outdoor Sports
+                                  </p>
+                                  <ul className="mega-menu-sub-heading-list">
+                                     
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
+                                    
+                                  </ul>
+                                </div>
+                                <div className="col-lg-3">
+                                  <p className="mega-menu-sub-heading">
+                                  Outdoor Sports
+                                  </p>
+                                  <ul className="mega-menu-sub-heading-list">
+                                     
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
+                                    
+                                  </ul>
+                                </div>
+                                <div className="col-lg-3">
+                                  <p className="mega-menu-sub-heading">
+                                  Outdoor Sports
+                                  </p>
+                                  <ul className="mega-menu-sub-heading-list">
+                                     
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
+                                    
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabIndex={0}>...</div>
+                            <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabIndex={0}>...</div>
+                            <div className="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabIndex={0}>...</div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            )}
             <div
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
@@ -121,18 +246,8 @@ const Header = () => {
                   <div className="col-lg-12">
                     <div className="header-wrapper">
                       <div className="header-left">
-                        <div className="all-sports-toggler">
-                          <div className="me-2">
-                            <HiOutlineBars3BottomLeft className="text-white" />
-                          </div>
-                          <div>
-                            <span className="f1 text-uppercase text-white">
-                              All
-                              <br />
-                              Sports
-                            </span>
-                          </div>
-                        </div>
+
+
                         <Link className="navbar-brand p-0" to="/">
                           <img
                             src={logo}
@@ -213,8 +328,8 @@ const Header = () => {
           <div class="modal-content registration-section">
             <div class="modal-header modal-header-top">
               <button
-               ref={loginModalRef}
-               type="button"
+                ref={loginModalRef}
+                type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -253,7 +368,7 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
-                          onClick={()=>setSuccessMsg("")}
+                          onClick={() => setSuccessMsg("")}
                         >
                           LOGIN
                         </button>
@@ -268,7 +383,7 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
-                          onClick={()=>setErrorMsg()}
+                          onClick={() => setErrorMsg()}
                         >
                           SIGNUP
                         </button>
@@ -348,7 +463,7 @@ const Header = () => {
                           </div>
                           <div className="text-center text-danger">
                             <p>
-                            {errorMsg}
+                              {errorMsg}
                             </p>
                           </div>
                         </div>
@@ -383,17 +498,17 @@ const Header = () => {
 
                                   {registrationError?.email?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
 
                                   {registrationError?.email?.type ===
                                     "pattern" && (
-                                    <p className="text-danger">
-                                      Please enter Valid email Address
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Please enter Valid email Address
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -411,18 +526,18 @@ const Header = () => {
                                   />
                                   {registrationError?.password?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.password?.type ===
                                     "pattern" && (
-                                    <p className="text-danger password-err">
-                                      Must have atleast 8 characters, one
-                                      number, upper & lowercase letters &
-                                      special character
-                                    </p>
-                                  )}
+                                      <p className="text-danger password-err">
+                                        Must have atleast 8 characters, one
+                                        number, upper & lowercase letters &
+                                        special character
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -446,20 +561,20 @@ const Header = () => {
                                   />
                                   {registrationError?.confirmPassword?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.confirmPassword?.type ===
                                     "validate" && (
-                                    <p className="text-danger">
-                                      Password does not match
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Password does not match
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
-                                  <button className="common-btn w-100 login-btn"                                  
+                                  <button className="common-btn w-100 login-btn"
                                   >
                                     SIGNUP
                                   </button>
