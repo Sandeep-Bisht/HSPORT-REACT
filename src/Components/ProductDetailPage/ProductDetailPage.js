@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiFillHeart } from "react-icons/ai";
@@ -7,42 +7,45 @@ import "./ProductDetailPage.css";
 import { async } from "q";
 
 const ProductDetailPage = () => {
+  const navigate = useNavigate();
+  let location = useLocation();
+  const [productDetail, setProductDetail] = useState([]);
+  let url = "http://localhost:8080/";
 
-  const navigate = useNavigate()
-  let location = useLocation()
-
-  
-  useEffect(()=>{
-    if(location?.state){
-      getProductDetails(location.state);
+  useEffect(() => {
+    if (location?.state) {
+      getProductDetails(location?.state);
     }
-  },[])
+  }, [location.state]);
 
-  const getProductDetails = async (productId) =>{
+  const getProductDetails = async (productId) => {
     try {
       let url = "http://localhost:8080/api/product/product_by_id";
-      let data = {}
+      let data = {};
       data["_id"] = productId;
-    let response = await axios.post(url, data);
-    if(response){
-           console.log(response,"response of produsct get ") 
-         
-        }
+      let response = await axios.post(url, data);
+      if (response) {
+        console.log(response, "response of produsct get ");
+        setProductDetail(response?.data?.data[0]);
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");
     // navigate(`/collections/${subCategories}`, { state: subCategoryId });
   };
 
+  console.log("sdasd", productDetail?.image?.[0]?.path);
+
   return (
     <>
       <div className="prod-wrapper py-lg-4 py-md-3 py-3">
         <div className="container">
           <div className="row">
+            
             <div className="col-sm-12 col-md-12 col-lg-12">
               <span>
                 <Link to="/" className="bred-crumb-one">
@@ -52,15 +55,12 @@ const ProductDetailPage = () => {
               <span className="separator">/</span>
               <span
                 className="bred-crumb-one"
-                 onClick={() => rediretToSubCategories()}
+                onClick={() => rediretToSubCategories()}
               >
                 Categories
               </span>
               <span className="separator">/</span>
-              <span className="bred-crumb-two">
-                {/* {productDetails && productDetails.name && productDetails.name} */}
-                name
-              </span>
+              <span className="bred-crumb-two">{productDetail?.name}</span>
             </div>
           </div>
         </div>
@@ -68,24 +68,23 @@ const ProductDetailPage = () => {
       <section className="product-description ">
         <div className="container">
           <div className="row custom-gutter">
-            {/* desktop view */}
             <div className="col-md-6 desktop-view-image">
               <div
                 className="single-image-detail"
                 // onClick={() => showImageOnModal(imageUrl)}
               >
                 <img
-                  src={product1}
+                  src={`${url}${ productDetail?.image?.[0]?.path }`}
                   className="img-fluid"
-                   alt=""
+                  alt=""
                 />
               </div>
             </div>
-            
+
             <div className="col-md-6">
               <div className="product-details">
                 <h2 className="title-wrap common-heading">
-                  Adidas Footbal
+                  {productDetail?.name}
                   <div
                     className="wishlist-div ps-3"
                     // onClick={() =>
@@ -100,32 +99,22 @@ const ProductDetailPage = () => {
                   <div className="price-wrapper-3 common-para-3">
                     <b>
                       <span className="price-wrap">
-                        {/* &#x20b9; {Math.round(productDetails.price)} */}{" "}
-                        &#x20b9; 2000
+                        &#x20b9; {Math.round(productDetail?.inrMrp)}{" "}
                       </span>
                     </b>
                     <p className="para-styling">
-                      {/* {converter.convert(productDetails.shortDescription)} */}
-                      A Jasperware Pale blue clock by Wedgwood features various
-                      Greek cherubs with dog figures in decorative white relief
-                      over pale blue body. A beautiful piece for your home or a
-                      wonderful gift.
+                      {/* {converter.convert(productDetails.sortDescription)} */}
+                      {productDetail.sortDescription}
                     </p>
                     <div className="specification">
                       <ul className="specification-of-para">
                         <li className="common-para-3 mb-0">
-                          {/* Height x Width : {productDetails.height}cm x{" "} */}{" "}
-                          Height x Width : 9 * 9{/* {productDetails.width}cm */} 40 cm
+                          Height x Width : {productDetail?.height} x{" "}
+                          {productDetail?.width}{" "}
                         </li>
 
                         <li className="common-para-3 mb-0">
-                          {/* Weight : {productDetails.weight} kg */} 
-                          Weight : 30kg
-                        </li>
-
-                        <li className="common-para-3 mb-0">
-                          {/* Depth : {productDetails.depth} cm */}
-                          Depth : 20
+                          Weight : {productDetail?.weight}
                         </li>
                       </ul>
                     </div>
@@ -190,16 +179,7 @@ const ProductDetailPage = () => {
                     >
                       <div className="">
                         {/* {converter.convert(productDetails.description)} */}
-                        Wedgwood has always held an esteemed position as one of
-                        the most sought-after collections in the world. Renowned
-                        for its high quality, rich history, and unwavering
-                        desirability, Wedgwood has consistently captivated
-                        collectors and enthusiasts alike. At the heart of
-                        Wedgwood's allure lies its iconic Jasperware collection.
-                        Jasperware, with its distinctive matte finish and
-                        classical motifs, represents the epitome of elegance and
-                        craftsmanship. Each piece is a testament to Wedgwood's
-                        unwavering commitment to artistic excellence.
+                        {productDetail.description}
                       </div>
                     </div>
                   </div>

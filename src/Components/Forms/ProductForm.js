@@ -252,17 +252,6 @@ const [editableData] = useState(props);
       });
   };
 
-//   const GetData = async () => {
-//     await fetch(`${baseUrl}/api/product/all_product`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         Setproducts(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err, "error");
-//       });
-//   };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     Setdata({
