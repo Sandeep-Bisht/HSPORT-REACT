@@ -41,10 +41,11 @@ const Header = () => {
 
     let response = await axios.post(url, data);
     try {
-      if(response){
+      if (response) {
         if(response?.data?.success === 200){
           resetLoginForm();
-                   Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
+         
+          Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           // Cookies.set("userdata", JSON.parse(response?.data))
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
           loginModalRef.current.click();
@@ -78,15 +79,12 @@ const Header = () => {
   });
 
   const handleRegistration = async (data) => {
-    console.log(data, "inside registration");
     data["role"] = "user";
-    console.log(data, "before sending api")
     let url = "http://localhost:8080/api/auth/register";
 
     let response = await axios.post(url, data);
     try {
       if (response) {
-        console.log(response.data, "inside response")
         resetRegistration();
         setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`)
       }

@@ -22,10 +22,9 @@ const ProductCard = (props) => {
 
 
   useEffect(() =>{
-    if(Cookies.get("userdata")){
-      
-    }
-    
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")))
+      setUserdata(userdata);
+      getUserWishlist(userdata._id)
   },[])
 
 
@@ -78,7 +77,7 @@ const ProductCard = (props) => {
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
-    let response = await axios.post(url, userid);
+    let response = await axios.post(url, {userId:userid});
       try {
         if(response){
            setWishlistItem(response.data.data) 
