@@ -15,20 +15,17 @@ const ProductCard = (props) => {
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
-  console.log(productList, "product list in product car");
 
   // Re Direction to single product page  
-  let redirectToProductDiscriptionPage = (name) => {
-    // navigate(`/product/${name}`, { state: productId });
-    navigate(`/product/${name}`);
+  let redirectToProductDiscriptionPage = (name, productId) => {
+    navigate(`/product/${name}`, { state: productId });
+    //navigate(`/product/${name}`);
   };
 
   // Add to wishlist
   const onClickWishListHandler = async(productId) => {
     const cookieValue = Cookies.get("userdata");
 const userdata = JSON.parse(decodeURIComponent(cookieValue));
-console.log(userdata, "userdata")
-    console.log(productId, "productId productId")
   }
 
   return (
@@ -53,7 +50,7 @@ console.log(userdata, "userdata")
                         <img
                           src={`${url}${item.image[0].path}`}
                           onClick={() =>
-                            redirectToProductDiscriptionPage(item.name)
+                            redirectToProductDiscriptionPage(item.slug,item._id)
                           }
                           className="img-fluid"
                           alt="..."

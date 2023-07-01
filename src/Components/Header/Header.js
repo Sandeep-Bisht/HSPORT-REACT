@@ -35,19 +35,14 @@ const Header = () => {
   });
 
   const handleLogin = async (data) => {
-    console.log(data, "inside handle login");
     let url = "http://localhost:8080/api/auth/login";
 
     let response = await axios.post(url, data);
     try {
       if(response){
-        console.log(response, "api tressss")
         if(response?.data?.success === 200){
-          console.log(response.data.user, "inside login")
           resetLoginForm();
-         
-          console.log(response.data, "response")
-          Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
+                   Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           // Cookies.set("userdata", JSON.parse(response?.data))
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
           loginModalRef.current.click();

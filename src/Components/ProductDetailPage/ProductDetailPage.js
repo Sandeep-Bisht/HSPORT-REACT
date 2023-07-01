@@ -1,12 +1,36 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate , useLocation} from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import product1 from "../../Images/product/product1.jpg";
 import "./ProductDetailPage.css";
+import axios from "axios";
+import { baseUrl } from "../../Utils/Service";
 
 const ProductDetailPage = () => {
 
+  const[product,SetProducts]=useState([]);
+
   const navigate = useNavigate()
+  const location=useLocation();
+  console.log(product,"product",location);
+
+  useEffect(()=>{
+    console.log(location?.state, "location?.state location?.state")
+    getProductDetails(location?.state);
+  },[]);
+
+  const getProductDetails=async(productId)=>{
+    console.log(productId, "productId inside get method")
+    let url=`${baseUrl}/api/product/product_by_id`;
+    const response=await axios.post(url, {productId:productId});
+ try {
+  if(response){
+    console.log(response, "response")
+  }
+ } catch (error) {
+  console.log(error)
+ }
+  }
 
   let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");

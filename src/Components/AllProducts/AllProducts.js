@@ -8,12 +8,13 @@ import product2 from '../../Images/product/product2.jpg'
 import './AllProducts.css'
 import { baseUrl } from '../../Utils/Service';
 import axios from 'axios';
+import ProductCard from '../ProductCard/ProductCard';
 
 function AllProducts() {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedPrice, setSelectedPrice] = useState('');
     const [selectedAlphabetic, setSelectedAlphabetic] = useState('');
-    const [allProduct,setAllProduct]=useState([]);
+    const [allProducts,setAllProducts]=useState([]);
 
     const handleCheckboxCategory = (event) => {
         setSelectedCategory(event.target.value);
@@ -25,14 +26,23 @@ function AllProducts() {
         setSelectedAlphabetic(event.target.value);
     }
 
-    useEffect(()=>{
-        allProducts();
-    },[])
-    const allProducts=async()=>{
-        const response=await axios.get(`${baseUrl}/api/product/all_product`);
-        setAllProduct(response.data.data);
-        console.log(response,"response");
-    }
+    useEffect(() => {
+        getAllProducts()
+      }, [])
+      
+      const getAllProducts = async() => {
+        let url = "http://localhost:8080/api/product/all_product";
+        let response = await axios.get(url);
+          try {
+            if(response){
+               console.log(response,"response of produsct") 
+               setAllProducts(response.data.data) 
+             
+            }
+          } catch (error) {
+            console.log(error)
+          }
+      }
 
     return (
         <div className='container-fluid'>
@@ -103,71 +113,8 @@ function AllProducts() {
                     </div>
                 </div>
                 <div className='col-10'>
-                    <section className='product-card-area'>
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col-md-12 '>
-                                    <h1 className='common-heading text-center mb-lg-5'>
-                                        Our Products
-                                    </h1>
+                <ProductCard  productList={allProducts}/>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                {
-                                    allProduct && allProduct.length>0 &&
-                                    <div className='col-lg-3'>
-                                    <div className='product-single-card'>
-                                        <div className='product-pic'>
-                                            <img src={product1} className="img-fluid" alt="..." />
-                                            <div className='product-content-lower'>
-                                                <ul>
-                                                    <li>
-                                                        <Link className="" to="/">
-                                                            <span className='product-card-icon'>
-                                                                <AiOutlineShoppingCart />
-                                                            </span>
-                                                        </Link>
-                                                    </li>
-
-                                                    <li>
-                                                        <Link className="" to="/">
-                                                            <span className='product-card-icon'>
-                                                                <BsBagHeart />
-                                                            </span>
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div className='product-content'>
-                                            <div className='product-content-upper'>
-                                                <p className='product-name f1'>Football</p>
-                                                <p className='product-desc'>
-                                                    Waterproof Mobile Phone
-                                                </p>
-
-                                            </div>
-
-                                            <div className='add-to-cart-box'>
-                                                <div>
-                                                    <p className='product-price f1'><BsCurrencyRupee />600</p>
-                                                </div>
-                                                <div>
-                                                    <p className='discount-price f1'><BsCurrencyRupee /><del>1200</del></p>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                }
-  
-                            </div>
-                        </div>
-                    </section>
-                </div>
             </div>
         </div>
     )
