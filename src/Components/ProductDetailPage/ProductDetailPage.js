@@ -11,7 +11,6 @@ const ProductDetailPage = () => {
   const navigate = useNavigate()
   let location = useLocation()
 
-  console.log(location, "loscsatishdakjshdksj");
   
   useEffect(()=>{
     if(location?.state){
@@ -20,7 +19,6 @@ const ProductDetailPage = () => {
   },[])
 
   const getProductDetails = async (productId) =>{
-    console.log(productId, "productIdproductId productId")
     try {
       let url = "http://localhost:8080/api/product/product_by_id";
       let data = {}

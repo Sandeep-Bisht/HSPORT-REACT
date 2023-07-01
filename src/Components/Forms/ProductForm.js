@@ -101,7 +101,6 @@ const [editableData] = useState(props);
     e.preventDefault();
     const errors =  validateForm(data);
      setFormErrors(errors);
-     console.log(data,"check the all the data of producys");
     if (Object.keys(errors).length === 0) {
       const formData = new FormData();
       formData.append("description", data.description);

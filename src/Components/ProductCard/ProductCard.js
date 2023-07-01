@@ -20,7 +20,6 @@ const ProductCard = (props) => {
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
-  console.log(productList, "product list in product car");
 
   useEffect(() =>{
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")))
@@ -28,7 +27,6 @@ const ProductCard = (props) => {
     getUserWishlist(userdata._id)
   },[])
 
-  console.log(wishlistItem, "wishlistItem wishlistItem")
 
   // Re Direction to single product page
   let redirectToProductDiscriptionPage = (name, productId) => {
@@ -40,7 +38,6 @@ const ProductCard = (props) => {
   const onClickWishListHandler = async (productId) => { 
     let data = {}; 
     const foundNumber = wishlistItem.find((item) => item.productId._id === productId);
-    console.log("foundNumber", foundNumber)
       if(foundNumber){
 
         addToast("Success!", {
@@ -59,7 +56,6 @@ const ProductCard = (props) => {
         try {
           if(response){
             getUserWishlist(userdata._id)
-            console.log(response)
             addToast("Success!", {
               appearance: "success",
               content: `Product added to wishlist`,
@@ -79,11 +75,11 @@ const ProductCard = (props) => {
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
+
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
-    let response = await axios.post(url, userid);
+    let response = await axios.post(url, {userId : userid});
       try {
         if(response){
-           console.log(response,"response of produsct") 
            setWishlistItem(response.data.data) 
          
         }

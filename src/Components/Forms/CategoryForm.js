@@ -18,7 +18,6 @@ const CategoryForm = (props) => {
 
   const history = useNavigate();
   const location = useLocation();
-  console.log(location,"location get for props");
   
   const ValidationFrom = (value) => {
     const error = {};
