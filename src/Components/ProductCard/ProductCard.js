@@ -31,9 +31,9 @@ const ProductCard = (props) => {
   console.log(wishlistItem, "wishlistItem wishlistItem")
 
   // Re Direction to single product page
-  let redirectToProductDiscriptionPage = (name) => {
-    // navigate(`/product/${name}`, { state: productId });
-    navigate(`/product/${name}`);
+  let redirectToProductDiscriptionPage = (name, productId) => {
+     navigate(`/product/${name}`, { state: productId });
+    //navigate(`/product/${name}`);
   };
 
   // Add to wishlist
@@ -114,7 +114,7 @@ const ProductCard = (props) => {
                         <img
                           src={`${url}${item.image[0].path}`}
                           onClick={() =>
-                            redirectToProductDiscriptionPage(item.name)
+                            redirectToProductDiscriptionPage(item.slug, item._id)
                           }
                           className="img-fluid"
                           alt="..."
