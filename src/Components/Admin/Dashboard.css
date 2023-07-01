@@ -168,10 +168,10 @@ textarea.textarea{
 
 .nav{
   /* height: 100%; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden;
+  overflow: hidden; */
 }
 .order-details .width-adjust-of-image 
 {

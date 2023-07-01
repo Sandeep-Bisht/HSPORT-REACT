@@ -1,35 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate , useLocation} from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { AiFillHeart } from "react-icons/ai";
 import product1 from "../../Images/product/product1.jpg";
 import "./ProductDetailPage.css";
-import axios from "axios";
-import { baseUrl } from "../../Utils/Service";
+import { async } from "q";
 
 const ProductDetailPage = () => {
 
-  const[product,SetProducts]=useState([]);
-
   const navigate = useNavigate()
-  const location=useLocation();
-  console.log(product,"product",location);
+  let location = useLocation()
 
+  
   useEffect(()=>{
-    console.log(location?.state, "location?.state location?.state")
-    getProductDetails(location?.state);
-  },[]);
+    if(location?.state){
+      getProductDetails(location.state);
+    }
+  },[])
 
-  const getProductDetails=async(productId)=>{
-    console.log(productId, "productId inside get method")
-    let url=`${baseUrl}/api/product/product_by_id`;
-    const response=await axios.post(url, {productId:productId});
- try {
-  if(response){
-    console.log(response, "response")
-  }
- } catch (error) {
-  console.log(error)
- }
+  const getProductDetails = async (productId) =>{
+    try {
+      let url = "http://localhost:8080/api/product/product_by_id";
+      let data = {}
+      data["_id"] = productId;
+    let response = await axios.post(url, data);
+    if(response){
+           console.log(response,"response of produsct get ") 
+         
+        }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
@@ -57,7 +58,7 @@ const ProductDetailPage = () => {
               </span>
               <span className="separator">/</span>
               <span className="bred-crumb-two">
-                {/* {productDetails && productDetails.name && productDetails.name} */}
+                {/ {productDetails && productDetails.name && productDetails.name} /}
                 name
               </span>
             </div>
@@ -67,7 +68,7 @@ const ProductDetailPage = () => {
       <section className="product-description ">
         <div className="container">
           <div className="row custom-gutter">
-            {/* desktop view */}
+            {/ desktop view /}
             <div className="col-md-6 desktop-view-image">
               <div
                 className="single-image-detail"
@@ -99,12 +100,12 @@ const ProductDetailPage = () => {
                   <div className="price-wrapper-3 common-para-3">
                     <b>
                       <span className="price-wrap">
-                        {/* &#x20b9; {Math.round(productDetails.price)} */}{" "}
+                        {/ &#x20b9; {Math.round(productDetails.price)} /}{" "}
                         &#x20b9; 2000
                       </span>
                     </b>
                     <p className="para-styling">
-                      {/* {converter.convert(productDetails.shortDescription)} */}
+                      {/ {converter.convert(productDetails.shortDescription)} /}
                       A Jasperware Pale blue clock by Wedgwood features various
                       Greek cherubs with dog figures in decorative white relief
                       over pale blue body. A beautiful piece for your home or a
@@ -113,17 +114,17 @@ const ProductDetailPage = () => {
                     <div className="specification">
                       <ul className="specification-of-para">
                         <li className="common-para-3 mb-0">
-                          {/* Height x Width : {productDetails.height}cm x{" "} */}{" "}
-                          Height x Width : 9 * 9{/* {productDetails.width}cm */} 40 cm
+                          {/ Height x Width : {productDetails.height}cm x{" "} /}{" "}
+                          Height x Width : 9  9{/ {productDetails.width}cm */} 40 cm
                         </li>
 
                         <li className="common-para-3 mb-0">
-                          {/* Weight : {productDetails.weight} kg */} 
+                          {/ Weight : {productDetails.weight} kg /} 
                           Weight : 30kg
                         </li>
 
                         <li className="common-para-3 mb-0">
-                          {/* Depth : {productDetails.depth} cm */}
+                          {/ Depth : {productDetails.depth} cm /}
                           Depth : 20
                         </li>
                       </ul>
@@ -142,7 +143,7 @@ const ProductDetailPage = () => {
                           // }
                         >
                           <span className="btn-icon">
-                            {/* <AiOutlineShoppingCart /> */}
+                             {/* <AiOutlineShoppingCart />  */}
                           </span>
                           <span className="btn-text ps-2">Add to Cart</span>
                         </button>
@@ -188,7 +189,7 @@ const ProductDetailPage = () => {
                       aria-labelledby="pills-home-tab"
                     >
                       <div className="">
-                        {/* {converter.convert(productDetails.description)} */}
+                        {/ {converter.convert(productDetails.description)} /}
                         Wedgwood has always held an esteemed position as one of
                         the most sought-after collections in the world. Renowned
                         for its high quality, rich history, and unwavering
