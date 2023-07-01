@@ -13,6 +13,7 @@ header{
     display: flex;
     margin-right: 50px;
     color: #a7afbe;
+    cursor: pointer;
 }
 .all-sports-toggler:hover{
     color: #fff;
@@ -163,4 +164,101 @@ max-width: fit-content!important;
 }
 .login-btn{
     border: 0px;
+}
+
+
+/* ------------------------mega menu css--------------- */
+.mega-menu
+{
+    position: absolute;
+    
+    left: 0;
+    height: calc( 100vh - 77.3px);
+    background-color: #f4f4f4;
+    transition: .2s ease;
+    top: 77.3px;
+      width: 0%;
+     
+    visibility: hidden;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+    width: 0%;
+
+}
+.mega-menu.visible
+{
+    
+    width: 100%;
+    
+}
+
+.close-box
+{
+   text-align: right;
+   padding-right: 50px;
+   padding-top: 20px;
+   display: flex;
+   justify-content: flex-end;
+}
+.close-box span{
+    height: 30px;
+    width: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+     cursor: pointer;
+    border-radius: 50%;
+    background-color: #fff;
+    color:#212121;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+
+}
+.mega-menu-tab-heading
+{
+   display: flex;
+   justify-content: space-between;
+   border-bottom: 1px solid #dedede;
+}
+.mega-menu-tab-heading.nav-pills .nav-link
+{
+    font-family: 'Roboto', sans-serif;
+    color: #4e5d6b;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: capitalize;
+     top:2px;
+     position: relative;
+     padding-left: 0;
+}
+.mega-menu-tab-heading.nav-pills .nav-link.active, .mega-menu-tab-heading.nav-pills .show>.nav-link
+{
+    background-color: transparent;
+}
+.mega-menu-tab-heading.nav-pills .nav-link.active
+{
+    background-color: transparent;
+    color: #cc0034;
+    font-weight: 700;
+    border-bottom: 3px solid #cc0034;
+    border-radius: 0;
+}
+.mega-menu-sub-heading
+{
+    font-family: 'Roboto';
+    font-weight: 700;
+    color: #4e5d6b;
+}
+.mega-menu-sub-heading-list
+{
+    padding-left: 0;
+    list-style-type: none;
+}
+.mega-menu-sub-heading-list li
+{
+    color: #4e5d6b;
+    font-weight: 400;
+    margin-bottom: 2px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 5px;
 }
