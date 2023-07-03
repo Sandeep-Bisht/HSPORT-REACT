@@ -90,6 +90,18 @@ console.log(productList, "product list")
   const onClickCartHandler = async (order) => {
     if(!userdata){
       console.log(order, "order, sdnaskdfnas")
+    //   let data = {
+    //    "productid" : order._id,
+    // "name" : order.name,
+    // "quantity" : order.quantity,
+    // "inrMrp" : order.inrMrp ,
+    // "inrDiscount" : order.inrDiscount,
+    // "sortDescription" order.sortDescription,
+    // "category" : order.category,
+    // "subCategory" : order.subCategory,
+    // "manufacturer" : order.manufacturer,
+    // "image" : order.image[0].path
+    //   }
       let url = "http://localhost:8080/api/cart/add_to_cart"
       let response = await axios.post(url);
       try {
