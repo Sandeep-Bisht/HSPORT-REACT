@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiFillHeart } from "react-icons/ai";
-import product1 from "../../Images/product/product1.jpg";
 import "./ProductDetailPage.css";
-import { async } from "q";
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();
@@ -17,6 +15,7 @@ const ProductDetailPage = () => {
       getProductDetails(location?.state);
     }
   }, [location.state]);
+  console.log(location.state, "locataion state")
 
   const getProductDetails = async (productId) => {
     try {
@@ -104,7 +103,7 @@ const ProductDetailPage = () => {
                     </b>
                     <p className="para-styling">
                       {/* {converter.convert(productDetails.sortDescription)} */}
-                      {productDetail.sortDescription}
+                      {productDetail?.sortDescription}
                     </p>
                     <div className="specification">
                       <ul className="specification-of-para">
@@ -179,7 +178,7 @@ const ProductDetailPage = () => {
                     >
                       <div className="">
                         {/* {converter.convert(productDetails.description)} */}
-                        {productDetail.description}
+                        {productDetail?.description}
                       </div>
                     </div>
                   </div>

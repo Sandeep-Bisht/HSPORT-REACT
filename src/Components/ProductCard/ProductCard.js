@@ -1,8 +1,6 @@
 import React, { useState, useEffect} from "react";
 import "./ProductCard.css";
 import Cookies from "js-cookie";
-import product1 from "../../Images/product/product1.jpg";
-import product2 from "../../Images/product/product2.jpg";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
@@ -20,7 +18,7 @@ const ProductCard = (props) => {
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
-
+console.log(productList, "product list")
   useEffect(() =>{
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")))
     setUserdata(userdata);
@@ -88,6 +86,49 @@ const ProductCard = (props) => {
       }
   }
 
+  //Add to cart
+  const onClickCartHandler = async (order) => {
+    if(!userdata){
+      console.log(order, "order, sdnaskdfnas")
+      let url = "http://localhost:8080/api/cart/add_to_cart"
+      let response = await axios.post(url);
+      try {
+        if(response){
+          addToast("Success!", {
+            appearance: "success",
+            content: `Product added to wishlist`,
+          });
+        }
+      } catch (error) {
+        console.log(error)
+        addToast("error!", {
+          appearance: "error",
+          content: `Something went wrong`,
+        });
+      }
+    }else{
+      console.log(order, "order, sdnaskdfnas")
+
+      let url = "http://localhost:8080/api/cart/add_to_cart"
+      let response = await axios.post(url);
+      try {
+        if(response){
+          addToast("Success!", {
+            appearance: "success",
+            content: `Product added to wishlist`,
+          });
+        }
+      } catch (error) {
+        console.log(error)
+        addToast("error!", {
+          appearance: "error",
+          content: `Something went wrong`,
+        });
+      }
+    }
+   
+  }
+
   return (
     <>
       <section className="product-card-area">
@@ -108,16 +149,16 @@ const ProductCard = (props) => {
                     <div className="product-single-card">
                       <div className="product-pic">
                         <img
-                          src={`${url}${item.image[0].path}`}
+                          src={`${url}${item?.image[0]?.path}`}
                           onClick={() =>
-                            redirectToProductDiscriptionPage(item.slug, item._id)
+                            redirectToProductDiscriptionPage(item?.slug, item._id)
                           }
                           className="img-fluid"
                           alt="..."
                         />
                         <div className="product-content-lower">
                           <ul>
-                            <li>
+                            <li onClick={() => onClickCartHandler(item)}>
                               <span className="product-card-icon">
                                 <AiOutlineShoppingCart />
                               </span>
@@ -141,20 +182,20 @@ const ProductCard = (props) => {
                       >
                         <div className="product-content-upper">
                           <p className="product-name f1">{item?.brand.name}</p>
-                          <p className="product-desc">{item.name}</p>
+                          <p className="product-desc">{item?.name}</p>
                         </div>
 
                         <div className="add-to-cart-box">
                           <div>
                             <p className="product-price f1">
                               <BsCurrencyRupee />
-                              {item.inrDiscount}
+                              {item?.inrDiscount}
                             </p>
                           </div>
                           <div>
                             <p className="discount-price f1">
                               <BsCurrencyRupee />
-                              <del>{item.inrMrp}</del>
+                              <del>{item?.inrMrp}</del>
                             </p>
                           </div>
                         </div>

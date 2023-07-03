@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
+import { IoIosArrowDown } from "react-icons/io";
+import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
 import {
@@ -18,6 +20,7 @@ import logo from "../../Images/logo.png";
 const Header = () => {
 
   const [successMsg, setSuccessMsg] = useState()
+  const [userdata, setUserdata] = useState()
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState()
   const [toggle, setToggle] = useState()
@@ -44,10 +47,10 @@ const Header = () => {
       if (response) {
         if(response?.data?.success === 200){
           resetLoginForm();
-         
+          setUserdata(response.data.user)
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
-          // Cookies.set("userdata", JSON.parse(response?.data))
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
+          
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
@@ -92,6 +95,8 @@ const Header = () => {
       console.log(error)
     }
   };
+
+  console.log(userdata, "user datatatatattatata")
 
   return (
     <>
@@ -288,6 +293,7 @@ const Header = () => {
                             </span>
                             Wishlist
                           </Link>
+                          {/* {!userdata && (
                           <button
                             className="header-right-link nav-link btn btn-primary"
                             data-bs-toggle="modal"
@@ -299,6 +305,51 @@ const Header = () => {
                             </span>
                             Login/Register
                           </button>
+                          )} */}
+                          {!userdata && (
+                          <div className="dropdown">
+                          <a
+                            className="header-right-link nav-link btn btn-primary icon m-0 dropdown-toggle"
+                            role="button"
+                            id="dropdownMenuButton"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            aria-current="page"
+                          >
+                            <FiUserCheck />
+                            <IoIosArrowDown className="mobile-user-view-icon" />
+                          </a>
+                          <ul
+                            className="dropdown-menu br-dr after-login-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <li>
+                              <Link
+                                className="dropdown-item-1"
+                                to="/user/profile"
+                              >
+                                My Profile
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="dropdown-item-2"
+                                to="/wishlist"
+                              >
+                                Wishlist
+                              </Link>
+                            </li>
+                            <li>
+                              <span
+                                className="dropdown-item-1"
+                                // onClick={() => logOutUser()}
+                              >
+                                Logout
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                          )}
                         </ul>
                       </div>
                     </div>
