@@ -23,23 +23,23 @@ export default function AllSubCategoriesDetails() {
   const history = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-    // GetSubCategory();
+    GetSubCategory();
   }, [])
 
 
 
-  const fetchUsers = async () => {
+  const GetSubCategory = async () => {
     setLoading(true);
     const response = await axios.get(`${baseUrl}/api/subcategory/all_subcategory`);
     setGetuser(response.data.data);
+    setSubCategories(response.data.data.length)
     setLoading(false);
   };
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
     if (e.target.value == "") {
-      fetchUsers();
+      GetSubCategory();
     }
   };
 
@@ -53,7 +53,7 @@ export default function AllSubCategoriesDetails() {
   const handleDelete = async (_id) => {
     // try {
     //   const DeletedData = await axios.delete(`${baseUrl}/api/subcategory/delete_subcategory_by_id`, { data: { _id: _id } });
-    //   fetchUsers();
+    //   GetSubCategory();
     // } catch (error) {
 
     // }
@@ -72,13 +72,13 @@ export default function AllSubCategoriesDetails() {
       dataIndex: "description",
       key: "description",
     },
-    {
-      title: "Image",
-      dataIndex: "image[0].path",
-      width: 80,
-      maxWidth: 90,
-      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
-    },
+    // {
+    //   title: "Image",
+    //   dataIndex: "image[0].path",
+    //   width: 80,
+    //   maxWidth: 90,
+    //   render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
+    // },
     {
 
       title: 'Action',

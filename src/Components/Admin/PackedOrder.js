@@ -225,7 +225,7 @@ const InProgressOrder = () => {
           closeIcon={<CustomCloseIcon />}
           className="New-order-details"
         >
-          <table class="table order-details">
+          <table className="table order-details">
             <thead>
               <tr>
                 <th scope="col">Image</th>

@@ -19,6 +19,7 @@ const [editableData] = useState(props);
   let [data, Setdata] = useState({
     name: "",
     description: "",
+    sortDescription:"",
     warehouse: "",
     category: "",
     subcategory: "",
@@ -101,10 +102,10 @@ const [editableData] = useState(props);
     e.preventDefault();
     const errors =  validateForm(data);
      setFormErrors(errors);
-     console.log(data,"check the all the data of producys");
     if (Object.keys(errors).length === 0) {
       const formData = new FormData();
       formData.append("description", data.description);
+      formData.append("sortDescription",data.sortDescription);
       formData.append("name", data.name);
       formData.append("warehouse", data.warehouse);
       formData.append("category", data.category);
@@ -131,7 +132,7 @@ const [editableData] = useState(props);
       })
         .then((res) => {
           res.json();
-          // navigate("/dashboard/allPrdoucts");
+          navigate("/dashboard/allPrdoucts");
         })
         .then((res) => {
           // GetData();
@@ -252,17 +253,6 @@ const [editableData] = useState(props);
         console.log(err, "errors");
       });
   };
-
-//   const GetData = async () => {
-//     await fetch(`${baseUrl}/api/product/all_product`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         Setproducts(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err, "error");
-//       });
-//   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -692,6 +682,23 @@ const [editableData] = useState(props);
                                 Trending Product
                               </option>
                             </select>
+                            </div>
+                          </div>
+                          <div className="col-6 p-2 form-floating">
+                            <div className="mt-2">
+                            <span className="category-select-div">Product Sort Description</span>
+                            <textarea
+                              className="form-control textarea h-100"
+                              id="floatingform"
+                              defaultValue={data.sortDescription}
+                              rows="3"
+                              onChange={(e) => {
+                                Setdata({
+                                  ...data,
+                                  sortDescription: e.target.value,
+                                });
+                              }}
+                            ></textarea>
                             </div>
                           </div>
                           <div className="col-6 p-2 form-floating">

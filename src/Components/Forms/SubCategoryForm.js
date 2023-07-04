@@ -12,7 +12,7 @@ const SubCategoryForm = (props) => {
     name: "",
     description: "",
     category: "",
-    image: [],
+    // image: [],
   });
 
 //   const [editableData] = useState(props.history.location.state);
@@ -50,9 +50,7 @@ const [editableData]=useState(props);
     if (!value.name) {
       error.name = "This field is required";
     }
-    if (value.image.length === 0) {
-      error.image = "This field is required";
-    }
+    
     return error;
   };
   const submitData = async (e) => {
@@ -61,10 +59,10 @@ const [editableData]=useState(props);
     Setformerror(errors);
     if (Object.keys(errors).length === 0) {
       const formData = new FormData();
-      await formData.append("description", data.description);
-      await formData.append("category", data.category);
-      await formData.append("name", data.name);
-      formData.append("image", data.image);
+       formData.append("description", data.description);
+       formData.append("category", data.category);
+       formData.append("name", data.name);
+      // formData.append("image", data.image);
       const url = `${baseUrl}/api/subcategory/add_subcategory`;
       await fetch(url, {
         method: "POST",
@@ -72,7 +70,7 @@ const [editableData]=useState(props);
       })
         .then((res) => {
           res.json();
-          history.push("/dashboard/AllSubCategories");
+          history("/dashboard/AllSubCategories");
         })
         .then((res) => {
           GetSubCategory();
@@ -160,9 +158,9 @@ const [editableData]=useState(props);
                       <div className="card p-4 m-2 mt-4 product-form">
                         <h5>SubCategory Creation</h5>
                         <div className="row">
-                        <div className="col-md-6 col-12 image-main-div">
-                              <div className="row image-second-div">
-                          {
+                        {/* <div className="col-md-6 col-12 image-main-div">
+                              <div className="row image-second-div"> */}
+                          {/* {
                             editableArray && editableArray.length>0  ?
                             <div className="d-flex">
                             <div className="col-10">
@@ -181,7 +179,7 @@ const [editableData]=useState(props);
                             <p className="formerror">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"40px"}} alt=""/> */}
+                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"40px"}} alt=""/> 
                           </div>
                           </div>:
                           <div className="col-12 p-2">
@@ -201,7 +199,7 @@ const [editableData]=useState(props);
                         </div>
                           }
                           </div>
-                          </div>
+                          </div> */}
                           <div className="col-md-6 col-12 p-2">
                           <div className="">
                           <span className="category-select-div">Category</span>
