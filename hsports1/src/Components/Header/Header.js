@@ -15,7 +15,7 @@ import {
 import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
-import logo from "../../Images/logo3.png";
+import logo from "../../Images/logo.png";
 
 const Header = () => {
 
