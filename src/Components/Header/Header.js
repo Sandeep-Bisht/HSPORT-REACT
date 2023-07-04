@@ -8,7 +8,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
-import SearchResult from "../SearchResult/SearchResult";
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -34,7 +33,6 @@ const Header = () => {
     getUserCart(userid);
   }, [])
 
-
   const getUserCart = async(userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
@@ -43,7 +41,6 @@ const Header = () => {
  
       if (response) {
         if(response?.data){
-         console.log(response.data.data, "response after cart api") 
         dispatch(ACTIONS.getCartDetails(response?.data.data));   
           
         } else {
@@ -89,7 +86,7 @@ const Header = () => {
           setUserdata(response.data.user)
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
-
+          dispatch(ACTIONS.getUserDetails(response.data.user))
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
@@ -140,7 +137,8 @@ const Header = () => {
   };
 
   const searchData = (searchResult)=>{
-    navigate("/SearchResult", {state:searchResult})
+    dispatch(ACTIONS.getSearchValue(searchResult))
+    navigate("/SearchResult")
   }
 
   const logOutUser =()=>{
