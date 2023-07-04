@@ -15,7 +15,7 @@ const Wishlist = () => {
   let url = "http://localhost:8080/";
 
   useEffect(() => {
-    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+    let userdata = JSON.stringify(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
   }, []);
@@ -61,7 +61,7 @@ const Wishlist = () => {
                     <div className="product-single-card">
                       <div className="product-pic">
                         <img
-                          src={`${url}${item?.productId.image[0]?.path}`}
+                          src={`${url}${item?.productId?.image[0]?.path}`}
                           onClick={() =>
                             redirectToProductDiscriptionPage(
                               item?.productId.slug,
@@ -83,22 +83,22 @@ const Wishlist = () => {
                       >
                         <div className="product-content-upper">
                           <p className="product-name f1">
-                            {item?.productId.brand.name}
+                            {item?.productId?.brand.name}
                           </p>
-                          <p className="product-desc">{item?.productId.name}</p>
+                          <p className="product-desc">{item?.productId?.name}</p>
                         </div>
 
                         <div className="add-to-cart-box">
                           <div>
                             <p className="product-price f1">
                               <BsCurrencyRupee />
-                              {item?.productId.inrDiscount}
+                              {item?.productId?.inrDiscount}
                             </p>
                           </div>
                           <div>
                             <p className="discount-price f1">
                               <BsCurrencyRupee />
-                              <del>{item?.productId.inrMrp}</del>
+                              <del>{item?.productId?.inrMrp}</del>
                             </p>
                           </div>
                         </div>
