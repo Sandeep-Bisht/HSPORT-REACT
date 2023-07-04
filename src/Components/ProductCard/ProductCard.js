@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductCard.css";
 import Cookies from "js-cookie";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -8,138 +8,241 @@ import { BsEye } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
+import { useSelector } from "react-redux";
+import * as ACTIONS from "../../CommonServices/Action";
+import { useDispatch } from "react-redux";
 
 const ProductCard = (props) => {
-
   let { addToast } = useToasts();
+  let dispatch = useDispatch();
   const [wishlistItem, setWishlistItem] = useState([]);
   const [userdata, setUserdata] = useState();
+  const [quantity, setQuantity] = useState(1);
+  const [userCart, setUserCart] = useState([]);
+  const [order, Setorder] = useState([]);
+
   const { productList } = props;
+
+  let cartState = useSelector((state) => state.UserCartReducer);
+
+  useEffect(() => {
+    if (cartState.userCartDetails) {
+      if (cartState.userCartDetails) {
+        console.log(cartState.userCartDetails, "cart stateeeeeeeeeeeee");
+        setUserCart(cartState.userCartDetails);
+      }
+    }
+  }, [cartState.userCartDetails]);
+
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
-console.log(productList, "product list")
-  useEffect(() =>{
-    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")))
+  useEffect(() => {
+    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
-    getUserWishlist(userdata._id)
-  },[])
-
+    getUserWishlist(userdata._id);
+  }, []);
 
   // Re Direction to single product page
   let redirectToProductDiscriptionPage = (name, productId) => {
-     navigate(`/product/${name}`, { state: productId });
+    navigate(`/product/${name}`, { state: productId });
     //navigate(`/product/${name}`);
   };
 
   // Add to wishlist
-  const onClickWishListHandler = async (productId) => { 
-    let data = {}; 
-    const foundNumber = wishlistItem.find((item) => item.productId._id === productId);
-      if(foundNumber){
+  const onClickWishListHandler = async (productId) => {
+    let data = {};
+    const foundNumber = wishlistItem.find(
+      (item) => item.productId._id === productId
+    );
+    if (foundNumber) {
+      addToast("Success!", {
+        appearance: "success",
+        content: `Product is already in wishlist`,
+      });
+    } else {
+      let userId = userdata._id;
+      data["productId"] = productId;
+      data["userId"] = userId;
 
-        addToast("Success!", {
-          appearance: "success",
-          content: `Product is already in wishlist`,
-        });
-        
-      } else{
-        let userId = userdata._id;
-        data["productId"] =productId;
-        data["userId"] = userId;
-    
-        
-        let url = "http://localhost:8080/api/wishlist/add_to_wishlist"
-        let response = await axios.post(url, data);
-        try {
-          if(response){
-            getUserWishlist(userdata._id)
-            addToast("Success!", {
-              appearance: "success",
-              content: `Product added to wishlist`,
-            });
-          }
-        } catch (error) {
-          console.log(error)
-          addToast("error!", {
-            appearance: "error",
-            content: `Something went wrong`,
-          });
-        }
-        
-      }
- 
-  };
-
-  // Get Wishlist Item
-  const getUserWishlist = async (userid) => {
-
-    let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
-    let response = await axios.post(url, {userId : userid});
+      let url = "http://localhost:8080/api/wishlist/add_to_wishlist";
+      let response = await axios.post(url, data);
       try {
-        if(response){
-           setWishlistItem(response.data.data) 
-         
-        }
-      } catch (error) {
-        console.log(error)
-      }
-  }
-
-  //Add to cart
-  const onClickCartHandler = async (order) => {
-    if(!userdata){
-      console.log(order, "order, sdnaskdfnas")
-    //   let data = {
-    //    "productid" : order._id,
-    // "name" : order.name,
-    // "quantity" : order.quantity,
-    // "inrMrp" : order.inrMrp ,
-    // "inrDiscount" : order.inrDiscount,
-    // "sortDescription" order.sortDescription,
-    // "category" : order.category,
-    // "subCategory" : order.subCategory,
-    // "manufacturer" : order.manufacturer,
-    // "image" : order.image[0].path
-    //   }
-      let url = "http://localhost:8080/api/cart/add_to_cart"
-      let response = await axios.post(url);
-      try {
-        if(response){
+        if (response) {
+          getUserWishlist(userdata._id);
           addToast("Success!", {
             appearance: "success",
             content: `Product added to wishlist`,
           });
         }
       } catch (error) {
-        console.log(error)
-        addToast("error!", {
-          appearance: "error",
-          content: `Something went wrong`,
-        });
-      }
-    }else{
-      console.log(order, "order, sdnaskdfnas")
-
-      let url = "http://localhost:8080/api/cart/add_to_cart"
-      let response = await axios.post(url);
-      try {
-        if(response){
-          addToast("Success!", {
-            appearance: "success",
-            content: `Product added to wishlist`,
-          });
-        }
-      } catch (error) {
-        console.log(error)
+        console.log(error);
         addToast("error!", {
           appearance: "error",
           content: `Something went wrong`,
         });
       }
     }
-   
-  }
+  };
+
+  // Get Wishlist Item
+  const getUserWishlist = async (userid) => {
+    let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
+    let response = await axios.post(url, { userId: userid });
+    try {
+      if (response) {
+        setWishlistItem(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //cart finction
+
+  const cartfunction = async (
+    productid,
+    name,
+    quantity,
+    mrp,
+    salePrice,
+    sortDescription,
+    category,
+    brand,
+    subcategory,
+    image
+  ) => {
+    if (quantity > 0) {
+      var merged = false;
+      var newItemObj = {
+        productid: productid,
+        name: name,
+        image: image,
+        quantity: quantity,
+        mrp: parseInt(mrp),
+        salePrice: parseInt(salePrice),
+        sortDescription: sortDescription,
+        category: category,
+        subcategory: subcategory,
+        brand: brand,
+        status: "Pending",
+        delivery_time: "No Status",
+      };
+      if (userCart.order == null || userCart.order == []) {
+        console.log("inside add to  cart", userCart)
+        for (var i = 0; i < order.length; i++) {
+          if (order[i].productid == newItemObj.productid) {
+            order[i].quantity += newItemObj.quantity;
+            merged = true;
+            setQuantity(1);
+          }
+        }
+        if (!merged) {
+          order.push(newItemObj);
+          setQuantity(1);
+          AddtoCart();
+          
+        }
+      } else {
+        console.log("inside update cart", userCart)
+        for (var i = 0; i < userCart.order.length; i++) {
+          if (userCart.order[i].productid == newItemObj.productid) {
+            userCart.order[i].quantity += newItemObj.quantity;
+            merged = true;
+          }
+          setQuantity(1);
+        }
+        if (!merged) {
+          userCart.order.push(newItemObj);
+        }
+        setQuantity(1);
+         UpdateCart();
+      }
+    }
+  };
+
+  // cart by id
+
+  const CartById = async () => {
+    if (!userdata == []) {
+      await fetch(`${url}api/cart/cart_by_id`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: userdata._id,
+        }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          console.log(data, "inside cart by iddddd")
+          setUserCart(data.data[0]);
+          let cartItems = data.data[0].order.length;
+          dispatch(ACTIONS.getCartItem(cartItems));
+        })
+        .catch((err) => {
+          console.log(err, "error");
+        });
+    }
+  };
+
+  // Add to cart
+  const AddtoCart = async () => {
+    if (!userdata == []) {
+      await fetch(`${url}api/cart/add_to_cart`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: userdata._id,
+          order: order,
+        }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          console.log(data, "inside adddddddd to cart")
+          // setUserCart(data.data);
+          CartById();
+          addToast("Success!", {
+            appearance: "success",
+            content: `Product added to cart`,
+          });
+        })
+        .catch((err) => {
+          console.log(err, "error");
+        });
+    }
+  };
+
+  //update cart
+
+  const UpdateCart = () => {
+    fetch( `${url}api/cart/update_cart_by_id`, {
+      method: "put",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _id: userCart._id,
+        userid: userdata._id,
+        order: userCart.order,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        CartById();
+        addToast("Success!", {
+          appearance: "success",
+          content: `Product added to cart`,
+        });
+      })
+      .then((err) => console.log(err, "inside update cart"));
+  };
 
   return (
     <>
@@ -163,14 +266,32 @@ console.log(productList, "product list")
                         <img
                           src={`${url}${item?.image[0]?.path}`}
                           onClick={() =>
-                            redirectToProductDiscriptionPage(item?.slug, item._id)
+                            redirectToProductDiscriptionPage(
+                              item?.slug,
+                              item._id
+                            )
                           }
                           className="img-fluid"
                           alt="..."
                         />
                         <div className="product-content-lower">
                           <ul>
-                            <li onClick={() => onClickCartHandler(item)}>
+                            <li
+                              onClick={() =>
+                                cartfunction(
+                                  item._id,
+                                  item.name,
+                                  quantity,
+                                  item.inrMrp,
+                                  item.inrDiscount,
+                                  item.sortDescription,
+                                  item.category.name,
+                                  item.brand.name,
+                                  item.subcategory.name,
+                                  item.image[0].path
+                                )
+                              }
+                            >
                               <span className="product-card-icon">
                                 <AiOutlineShoppingCart />
                               </span>

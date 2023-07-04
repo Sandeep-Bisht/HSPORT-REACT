@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import * as ACTIONS from "./Action";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
@@ -16,14 +17,45 @@ import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
+import { useDispatch } from "react-redux";
 
 const Header = () => {
 
+  let dispatch = useDispatch();
   const [successMsg, setSuccessMsg] = useState()
   const [userdata, setUserdata] = useState()
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState()
   const [toggle, setToggle] = useState()
+  let userid = "649e74f60540afa40dc097e0";
+
+  useEffect(() => {
+    getUserCart(userid);
+  }, [])
+
+
+  const getUserCart = async(userid) => {
+    try {
+      let url = "http://localhost:8080/api/cart/cart_by_id";
+
+    let response = await axios.post(url, {userid : userid});
+ 
+      if (response) {
+        if(response?.data){
+         console.log(response.data.data, "response after cart api") 
+        dispatch(ACTIONS.getCartDetails(response?.data.data));   
+          
+        } else {
+          setErrorMsg(response.data.error)
+        }
+
+      }
+   
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   // ----Login Form ---------
   const {
@@ -96,7 +128,6 @@ const Header = () => {
     }
   };
 
-  console.log(userdata, "user datatatatattatata")
 
   return (
     <>
@@ -363,26 +394,26 @@ const Header = () => {
 
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content registration-section">
-            <div class="modal-header modal-header-top">
+        <div className="modal-dialog">
+          <div className="modal-content registration-section">
+            <div className="modal-header modal-header-top">
               <button
                 ref={loginModalRef}
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <div className="row inside-modal-body">
                 <div className="col-md-6 left-login-modal">
                   <div className="m-3">
@@ -401,13 +432,13 @@ const Header = () => {
                 <div className="col-md-6 mx-auto mt-3">
                   <div className="row">
                     <ul
-                      class="nav nav-pills mb-3 login-section"
+                      className="nav nav-pills mb-3 login-section"
                       id="pills-tab"
                       role="tablist"
                     >
-                      <li class="nav-item" role="presentation">
+                      <li className="nav-item" role="presentation">
                         <button
-                          class="nav-link active"
+                          className="nav-link active"
                           id="pills-home-tab"
                           data-bs-toggle="pill"
                           data-bs-target="#pills-home"
@@ -420,9 +451,9 @@ const Header = () => {
                           LOGIN
                         </button>
                       </li>
-                      <li class="nav-item" role="presentation">
+                      <li className="nav-item" role="presentation">
                         <button
-                          class="nav-link"
+                          className="nav-link"
                           id="pills-profile-tab"
                           data-bs-toggle="pill"
                           data-bs-target="#pills-profile"
@@ -436,9 +467,9 @@ const Header = () => {
                         </button>
                       </li>
                     </ul>
-                    <div class="tab-content" id="pills-tabContent">
+                    <div className="tab-content" id="pills-tabContent">
                       <div
-                        class="tab-pane fade show active"
+                        className="tab-pane fade show active"
                         id="pills-home"
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"
@@ -516,7 +547,7 @@ const Header = () => {
                         </div>
                       </div>
                       <div
-                        class="tab-pane fade"
+                        className="tab-pane fade"
                         id="pills-profile"
                         role="tabpanel"
                         aria-labelledby="pills-profile-tab"
