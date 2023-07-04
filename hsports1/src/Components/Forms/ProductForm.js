@@ -19,7 +19,6 @@ const [editableData] = useState(props);
   let [data, Setdata] = useState({
     name: "",
     description: "",
-    sortDescription:"",
     warehouse: "",
     category: "",
     subcategory: "",
@@ -105,7 +104,6 @@ const [editableData] = useState(props);
     if (Object.keys(errors).length === 0) {
       const formData = new FormData();
       formData.append("description", data.description);
-      formData.append("sortDescription",data.sortDescription);
       formData.append("name", data.name);
       formData.append("warehouse", data.warehouse);
       formData.append("category", data.category);
@@ -682,23 +680,6 @@ const [editableData] = useState(props);
                                 Trending Product
                               </option>
                             </select>
-                            </div>
-                          </div>
-                          <div className="col-6 p-2 form-floating">
-                            <div className="mt-2">
-                            <span className="category-select-div">Product Sort Description</span>
-                            <textarea
-                              className="form-control textarea h-100"
-                              id="floatingform"
-                              defaultValue={data.sortDescription}
-                              rows="3"
-                              onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  sortDescription: e.target.value,
-                                });
-                              }}
-                            ></textarea>
                             </div>
                           </div>
                           <div className="col-6 p-2 form-floating">

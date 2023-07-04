@@ -131,7 +131,7 @@ const ProductDetailPage = () => {
                           // }
                         >
                           <span className="btn-icon">
-                             {/* <AiOutlineShoppingCart />  */}
+                            {/* <AiOutlineShoppingCart /> */}
                           </span>
                           <span className="btn-text ps-2">Add to Cart</span>
                         </button>

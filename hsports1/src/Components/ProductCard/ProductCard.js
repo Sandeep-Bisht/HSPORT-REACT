@@ -35,7 +35,7 @@ console.log(productList, "product list")
   // Add to wishlist
   const onClickWishListHandler = async (productId) => { 
     let data = {}; 
-    const foundNumber = wishlistItem.find((item) => item.productId?._id === productId);
+    const foundNumber = wishlistItem.find((item) => item.productId._id === productId);
       if(foundNumber){
 
         addToast("Success!", {
@@ -71,11 +71,11 @@ console.log(productList, "product list")
  
   };
 
-
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
+
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
-    let response = await axios.post(url, {userId:userid});
+    let response = await axios.post(url, {userId : userid});
       try {
         if(response){
            setWishlistItem(response.data.data) 

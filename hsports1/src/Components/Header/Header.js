@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
-import SearchResult from "../SearchResult/SearchResult";
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -16,7 +15,7 @@ import {
 import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
-import logo from "../../Images/logo3.png";
+import logo from "../../Images/logo.png";
 
 const Header = () => {
 
@@ -25,11 +24,6 @@ const Header = () => {
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState()
   const [toggle, setToggle] = useState()
-  const [searchResult,setSearchResult] = useState("");
-
-  console.log(searchResult,"searchResult")
-
-  const navigate=useNavigate();
 
   // ----Login Form ---------
   const {
@@ -105,15 +99,7 @@ const Header = () => {
     }
   };
 
-  const searchResultHandler = (e) => {
-    setSearchResult(e.target.value);
-  };
-
-  const searchData = (searchResult)=>{
-    navigate("/SearchResult", {state:searchResult})
   console.log(userdata, "user datatatatattatata")
-  }
-  
   const logOutUser =()=>{
     setUserdata("");
     Cookies.remove("userdata");
@@ -288,16 +274,7 @@ const Header = () => {
                             className="form-control me-2"
                             type="search"
                             placeholder="Search"
-                            value={searchResult}
                             aria-label="Search"
-                            onChange={(e)=>searchResultHandler(e)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" && searchResult.length) {
-                                e.preventDefault(); // Prevent form submission
-                                searchData(searchResult);
-                                // Additional logic or function calls for handling the search
-                              }
-                            }}
                           />
                           <button className="search-btn" type="submit">
                             <AiOutlineSearch />
