@@ -11,6 +11,8 @@ const ProductDetailPage = () => {
   const navigate = useNavigate()
   let location = useLocation()
 
+  console.log(location,"location")
+
   
   useEffect(()=>{
     if(location?.state){

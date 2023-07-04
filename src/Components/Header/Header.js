@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
+import SearchResult from "../SearchResult/SearchResult";
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -21,6 +22,11 @@ const Header = () => {
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState()
   const [toggle, setToggle] = useState()
+  const [searchResult,setSearchResult] = useState("");
+
+  console.log(searchResult,"searchResult")
+
+  const navigate=useNavigate();
 
   // ----Login Form ---------
   const {
@@ -92,6 +98,14 @@ const Header = () => {
       console.log(error)
     }
   };
+
+  const searchResultHandler = (e) => {
+    setSearchResult(e.target.value);
+  };
+
+  const searchData = (searchResult)=>{
+    navigate("/SearchResult", {state:searchResult})
+  }
 
   return (
     <>
@@ -261,7 +275,16 @@ const Header = () => {
                             className="form-control me-2"
                             type="search"
                             placeholder="Search"
+                            value={searchResult}
                             aria-label="Search"
+                            onChange={(e)=>searchResultHandler(e)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && searchResult.length) {
+                                e.preventDefault(); // Prevent form submission
+                                searchData(searchResult);
+                                // Additional logic or function calls for handling the search
+                              }
+                            }}
                           />
                           <button className="search-btn" type="submit">
                             <AiOutlineSearch />

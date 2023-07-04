@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from "react-router-dom";
+import { useLocation, Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from '../Components/HomePage/HomePage';
 import Dashboard from '../Components/Admin/Dashboard';
 import PageNotFound from '../PageNotFound';
@@ -27,7 +27,7 @@ import Cart from '../Components/Cart/Cart';
 import Wishlist from '../Components/Wishlist/Wishlist';
 import AllProducts from '../Components/AllProducts/AllProducts';
 import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
-
+import SearchResult from '../Components/SearchResult/SearchResult';
 const ApplicationRoutes = () => {
   return (
     <Routes>
@@ -62,6 +62,7 @@ const ApplicationRoutes = () => {
       <Route path='/wishlist' element={<Wishlist/>}/>
       <Route path='/allproducts' element={<AllProducts/>}/>
       <Route path='/product/:id' element={<ProductDetailPage />} />
+      <Route path='SearchResult' element={<SearchResult/>} />
 
 
     </Routes>

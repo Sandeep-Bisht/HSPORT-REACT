@@ -35,7 +35,6 @@ function AllProducts() {
         let response = await axios.get(url);
           try {
             if(response){
-               console.log(response,"response of produsct") 
                setAllProducts(response.data.data) 
              
             }

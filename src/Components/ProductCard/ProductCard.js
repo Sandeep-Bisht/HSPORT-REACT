@@ -22,7 +22,7 @@ const ProductCard = (props) => {
 
 
   useEffect(() =>{
-      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")))
+      let userdata = JSON.stringify(decodeURIComponent(Cookies.get("userdata")))
       setUserdata(userdata);
       getUserWishlist(userdata._id)
   },[])
