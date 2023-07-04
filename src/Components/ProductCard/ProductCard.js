@@ -8,9 +8,8 @@ import { BsEye } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
-import { useSelector } from "react-redux";
 import * as ACTIONS from "../../CommonServices/Action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = (props) => {
   let { addToast } = useToasts();

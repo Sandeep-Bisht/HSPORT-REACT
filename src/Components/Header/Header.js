@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import * as ACTIONS from "./Action";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
+import SearchResult from "../SearchResult/SearchResult";
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -56,6 +57,10 @@ const Header = () => {
       console.log(error)
     }
   }
+  const [searchResult,setSearchResult] = useState("");
+
+
+  const navigate=useNavigate();
 
   // ----Login Form ---------
   const {
@@ -70,19 +75,21 @@ const Header = () => {
     },
     mode: "onBlur",
   });
-
+  useEffect(() => {
+    setUserdata(Cookies.get("userdata"));
+  }, []);
   const handleLogin = async (data) => {
     let url = "http://localhost:8080/api/auth/login";
 
     let response = await axios.post(url, data);
     try {
       if (response) {
-        if(response?.data?.success === 200){
+        if (response?.data?.success === 200) {
           resetLoginForm();
           setUserdata(response.data.user)
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
-          
+
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
@@ -128,6 +135,19 @@ const Header = () => {
     }
   };
 
+  const searchResultHandler = (e) => {
+    setSearchResult(e.target.value);
+  };
+
+  const searchData = (searchResult)=>{
+    navigate("/SearchResult", {state:searchResult})
+  }
+
+  const logOutUser =()=>{
+    setUserdata("");
+    Cookies.remove("userdata");
+    Cookies.remove("hsports_token")
+  }
 
   return (
     <>
@@ -186,72 +206,72 @@ const Header = () => {
                               <div className="row">
                                 <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                  Outdoor Sports
+                                    Outdoor Sports
                                   </p>
                                   <ul className="mega-menu-sub-heading-list">
-                                     
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
-                                    
+
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
+
                                   </ul>
                                 </div>
                                 <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                  Outdoor Sports
+                                    Outdoor Sports
                                   </p>
                                   <ul className="mega-menu-sub-heading-list">
-                                     
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
-                                    
+
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
+
                                   </ul>
                                 </div>
                                 <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                  Outdoor Sports
+                                    Outdoor Sports
                                   </p>
                                   <ul className="mega-menu-sub-heading-list">
-                                     
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
-                                    
+
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
+
                                   </ul>
                                 </div>
                                 <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                  Outdoor Sports
+                                    Outdoor Sports
                                   </p>
                                   <ul className="mega-menu-sub-heading-list">
-                                     
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
-                                    
+
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
+
                                   </ul>
                                 </div>
                                 <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                  Outdoor Sports
+                                    Outdoor Sports
                                   </p>
                                   <ul className="mega-menu-sub-heading-list">
-                                     
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart"/>Horse Riding</li>
-                                    
+
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
+                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
+
                                   </ul>
                                 </div>
                               </div>
@@ -297,7 +317,16 @@ const Header = () => {
                             className="form-control me-2"
                             type="search"
                             placeholder="Search"
+                            value={searchResult}
                             aria-label="Search"
+                            onChange={(e)=>searchResultHandler(e)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && searchResult.length) {
+                                e.preventDefault(); // Prevent form submission
+                                searchData(searchResult);
+                                // Additional logic or function calls for handling the search
+                              }
+                            }}
                           />
                           <button className="search-btn" type="submit">
                             <AiOutlineSearch />
@@ -324,63 +353,68 @@ const Header = () => {
                             </span>
                             Wishlist
                           </Link>
-                          {/* {!userdata && (
-                          <button
-                            className="header-right-link nav-link btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop"
-                            type="button"
-                          >
-                            <span>
-                              <AiOutlineUser />
-                            </span>
-                            Login/Register
-                          </button>
-                          )} */}
-                          {!userdata && (
-                          <div className="dropdown">
+                          {userdata ?
+                            (
+                              <div className="dropdown after-login-dropdown">
                           <a
-                            className="header-right-link nav-link btn btn-primary icon m-0 dropdown-toggle"
-                            role="button"
-                            id="dropdownMenuButton"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            aria-current="page"
-                          >
-                            <FiUserCheck />
-                            <IoIosArrowDown className="mobile-user-view-icon" />
-                          </a>
-                          <ul
-                            className="dropdown-menu br-dr after-login-menu"
-                            aria-labelledby="dropdownMenuButton"
-                          >
-                            <li>
-                              <Link
-                                className="dropdown-item-1"
-                                to="/user/profile"
+                                  className="header-right-link nav-link  icon m-0 dropdown-toggle"
+                                  role="button"
+                                  id="dropdownMenuButton"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                  aria-current="page"
+                                >
+                                  <div className="me-1"><FiUserCheck className="one" /></div>
+                                  <div><IoIosArrowDown className="mobile-user-view-icon" /></div>
+                                </a>
+                                
+                                <ul
+                                  className="dropdown-menu br-dr after-login-menu"
+                                  aria-labelledby="dropdownMenuButton"
+                                >
+                                  <li>
+                                    <Link
+                                      className="dropdown-item-1"
+                                      to="/user/profile"
+                                    >
+                                      My Profile
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link
+                                      className="dropdown-item-2"
+                                      to="/wishlist"
+                                    >
+                                      Wishlist
+                                    </Link>
+                                  </li>
+                                  <li>
+                                    <Link to="/"
+                                      className="dropdown-item-1"
+                                    onClick={() => logOutUser()}
+                                    >
+                                      Logout
+                                    </Link>
+                                  </li>
+                                </ul>
+                              </div>
+                            )
+                            :
+                            (
+                              <button
+                                className="header-right-link nav-link "
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                type="button"
                               >
-                                My Profile
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                className="dropdown-item-2"
-                                to="/wishlist"
-                              >
-                                Wishlist
-                              </Link>
-                            </li>
-                            <li>
-                              <span
-                                className="dropdown-item-1"
-                                // onClick={() => logOutUser()}
-                              >
-                                Logout
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                          )}
+                                <span>
+                                  <AiOutlineUser />
+                                </span>
+                                Login/Register
+                              </button>
+                            )
+
+                          }
                         </ul>
                       </div>
                     </div>
