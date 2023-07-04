@@ -27,7 +27,6 @@ const Header = () => {
   const [toggle, setToggle] = useState()
   const [searchResult,setSearchResult] = useState("");
 
-  console.log(searchResult,"searchResult")
 
   const navigate=useNavigate();
 
@@ -53,7 +52,6 @@ const Header = () => {
     let response = await axios.post(url, data);
     try {
       if (response) {
-        console.log(response.data.success, "login")
         if (response?.data?.success === 200) {
           resetLoginForm();
           setUserdata(response.data.user)
@@ -111,9 +109,8 @@ const Header = () => {
 
   const searchData = (searchResult)=>{
     navigate("/SearchResult", {state:searchResult})
-  console.log(userdata, "user datatatatattatata")
   }
-  
+
   const logOutUser =()=>{
     setUserdata("");
     Cookies.remove("userdata");

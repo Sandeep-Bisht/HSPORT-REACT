@@ -10,7 +10,6 @@ function SearchResult() {
    
 
     useEffect(()=>{   
-        console.log(location,"location")
         if(location && location.state)
         {
         getAllProducts(location.state);
@@ -20,13 +19,9 @@ function SearchResult() {
     const getAllProducts = async (searchData) => {
       try {
         const url = "http://localhost:8080/api/product/all_product";
-        const response = await axios.get(url);
-        console.log(response.data.data, "response of products");
-    
+        const response = await axios.get(url);    
         if (response && response.data.data) {
-          console.log(searchData,"searchData")
           const filterData = response.data.data.filter((el) => el.slug.includes(searchData));
-          console.log(filterData, "filtedata");
           setAllProducts(filterData);
         }
       } catch (error) {

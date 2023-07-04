@@ -173,3 +173,18 @@
     border-top: 1px solid #e6dbdb;
    }
 /* ----------breadcrumb----------------------- */
+.multiple-images {
+    padding: 25px 0;
+}
+.react-multi-carousel-track {
+    display: flex;
+    justify-content: center;
+}
+.other-Images-carousl{
+    height: 100px;
+    width: 100%;
+    object-fit: contain;
+    padding: 5px;
+    background: #efefef;
+    cursor: pointer;
+}

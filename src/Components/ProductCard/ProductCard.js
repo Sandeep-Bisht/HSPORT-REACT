@@ -18,7 +18,6 @@ const ProductCard = (props) => {
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
-console.log(productList, "product list")
   useEffect(() =>{
     let userdata = JSON.stringify(decodeURIComponent(Cookies.get("userdata")))
     setUserdata(userdata);
@@ -89,7 +88,6 @@ console.log(productList, "product list")
   //Add to cart
   const onClickCartHandler = async (order) => {
     if(!userdata){
-      console.log(order, "order, sdnaskdfnas")
       let url = "http://localhost:8080/api/cart/add_to_cart"
       let response = await axios.post(url);
       try {
@@ -107,8 +105,6 @@ console.log(productList, "product list")
         });
       }
     }else{
-      console.log(order, "order, sdnaskdfnas")
-
       let url = "http://localhost:8080/api/cart/add_to_cart"
       let response = await axios.post(url);
       try {

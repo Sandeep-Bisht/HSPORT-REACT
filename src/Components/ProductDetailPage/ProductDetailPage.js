@@ -3,11 +3,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiFillHeart } from "react-icons/ai";
 import "./ProductDetailPage.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const ProductDetailPage = () => {
   const navigate = useNavigate();
   let location = useLocation();
   const [productDetail, setProductDetail] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
+
   let url = "http://localhost:8080/";
 
   useEffect(() => {
@@ -15,7 +19,6 @@ const ProductDetailPage = () => {
       getProductDetails(location?.state);
     }
   }, [location.state]);
-  console.log(location.state, "locataion state")
 
   const getProductDetails = async (productId) => {
     try {
@@ -24,7 +27,6 @@ const ProductDetailPage = () => {
       data["_id"] = productId;
       let response = await axios.post(url, data);
       if (response) {
-        console.log(response, "response of produsct get ");
         setProductDetail(response?.data?.data[0]);
       }
     } catch (error) {
@@ -32,12 +34,35 @@ const ProductDetailPage = () => {
     }
   };
 
+
   let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");
     // navigate(`/collections/${subCategories}`, { state: subCategoryId });
   };
 
-  console.log("sdasd", productDetail?.image?.[0]?.path);
+  let imageOnClickHandler = (imageUrl) => {
+    setImageUrl(imageUrl);
+  };
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 4,
+    },
+  };
 
   return (
     <>
@@ -72,11 +97,51 @@ const ProductDetailPage = () => {
                 className="single-image-detail"
                 // onClick={() => showImageOnModal(imageUrl)}
               >
-                <img
-                  src={`${url}${ productDetail?.image?.[0]?.path }`}
+                {
+                  imageUrl ?
+                  <img
+                  src={imageUrl}
                   className="img-fluid"
                   alt=""
                 />
+                :
+                <img
+                src={`${url}${ productDetail?.image?.[0]?.path }`}
+                className="img-fluid"
+                alt=""
+              />
+                }
+
+              </div>
+              <div className="multiple-images">
+              <div className="multiple-image-detail">
+                {
+                productDetail && productDetail.otherImage &&
+                <Carousel
+                swipeable={false}
+                draggable={false}
+                //showDots={true}
+                ssr={true}
+                infinite={true}
+                autoPlay={false}
+                responsive={responsive}
+              >
+                {productDetail.otherImage &&
+                  productDetail.otherImage.map((item, index) => {
+                    return (
+                        <span key={index} className="multiple-image-1">
+              <img
+                className="img-fluid other-Images-carousl"
+                onClick={() => imageOnClickHandler(`${url}${item.path}`)}
+                src={`${url}${item.path}`}
+                alt="Image"
+              />
+                        </span>
+                    );
+                  })}
+              </Carousel>
+                }
+              </div>
               </div>
             </div>
 
