@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { AiFillHeart } from "react-icons/ai";
 import "./ProductDetailPage.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import * as ACTIONS from "../../CommonServices/Action";
+
 
 const ProductDetailPage = () => {
+
+  let { addToast } = useToasts();
+  let dispatch = useDispatch()
   const navigate = useNavigate();
   let location = useLocation();
   const [productDetail, setProductDetail] = useState([]);
+  const [wishlistItem, setWishlistItem] = useState([]);
+  const [userdata, setUserdata] = useState();
   const [imageUrl, setImageUrl] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [userCart, setUserCart] = useState([]);
+  const [order, Setorder] = useState([]);
 
   let url = "http://localhost:8080/";
+
+  useEffect(() => {
+    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+    setUserdata(userdata);
+    getUserWishlist(userdata._id);
+  }, []);
 
   useEffect(() => {
     if (location?.state) {
@@ -63,6 +82,201 @@ const ProductDetailPage = () => {
       items: 4,
     },
   };
+
+   // Get Wishlist Item
+   const getUserWishlist = async (userid) => {
+    let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
+    let response = await axios.post(url, { userId: userid });
+    try {
+      if (response) {
+        setWishlistItem(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+   // Add to wishlist
+   const onClickWishListHandler = async (productId) => {
+    let data = {};
+    const foundNumber = wishlistItem.find(
+      (item) => item.productId._id === productId
+    );
+    if (foundNumber) {
+      addToast("Success!", {
+        appearance: "success",
+        content: `Product is already in wishlist`,
+      });
+    } else {
+      let userId = userdata._id;
+      data["productId"] = productId;
+      data["userId"] = userId;
+
+      let url = "http://localhost:8080/api/wishlist/add_to_wishlist";
+      let response = await axios.post(url, data);
+      try {
+        if (response) {
+          getUserWishlist(userdata._id);
+          addToast("Success!", {
+            appearance: "success",
+            content: `Product added to wishlist`,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        addToast("error!", {
+          appearance: "error",
+          content: `Something went wrong`,
+        });
+      }
+    }
+  };
+
+    //cart finction
+
+    const cartfunction = async (
+      productid,
+      name,
+      quantity,
+      mrp,
+      salePrice,
+      sortDescription,
+      category,
+      brand,
+      subcategory,
+      image
+    ) => {
+      if (quantity > 0) {
+        var merged = false;
+        var newItemObj = {
+          productid: productid,
+          name: name,
+          image: image,
+          quantity: quantity,
+          mrp: parseInt(mrp),
+          salePrice: parseInt(salePrice),
+          sortDescription: sortDescription,
+          category: category,
+          subcategory: subcategory,
+          brand: brand,
+          status: "Pending",
+          delivery_time: "No Status",
+        };
+        if (userCart.order == null || userCart.order == []) {
+          console.log("inside add to  cart", userCart)
+          for (var i = 0; i < order.length; i++) {
+            if (order[i].productid == newItemObj.productid) {
+              order[i].quantity += newItemObj.quantity;
+              merged = true;
+              setQuantity(1);
+            }
+          }
+          if (!merged) {
+            order.push(newItemObj);
+            setQuantity(1);
+            AddtoCart();
+            
+          }
+        } else {
+          console.log("inside update cart", userCart)
+          for (var i = 0; i < userCart.order.length; i++) {
+            if (userCart.order[i].productid == newItemObj.productid) {
+              userCart.order[i].quantity += newItemObj.quantity;
+              merged = true;
+            }
+            setQuantity(1);
+          }
+          if (!merged) {
+            userCart.order.push(newItemObj);
+          }
+          setQuantity(1);
+           UpdateCart();
+        }
+      }
+    };
+  
+    // cart by id
+  
+    const CartById = async () => {
+      if (!userdata == []) {
+        await fetch(`${url}api/cart/cart_by_id`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userid: userdata._id,
+          }),
+        })
+          .then((res) => res.json())
+          .then(async (data) => {
+            console.log(data, "inside cart by iddddd")
+            setUserCart(data.data[0]);
+            let cartItems = data.data[0].order.length;
+            dispatch(ACTIONS.getCartItem(cartItems));
+          })
+          .catch((err) => {
+            console.log(err, "error");
+          });
+      }
+    };
+  
+    // Add to cart
+    const AddtoCart = async () => {
+      if (!userdata == []) {
+        await fetch(`${url}api/cart/add_to_cart`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userid: userdata._id,
+            order: order,
+          }),
+        })
+          .then((res) => res.json())
+          .then(async (data) => {
+            console.log(data, "inside adddddddd to cart")
+            // setUserCart(data.data);
+            CartById();
+            addToast("Success!", {
+              appearance: "success",
+              content: `Product added to cart`,
+            });
+          })
+          .catch((err) => {
+            console.log(err, "error");
+          });
+      }
+    };
+  
+    //update cart
+  
+    const UpdateCart = () => {
+      fetch( `${url}api/cart/update_cart_by_id`, {
+        method: "put",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: userCart._id,
+          userid: userdata._id,
+          order: userCart.order,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          CartById();
+          addToast("Success!", {
+            appearance: "success",
+            content: `Product added to cart`,
+          });
+        })
+        .then((err) => console.log(err, "inside update cart"));
+    };
 
   return (
     <>
@@ -151,8 +365,7 @@ const ProductDetailPage = () => {
                   {productDetail?.name}
                   <div
                     className="wishlist-div ps-3"
-                    // onClick={() =>
-                    //   onClickWishListHandler()}
+                    onClick={() => onClickWishListHandler(productDetail._id)}
                   >
                     <span className="wishlist-btn" id="wishlisted">
                       <AiFillHeart />
@@ -191,9 +404,20 @@ const ProductDetailPage = () => {
                       <div className="col-md-6">
                         <button
                           className="common-btn w-100 login-btn"
-                          // onClick={() =>
-                          //   addProductToCart()
-                          // }
+                          onClick={() =>
+                            cartfunction(
+                              productDetail._id,
+                              productDetail.name,
+                              quantity,
+                              productDetail.inrMrp,
+                              productDetail.inrDiscount,
+                              productDetail.sortDescription,
+                              productDetail.category.name,
+                              productDetail.brand.name,
+                              productDetail.subcategory.name,
+                              productDetail.image[0].path
+                            )
+                          }
                         >
                           <span className="btn-icon">
                              {/* <AiOutlineShoppingCart />  */}

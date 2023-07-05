@@ -66,9 +66,9 @@ const getAllProducts = async() => {
 
               <div className="carousel-caption d-md-block">
                 <p className="slider-title">
-                  Amazing Tour In
+                  Amazing Shopping
                   <br />
-                  madagascar{" "}
+                  Experience{" "}
                 </p>
                
                 <a href="#" className="common-btn">
@@ -80,9 +80,9 @@ const getAllProducts = async() => {
               <img src={slider2} className="d-block w-100" alt="..." />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
-                  Amazing Tour In
+                  Amazing Sports
                   <br />
-                  Hampshire{" "}
+                  Products{" "}
                 </p>
                 
                 <a href="#" className="common-btn">
@@ -94,9 +94,9 @@ const getAllProducts = async() => {
               <img src={slider3} className="d-block w-100" alt="..." />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
-                  Amazing Tour In
+                  Amazing Sports
                   <br />
-                  Indonesia{" "}
+                  Experience{" "}
                 </p>               
                 <a href="#" className="common-btn">
                   <span className="">Shop Now</span>
