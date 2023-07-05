@@ -27,21 +27,19 @@ const Header = () => {
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState();
   const [toggle, setToggle] = useState();
-  let userid = "649e74f60540afa40dc097e0";
 
-  useEffect(() => {
-    getUserCart(userid);
-  }, []);
+  let userId="";
 
+useEffect(()=>{
+  userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+  getUserCart(userId?._id);
+})
   const getUserCart = async (userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
-
       let response = await axios.post(url, { userid: userid });
-
       if (response) {
         if (response?.data) {
-          console.log(response.data.data, "response after cart api");
           dispatch(ACTIONS.getCartDetails(response?.data.data));
         } else {
           setErrorMsg(response.data.error);
@@ -71,7 +69,7 @@ const Header = () => {
   useEffect(() => {
     setUserdata(Cookies.get("userdata"));
   }, []);
-  const handleLogin = async (data) => {
+;  const handleLogin = async (data) => {
     let url = "http://localhost:8080/api/auth/login";
 
     let response = await axios.post(url, data);

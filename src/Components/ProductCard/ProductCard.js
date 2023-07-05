@@ -24,10 +24,10 @@ const ProductCard = (props) => {
 
   let cartState = useSelector((state) => state.UserCartReducer);
 
+
   useEffect(() => {
     if (cartState.userCartDetails) {
       if (cartState.userCartDetails) {
-        console.log(cartState.userCartDetails, "cart stateeeeeeeeeeeee");
         setUserCart(cartState.userCartDetails);
       }
     }
@@ -37,7 +37,7 @@ const ProductCard = (props) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    let userdata = JSON.stringify(decodeURIComponent(Cookies.get("userdata")));
+    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
   }, []);
@@ -128,7 +128,6 @@ const ProductCard = (props) => {
         delivery_time: "No Status",
       };
       if (userCart.order == null || userCart.order == []) {
-        console.log("inside add to  cart", userCart)
         for (var i = 0; i < order.length; i++) {
           if (order[i].productid == newItemObj.productid) {
             order[i].quantity += newItemObj.quantity;
@@ -143,7 +142,6 @@ const ProductCard = (props) => {
           
         }
       } else {
-        console.log("inside update cart", userCart)
         for (var i = 0; i < userCart.order.length; i++) {
           if (userCart.order[i].productid == newItemObj.productid) {
             userCart.order[i].quantity += newItemObj.quantity;
@@ -176,7 +174,6 @@ const ProductCard = (props) => {
       })
         .then((res) => res.json())
         .then(async (data) => {
-          console.log(data, "inside cart by iddddd")
           setUserCart(data.data[0]);
           let cartItems = data.data[0].order.length;
           dispatch(ACTIONS.getCartItem(cartItems));
@@ -203,7 +200,6 @@ const ProductCard = (props) => {
       })
         .then((res) => res.json())
         .then(async (data) => {
-          console.log(data, "inside adddddddd to cart")
           // setUserCart(data.data);
           CartById();
           addToast("Success!", {

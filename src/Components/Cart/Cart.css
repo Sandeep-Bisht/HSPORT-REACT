@@ -86,7 +86,7 @@
     width: 100%!important;
     /* justify-content: center; */
 }
-.product-price{
+.every-product-price{
     display: flex;
     align-items: center;
 }
