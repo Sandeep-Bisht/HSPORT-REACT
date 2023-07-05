@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
@@ -14,6 +14,7 @@ import * as ACTIONS from "../../CommonServices/Action";
 const ProductDetailPage = () => {
 
   let { addToast } = useToasts();
+  const wishlistRef = useRef();
   let dispatch = useDispatch()
   const navigate = useNavigate();
   let location = useLocation();
@@ -47,6 +48,7 @@ const ProductDetailPage = () => {
       let response = await axios.post(url, data);
       if (response) {
         setProductDetail(response?.data?.data[0]);
+       
       }
     } catch (error) {
       console.log(error);
@@ -90,14 +92,27 @@ const ProductDetailPage = () => {
     try {
       if (response) {
         setWishlistItem(response.data.data);
+        let wishlist = response?.data?.data;
+        console.log(wishlist,"wishlist wishlist", location?.state)
+        const foundProduct = wishlist?.find((item) => item?.productId._id == location?.state);
+        if(foundProduct){
+          console.log(foundProduct,"foundProduct foundProduct")
+          addColorClass()
+        }
+
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  const addColorClass = () => {
+    wishlistRef.current.classList.add('wishlist-icon');
+  };
+
    // Add to wishlist
    const onClickWishListHandler = async (productId) => {
+    addColorClass()
     let data = {};
     const foundNumber = wishlistItem.find(
       (item) => item.productId._id === productId
@@ -367,7 +382,7 @@ const ProductDetailPage = () => {
                     className="wishlist-div ps-3"
                     onClick={() => onClickWishListHandler(productDetail._id)}
                   >
-                    <span className="wishlist-btn" id="wishlisted">
+                    <span className="wishlist-btn" id="wishlisted" ref={wishlistRef}>
                       <AiFillHeart />
                     </span>
                   </div>
