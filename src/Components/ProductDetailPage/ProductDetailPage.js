@@ -29,10 +29,13 @@ const ProductDetailPage = () => {
   let url = "http://localhost:8080/";
 
   useEffect(() => {
+    if(Cookies.get("userdata"))
+    {
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
-  }, []);
+    }
+  },[]);
 
   useEffect(() => {
     if (location?.state) {

@@ -28,14 +28,14 @@ const Cart = () => {
     (state) => state?.UserCartReducer?.userCartDetails
   );
   const subTotalAmount = () => {
-    const subTotalAmount = userCart.reduce((total, item) => {
+    const subTotalAmount = userCart?.reduce((total, item) => {
       return total + item.quantity * item.salePrice;
     }, 0);
     subTotal = subTotalAmount;
   };
 
   const DiscountAmount = () => {
-    const discountTotalAmount = userCart.reduce((total, item) => {
+    const discountTotalAmount = userCart?.reduce((total, item) => {
       return total + item.quantity * (item.mrp - item.salePrice);
     }, 0);
     discount = discountTotalAmount;

@@ -259,7 +259,7 @@ const ProductCard = (props) => {
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
-                      <div className="product-pic">
+                      <div className="product-pic cursor-btn">
                         <img
                           src={`${url}${item?.image[0]?.path}`}
                           onClick={() =>
@@ -289,7 +289,7 @@ const ProductCard = (props) => {
                                 )
                               }
                             >
-                              <span className="product-card-icon">
+                              <span className="product-card-icon cursor-btn">
                                 <AiOutlineShoppingCart />
                               </span>
                             </li>
@@ -297,7 +297,7 @@ const ProductCard = (props) => {
                             <li
                               onClick={() => onClickWishListHandler(item._id)}
                             >
-                              <span className="product-card-icon">
+                              <span className="product-card-icon cursor-btn">
                                 <BsBagHeart />
                               </span>
                             </li>
@@ -312,7 +312,7 @@ const ProductCard = (props) => {
                       >
                         <div className="product-content-upper">
                           <p className="product-name f1">{item?.brand.name}</p>
-                          <p className="product-desc">{item?.name}</p>
+                          <p className="product-desc cursor-btn">{item?.name}</p>
                         </div>
 
                         <div className="add-to-cart-box">
