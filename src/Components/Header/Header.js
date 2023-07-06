@@ -18,7 +18,6 @@ import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "bootstrap";
 
 const Header = () => {
   let dispatch = useDispatch();
@@ -31,11 +30,21 @@ const Header = () => {
   const [subCategoryList, setSubCategoryList] = useState();
   let userid = "649e74f60540afa40dc097e0";
 
+  let loginState = useSelector((state) => state.UserCartReducer)
+
   useEffect(() => {
     getUserCart(userid);
     getAllCategory();
     getAllSubCategory();
   }, []);
+
+  useEffect(() => {
+    if (loginState?.userDetails) {
+      if (loginState.userCartDetails) {
+        setUserdata(loginState.userDetails);
+      }
+    }
+  }, [loginState.userDetails]);
 
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
@@ -63,14 +72,7 @@ const Header = () => {
     }
   };
 
-  let userId = "";
 
-  useEffect(() => {
-    if(Cookies.get("userdata")){
-    userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-    getUserCart(userId?._id);
-    }
-  },[]);
 
 
   const getUserCart = async (userid) => {
