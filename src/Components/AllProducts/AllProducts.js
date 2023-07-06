@@ -2,22 +2,68 @@ import React, { useState, useEffect } from "react";
 import { BsBagHeart } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsCurrencyRupee } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AllProducts.css";
 import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
+import Cookies from "js-cookie";
 
 function AllProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedAlphabetic, setSelectedAlphabetic] = useState("");
   const [allProducts, setAllProducts] = useState([]);
-  const [categoryList, setCategoryList] = useState([])
+  const [categoryList, setCategoryList] = useState([]);
+  const [userdata, setUserdata] = useState();
+  const location = useLocation();
 
-  let allCategoryState = useSelector((state) => state.UserCartReducer)
+  let allCategoryState = useSelector((state) => state.UserCartReducer);
 
+  useEffect(() => {
+    if (location?.state) {
+      console.log(location.state, "inside location");
+      getProductByCategoryId(location.state);
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (allCategoryState?.allCategoryList) {
+      setCategoryList(allCategoryState.allCategoryList);
+    }
+  }, [allCategoryState]);
+
+  // useEffect(() => {
+  //     getAllProducts();
+  //   }, []);
+
+  const getProductByCategoryId = (category) => {
+    setSelectedCategory(category)
+    let url = "http://localhost:8080/api/product/product_by_category";
+    try {
+      axios
+        .post(url, { category })
+        .then((response) => {
+          console.log(response.data, "responseeeeeee"); // Log the response data
+          // Use the data in your frontend logic
+          setAllProducts(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle any errors that occur during the request
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
@@ -29,18 +75,8 @@ function AllProducts() {
     setSelectedAlphabetic(event.target.value);
   };
 
-  useEffect(()=> {
-    if(allCategoryState?.allCategoryList){
-        console.log(allCategoryState, "allCategoryState insdide all prod page")
-        setCategoryList(allCategoryState.allCategoryList)
-    }
-  }, [allCategoryState])
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
   const getAllProducts = async () => {
+    setSelectedCategory("outdoorSports")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
     try {
@@ -82,11 +118,36 @@ function AllProducts() {
                   aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample"
                 >
-                    { categoryList && categoryList.map((item, index) => {
-                        return(
-                            <div class="accordion-body accordion-bodies" key={index}>
-                            <div className="filter-category">
-                                <div>
+                  <div class="accordion-body accordion-bodies">
+                    <div className="filter-category">
+                      <div>
+                        <label
+                          htmlFor="outdoorSports"
+                          className="filter-category-name pt-1"
+                        >
+                          All Products
+                        </label>
+                        <input
+                          type="checkbox"
+                          id="outdoorSports"
+                          name="category"
+                          value="outdoorSports"
+                          className="pt-1"
+                          onChange={() => getAllProducts()}
+                          checked={selectedCategory === "outdoorSports"}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {categoryList &&
+                    categoryList.map((item, index) => {
+                      return (
+                        <div
+                          class="accordion-body accordion-bodies"
+                          key={index}
+                        >
+                          <div className="filter-category">
+                            <div>
                               <label
                                 htmlFor="outdoorSports"
                                 className="filter-category-name pt-1"
@@ -95,20 +156,18 @@ function AllProducts() {
                               </label>
                               <input
                                 type="checkbox"
-                                id="outdoorSports"
+                                id={item._id}
                                 name="category"
                                 value="outdoorSports"
                                 className="pt-1"
-                                onChange={handleCheckboxCategory}
-                                checked={selectedCategory === "outdoorSports"}
+                                onChange={()=>getProductByCategoryId(item._id) }
+                                checked={selectedCategory === item._id}
                               />
-                              </div>                      
-                              
                             </div>
                           </div>
-                        )
+                        </div>
+                      );
                     })}
-                 
                 </div>
               </div>
             </div>
