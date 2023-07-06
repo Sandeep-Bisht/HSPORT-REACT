@@ -32,7 +32,18 @@ export default (state = INITIAL_STATE, action) => {
       //     ...state,
       //     cartDetailsSuccess: ""
       //   };
-    default:
-      return state;
-  }
+      case CONSTANTS.GET_SEARCH_VALUE:
+        return {
+          ...state,
+          searchData: action.searchValue,
+        };
+
+    case CONSTANTS.GET_USER_DETAILS :
+      return {
+        ...state,
+        userDetails:action.userDetails
+      };
+      default:
+        return state;
+    }
 };
