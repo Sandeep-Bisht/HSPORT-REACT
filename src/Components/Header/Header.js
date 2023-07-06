@@ -66,9 +66,13 @@ const Header = () => {
   let userId = "";
 
   useEffect(() => {
+    if(Cookies.get("userdata")){
     userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     getUserCart(userId?._id);
-  });
+    }
+  },[]);
+
+
   const getUserCart = async (userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
@@ -175,7 +179,13 @@ const Header = () => {
     Cookies.remove("hsports_token");
   };
 
-  console.log(subCategoryList, "subCategoryList subCategoryList");
+   // Re Direction to all product page
+  const redirectToAllProductPage = async (categoryName, categoeyId) => {
+    setToggle(false)
+    navigate(`/collection/${categoryName}`, { state: categoeyId });
+  }
+
+
 
   return (
     <>
@@ -297,7 +307,7 @@ const Header = () => {
                                   categoryList.length > 0 &&
                                   categoryList.map((item, index) => {
                                     return (
-                                      <div className="col-lg-3">
+                                      <div className="col-lg-3" key={index}>
                                         <p className="mega-menu-sub-heading">
                                           {item.name}
                                         </p>
@@ -310,8 +320,8 @@ const Header = () => {
                                                 element.category._id
                                               ) {
                                                 return (
-                                                  <ul className="mega-menu-sub-heading-list">
-                                                    <li>
+                                                  <ul className="mega-menu-sub-heading-list" key={ind}>
+                                                    <li onClick={()=>redirectToAllProductPage( item.name , element.category._id)}>
                                                       {" "}
                                                       <Link
                                                         className="mega-menu-list-item"
