@@ -79,15 +79,15 @@ let url = "http://localhost:8080/";
       .then((err) => console.log(err, "inside update cart"));
   };
 
-  const minusHander=(quantity,index)=>{
+  const minusHander=(quantity,productId,index)=>{
     if (quantity > 1 ) {
       userCart[index].quantity = quantity - 1;
       UpdateCart(userCartDetail._id);
     }
   }
 
-  const plusHander=(quantity,index)=>{
-    if (quantity >= 1 ) {
+  const plusHander=(quantity,productId,index)=>{
+    if (quantity && quantity >= 1 ) {
       userCart[index].quantity = quantity + 1;
       UpdateCart(userCartDetail._id);
     }
@@ -147,11 +147,11 @@ let url = "http://localhost:8080/";
             <div className="col-2 amount mt-2 card-image ps-2">
               <div className="input-counter">
                 <div className="plus-minus-btn">
-                  <span onClick={()=>minusHander(item?.quantity,item?.productid,index)}>-</span>
+                  <span onClick={()=>minusHander(item?.quantity, item?.productid, index)}>-</span>
                 </div>
                 <span className="m-2 quantity-div">{item?.quantity}</span>
                 <div className="plus-minus-btn">
-                  <span onClick={()=>plusHander(item?.quantity,item?.productid,index)}>+</span>
+                  <span onClick={()=>plusHander(item?.quantity, item?.productid, index)}>+</span>
                 </div>
               </div>
             </div>
