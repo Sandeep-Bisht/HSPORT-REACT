@@ -37,9 +37,11 @@ const ProductCard = (props) => {
   let navigate = useNavigate();
 
   useEffect(() => {
+    if(Cookies.get("userdata")){
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
+    }
   }, []);
 
   // Re Direction to single product page
