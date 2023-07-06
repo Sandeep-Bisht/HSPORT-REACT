@@ -19,7 +19,7 @@ import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
 import { useDispatch } from "react-redux";
-import { Button } from "bootstrap";
+import { element } from "prop-types";
 
 const Header = () => {
   let dispatch = useDispatch();
@@ -28,11 +28,45 @@ const Header = () => {
   const loginModalRef = useRef(null);
   const [errorMsg, setErrorMsg] = useState();
   const [toggle, setToggle] = useState();
+  const [categoryList, setCategoryList] = useState()
+  const [subCategoryList, setSubCategoryList] = useState()
   let userid = "649e74f60540afa40dc097e0";
 
   useEffect(() => {
     getUserCart(userid);
+    getAllCategory();
+    getAllSubCategory()
   }, []);
+
+  const getAllCategory = async() => {
+    let url = "http://localhost:8080/api/category/all_category"
+    try {
+      
+      let response = await axios.get(url)
+        if(response){
+          console.log(response.data.data, "inside response of acategory")
+          setCategoryList(response.data.data)
+          dispatch(ACTIONS.getAllCategoryList(response.data.data));
+        }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllSubCategory = async() => {
+    let url = "http://localhost:8080/api/subcategory/all_subcategory"
+    try {
+      
+      let response = await axios.get(url)
+        if(response){
+          console.log(response.data.data, "inside response of subCategoryList")
+          setSubCategoryList(response.data.data)
+        }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const getUserCart = async (userid) => {
     try {
@@ -42,7 +76,6 @@ const Header = () => {
 
       if (response) {
         if (response?.data) {
-          console.log(response.data.data, "response after cart api");
           dispatch(ACTIONS.getCartDetails(response?.data.data));
         } else {
           setErrorMsg(response.data.error);
@@ -69,9 +102,12 @@ const Header = () => {
     },
     mode: "onBlur",
   });
+
   useEffect(() => {
-    setUserdata(Cookies.get("userdata"));
+    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+    setUserdata(userdata);
   }, []);
+
   const handleLogin = async (data) => {
     let url = "http://localhost:8080/api/auth/login";
 
@@ -143,6 +179,8 @@ const Header = () => {
     Cookies.remove("userdata");
     Cookies.remove("hsports_token");
   };
+
+  console.log(subCategoryList, "subCategoryList subCategoryList")
 
   return (
     <>
@@ -260,241 +298,36 @@ const Header = () => {
                               tabIndex={0}
                             >
                               <div className="row">
-                                <div className="col-lg-3">
+                                { categoryList && categoryList.length > 0 && categoryList.map((item, index) => {
+                                  return(
+                                    <div className="col-lg-3">
                                   <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
+                                    {item.name} 
                                   </p>
-                                  <ul className="mega-menu-sub-heading-list">
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Wildlife Watching
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Camping
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Skiing and Snowboarding
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Fishing
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Horse Riding
-                                    </li>
-                                  </ul>
+                                  {subCategoryList && subCategoryList.length > 0 && subCategoryList.map((element, ind)=>{
+                                    if(item._id === element.category._id){
+                                      return(
+                                        <ul className="mega-menu-sub-heading-list">
+                                        <li>
+                                          {" "}
+                                          <Link
+                                            className="mega-menu-list-item"
+                                            to="/allproducts"
+                                          />
+                                          {element.name}
+                                        </li>
+                                        
+                                      </ul>
+                                      )
+                                    }
+                                    
+                                  })}
+                                 
                                 </div>
-                                <div className="col-lg-3">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Wildlife Watching
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Camping
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Skiing and Snowboarding
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Fishing
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Horse Riding
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Wildlife Watching
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Camping
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Skiing and Snowboarding
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Fishing
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Horse Riding
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Wildlife Watching
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Camping
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Skiing and Snowboarding
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Fishing
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Horse Riding
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Wildlife Watching
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Camping
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Skiing and Snowboarding
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Fishing
-                                    </li>
-                                    <li>
-                                      {" "}
-                                      <Link
-                                        className="mega-menu-list-item"
-                                        to="/cart"
-                                      />
-                                      Horse Riding
-                                    </li>
-                                  </ul>
-                                </div>
+                                  )
+                                })
+                                }
+                                
                               </div>
                             </div>
                             <div

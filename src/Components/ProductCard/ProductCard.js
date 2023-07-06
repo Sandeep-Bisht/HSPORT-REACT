@@ -27,7 +27,6 @@ const ProductCard = (props) => {
   useEffect(() => {
     if (cartState.userCartDetails) {
       if (cartState.userCartDetails) {
-        console.log(cartState.userCartDetails, "cart stateeeeeeeeeeeee");
         setUserCart(cartState.userCartDetails);
       }
     }

@@ -7,6 +7,7 @@ import "./Wishlist.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
+import { async } from "q";
 
 const Wishlist = () => {
   const navigate = useNavigate();
@@ -39,8 +40,20 @@ const Wishlist = () => {
     //navigate(`/product/${name}`);
   };
 
-  console.log(userWishlist, "userWishlist userWishlist userWishlist");
+const deleteWishlist = async (productId) => {
+  console.log("inside delete wish list", productId)
+  let url = "http://localhost:8080/api/wishlist/delete_wishlist_by_id"
+  try {
+    let response = await axios.delete(url, { data: { _id: productId } } )
 
+    if(response) {
+      console.log(response, "response of del wishlist")
+      getUserWishlist(userdata._id)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
   return (
     <section className="wishlist-section">
       {userWishlist && userWishlist.length > 0 ? (
@@ -55,7 +68,6 @@ const Wishlist = () => {
             </div>
             <div className="row">
               {userWishlist.map((item, index) => {
-                console.log(item, "itemmmmmmm inside loop");
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
@@ -104,6 +116,7 @@ const Wishlist = () => {
                         </div>
                       </div>
                     </div>
+                    <button className="btn btn-primary" onClick={()=> deleteWishlist(item._id)}>delete</button>
                   </div>
                 );
               })}
