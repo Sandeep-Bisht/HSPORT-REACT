@@ -86,7 +86,7 @@ const Footer = () => {
                 <h3 className="footer-heading f1">Information</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
-                    <Link to="/aboutus" className="footer-links f2">
+                    <Link to="/about-us" className="footer-links f2">
                       About Us
                     </Link>
                   </li>

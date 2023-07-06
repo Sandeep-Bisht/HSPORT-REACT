@@ -1,0 +1,105 @@
+.about-page{
+    padding: 60px 0;
+}
+
+.container{
+    max-width: 1080px!important;
+}
+
+.align-item-center{
+    align-items: center!important;
+}
+
+.about-page .img{
+    width: 100%;
+}
+
+.about-page .about-text{
+    padding: 40px;
+}
+
+.common-heading{
+    font-size: 34px;
+    padding: 3px 0;
+    text-align: start;
+}
+
+.common-heading {
+    font-weight: 400;
+    font-family: Playfair Display,serif;
+}
+
+.common-para {
+    font-weight: 400;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    font-family: Lato,sans-serif;
+    letter-spacing: .35px;
+}
+
+.about-2{
+    background: #f7f7f7;
+    padding: 60px 0 80px;
+}
+.container {
+    max-width: 1080px!important;
+}
+.common-heading {
+    font-size: 30px;
+    letter-spacing: 2px;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.mx-auto {
+    margin-right: auto!important;
+    margin-left: auto!important;
+}
+
+.about-2 .about-section img{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.about-3{
+    padding: 80px 0;
+}
+.container {
+    max-width: 1080px!important;
+}
+.align-items-center {
+    align-items: center!important;
+}
+
+.mx-auto {
+    margin-right: auto!important;
+    margin-left: auto!important;
+}
+.common-heading2 {
+    font-size: 34px;
+    padding: 10px 0;
+    text-align: start;
+    font-weight: 400;
+    font-family: Playfair Display,serif;
+}
+
+.about-3 .our-vision-left-image img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+.text-center{
+    text-align: center!important;
+}
+.pt-3 {
+    padding-top: 1rem!important;
+}
+.mt-4 {
+    margin-top: 1.5rem!important;
+}
+.fw-bold {
+    font-weight: 700!important;
+}
