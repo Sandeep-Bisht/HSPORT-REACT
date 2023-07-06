@@ -28,12 +28,16 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
+<<<<<<< HEAD
   let userid = "649e74f60540afa40dc097e0";
 
   let loginState = useSelector((state) => state.UserCartReducer)
 
+=======
+  let userId = "";
+>>>>>>> 851d4cad985a48c44851d03c1eb5b01e0dc74a28
   useEffect(() => {
-    getUserCart(userid);
+    getUserCart(userId);
     getAllCategory();
     getAllSubCategory();
   }, []);
@@ -72,6 +76,10 @@ const Header = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 851d4cad985a48c44851d03c1eb5b01e0dc74a28
 
 
 

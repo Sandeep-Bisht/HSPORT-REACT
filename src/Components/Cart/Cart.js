@@ -5,10 +5,10 @@ import "./Cart.css";
 import logo from "../../Images/slider2.jpg";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import * as ACTIONS from "../../CommonServices/Action";
+import * as ACTIONS from "../Header/Action";
+import * as Actions from "../../CommonServices/Action"
 
 var subTotal = 0;
 var discount = 0;
@@ -69,13 +69,16 @@ const Cart = () => {
       },
       body: JSON.stringify({
         _id: cartId,
-        userid: userdata && userdata._id,
-        order: order ? order : userCart,
+        userid: userdata._id,
+        order: order && order.length>0 ? order : userCart,
       }),
     })
       .then((res) => res.json())
       .then((res) => {
-        setUserCart(res?.data?.order);
+        if(res){
+          dispatch(ACTIONS.getCartDetails(order));
+          // dispatch(Actions.getCartItem(order?.length))
+        }
       })
       .then((err) => console.log(err, "inside update cart"));
   };
