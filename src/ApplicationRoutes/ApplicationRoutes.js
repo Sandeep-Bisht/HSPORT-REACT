@@ -28,6 +28,7 @@ import Wishlist from '../Components/Wishlist/Wishlist';
 import AllProducts from '../Components/AllProducts/AllProducts';
 import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
 import SearchResult from '../Components/SearchResult/SearchResult';
+
 const ApplicationRoutes = () => {
   return (
     <Routes>
@@ -62,6 +63,8 @@ const ApplicationRoutes = () => {
       <Route path='/wishlist' element={<Wishlist/>}/>
       <Route path='/allproducts' element={<AllProducts/>}/>
       <Route path='/product/:id' element={<ProductDetailPage />} />
+      <Route path='/collection/:id' element={<AllProducts />} />
+
       <Route path='SearchResult' element={<SearchResult/>} />
 
 

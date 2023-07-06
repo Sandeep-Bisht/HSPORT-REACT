@@ -2,7 +2,6 @@ import * as CONSTANTS from './Constant';
 export const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action, "actin inside reducer")
   switch (action.type) {
 
     case CONSTANTS.GET_CART_DETAILS:
@@ -10,6 +9,12 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         userCartDetails: action.cartData,
       };
+
+      case CONSTANTS.GET_ALL_CATEGORY_LIST:
+        return {
+          ...state,
+          allCategoryList : action.categoryList
+        }
     // case CONSTANTS.GET_CART_DETAILS_SUCCESS:
     //   return {
     //     ...state,
@@ -27,7 +32,18 @@ export default (state = INITIAL_STATE, action) => {
       //     ...state,
       //     cartDetailsSuccess: ""
       //   };
-    default:
-      return state;
-  }
+      case CONSTANTS.GET_SEARCH_VALUE:
+        return {
+          ...state,
+          searchData: action.searchValue,
+        };
+
+    case CONSTANTS.GET_USER_DETAILS :
+      return {
+        ...state,
+        userDetails:action.userDetails
+      };
+      default:
+        return state;
+    }
 };
