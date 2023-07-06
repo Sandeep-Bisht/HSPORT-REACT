@@ -29,10 +29,9 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
-  let userid = "649e74f60540afa40dc097e0";
-
+  let userId = "";
   useEffect(() => {
-    getUserCart(userid);
+    getUserCart(userId);
     getAllCategory();
     getAllSubCategory();
   }, []);
@@ -63,7 +62,7 @@ const Header = () => {
     }
   };
 
-  let userId = "";
+ 
 
   useEffect(() => {
     userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));

@@ -5,10 +5,10 @@ import "./Cart.css"
 import logo from "../../Images/slider2.jpg"
 import { MdDelete } from 'react-icons/md';
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import * as ACTIONS from "../../CommonServices/Action";
+import * as ACTIONS from "../Header/Action";
+import * as Actions from "../../CommonServices/Action"
 
 var subTotal=0;
 var discount=0
@@ -27,6 +27,7 @@ const Cart = () => {
   const dispatch=useDispatch();
 
 let cartState = useSelector((state) => state?.UserCartReducer?.userCartDetails);
+
 const subTotalAmount=()=>{
   const subTotalAmount=userCart.reduce((total,item)=>{
     return total+(item.quantity*item.salePrice)
@@ -46,7 +47,7 @@ PayableAmount=subTotal-discount;
 useEffect(()=>{
   if(cartState || newUserCart){
   setUserCart(newUserCart?newUserCart:cartState[0]?.order)
-  setUserCartDetail(cartState[0])
+  setUserCartDetail(cartState[0]?.order)
   subTotalAmount();
   DiscountAmount();
   }
@@ -69,12 +70,15 @@ let url = "http://localhost:8080/";
       body: JSON.stringify({
         _id: cartId,
         userid: userdata._id,
-        order: order ? order : userCart,
+        order: order && order.length>0 ? order : userCart,
       }),
     })
       .then((res) => res.json())
       .then((res) => {
-        setUserCart(res?.data?.order)
+        if(res){
+          dispatch(ACTIONS.getCartDetails(order));
+          // dispatch(Actions.getCartItem(order?.length))
+        }
       })
       .then((err) => console.log(err, "inside update cart"));
   };
@@ -147,11 +151,11 @@ let url = "http://localhost:8080/";
             <div className="col-2 amount mt-2 card-image ps-2">
               <div className="input-counter">
                 <div className="plus-minus-btn">
-                  <span onClick={()=>minusHander(item?.quantity,item?.productid,index)}>-</span>
+                  <span onClick={()=>minusHander(item?.quantity,index)}>-</span>
                 </div>
                 <span className="m-2 quantity-div">{item?.quantity}</span>
                 <div className="plus-minus-btn">
-                  <span onClick={()=>plusHander(item?.quantity,item?.productid,index)}>+</span>
+                  <span onClick={()=>plusHander(item?.quantity,index)}>+</span>
                 </div>
               </div>
             </div>
