@@ -31,12 +31,17 @@ const Header = () => {
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
   const [activeLogin, setActiveLogin] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     getUserCart(userId);
     getAllCategory();
     getAllSubCategory();
   }, []);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
@@ -184,7 +189,7 @@ const Header = () => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-
+console.log(userId,"userIduserIduserIduserId")
 
 
   return (
@@ -454,12 +459,13 @@ const Header = () => {
                           {userId ? (
                             <div className="dropdown after-login-dropdown">
                               <a
-                                className="header-right-link nav-link  icon m-0 dropdown-toggle"
+                                className={`header-right-link nav-link  icon m-0 dropdown-toggle ${isDropdownOpen ? 'show' : ""}`}
                                 role="button"
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
+                                aria-expanded={isDropdownOpen ? 'true' : 'false'}
                                 aria-current="page"
+                                onClick={toggleDropdown}
                               >
                                 <div className="me-1">
                                   <FiUserCheck className="one" />
@@ -469,10 +475,7 @@ const Header = () => {
                                 </div>
                               </a>
 
-                              <ul
-                                className="dropdown-menu br-dr after-login-menu"
-                                aria-labelledby="dropdownMenuButton"
-                              >
+                              <ul className={`dropdown-menu br-dr after-login-menu ${isDropdownOpen ? 'show' : ''}`} aria-labelledby="dropdownMenuButton">
                                 <li>
                                   <Link
                                     className="dropdown-item-1"
