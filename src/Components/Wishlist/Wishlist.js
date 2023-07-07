@@ -7,7 +7,6 @@ import "./Wishlist.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
-import { async } from "q";
 
 const Wishlist = () => {
   const navigate = useNavigate();

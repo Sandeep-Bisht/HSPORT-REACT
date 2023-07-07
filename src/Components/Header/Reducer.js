@@ -15,23 +15,7 @@ export default (state = INITIAL_STATE, action) => {
           ...state,
           allCategoryList : action.categoryList
         }
-    // case CONSTANTS.GET_CART_DETAILS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     cartDetailsSuccess: action.response,
-    //   };
-
-    // case CONSTANTS.GET_CART_DETAILS_FAILURE:
-    //   return {
-    //     ...state,
-    //     cartDetailsFalure: action.error,
-    //   };
-
-      // case CONSTANTS.RESET_CART_TO_INITIAL_STATE :
-      //   return {
-      //     ...state,
-      //     cartDetailsSuccess: ""
-      //   };
+  
       case CONSTANTS.GET_SEARCH_VALUE:
         return {
           ...state,
@@ -41,7 +25,7 @@ export default (state = INITIAL_STATE, action) => {
     case CONSTANTS.GET_USER_DETAILS :
       return {
         ...state,
-        userDetails:action.userDetails
+        userDetail: action.userDetails
       };
       default:
         return state;

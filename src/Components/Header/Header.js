@@ -32,26 +32,27 @@ const Header = () => {
 
   let loginState = useSelector((state) => state.UserCartReducer)
 
+
   useEffect(() => {    
     getAllCategory();
     getAllSubCategory();
   }, []);
 
   useEffect(() => {
-    if (loginState?.userDetails) {
-      if (loginState.userCartDetails) {
-        setUserdata(loginState.userDetails);
-        getUserCart(loginState.userDetails.userid);
-      }
-    }
-  }, [loginState.userDetails]);
+    if(Cookies.get("userdata")){
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      getUserCart(userdata._id);
+      dispatch(ACTIONS.getUserDetails(userdata));
+    }      
+      
+  }, []);
 
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of acategory");
         setCategoryList(response.data.data);
         dispatch(ACTIONS.getAllCategoryList(response.data.data));
       }
@@ -64,7 +65,6 @@ const Header = () => {
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of subCategoryList");
         setSubCategoryList(response.data.data);
       }
     } catch (error) {
@@ -123,7 +123,7 @@ const Header = () => {
             encodeURIComponent(JSON.stringify(response?.data.user)),
             { expires: 7 }
           );
-          dispatch(ACTIONS.getUserDetails(response.data.user));
+          // dispatch(ACTIONS.getUserDetails(response.data.user));
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error);
@@ -186,7 +186,6 @@ const Header = () => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-
 
 
   return (
@@ -452,7 +451,7 @@ const Header = () => {
                               Wishlist
                             </button>
                           )}
-                          {userdata ? (
+                          {userdata && userdata ? (
                             <div className="dropdown after-login-dropdown">
                               <a
                                 className="header-right-link nav-link  icon m-0 dropdown-toggle"
