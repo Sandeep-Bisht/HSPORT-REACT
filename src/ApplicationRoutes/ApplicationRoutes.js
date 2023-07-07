@@ -28,6 +28,7 @@ import Wishlist from '../Components/Wishlist/Wishlist';
 import AllProducts from '../Components/AllProducts/AllProducts';
 import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
 import SearchResult from '../Components/SearchResult/SearchResult';
+import AboutUs from '../Components/AboutUs/AboutUs';
 
 const ApplicationRoutes = () => {
   return (
@@ -66,6 +67,7 @@ const ApplicationRoutes = () => {
       <Route path='/collection/:id' element={<AllProducts />} />
 
       <Route path='SearchResult' element={<SearchResult/>} />
+      <Route path='/about-us' element={<AboutUs />} />
 
 
     </Routes>
