@@ -21,11 +21,12 @@ const ProductCard = (props) => {
   const [order, Setorder] = useState([]);
 
   const { productList } = props;
+  const {featuredProductList} =props
 
   let cartState = useSelector((state) => state.UserCartReducer);
 
 
-  useEffect(() => {
+  useEffect(() => { 
     if (cartState.userCartDetails) {
       if (cartState.userCartDetails) {
         setUserCart(cartState.userCartDetails);
@@ -43,6 +44,7 @@ const ProductCard = (props) => {
     getUserWishlist(userdata._id);
     }
   }, []);
+
 
   // Re Direction to single product page
   let redirectToProductDiscriptionPage = (name, productId) => {
@@ -181,7 +183,7 @@ const ProductCard = (props) => {
           dispatch(ACTIONS.getCartItem(cartItems));
         })
         .catch((err) => {
-          console.log(err, "error");
+          console.log(err);
         });
     }
   };
@@ -210,7 +212,7 @@ const ProductCard = (props) => {
           });
         })
         .catch((err) => {
-          console.log(err, "error");
+          console.log(err);
         });
     }
   };
@@ -238,7 +240,7 @@ const ProductCard = (props) => {
           content: `Product added to cart`,
         });
       })
-      .then((err) => console.log(err, "inside update cart"));
+      .then((err) => console.log(err));
   };
 
   return (
@@ -247,9 +249,19 @@ const ProductCard = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 ">
-              <h1 className="common-heading text-center mb-lg-5">
+              {
+                productList && productList.length && 
+                <h1 className="common-heading text-center mb-lg-5">
                 Our Products
               </h1>
+              }
+                            {
+                featuredProductList && featuredProductList.length && 
+                <h1 className="common-heading text-center mb-lg-5">
+                Featured Products
+              </h1>
+              }
+
             </div>
           </div>
           <div className="row">
@@ -334,6 +346,90 @@ const ProductCard = (props) => {
                   </div>
                 );
               })}
+              {
+                featuredProductList &&
+                featuredProductList.length > 0 &&
+                featuredProductList.map((item,index)=>{
+                  return (
+                    <div className="col-lg-3" key={index}>
+                      <div className="product-single-card">
+                        <div className="product-pic cursor-btn">
+                          <img
+                            src={`${url}${item?.image[0]?.path}`}
+                            onClick={() =>
+                              redirectToProductDiscriptionPage(
+                                item?.slug,
+                                item._id
+                              )
+                            }
+                            className="img-fluid"
+                            alt="..."
+                          />
+                          <div className="product-content-lower">
+                            <ul>
+                              <li
+                                onClick={() =>
+                                  cartfunction(
+                                    item._id,
+                                    item.name,
+                                    quantity,
+                                    item.inrMrp,
+                                    item.inrDiscount,
+                                    item.sortDescription,
+                                    item.category.name,
+                                    item.brand.name,
+                                    item.subcategory.name,
+                                    item.image[0].path
+                                  )
+                                }
+                              >
+                                <span className="product-card-icon cursor-btn">
+                                  <AiOutlineShoppingCart />
+                                </span>
+                              </li>
+  
+                              <li
+                                onClick={() => onClickWishListHandler(item._id)}
+                              >
+                                <span className="product-card-icon cursor-btn">
+                                  <BsBagHeart />
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div
+                          className="product-content"
+                          onClick={() =>
+                            redirectToProductDiscriptionPage(item.name)
+                          }
+                        >
+                          <div className="product-content-upper">
+                            <p className="product-name f1">{item?.brand.name}</p>
+                            <p className="product-desc cursor-btn">{item?.name}</p>
+                          </div>
+  
+                          <div className="add-to-cart-box">
+                            <div>
+                              <p className="product-price f1">
+                                <BsCurrencyRupee />
+                                {item?.inrDiscount}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="discount-price f1">
+                                <BsCurrencyRupee />
+                                <del>{item?.inrMrp}</del>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+
           </div>
         </div>
       </section>

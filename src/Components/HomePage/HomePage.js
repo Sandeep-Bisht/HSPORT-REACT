@@ -5,13 +5,17 @@ import slider1 from "../../Images/slider1.jpg";
 import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
+import CategoryProduct from "../CategoryProduct/CategoryProduct";
 
 const HomePage = () => {
 
   const [allProducts, setAllProducts] = useState([])
+  const [allCategories,setAllCategories]=useState([]);
+  const [featruedCategories,setFeatruedCategories]=useState([]);
 
 useEffect(() => {
   getAllProducts()
+  getAllCategories()
 }, [])
 
 const getAllProducts = async() => {
@@ -19,7 +23,23 @@ const getAllProducts = async() => {
   let response = await axios.get(url);
     try {
       if(response){
-         setAllProducts(response.data.data) 
+         setAllProducts(response.data.data) ;
+         let featuredBrand = response.data.data.filter((item)=>{
+          return item.brand.featuredBrands=="Featured Categories"
+         })
+         setFeatruedCategories(featuredBrand);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+const getAllCategories=async()=>{
+  let url = "http://localhost:8080/api/category/all_category";
+  let response = await axios.get(url);
+    try {
+      if(response){
+         setAllCategories(response.data.data) 
        
       }
     } catch (error) {
@@ -161,6 +181,8 @@ const getAllProducts = async() => {
         </div>
       </div>
       <ProductCard  productList={allProducts}/>
+      <CategoryProduct allCategories={allCategories}/>
+      <ProductCard  featuredProductList={featruedCategories}/>
     </>
   );
 };
