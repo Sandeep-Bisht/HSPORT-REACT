@@ -21,7 +21,8 @@ export const getSearchValue = (searchValue) => {
   };
 };
 
-export const getUserDetails = (userDetails) => {
+export let getUserDetails = (userDetails) => {
+  console.log(userDetails, "from actions")
   return {
     type: CONSTANTS.GET_USER_DETAILS,
     userDetails,

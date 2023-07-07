@@ -18,7 +18,6 @@ import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "bootstrap";
 
 let userId = "";
 const Header = () => {
@@ -30,25 +29,32 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
-  const [activeLogin, setActiveLogin] = useState(true);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activeLogin, setActiveLogin] = useState(true)
+  // let userid = "649e74f60540afa40dc097e0";
 
-  useEffect(() => {
-    getUserCart(userId);
+  let loginState = useSelector((state) => state.UserCartReducer)
+
+
+  useEffect(() => {    
     getAllCategory();
     getAllSubCategory();
   }, []);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  useEffect(() => {
+    if(Cookies.get("userdata")){
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      getUserCart(userdata._id);
+      dispatch(ACTIONS.getUserDetails(userdata));
+    }      
+      
+  }, []);
 
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of acategory");
         setCategoryList(response.data.data);
         dispatch(ACTIONS.getAllCategoryList(response.data.data));
       }
@@ -61,7 +67,6 @@ const Header = () => {
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of subCategoryList");
         setSubCategoryList(response.data.data);
       }
     } catch (error) {
@@ -71,12 +76,6 @@ const Header = () => {
 
 
 
-  useEffect(() => {
-    if (Cookies.get("userdata")) {
-      userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-      getUserCart(userId?._id);
-    }
-  }, []);
 
   const getUserCart = async (userid) => {
     try {
@@ -126,7 +125,7 @@ const Header = () => {
             encodeURIComponent(JSON.stringify(response?.data.user)),
             { expires: 7 }
           );
-          dispatch(ACTIONS.getUserDetails(response.data.user));
+          // dispatch(ACTIONS.getUserDetails(response.data.user));
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error);
@@ -190,7 +189,6 @@ const Header = () => {
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
 console.log(userId,"userIduserIduserIduserId")
-
 
   return (
     <>
@@ -456,16 +454,16 @@ console.log(userId,"userIduserIduserIduserId")
                               Wishlist
                             </button>
                           )}
-                          {userId ? (
+                          {userdata && userdata ? (
                             <div className="dropdown after-login-dropdown">
                               <a
-                                className={`header-right-link nav-link  icon m-0 dropdown-toggle ${isDropdownOpen ? 'show' : ""}`}
+                                className="header-right-link nav-link  icon m-0 dropdown-toggle"
                                 role="button"
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
-                                aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                                aria-expanded="isDropdownOpen"
                                 aria-current="page"
-                                onClick={toggleDropdown}
+                                // onClick={toggleDropdown}
                               >
                                 <div className="me-1">
                                   <FiUserCheck className="one" />
@@ -475,7 +473,7 @@ console.log(userId,"userIduserIduserIduserId")
                                 </div>
                               </a>
 
-                              <ul className={`dropdown-menu br-dr after-login-menu ${isDropdownOpen ? 'show' : ''}`} aria-labelledby="dropdownMenuButton">
+                              <ul className="dropdown-menu br-dr after-login-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
                                   <Link
                                     className="dropdown-item-1"

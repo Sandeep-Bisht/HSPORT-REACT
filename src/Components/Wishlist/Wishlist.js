@@ -7,8 +7,7 @@ import "./Wishlist.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
-import { async } from "q";
-import {RxCross2} from "react-icons/rx"
+import {RxCross2} from "react-icons/rx";
 
 const Wishlist = () => {
   const navigate = useNavigate();
