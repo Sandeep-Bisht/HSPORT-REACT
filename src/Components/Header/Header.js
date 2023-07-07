@@ -19,6 +19,7 @@ import "../../Css/Common.css";
 import logo from "../../Images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 
+let userId = "";
 const Header = () => {
   let dispatch = useDispatch();
   const [successMsg, setSuccessMsg] = useState();
@@ -28,6 +29,7 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
+  const [activeLogin, setActiveLogin] = useState(true)
   // let userid = "649e74f60540afa40dc097e0";
 
   let loginState = useSelector((state) => state.UserCartReducer)
@@ -181,7 +183,7 @@ const Header = () => {
     Cookies.remove("hsports_token");
   };
 
-   // Re Direction to all product page
+  // Re Direction to all product page
   const redirectToAllProductPage = async (categoryName, categoeyId) => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
@@ -322,7 +324,7 @@ const Header = () => {
                                               ) {
                                                 return (
                                                   <ul className="mega-menu-sub-heading-list" key={ind}>
-                                                    <li onClick={()=>redirectToAllProductPage( item.name , element.category._id)}>
+                                                    <li onClick={() => redirectToAllProductPage(item.name, element.category._id)}>
                                                       {" "}
                                                       <Link
                                                         className="mega-menu-list-item"
@@ -419,6 +421,7 @@ const Header = () => {
                       </div>
                       <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                          <span className="cart-top-items">2</span>
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"
@@ -548,17 +551,32 @@ const Header = () => {
             <div className="modal-body">
               <div className="row inside-modal-body">
                 <div className="col-md-6 left-login-modal">
-                  <div className="m-3">
-                    <h3 className="login-left-first">LOGIN</h3>
-                    <div className="mt-5">
-                      <h3 className="login-left-mid pt-2">Get</h3>
-                      <h3 className="login-left-mid pt-2">access to</h3>
-                      <h3 className="login-left-second pt-2">personalised</h3>
-                      <h3 className="login-left-mid pt-2">
-                        shopping experience
-                      </h3>
+                  {activeLogin ?
+                    <div className="m-3 mt-4">
+                      <h3 className="login-left-first">LOGIN</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">Get</h3>
+                        <h3 className="login-left-mid pt-2">access to</h3>
+                        <h3 className="login-left-second pt-2">personalised</h3>
+                        <h3 className="login-left-mid pt-2">
+                          shopping experience
+                        </h3>
+                      </div>
                     </div>
-                  </div>
+                    :
+                    <div className="m-3 mt-4">
+                      <h3 className="login-left-first">SIGNUP</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">WE</h3>
+                        <h3 className="login-left-mid pt-2">promise you</h3>
+                        <h3 className="login-left-second pt-2">100% SECURE</h3>
+                        <h3 className="login-left-mid pt-2">
+                          data protection
+                        </h3>
+                      </div>
+                    </div>
+                  }
+
                 </div>
 
                 <div className="col-md-6 mx-auto mt-3">
@@ -568,7 +586,7 @@ const Header = () => {
                       id="pills-tab"
                       role="tablist"
                     >
-                      <li className="nav-item" role="presentation">
+                      <li className="nav-item login-signup-btn col-6" role="presentation">
                         <button
                           className="nav-link active"
                           id="pills-home-tab"
@@ -578,12 +596,15 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
-                          onClick={() => setSuccessMsg("")}
+                          onClick={() => {
+                            setSuccessMsg("");
+                            setActiveLogin(true);
+                          }}
                         >
                           LOGIN
                         </button>
                       </li>
-                      <li className="nav-item" role="presentation">
+                      <li className="nav-item login-signup-btn col-6" role="presentation">
                         <button
                           className="nav-link"
                           id="pills-profile-tab"
@@ -593,7 +614,10 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
-                          onClick={() => setErrorMsg()}
+                          onClick={() => {
+                            setErrorMsg()
+                            setActiveLogin(false);
+                          }}
                         >
                           SIGNUP
                         </button>
@@ -706,17 +730,17 @@ const Header = () => {
 
                                   {registrationError?.email?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
 
                                   {registrationError?.email?.type ===
                                     "pattern" && (
-                                    <p className="text-danger">
-                                      Please enter Valid email Address
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Please enter Valid email Address
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -734,18 +758,18 @@ const Header = () => {
                                   />
                                   {registrationError?.password?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.password?.type ===
                                     "pattern" && (
-                                    <p className="text-danger password-err">
-                                      Must have atleast 8 characters, one
-                                      number, upper & lowercase letters &
-                                      special character
-                                    </p>
-                                  )}
+                                      <p className="text-danger password-err">
+                                        Must have atleast 8 characters, one
+                                        number, upper & lowercase letters &
+                                        special character
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -769,16 +793,16 @@ const Header = () => {
                                   />
                                   {registrationError?.confirmPassword?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.confirmPassword?.type ===
                                     "validate" && (
-                                    <p className="text-danger">
-                                      Password does not match
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Password does not match
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">

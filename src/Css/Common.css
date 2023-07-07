@@ -46,3 +46,6 @@ body {
 .common-btn span{
     margin-right: 10px!important;
 }
+.cursor-btn{
+    cursor: pointer;
+}

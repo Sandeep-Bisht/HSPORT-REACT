@@ -116,6 +116,7 @@ header{
     display: flex;
     justify-content: space-around!important;
     flex-direction: row!important;
+    padding-left: 10px;
 
 }
 .registration-section {
@@ -147,6 +148,7 @@ header{
     --tw-text-opacity: 1;
     color: rgba(52,68,80,var(--tw-text-opacity));
     font-size: 1.8rem;
+    width: 280px;
 }
 .login-left-second{
     --tw-text-opacity: 1;
@@ -262,13 +264,23 @@ max-width: fit-content!important;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
 }
-
-
-/* ---------------after-login-dropdown------------ */
-.after-login-dropdown
-{
-    
+.nav-pills .nav-link{
+    --tw-text-opacity: 1;
+    color: rgba(52,68,80,var(--tw-text-opacity));
+    font-weight: 500;
 }
+.nav-pills .nav-link.active{
+    background-color: #fff!important;
+    color: #0d6efd!important;
+    font-weight: 500;
+    border-bottom: 2px solid #0d6efd;
+    border-radius: 0px;
+}
+.login-signup-btn{
+    display: flex;
+    justify-content: center;
+}
+/* ---------------after-login-dropdown------------ */
 .after-login-dropdown .header-right-link
 {
     flex-direction:row;
@@ -299,4 +311,11 @@ max-width: fit-content!important;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
+}
+.cart-top-items{
+    position: relative;
+    color: #a7afbe;
+    font-size: 12px;
+    left: 22px;
+    bottom: 7px;
 }

@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 import * as ACTIONS from "../Header/Action";
 
 
-
 const Cart = () => {
   const [userCart, setUserCart] = useState([]);
   const [userCartDetail, setUserCartDetail] = useState();
@@ -82,7 +81,7 @@ const Cart = () => {
           //  dispatch(ACTIONS.getCartItem(order?.length))
         }
       })
-      .then((err) => console.log(err, "inside update cart"));
+      .then((err) => console.log(err));
   };
 
   const minusHander = (quantity, index) => {
