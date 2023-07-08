@@ -43,13 +43,14 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if (cartState || newUserCart) {
-      setUserCart(newUserCart ? newUserCart : cartState[0]?.order);
-      setUserCartDetail(cartState[0]);
-      subTotalAmount();
-      discountAmount();
+    if (cartState) {
+      console.log("counter", cartState[0])
+      setUserCart(cartState[0]?.order);
+      setUserCartDetail(cartState[0]);      
     }
-  }, [cartState, userCart, newUserCart]);
+  }, [cartState]);
+
+ 
 
   let url = "http://localhost:8080/";
 
@@ -59,9 +60,11 @@ const Cart = () => {
       setUserdata(userdata);
     }
   }, []);
+  // subTotalAmount();
+  // discountAmount();
 
 
-  const updateCart = (cartId, order) => {
+  const updateCart = (cartId, updateOrder) => {
     fetch(`${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -71,17 +74,17 @@ const Cart = () => {
       body: JSON.stringify({
         _id: cartId,
         userid: userdata?._id,
-        order: order && order.length > 0 ? order : userCart,
+        order: updateOrder?.length > 0 ? updateOrder : [],
       }),
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res) {
-          dispatch(ACTIONS.getCartDetails(order));
-          //  dispatch(ACTIONS.getCartItem(order?.length))
-        }
+          //dispatch(ACTIONS.getCartDetails(updateOrder));
+          console.log("inside response", updateOrder)
+          setUserCart(updateOrder)
+          // dispatch(ACTIONS.getCartItem(order?.length))
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err, "error"));
   };
 
   const minusHander = (quantity, index) => {
@@ -92,25 +95,27 @@ const Cart = () => {
   };
 
   const plusHander = (quantity, index) => {
-    console.log("inside plus",quantity , "indexx", index)
-    if (quantity && quantity > 1) {
-      console.log("inside if",quantity,  index)
-      userCart[index].quantity = quantity + 1;
-      updateCart(userCartDetail._id);
+    if (quantity && quantity >= 1) {
+       let updateOrder = userCart
+       updateOrder[index].quantity = quantity + 1;
+      console.log(updateOrder, "updateOrder updateOrder", userCartDetail._id)
+        updateCart(userCartDetail._id, updateOrder);
     }
   };
 
-  const deleteCartHandler = async (productId) => {
+  const deleteCartHandler = async ( productId) => {
     try {
-      const response = userCart.filter((item) => {
+      const updatedOrder = userCart.filter((item) => {
         return item.productid !== productId;
       });
-      setNewUserCart(response);
-      updateCart(userCartDetail._id, response);
+      setNewUserCart(updatedOrder);      
+      updateCart(userCartDetail?._id, updatedOrder);
     } catch (error) {
       console.error(error);
     }
   };
+
+  console.log(userCart, "userCart userCart userCart userCart")
 
   return (
     <section className="cart-section">

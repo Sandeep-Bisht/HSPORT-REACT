@@ -41,13 +41,11 @@ const Wishlist = () => {
   };
 
 const deleteWishlist = async (productId) => {
-  console.log("inside delete wish list", productId)
   let url = "http://localhost:8080/api/wishlist/delete_wishlist_by_id"
   try {
     let response = await axios.delete(url, { data: { _id: productId } } )
 
     if(response) {
-      console.log(response, "response of del wishlist")
       getUserWishlist(userdata._id)
     }
   } catch (error) {

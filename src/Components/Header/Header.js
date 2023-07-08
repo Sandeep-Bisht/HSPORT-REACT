@@ -29,8 +29,8 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
-  const [activeLogin, setActiveLogin] = useState(true)
-  // let userid = "649e74f60540afa40dc097e0";
+  const [activeLogin, setActiveLogin] = useState(true);
+  const [userCartItem, setUserCartItem] = useState(null)
 
   let loginState = useSelector((state) => state.UserCartReducer)
 
@@ -84,6 +84,7 @@ const Header = () => {
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
+          setUserCartItem(response?.data.data[0]?.order.length)
         } else {
           setErrorMsg(response.data.error);
         }
@@ -421,7 +422,7 @@ const Header = () => {
                       </div>
                       <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                          <span className="cart-top-items">2</span>
+                          <span className="cart-top-items">{userCartItem}</span>
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"

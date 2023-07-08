@@ -23,7 +23,6 @@ function AllProducts() {
 
   useEffect(() => {
     if (location?.state) {
-      console.log(location.state, "inside location");
       getProductByCategoryId(location.state);
     }
   }, [location.state]);
@@ -52,7 +51,6 @@ function AllProducts() {
       axios
         .post(url, { category })
         .then((response) => {
-          console.log(response.data, "responseeeeeee"); // Log the response data
           // Use the data in your frontend logic
           setAllProducts(response.data.data);
         })

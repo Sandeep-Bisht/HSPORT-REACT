@@ -96,10 +96,8 @@ const ProductDetailPage = () => {
       if (response) {
         setWishlistItem(response.data.data);
         let wishlist = response?.data?.data;
-        console.log(wishlist,"wishlist wishlist", location?.state)
         const foundProduct = wishlist?.find((item) => item?.productId._id == location?.state);
         if(foundProduct){
-          console.log(foundProduct,"foundProduct foundProduct")
           addColorClass()
         }
 
@@ -181,7 +179,6 @@ const ProductDetailPage = () => {
           delivery_time: "No Status",
         };
         if (userCart.order == null || userCart.order == []) {
-          console.log("inside add to  cart", userCart)
           for (var i = 0; i < order.length; i++) {
             if (order[i].productid == newItemObj.productid) {
               order[i].quantity += newItemObj.quantity;
@@ -196,7 +193,6 @@ const ProductDetailPage = () => {
             
           }
         } else {
-          console.log("inside update cart", userCart)
           for (var i = 0; i < userCart.order.length; i++) {
             if (userCart.order[i].productid == newItemObj.productid) {
               userCart.order[i].quantity += newItemObj.quantity;
@@ -229,7 +225,6 @@ const ProductDetailPage = () => {
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside cart by iddddd")
             setUserCart(data.data[0]);
             let cartItems = data.data[0].order.length;
             dispatch(ACTIONS.getCartItem(cartItems));
@@ -256,7 +251,6 @@ const ProductDetailPage = () => {
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside adddddddd to cart")
             // setUserCart(data.data);
             CartById();
             addToast("Success!", {
