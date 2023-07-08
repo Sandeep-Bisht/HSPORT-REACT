@@ -189,7 +189,7 @@ const Header = () => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-
+console.log(userId,"userIduserIduserIduserId")
 
   return (
     <>
@@ -462,8 +462,9 @@ const Header = () => {
                                 role="button"
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
+                                aria-expanded="isDropdownOpen"
                                 aria-current="page"
+                                // onClick={toggleDropdown}
                               >
                                 <div className="me-1">
                                   <FiUserCheck className="one" />
@@ -473,10 +474,7 @@ const Header = () => {
                                 </div>
                               </a>
 
-                              <ul
-                                className="dropdown-menu br-dr after-login-menu"
-                                aria-labelledby="dropdownMenuButton"
-                              >
+                              <ul className="dropdown-menu br-dr after-login-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
                                   <Link
                                     className="dropdown-item-1"

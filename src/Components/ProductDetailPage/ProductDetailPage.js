@@ -124,7 +124,7 @@ const ProductDetailPage = () => {
         content: `Product is already in wishlist`,
       });
     } else {
-      let userId = userdata._id;
+      let userId = userdata?._id;
       data["productId"] = productId;
       data["userId"] = userId;
 
