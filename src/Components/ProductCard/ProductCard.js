@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import * as ACTIONS from "../../CommonServices/Action";
+import * as Actions from "../Header/Action"
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = (props) => {
@@ -18,6 +19,7 @@ const ProductCard = (props) => {
   const [userdata, setUserdata] = useState();
   const [quantity, setQuantity] = useState(1);
   const [userCart, setUserCart] = useState([]);
+  const [userCartDetails,setUserCartDetails]=useState([]);
   const [order, Setorder] = useState([]);
 
   const { productList } = props;
@@ -25,15 +27,14 @@ const ProductCard = (props) => {
 
   let cartState = useSelector((state) => state.UserCartReducer);
 
-
   useEffect(() => { 
-    if (cartState.userCartDetails) {
-      if (cartState.userCartDetails) {
-        setUserCart(cartState.userCartDetails[0]?.order);
-        // Setorder(cartState.userCartDetails)
+      if (cartState?.userCartDetails) {
+         setUserCartDetails(cartState?.userCartDetails)
+        setUserCart(cartState?.userCartDetails);
       }
-    }
-  }, [cartState.userCartDetails]);
+  }, [cartState]);
+
+  console.log(userCart,"userCartDetailsuserCartDetailsuserCartDetails",cartState)
 
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
@@ -131,10 +132,11 @@ const ProductCard = (props) => {
         status: "Pending",
         delivery_time: "No Status",
       };
-      if (userCart?.order == null || userCart?.order == []) {
+      console.log(userCart?.order,"userCart[0]?.orderuserCart[0]?.order",userCart)
+      if ( userCart?.order == [] || userCart?.order == null) {
         for (var i = 0; i < order.length; i++) {
-          if (order[i].productid == newItemObj.productid) {
-            order[i].quantity += newItemObj.quantity;
+          if (userCart.order[i].productid == newItemObj.productid) {
+            userCart.order[i].quantity += newItemObj.quantity;
             merged = true;
             setQuantity(1);
           }
@@ -143,10 +145,9 @@ const ProductCard = (props) => {
           order.push(newItemObj);
           setQuantity(1);
           AddtoCart();
-          
         }
       } else {
-        for (var i = 0; i < userCart.order.length; i++) {
+        for (var i = 0; i < userCart?.order.length; i++) {
           if (userCart.order[i].productid == newItemObj.productid) {
             userCart.order[i].quantity += newItemObj.quantity;
             merged = true;
@@ -181,6 +182,8 @@ const ProductCard = (props) => {
           setUserCart(data.data[0]);
           let cartItems = data.data[0].order.length;
           dispatch(ACTIONS.getCartItem(cartItems));
+          console.log(data.data,"insiede the cart by id")
+          dispatch(Actions.getCartDetails(data.data[0]));
         })
         .catch((err) => {
           console.log(err);
@@ -218,7 +221,6 @@ const ProductCard = (props) => {
   };
 
   //update cart
-
   const UpdateCart = () => {
     fetch( `${url}api/cart/update_cart_by_id`, {
       method: "put",

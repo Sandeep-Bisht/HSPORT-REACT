@@ -79,7 +79,7 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-          //dispatch(ACTIONS.getCartDetails(updateOrder));
+          // dispatch(ACTIONS.getCartDetails(updateOrder));
           console.log("inside response", updateOrder)
           setUserCart(updateOrder)
           // dispatch(ACTIONS.getCartItem(order?.length))
