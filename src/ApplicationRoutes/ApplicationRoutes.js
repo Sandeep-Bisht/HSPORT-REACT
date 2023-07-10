@@ -29,6 +29,7 @@ import AllProducts from '../Components/AllProducts/AllProducts';
 import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage';
 import SearchResult from '../Components/SearchResult/SearchResult';
 import AboutUs from '../Components/AboutUs/AboutUs';
+import ContactUs from '../Components/ContactUS/ContactUs';
 
 const ApplicationRoutes = () => {
   return (
@@ -68,6 +69,7 @@ const ApplicationRoutes = () => {
 
       <Route path='SearchResult' element={<SearchResult/>} />
       <Route path='/about-us' element={<AboutUs />} />
+      <Route path='/contact-us' element={<ContactUs />} />
 
 
     </Routes>

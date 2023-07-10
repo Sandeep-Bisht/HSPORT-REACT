@@ -1,0 +1,109 @@
+body{
+    font-family: Lato,sans-serif;
+}
+.contact-us{
+    padding: 50px 0;
+}
+.container{
+    max-width: 1080!important;
+}
+.contact-us .discover-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+.contact-us p.contact-heading{
+    font-family: Lato,sans-serif;
+    font-size: 16px!important;
+    font-weight: 700!important;
+    letter-spacing: .25px;
+    text-transform: uppercase;
+    color: #212529!important;
+    opacity: 1;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.contact-us .visit-us p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.contact-us .email-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+a {
+    color: #0d6efd;
+    color: var(--bs-link-color);
+    text-decoration: underline;
+}
+.contact-us .callus-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.px-5 {
+    padding-right: 3rem!important;
+    padding-left: 3rem!important;
+}
+.contact-us .form-wrap  p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+.contact-us .col-md-7{
+    padding: 0px 50px;
+}
+.contact-us .contact-heading{
+    font-family: Lato,sans-serif;
+    font-size: 16px!important;
+    font-weight: 700!important;
+    letter-spacing: .25px;
+    text-transform: uppercase;
+    color: #212529!important;
+}
+.contact-us .from-wrap input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #b3b3b3;
+    width: 100%;
+}
+input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+.login-btn {
+    background: #495057;
+    border: none;
+    color: #fff;
+    font-size: 14px!important;
+    font-weight: 700;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
