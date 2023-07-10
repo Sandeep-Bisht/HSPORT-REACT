@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import * as ACTIONS from "../../CommonServices/Action";
-import * as Actions from "../Header/Action"
+import * as HEADER_ACTIONS from "../Header/Action"
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = (props) => {
@@ -18,9 +18,9 @@ const ProductCard = (props) => {
   const [wishlistItem, setWishlistItem] = useState([]);
   const [userdata, setUserdata] = useState();
   const [quantity, setQuantity] = useState(1);
-  const [userCart, setUserCart] = useState([]);
-  const [userCartDetails,setUserCartDetails]=useState([]);
+  const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
+  const [setUserCartDetail, setSetUserCartDetail] = useState(null)
 
   const { productList } = props;
   const {featuredProductList} =props
@@ -28,13 +28,16 @@ const ProductCard = (props) => {
   let cartState = useSelector((state) => state.UserCartReducer);
 
   useEffect(() => { 
-      if (cartState?.userCartDetails) {
-         setUserCartDetails(cartState?.userCartDetails)
-        setUserCart(cartState?.userCartDetails);
+    if (cartState.userCartDetails) {
+      if (cartState.userCartDetails[0]?.order?.length > 0) {
+        setUserCart(cartState.userCartDetails[0]?.order);
+        setSetUserCartDetail(cartState.userCartDetails[0])
       }
-  }, [cartState]);
+    }
+  }, [cartState.userCartDetails]);
+  
+console.log(setUserCartDetail, "inside cartState.userCartDetails")
 
-  console.log(userCart,"userCartDetailsuserCartDetailsuserCartDetails",cartState)
 
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
@@ -132,8 +135,8 @@ const ProductCard = (props) => {
         status: "Pending",
         delivery_time: "No Status",
       };
-      console.log(userCart?.order,"userCart[0]?.orderuserCart[0]?.order",userCart)
-      if ( userCart?.order == [] || userCart?.order == null) {
+      console.log(userCart,"userCartuserCart")
+      if (userCart == null || userCart == []) {
         for (var i = 0; i < order.length; i++) {
           if (userCart.order[i].productid == newItemObj.productid) {
             userCart.order[i].quantity += newItemObj.quantity;
@@ -147,15 +150,15 @@ const ProductCard = (props) => {
           AddtoCart();
         }
       } else {
-        for (var i = 0; i < userCart?.order.length; i++) {
-          if (userCart.order[i].productid == newItemObj.productid) {
-            userCart.order[i].quantity += newItemObj.quantity;
+        for (var i = 0; i < userCart.length; i++) {
+          if (userCart[i].productid == newItemObj.productid) {
+            userCart[i].quantity += newItemObj.quantity;
             merged = true;
           }
           setQuantity(1);
         }
         if (!merged) {
-          userCart.order.push(newItemObj);
+          userCart.push(newItemObj);
         }
         setQuantity(1);
          UpdateCart();
@@ -182,8 +185,7 @@ const ProductCard = (props) => {
           setUserCart(data.data[0]);
           let cartItems = data.data[0].order.length;
           dispatch(ACTIONS.getCartItem(cartItems));
-          console.log(data.data,"insiede the cart by id")
-          dispatch(Actions.getCartDetails(data.data[0]));
+          dispatch(HEADER_ACTIONS.getCartDetails(data.data))
         })
         .catch((err) => {
           console.log(err);
@@ -193,6 +195,7 @@ const ProductCard = (props) => {
 
   // Add to cart
   const AddtoCart = async () => {
+    console.log(userCart, "inside add to cart")
     if (!userdata == []) {
       await fetch(`${url}api/cart/add_to_cart`, {
         method: "POST",
@@ -222,6 +225,7 @@ const ProductCard = (props) => {
 
   //update cart
   const UpdateCart = () => {
+    console.log(userCart, "inside update cart")
     fetch( `${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -229,9 +233,9 @@ const ProductCard = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id: userCart._id,
+        _id: setUserCartDetail._id,
         userid: userdata._id,
-        order: userCart.order,
+        order: userCart,
       }),
     })
       .then((res) => res.json())
@@ -242,7 +246,7 @@ const ProductCard = (props) => {
           content: `Product added to cart`,
         });
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   return (
