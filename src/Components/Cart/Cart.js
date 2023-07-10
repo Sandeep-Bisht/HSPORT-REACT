@@ -98,7 +98,6 @@ const Cart = () => {
     if (quantity && quantity >= 1) {
        let updateOrder = userCart
        updateOrder[index].quantity = quantity + 1;
-      console.log(updateOrder, "updateOrder updateOrder", userCartDetail._id)
         updateCart(userCartDetail._id, updateOrder);
     }
   };
@@ -115,7 +114,6 @@ const Cart = () => {
     }
   };
 
-  console.log(userCart, "userCart userCart userCart userCart")
 
   return (
     <section className="cart-section">

@@ -31,7 +31,6 @@ const ProductCard = (props) => {
       if (cartState.userCartDetails) {
         setUserCart(cartState.userCartDetails[0]?.order);
         // Setorder(cartState.userCartDetails)
-        console.log("inisde use effect of cart sate", cartState.userCartDetails[0])
       }
     }
   }, [cartState.userCartDetails]);
@@ -132,7 +131,6 @@ const ProductCard = (props) => {
         status: "Pending",
         delivery_time: "No Status",
       };
-      console.log("user cart before check", userCart)
       if (userCart?.order == null || userCart?.order == []) {
         for (var i = 0; i < order.length; i++) {
           if (order[i].productid == newItemObj.productid) {

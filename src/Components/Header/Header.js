@@ -33,12 +33,19 @@ const Header = () => {
   const [userCartItem, setUserCartItem] = useState(null)
 
   let loginState = useSelector((state) => state.UserCartReducer)
+  let cartItemState = useSelector((state) => state.CartReducer)
 
 
   useEffect(() => {    
     getAllCategory();
     getAllSubCategory();
   }, []);
+
+  useEffect(() => {
+    if(cartItemState?.noOfItemsInCart > 0){
+      setUserCartItem(cartItemState.noOfItemsInCart)
+    }
+  }, [cartItemState])
 
   useEffect(() => {
     if(Cookies.get("userdata")){
@@ -84,7 +91,12 @@ const Header = () => {
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
-          setUserCartItem(response?.data.data[0]?.order.length)
+          if(response?.data.data[0]?.order.length > 0){
+            setUserCartItem(response?.data.data[0]?.order.length)
+          } else{
+            setUserCartItem(null)
+          }
+         
         } else {
           setErrorMsg(response.data.error);
         }
@@ -189,7 +201,6 @@ const Header = () => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-console.log(userId,"userIduserIduserIduserId")
 
   return (
     <>
