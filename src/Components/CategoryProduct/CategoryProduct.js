@@ -9,6 +9,8 @@ function CategoryProduct(props) {
 
   const { allCategories } = props;
 
+  const navigate=useNavigate();
+
   let url = "http://localhost:8080/";
 
 
@@ -23,6 +25,12 @@ function CategoryProduct(props) {
     pauseOnHover: true,
     autoPlaySpeed: 3000,
   };
+  const categoryHander=(categoeyId)=>{
+    navigate(
+      '/allProducts',
+      {state:categoeyId}
+    )
+  }
 
   return (
     <>
@@ -38,7 +46,6 @@ function CategoryProduct(props) {
               {allCategories &&
                 allCategories.length > 0 &&
                 allCategories.map((item, index) => {
-                  console.log(item,"itemmmmmmm")
                   return (
                     <div className="row featured-card-row pe-0 d-flex" key={index}>
                       <div className={`col-12 featured-card ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
@@ -46,12 +53,12 @@ function CategoryProduct(props) {
                           <img src={`${url}${item?.image[0].path}`} className="card-img-top featured-image" alt="" />
                           <div className={`card-body ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                             <h5 className={`card-title category-title ${index % 2 === 0 ? 'even-title' : ''}`}>
-                              Card title
+                              {item.name}
                             </h5>
                             <p className="card-text category-description">
                               {item.description}
                             </p>
-                            <a href="#" className="btn featured-shop-btn common-btn">Shop Now</a>
+                            <button onClick={()=>categoryHander(item._id)} className="btn featured-shop-btn common-btn">Shop Now</button>
                           </div>
                         </div>
                       </div>

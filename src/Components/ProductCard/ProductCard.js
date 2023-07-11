@@ -36,8 +36,6 @@ const ProductCard = (props) => {
     }
   }, [cartState.userCartDetails]);
   
-console.log(setUserCartDetail, "inside cartState.userCartDetails",userCart)
-
 
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
@@ -135,7 +133,6 @@ console.log(setUserCartDetail, "inside cartState.userCartDetails",userCart)
         status: "Pending",
         delivery_time: "No Status",
       };
-      console.log(userCart,"userCartuserCart")
       if (userCart == null || userCart == []) {
         for (var i = 0; i < order.length; i++) {
           if (userCart.order[i].productid == newItemObj.productid) {

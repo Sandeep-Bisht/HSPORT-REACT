@@ -35,29 +35,28 @@ const Header = () => {
   let loginState = useSelector((state) => state.UserCartReducer)
   let cartItemState = useSelector((state) => state.CartReducer)
 
-console.log(cartItemState,"cartItemStatecartItemStatecartItemState")
-  useEffect(() => {    
+  useEffect(() => {
     getAllCategory();
     getAllSubCategory();
   }, []);
 
   useEffect(() => {
-    if(cartItemState?.noOfItemsInCart > 0){
+    if (cartItemState?.noOfItemsInCart > 0) {
       setUserCartItem(cartItemState.noOfItemsInCart)
     }
-    else{
+    else {
       setUserCartItem("");
     }
   }, [cartItemState])
 
   useEffect(() => {
-    if(Cookies.get("userdata")){
+    if (Cookies.get("userdata")) {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
       getUserCart(userdata._id);
       dispatch(ACTIONS.getUserDetails(userdata));
-    }      
-      
+    }
+
   }, []);
 
   const getAllCategory = async () => {
@@ -94,12 +93,12 @@ console.log(cartItemState,"cartItemStatecartItemStatecartItemState")
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
-          if(response?.data.data[0]?.order.length > 0){
+          if (response?.data.data[0]?.order.length > 0) {
             setUserCartItem(response?.data.data[0]?.order.length)
-          } else{
+          } else {
             setUserCartItem(null)
           }
-         
+
         } else {
           setErrorMsg(response.data.error);
         }
@@ -478,7 +477,7 @@ console.log(cartItemState,"cartItemStatecartItemStatecartItemState")
                                 data-bs-toggle="dropdown"
                                 aria-expanded="isDropdownOpen"
                                 aria-current="page"
-                                // onClick={toggleDropdown}
+                              // onClick={toggleDropdown}
                               >
                                 <div className="me-1">
                                   <FiUserCheck className="one" />
@@ -499,12 +498,30 @@ console.log(cartItemState,"cartItemStatecartItemStatecartItemState")
                                 </li>
                                 <li>
                                   <Link
+                                    to="/UserOrder"
+                                  >
+                                    User Order
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
                                     className="dropdown-item-2"
                                     to="/wishlist"
                                   >
                                     Wishlist
                                   </Link>
                                 </li>
+                                {userdata?.role === "admin"  &&
+                                  <li>
+                                    <Link
+                                      to="/dashboard"
+                                      className="dropdown-item-1"
+                                    >
+                                      Dashboard
+                                    </Link>
+                                  </li>
+                                                                }
+
                                 <li>
                                   <Link
                                     to="/"
