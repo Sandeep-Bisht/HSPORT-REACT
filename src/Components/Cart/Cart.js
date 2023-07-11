@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import * as ACTIONS from "../Header/Action";
+import * as COMMON_ACTIONS from "../../CommonServices/Action"
 
 
 const Cart = () => {
@@ -25,30 +26,37 @@ const Cart = () => {
     (state) => state?.UserCartReducer?.userCartDetails
   );
 
-  const subTotalAmount = () => {
-    const subTotalAmount = userCart?.reduce((total, item) => {
+  useEffect(() => {
+    if (cartState) {
+      console.log("inisde use Effect", cartState)
+      console.log("after updating",cartState[0]?.order)
+      setUserCart(cartState[0]?.order);
+      setUserCartDetail(cartState[0]); 
+      cartAmount(cartState[0]?.order);
+          
+    }
+  }, [cartState]);
+
+ console.log(userCart, "usercar")
+
+  const cartAmount = (order) => {
+
+    const subTotalAmount = order?.reduce((total, item) => {
       return total + item?.quantity * item?.salePrice;
     }, 0);
     setSubTotal(subTotalAmount);
-  };
 
-  const discountAmount = () => {
-    const discountTotalAmount = userCart?.reduce((total, item) => {
+    const discountTotalAmount = order?.reduce((total, item) => {
       return total + item.quantity * (item.mrp - item.salePrice);
     }, 0);
+    
     setDiscount(discountTotalAmount)
     let discount = discountTotalAmount;
-    let discountedPrice = subTotal - discount;
+    let discountedPrice = subTotalAmount - discount;
     setPayableAmount(discountedPrice)
   };
 
-  useEffect(() => {
-    if (cartState) {
-      console.log("counter", cartState[0])
-      setUserCart(cartState[0]?.order);
-      setUserCartDetail(cartState[0]);      
-    }
-  }, [cartState]);
+
 
  
 
@@ -60,11 +68,10 @@ const Cart = () => {
       setUserdata(userdata);
     }
   }, []);
-  // subTotalAmount();
-  // discountAmount();
 
 
   const updateCart = (cartId, updateOrder) => {
+    console.log("inisde update cart qty")
     fetch(`${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -79,23 +86,26 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log("inside response ", res)
+        CartById()
           // dispatch(ACTIONS.getCartDetails(updateOrder));
-          console.log("inside response", updateOrder)
-          setUserCart(updateOrder)
+          // console.log("inside response", updateOrder)
+          // setUserCart(updateOrder)
           // dispatch(ACTIONS.getCartItem(order?.length))
       })
       .catch((err) => console.log(err, "error"));
   };
 
   const minusHander = (quantity, index) => {
-    if (quantity > 1) {
-      userCart[index].quantity = quantity - 1;
-      updateCart(userCartDetail._id);
+    if (userCart && quantity > 1) {      
+      let updateOrder = userCart
+      updateOrder[index].quantity = quantity - 1;
+       updateCart(userCartDetail._id, updateOrder);
     }
   };
 
   const plusHander = (quantity, index) => {
-    if (quantity && quantity >= 1) {
+    if (quantity && quantity >= 1 && userCart) {
        let updateOrder = userCart
        updateOrder[index].quantity = quantity + 1;
         updateCart(userCartDetail._id, updateOrder);
@@ -113,6 +123,34 @@ const Cart = () => {
       console.error(error);
     }
   };
+
+
+  const CartById = async () => {
+    if (!userdata == []) {
+      await fetch(`${url}api/cart/cart_by_id`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: userdata._id,
+        }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          setUserCart(data.data[0]);
+          let cartItems = data.data[0].order.length;
+          console.log(cartItems,"cartItemscartItems")
+          dispatch(COMMON_ACTIONS.getCartItem(cartItems));
+          dispatch(ACTIONS.getCartDetails(data.data))
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
 
 
   return (
