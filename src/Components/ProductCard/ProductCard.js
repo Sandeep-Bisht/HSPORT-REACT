@@ -36,7 +36,7 @@ const ProductCard = (props) => {
     }
   }, [cartState.userCartDetails]);
   
-console.log(setUserCartDetail, "inside cartState.userCartDetails")
+console.log(setUserCartDetail, "inside cartState.userCartDetails",userCart)
 
 
   let url = "http://localhost:8080/";

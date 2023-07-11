@@ -35,7 +35,7 @@ const Header = () => {
   let loginState = useSelector((state) => state.UserCartReducer)
   let cartItemState = useSelector((state) => state.CartReducer)
 
-
+console.log(cartItemState,"cartItemStatecartItemStatecartItemState")
   useEffect(() => {    
     getAllCategory();
     getAllSubCategory();
@@ -44,6 +44,9 @@ const Header = () => {
   useEffect(() => {
     if(cartItemState?.noOfItemsInCart > 0){
       setUserCartItem(cartItemState.noOfItemsInCart)
+    }
+    else{
+      setUserCartItem("");
     }
   }, [cartItemState])
 
