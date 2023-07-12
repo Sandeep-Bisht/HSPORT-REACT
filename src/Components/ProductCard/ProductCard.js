@@ -192,7 +192,6 @@ const ProductCard = (props) => {
 
   // Add to cart
   const AddtoCart = async () => {
-    console.log(userCart, "inside add to cart")
     if (!userdata == []) {
       await fetch(`${url}api/cart/add_to_cart`, {
         method: "POST",
@@ -222,7 +221,6 @@ const ProductCard = (props) => {
 
   //update cart
   const UpdateCart = () => {
-    console.log(userCart, "inside update cart")
     fetch( `${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {

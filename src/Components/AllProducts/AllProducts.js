@@ -40,9 +40,14 @@ function AllProducts() {
     }
   }, [allCategoryState]);
 
-  // useEffect(() => {
-  //     getAllProducts();
-  //   }, []);
+  useEffect(() => {
+    sortedAccordingPrice();
+    },[selectedPrice]);
+
+    useEffect(() => {
+      sortedAccordingName();
+      },[selectedAlphabetic]);
+
 
   const getProductByCategoryId = (category) => {
     setSelectedCategory(category)
@@ -52,7 +57,16 @@ function AllProducts() {
         .post(url, { category })
         .then((response) => {
           // Use the data in your frontend logic
-          setAllProducts(response.data.data);
+          if (response) {
+            if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+            {
+              setSelectedAlphabetic("");
+            }
+            else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+              setSelectedPrice("");
+            }
+            setAllProducts(response.data.data);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -63,13 +77,61 @@ function AllProducts() {
     }
   };
 
+  const sortedAccordingPrice=()=>{
+    if(selectedPrice==="lowToHigh")
+    {
+      if(allProducts)
+      {
+        const sortedPriceProducts=[...allProducts].sort((a,b)=>{
+          return (a.inrDiscount-b.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+    else if(selectedPrice==="highToLow"){
+      if(allProducts)
+      {
+        const sortedPriceProducts = [...allProducts].sort((a,b)=>{
+          return (b.inrDiscount-a.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+  }
+
+  const sortedAccordingName = () => {
+    if (selectedAlphabetic === "AtoZ") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return a.slug.localeCompare(b.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    } else if (selectedAlphabetic === "ZtoA") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return b.slug.localeCompare(a.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    }
+  };
+  
+
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
   };
   const handleCheckboxPrice = (event) => {
+    if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+    {
+      setSelectedAlphabetic("");
+    }
     setSelectedPrice(event.target.value);
   };
   const handleCheckboxAlphabetic = (event) => {
+    if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+      setSelectedPrice("");
+    }
     setSelectedAlphabetic(event.target.value);
   };
 
@@ -79,6 +141,13 @@ function AllProducts() {
     let response = await axios.get(url);
     try {
       if (response) {
+        if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+        {
+          setSelectedAlphabetic("");
+        }
+        else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+          setSelectedPrice("");
+        }
         setAllProducts(response.data.data);
       }
     } catch (error) {

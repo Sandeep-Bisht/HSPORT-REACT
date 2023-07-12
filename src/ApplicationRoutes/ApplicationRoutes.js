@@ -30,6 +30,7 @@ import ProductDetailPage from '../Components/ProductDetailPage/ProductDetailPage
 import SearchResult from '../Components/SearchResult/SearchResult';
 import AboutUs from '../Components/AboutUs/AboutUs';
 import UserOrder from '../Components/UserOrder/UserOrder';
+import PaymentSuccessfull from '../Components/PaymentSuccessfull/PaymentSuccessfull';
 
 const ApplicationRoutes = () => {
   return (
@@ -70,6 +71,8 @@ const ApplicationRoutes = () => {
       <Route path='SearchResult' element={<SearchResult/>} />
       <Route path='/about-us' element={<AboutUs />} />
       <Route path='/UserOrder' element={<UserOrder />} />
+      <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
+
 
     </Routes>
   )

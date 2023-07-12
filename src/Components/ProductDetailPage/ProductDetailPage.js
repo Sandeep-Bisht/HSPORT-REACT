@@ -376,7 +376,7 @@ const ProductDetailPage = () => {
                 <h2 className="title-wrap common-heading">
                   {productDetail?.name}
                   <div
-                    className="wishlist-div ps-3"
+                    className="wishlist-div ps-3 cursor-btn"
                     onClick={() => onClickWishListHandler(productDetail._id)}
                   >
                     <span className="wishlist-btn" id="wishlisted" ref={wishlistRef}>
