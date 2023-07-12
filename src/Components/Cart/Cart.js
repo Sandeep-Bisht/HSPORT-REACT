@@ -17,6 +17,17 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState();
   const [discount, setDiscount] = useState();
   const [payableAmount, setPayableAmount] = useState();
+
+  const [data, Setdata] = useState({
+    
+    order: [],
+    userid: "",
+    order_no: "",
+    status: "pending",
+    totalamount: "",
+    actualamount: "",
+    email: "",
+  });
   
 
   const navigate = useNavigate();
@@ -28,16 +39,14 @@ const Cart = () => {
 
   useEffect(() => {
     if (cartState) {
-      console.log("inisde use Effect", cartState)
-      console.log("after updating",cartState[0]?.order)
       setUserCart(cartState[0]?.order);
       setUserCartDetail(cartState[0]); 
       cartAmount(cartState[0]?.order);
+      Setdata({ ...data, order: JSON.stringify(cartState[0]?.order) });
           
     }
   }, [cartState]);
 
- console.log(userCart, "usercar")
 
   const cartAmount = (order) => {
 
@@ -71,7 +80,6 @@ const Cart = () => {
 
 
   const updateCart = (cartId, updateOrder) => {
-    console.log("inisde update cart qty")
     fetch(`${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -86,12 +94,7 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("inside response ", res)
         CartById()
-          // dispatch(ACTIONS.getCartDetails(updateOrder));
-          // console.log("inside response", updateOrder)
-          // setUserCart(updateOrder)
-          // dispatch(ACTIONS.getCartItem(order?.length))
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -148,6 +151,49 @@ const Cart = () => {
           console.log(err);
         });
     }
+  };
+
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    
+
+    // let { order } = data;
+    // let neworder = JSON.parse(order);
+    // neworder.forEach(function (item) {
+    //   delete item.category;
+    //   delete item.description;
+    //   delete item.delivery_time;
+    //   delete item.justification;
+    //   delete item.manufacturer;
+    //   delete item.mrp;
+    // });
+
+    
+  
+
+
+    const formData = new FormData();
+     formData.append("order", JSON.stringify(userCart));
+     formData.append("userid", userdata._id);
+      formData.append("status", data.status);
+     formData.append("order_no", Math.floor(Math.random() * 1000000));
+      formData.append("totalamount", payableAmount);
+      formData.append("actualamount", subTotal);
+     formData.append("email", userdata.email);
+
+     console.log("inside handle checko0ut", data)
+
+    const url = `http://localhost:8080/api/order/create-checkout-session`;
+     await fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        window.location.href = res.url;
+      })
+      .catch((err) => console.log(err));
   };
 
 
@@ -263,7 +309,7 @@ const Cart = () => {
                     </ul>
                   </div>
                   <div className="checkout-button-div">
-                    <button className="checkout-button">Checkout</button>
+                    <button className="checkout-button" onClick={(e)=> handleCheckout(e)}>Checkout</button>
                   </div>
                 </div>
               </div>
