@@ -114,6 +114,7 @@ const ProductCard = (props) => {
     sortDescription,
     category,
     brand,
+    slug,
     subcategory,
     image
   ) => {
@@ -130,6 +131,7 @@ const ProductCard = (props) => {
         category: category,
         subcategory: subcategory,
         brand: brand,
+        slug:slug,
         status: "Pending",
         delivery_time: "No Status",
       };
@@ -297,6 +299,7 @@ const ProductCard = (props) => {
                                   item.sortDescription,
                                   item.category.name,
                                   item.brand.name,
+                                  item.slug,
                                   item.subcategory.name,
                                   item.image[0].path
                                 )
@@ -379,6 +382,7 @@ const ProductCard = (props) => {
                                     item.sortDescription,
                                     item.category.name,
                                     item.brand.name,
+                                    item.slug,
                                     item.subcategory.name,
                                     item.image[0].path
                                   )

@@ -43,6 +43,7 @@ const ProductDetailPage = () => {
       getProductDetails(location?.state);
     }
   }, [location.state]);
+  console.log(location.state,"location?.statelocation?.state")
 
   const getProductDetails = async (productId) => {
     try {

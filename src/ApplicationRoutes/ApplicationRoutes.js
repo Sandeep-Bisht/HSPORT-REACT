@@ -31,6 +31,7 @@ import SearchResult from '../Components/SearchResult/SearchResult';
 import AboutUs from '../Components/AboutUs/AboutUs';
 import UserOrder from '../Components/UserOrder/UserOrder';
 import PaymentSuccessfull from '../Components/PaymentSuccessfull/PaymentSuccessfull';
+import ContactUs from '../Components/ContactUS/ContactUs';
 
 const ApplicationRoutes = () => {
   return (
@@ -72,6 +73,7 @@ const ApplicationRoutes = () => {
       <Route path='/about-us' element={<AboutUs />} />
       <Route path='/UserOrder' element={<UserOrder />} />
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
+      <Route path='/contact-us' element={<ContactUs />} />
 
 
     </Routes>

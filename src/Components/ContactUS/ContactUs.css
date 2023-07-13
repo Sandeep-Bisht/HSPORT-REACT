@@ -1,0 +1,186 @@
+body{
+    font-family: Lato,sans-serif;
+}
+.contact-us{
+    padding: 50px 0;
+}
+.container{
+    max-width: 1080!important;
+}
+.contact-us .discover-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+.contact-us p.contact-heading{
+    font-family: Lato,sans-serif;
+    font-size: 16px!important;
+    font-weight: 700!important;
+    letter-spacing: .25px;
+    text-transform: uppercase;
+    color: #212529!important;
+    opacity: 1;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.contact-us .visit-us p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.contact-us .email-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+a {
+    color: #0d6efd;
+    color: var(--bs-link-color);
+    text-decoration: underline;
+}
+.contact-us .callus-wrap p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.px-5 {
+    padding-right: 3rem!important;
+    padding-left: 3rem!important;
+}
+.contact-us .form-wrap  p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: Lato,sans-serif;
+    color: #777;
+}
+.contact-us .col-md-7{
+    padding: 0px 70px;
+}
+.contact-us .contact-heading{
+    font-family: Lato,sans-serif;
+    font-size: 16px!important;
+    font-weight: 700!important;
+    letter-spacing: .25px;
+    text-transform: uppercase;
+    color: #212529!important;
+}
+.contact-us .from-wrap input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #b3b3b3;
+    width: 100%;
+}
+input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+.login-btn {
+    background: #495057;
+    border: none;
+    color: #fff;
+    font-size: 14px!important;
+    font-weight: 700;
+    padding: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+       /*====================================Media Querries========================================*/
+
+       @media only screen and (max-width : 767px) {
+        .contact-us-page .form-wrap-left
+        {
+            padding: 0 !important;
+        }
+        .contact-us-page .removed
+        {
+            padding: 0 !important;
+        }
+        .contact-us-page .discover-wrapper h2
+        {
+            font-size: 30px;
+        }
+        .contact-us-page .discover-wrapper p {
+            padding: 6px 0;
+        }
+        .contact-us-page .email-wrapper p
+        {
+            padding: 0;
+        }
+        .contact-us-page .visit-us-wrapper h3 ,.contact-us-page .email-wrapper h4, .contact-us-page .callus-wrapper h5
+        {
+            font-size: 25px;
+        }
+        .contact-us-page .form-wrap-left h6
+        {
+            font-size: 30px;
+        }
+        .contact-us-page .form-wrap-left p
+        {
+            padding: 8px 0;
+        }
+    }
+    
+    @media only screen and (max-width : 575px) {
+        .contact-us-page
+        {
+            padding: 25px 0;
+        }
+    }
+    
+    @media only screen and (max-width : 480px) {
+        .contact-us-page .discover-wrapper h2 ,.contact-us-page .form-wrap-left h6
+        {
+            font-size: 23px;
+        }
+        .contact-us-page .discover-wrapper p , .contact-us-page .visit-us-wrapper p , .contact-us-page .visit-us-wrapper .para-2 , .contact-us-page .form-wrap-left p , .contact-us-page .email-wrapper p , .contact-us-page .callus-wrapper p
+        {
+            font-size: 14px;
+        }
+        .contact-us-page .visit-us-wrapper h3, .contact-us-page .email-wrapper h4, .contact-us-page .callus-wrapper h5
+        {
+            font-size: 20px;
+        }
+        .contact-us-page .removed-1
+        {
+            padding: 20px 0 !important;
+        }
+        .contact-us-page .form-wrap-right input::placeholder
+        {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (max-width : 320px) {
+        .contact-us-page .discover-wrapper h2, .contact-us-page .form-wrap-left h6
+        {
+            font-size: 18px;
+        }
+        .contact-us-page .discover-wrapper p, .contact-us-page .visit-us-wrapper p, .contact-us-page .visit-us-wrapper .para-2, .contact-us-page .form-wrap-left p, .contact-us-page .email-wrapper p, .contact-us-page .callus-wrapper p
+        {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    }
