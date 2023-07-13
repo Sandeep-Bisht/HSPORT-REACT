@@ -196,7 +196,7 @@ const Cart = () => {
                                 />
                               </div>
                             </div>
-                            <div className="col-5">
+                            <div className="col-5 d-flex align-item-center">
                               <span className="product-name">{item?.name}</span>
                               <span className="product-description">
                                 {item?.description}

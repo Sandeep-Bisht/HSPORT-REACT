@@ -6,6 +6,7 @@ import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
+import TopBrand from "../TopBrands/TopBrands";
 import {Link} from "react-router-dom"
 
 const HomePage = () => {
@@ -13,10 +14,12 @@ const HomePage = () => {
   const [allProducts, setAllProducts] = useState([])
   const [allCategories,setAllCategories]=useState([]);
   const [featruedCategories,setFeatruedCategories]=useState([]);
+  const [allTopBrands,setAllTopBrands]=useState([]);
 
 useEffect(() => {
-  getAllProducts()
-  getAllCategories()
+  getAllProducts();
+  getAllCategories();
+  getTopBrands();
   window.scroll(0,0);
 }, [])
 
@@ -49,6 +52,22 @@ const getAllCategories=async()=>{
     }
 }
 
+const getTopBrands=async()=>{
+  let url = "http://localhost:8080/api/brands/all_brands";
+  const topBrands=await axios.get(url)
+  {
+    try{
+      if(topBrands)
+      {
+        console.log(topBrands,"inside the top brands")
+        setAllTopBrands(topBrands.data.data);
+      }
+    }catch(error)
+    {
+      console.log(error);
+    }
+  }
+}
 
   return (
     <>
@@ -185,6 +204,7 @@ const getAllCategories=async()=>{
       <ProductCard  productList={allProducts}/>
       <CategoryProduct allCategories={allCategories}/>
       <ProductCard  featuredProductList={featruedCategories}/>
+      <TopBrand allTopBrands={allTopBrands}/>
     </>
   );
 };
