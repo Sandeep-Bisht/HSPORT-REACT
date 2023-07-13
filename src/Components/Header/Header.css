@@ -312,6 +312,7 @@ max-width: fit-content!important;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 .cart-top-items{
     position: relative;
