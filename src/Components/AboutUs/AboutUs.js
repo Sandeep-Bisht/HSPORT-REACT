@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import About1 from "../../Images/about1.jpg"
 import "./About.css"
 import About2 from "../../Images/about2.jpg"
@@ -6,6 +6,9 @@ import About3 from "../../Images/about3.jpg"
 
 
 const AboutUs = () => {
+  useEffect(()=>{
+    window.scroll(0,0);
+  },[])
   return (
     <>
     <section className="about-page">

@@ -6,6 +6,7 @@ import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
+import {Link} from "react-router-dom"
 
 const HomePage = () => {
 
@@ -16,6 +17,7 @@ const HomePage = () => {
 useEffect(() => {
   getAllProducts()
   getAllCategories()
+  window.scroll(0,0);
 }, [])
 
 const getAllProducts = async() => {
@@ -105,9 +107,9 @@ const getAllCategories=async()=>{
                   Products{" "}
                 </p>
                 
-                <a href="#" className="common-btn">
+                <Link to="/allProducts" className="common-btn">
                   <span className="">Shop Now</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="carousel-item">

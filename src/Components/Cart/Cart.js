@@ -33,8 +33,8 @@ const Cart = () => {
       setUserCart(cartState[0]?.order);
       setUserCartDetail(cartState[0]); 
       cartAmount(cartState[0]?.order);
-          
     }
+    window.scroll(0,0);
   }, [cartState]);
 
  console.log(userCart, "usercar")
@@ -55,10 +55,6 @@ const Cart = () => {
     let discountedPrice = subTotalAmount - discount;
     setPayableAmount(discountedPrice)
   };
-
-
-
- 
 
   let url = "http://localhost:8080/";
 

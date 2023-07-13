@@ -35,6 +35,7 @@ const ProductDetailPage = () => {
     setUserdata(userdata);
     getUserWishlist(userdata._id);
     }
+    window.scroll(0,0)
   },[]);
 
   useEffect(() => {

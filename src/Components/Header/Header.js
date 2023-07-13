@@ -16,7 +16,7 @@ import {
 import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
-import logo from "../../Images/logo.png";
+import logo from "../../Images/HsportsLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 
 let userId = "";

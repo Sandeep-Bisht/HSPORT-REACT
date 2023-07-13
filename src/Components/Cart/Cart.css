@@ -36,7 +36,7 @@
     display: flex;
     height: 41px;
     align-items: center;
-    background-color: #99b19c;
+    background-color: #1e2737;
 }
 .card-heading{
     border: none;
@@ -101,7 +101,7 @@
 .checkout-card{
     display: flex;
     justify-content: center;
-    background: #99b19c;
+    background: #1e2737;
     padding: 4px 75px;
     color: #fff;
 }
@@ -126,7 +126,7 @@
     border: none;
     width: 100%;
     padding: 4px 75px;
-    background: #99b19c;
+    background: #1e2737;
     font-size: 20px;
     font-weight: 600px;
     color: #fff;

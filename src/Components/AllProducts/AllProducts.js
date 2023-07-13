@@ -25,6 +25,9 @@ function AllProducts() {
     if (location?.state) {
       getProductByCategoryId(location.state);
     }
+    else{
+      getAllProducts();
+    }
   }, [location.state]);
 
   useEffect(() => {
@@ -32,6 +35,7 @@ function AllProducts() {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
     }
+    window.scroll(0,0)
   }, []);
 
   useEffect(() => {

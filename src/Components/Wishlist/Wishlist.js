@@ -19,6 +19,7 @@ const Wishlist = () => {
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
+    window.scroll(0,0);
   }, []);
 
   // Get Wishlist Item
