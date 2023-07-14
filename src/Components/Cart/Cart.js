@@ -158,13 +158,13 @@ const Cart = () => {
         <div className="row mt-3 mb-3">
           {userCart && userCart?.length ? (
             <>
-              <div className="col-8">
+              <div className="col-lg-8 col-md-7 col-sm-7">
                 <div className="col-row card-header">
                   <div className="col-2"></div>
-                  <div className="col-5">
+                  <div className="col-4">
                     <span className="card-heading">Item Name</span>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <span className="card-heading">Quantity</span>
                   </div>
                   <div className="col-2">
@@ -196,13 +196,13 @@ const Cart = () => {
                                 />
                               </div>
                             </div>
-                            <div className="col-5 d-flex align-item-center">
+                            <div className="col-4 d-flex align-item-center">
                               <span className="product-name">{item?.name}</span>
                               <span className="product-description">
                                 {item?.description}
                               </span>
                             </div>
-                            <div className="col-2 amount mt-2 card-image ps-2">
+                            <div className="col-3 amount mt-2 card-image ps-2">
                               <div className="input-counter">
                                 <div className="plus-minus-btn cursor-btn"
                                   onClick={() =>
@@ -245,23 +245,23 @@ const Cart = () => {
                   })}
               </div>
 
-              <div className="col-4">
+              <div className="col-lg-4 col-md-5 col-sm-5">
                 <div className="card">
                   <div className="card-body checkout-card">
-                    <h5>Order Summary</h5>
+                    <h5 className="order-payment-detail">Order Summary</h5>
                   </div>
                   <div>
                     <ul className="product-checkout-price">
                       <li className="list-style">
-                        Sub Total
+                        <spam className="product-name">Sub Total</spam>
                         <span>{subTotal}</span>
                       </li>
                       <li className="list-style">
-                        Discount
+                      <spam className="product-name"> Discount</spam>
                         <span>{discount}</span>
                       </li>
                       <li className="list-style">
-                        Payable Amount
+                      <spam className="product-name">Payable Amount</spam>
                         <span>{payableAmount}</span>
                       </li>
                     </ul>
