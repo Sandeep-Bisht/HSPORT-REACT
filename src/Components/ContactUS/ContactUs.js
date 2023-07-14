@@ -42,7 +42,7 @@ const ContactUs = () => {
               </div>
             </div>
           </div>
-          <div className='col-md-7'>
+          <div className='col-md-7 form-section'> 
             <div className='col-md-12 removed'>
               <div className='form-wrap'></div>
                 <p className='contact-heading'>Get in touch with us</p>
