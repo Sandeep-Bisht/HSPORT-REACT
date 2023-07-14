@@ -16,10 +16,10 @@ import {
 import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
-import logo from "../../Images/logo.png";
+import logo from "../../Images/HsportsLogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "bootstrap";
 
+let userId = "";
 const Header = () => {
   let dispatch = useDispatch();
   const [successMsg, setSuccessMsg] = useState();
@@ -29,12 +29,34 @@ const Header = () => {
   const [toggle, setToggle] = useState();
   const [categoryList, setCategoryList] = useState();
   const [subCategoryList, setSubCategoryList] = useState();
-  let userid = "649e74f60540afa40dc097e0";
+  const [activeLogin, setActiveLogin] = useState(true);
+  const [userCartItem, setUserCartItem] = useState(null)
+
+  let loginState = useSelector((state) => state.UserCartReducer)
+  let cartItemState = useSelector((state) => state.CartReducer)
 
   useEffect(() => {
-    getUserCart(userid);
     getAllCategory();
     getAllSubCategory();
+  }, []);
+
+  useEffect(() => {
+    if (cartItemState?.noOfItemsInCart > 0) {
+      setUserCartItem(cartItemState.noOfItemsInCart)
+    }
+    else {
+      setUserCartItem("");
+    }
+  }, [cartItemState])
+
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      getUserCart(userdata._id);
+      dispatch(ACTIONS.getUserDetails(userdata));
+    }
+
   }, []);
 
   const getAllCategory = async () => {
@@ -42,7 +64,6 @@ const Header = () => {
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of acategory");
         setCategoryList(response.data.data);
         dispatch(ACTIONS.getAllCategoryList(response.data.data));
       }
@@ -55,7 +76,6 @@ const Header = () => {
     try {
       let response = await axios.get(url);
       if (response) {
-        console.log(response.data.data, "inside response of subCategoryList");
         setSubCategoryList(response.data.data);
       }
     } catch (error) {
@@ -63,14 +83,7 @@ const Header = () => {
     }
   };
 
-  let userId = "";
 
-  useEffect(() => {
-    if(Cookies.get("userdata")){
-    userId = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-    getUserCart(userId?._id);
-    }
-  },[]);
 
 
   const getUserCart = async (userid) => {
@@ -80,6 +93,12 @@ const Header = () => {
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
+          if (response?.data.data[0]?.order.length > 0) {
+            setUserCartItem(response?.data.data[0]?.order.length)
+          } else {
+            setUserCartItem(null)
+          }
+
         } else {
           setErrorMsg(response.data.error);
         }
@@ -121,7 +140,7 @@ const Header = () => {
             encodeURIComponent(JSON.stringify(response?.data.user)),
             { expires: 7 }
           );
-          dispatch(ACTIONS.getUserDetails(response.data.user));
+          // dispatch(ACTIONS.getUserDetails(response.data.user));
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error);
@@ -179,13 +198,11 @@ const Header = () => {
     Cookies.remove("hsports_token");
   };
 
-   // Re Direction to all product page
+  // Re Direction to all product page
   const redirectToAllProductPage = async (categoryName, categoeyId) => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-
-
 
   return (
     <>
@@ -321,7 +338,7 @@ const Header = () => {
                                               ) {
                                                 return (
                                                   <ul className="mega-menu-sub-heading-list" key={ind}>
-                                                    <li onClick={()=>redirectToAllProductPage( item.name , element.category._id)}>
+                                                    <li onClick={() => redirectToAllProductPage(item.name, element.category._id)}>
                                                       {" "}
                                                       <Link
                                                         className="mega-menu-list-item"
@@ -418,6 +435,7 @@ const Header = () => {
                       </div>
                       <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                          <span className="cart-top-items">{userCartItem}</span>
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"
@@ -450,15 +468,16 @@ const Header = () => {
                               Wishlist
                             </button>
                           )}
-                          {userdata ? (
+                          {userdata && userdata ? (
                             <div className="dropdown after-login-dropdown">
                               <a
                                 className="header-right-link nav-link  icon m-0 dropdown-toggle"
                                 role="button"
                                 id="dropdownMenuButton"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
+                                aria-expanded="isDropdownOpen"
                                 aria-current="page"
+                              // onClick={toggleDropdown}
                               >
                                 <div className="me-1">
                                   <FiUserCheck className="one" />
@@ -468,10 +487,7 @@ const Header = () => {
                                 </div>
                               </a>
 
-                              <ul
-                                className="dropdown-menu br-dr after-login-menu"
-                                aria-labelledby="dropdownMenuButton"
-                              >
+                              <ul className="dropdown-menu br-dr after-login-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
                                   <Link
                                     className="dropdown-item-1"
@@ -482,12 +498,30 @@ const Header = () => {
                                 </li>
                                 <li>
                                   <Link
+                                    to="/UserOrder"
+                                  >
+                                    User Order
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
                                     className="dropdown-item-2"
                                     to="/wishlist"
                                   >
                                     Wishlist
                                   </Link>
                                 </li>
+                                {userdata?.role === "admin"  &&
+                                  <li>
+                                    <Link
+                                      to="/dashboard"
+                                      className="dropdown-item-1"
+                                    >
+                                      Dashboard
+                                    </Link>
+                                  </li>
+                                                                }
+
                                 <li>
                                   <Link
                                     to="/"
@@ -547,17 +581,32 @@ const Header = () => {
             <div className="modal-body">
               <div className="row inside-modal-body">
                 <div className="col-md-6 left-login-modal">
-                  <div className="m-3">
-                    <h3 className="login-left-first">LOGIN</h3>
-                    <div className="mt-5">
-                      <h3 className="login-left-mid pt-2">Get</h3>
-                      <h3 className="login-left-mid pt-2">access to</h3>
-                      <h3 className="login-left-second pt-2">personalised</h3>
-                      <h3 className="login-left-mid pt-2">
-                        shopping experience
-                      </h3>
+                  {activeLogin ?
+                    <div className="m-3 mt-4">
+                      <h3 className="login-left-first">LOGIN</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">Get</h3>
+                        <h3 className="login-left-mid pt-2">access to</h3>
+                        <h3 className="login-left-second pt-2">personalised</h3>
+                        <h3 className="login-left-mid pt-2">
+                          shopping experience
+                        </h3>
+                      </div>
                     </div>
-                  </div>
+                    :
+                    <div className="m-3 mt-4">
+                      <h3 className="login-left-first">SIGNUP</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">WE</h3>
+                        <h3 className="login-left-mid pt-2">promise you</h3>
+                        <h3 className="login-left-second pt-2">100% SECURE</h3>
+                        <h3 className="login-left-mid pt-2">
+                          data protection
+                        </h3>
+                      </div>
+                    </div>
+                  }
+
                 </div>
 
                 <div className="col-md-6 mx-auto mt-3">
@@ -567,7 +616,7 @@ const Header = () => {
                       id="pills-tab"
                       role="tablist"
                     >
-                      <li className="nav-item" role="presentation">
+                      <li className="nav-item login-signup-btn col-6" role="presentation">
                         <button
                           className="nav-link active"
                           id="pills-home-tab"
@@ -577,12 +626,15 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
-                          onClick={() => setSuccessMsg("")}
+                          onClick={() => {
+                            setSuccessMsg("");
+                            setActiveLogin(true);
+                          }}
                         >
                           LOGIN
                         </button>
                       </li>
-                      <li className="nav-item" role="presentation">
+                      <li className="nav-item login-signup-btn col-6" role="presentation">
                         <button
                           className="nav-link"
                           id="pills-profile-tab"
@@ -592,7 +644,10 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
-                          onClick={() => setErrorMsg()}
+                          onClick={() => {
+                            setErrorMsg()
+                            setActiveLogin(false);
+                          }}
                         >
                           SIGNUP
                         </button>
@@ -705,17 +760,17 @@ const Header = () => {
 
                                   {registrationError?.email?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
 
                                   {registrationError?.email?.type ===
                                     "pattern" && (
-                                    <p className="text-danger">
-                                      Please enter Valid email Address
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Please enter Valid email Address
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -733,18 +788,18 @@ const Header = () => {
                                   />
                                   {registrationError?.password?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.password?.type ===
                                     "pattern" && (
-                                    <p className="text-danger password-err">
-                                      Must have atleast 8 characters, one
-                                      number, upper & lowercase letters &
-                                      special character
-                                    </p>
-                                  )}
+                                      <p className="text-danger password-err">
+                                        Must have atleast 8 characters, one
+                                        number, upper & lowercase letters &
+                                        special character
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">
@@ -768,16 +823,16 @@ const Header = () => {
                                   />
                                   {registrationError?.confirmPassword?.type ===
                                     "required" && (
-                                    <p className="text-danger">
-                                      This field is required
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        This field is required
+                                      </p>
+                                    )}
                                   {registrationError?.confirmPassword?.type ===
                                     "validate" && (
-                                    <p className="text-danger">
-                                      Password does not match
-                                    </p>
-                                  )}
+                                      <p className="text-danger">
+                                        Password does not match
+                                      </p>
+                                    )}
                                 </div>
 
                                 <div className="form-fields">

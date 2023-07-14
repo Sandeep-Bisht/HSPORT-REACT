@@ -78,7 +78,6 @@ export default function AllCategoriesDetails() {
       dataIndex: "Action",
       width: "20%",
       render: (_, record) => {
-        console.log("record:", record); // Add this line to log the record object
   
         return getuser.length >= 1 ? (
           <Space size="middle">

@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import * as ACTIONS from "../../CommonServices/Action";
+import * as HEADER_ACTIONS from "../Header/Action"
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductCard = (props) => {
@@ -17,21 +18,24 @@ const ProductCard = (props) => {
   const [wishlistItem, setWishlistItem] = useState([]);
   const [userdata, setUserdata] = useState();
   const [quantity, setQuantity] = useState(1);
-  const [userCart, setUserCart] = useState([]);
+  const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
+  const [setUserCartDetail, setSetUserCartDetail] = useState(null)
 
   const { productList } = props;
+  const {featuredProductList} =props
 
   let cartState = useSelector((state) => state.UserCartReducer);
 
-
-  useEffect(() => {
+  useEffect(() => { 
     if (cartState.userCartDetails) {
-      if (cartState.userCartDetails) {
-        setUserCart(cartState.userCartDetails);
+      if (cartState.userCartDetails[0]?.order?.length > 0) {
+        setUserCart(cartState.userCartDetails[0]?.order);
+        setSetUserCartDetail(cartState.userCartDetails[0])
       }
     }
   }, [cartState.userCartDetails]);
+  
 
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
@@ -44,10 +48,10 @@ const ProductCard = (props) => {
     }
   }, []);
 
+
   // Re Direction to single product page
   let redirectToProductDiscriptionPage = (name, productId) => {
     navigate(`/product/${name}`, { state: productId });
-    //navigate(`/product/${name}`);
   };
 
   // Add to wishlist
@@ -110,6 +114,7 @@ const ProductCard = (props) => {
     sortDescription,
     category,
     brand,
+    slug,
     subcategory,
     image
   ) => {
@@ -126,13 +131,14 @@ const ProductCard = (props) => {
         category: category,
         subcategory: subcategory,
         brand: brand,
+        slug:slug,
         status: "Pending",
         delivery_time: "No Status",
       };
-      if (userCart.order == null || userCart.order == []) {
+      if (userCart == null || userCart == []) {
         for (var i = 0; i < order.length; i++) {
-          if (order[i].productid == newItemObj.productid) {
-            order[i].quantity += newItemObj.quantity;
+          if (userCart.order[i].productid == newItemObj.productid) {
+            userCart.order[i].quantity += newItemObj.quantity;
             merged = true;
             setQuantity(1);
           }
@@ -141,18 +147,17 @@ const ProductCard = (props) => {
           order.push(newItemObj);
           setQuantity(1);
           AddtoCart();
-          
         }
       } else {
-        for (var i = 0; i < userCart.order.length; i++) {
-          if (userCart.order[i].productid == newItemObj.productid) {
-            userCart.order[i].quantity += newItemObj.quantity;
+        for (var i = 0; i < userCart.length; i++) {
+          if (userCart[i].productid == newItemObj.productid) {
+            userCart[i].quantity += newItemObj.quantity;
             merged = true;
           }
           setQuantity(1);
         }
         if (!merged) {
-          userCart.order.push(newItemObj);
+          userCart.push(newItemObj);
         }
         setQuantity(1);
          UpdateCart();
@@ -179,9 +184,10 @@ const ProductCard = (props) => {
           setUserCart(data.data[0]);
           let cartItems = data.data[0].order.length;
           dispatch(ACTIONS.getCartItem(cartItems));
+          dispatch(HEADER_ACTIONS.getCartDetails(data.data))
         })
         .catch((err) => {
-          console.log(err, "error");
+          console.log(err);
         });
     }
   };
@@ -210,13 +216,12 @@ const ProductCard = (props) => {
           });
         })
         .catch((err) => {
-          console.log(err, "error");
+          console.log(err);
         });
     }
   };
 
   //update cart
-
   const UpdateCart = () => {
     fetch( `${url}api/cart/update_cart_by_id`, {
       method: "put",
@@ -225,9 +230,9 @@ const ProductCard = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id: userCart._id,
+        _id: setUserCartDetail._id,
         userid: userdata._id,
-        order: userCart.order,
+        order: userCart,
       }),
     })
       .then((res) => res.json())
@@ -238,7 +243,7 @@ const ProductCard = (props) => {
           content: `Product added to cart`,
         });
       })
-      .then((err) => console.log(err, "inside update cart"));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -247,9 +252,19 @@ const ProductCard = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 ">
-              <h1 className="common-heading text-center mb-lg-5">
+              {
+                productList && productList.length && 
+                <h1 className="common-heading text-center mb-lg-5">
                 Our Products
               </h1>
+              }
+                            {
+                featuredProductList && featuredProductList.length && 
+                <h1 className="common-heading text-center mb-lg-5">
+                Featured Products
+              </h1>
+              }
+
             </div>
           </div>
           <div className="row">
@@ -259,7 +274,7 @@ const ProductCard = (props) => {
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
-                      <div className="product-pic">
+                      <div className="product-pic cursor-btn">
                         <img
                           src={`${url}${item?.image[0]?.path}`}
                           onClick={() =>
@@ -284,12 +299,13 @@ const ProductCard = (props) => {
                                   item.sortDescription,
                                   item.category.name,
                                   item.brand.name,
+                                  item.slug,
                                   item.subcategory.name,
                                   item.image[0].path
                                 )
                               }
                             >
-                              <span className="product-card-icon">
+                              <span className="product-card-icon cursor-btn">
                                 <AiOutlineShoppingCart />
                               </span>
                             </li>
@@ -297,7 +313,7 @@ const ProductCard = (props) => {
                             <li
                               onClick={() => onClickWishListHandler(item._id)}
                             >
-                              <span className="product-card-icon">
+                              <span className="product-card-icon cursor-btn">
                                 <BsBagHeart />
                               </span>
                             </li>
@@ -312,7 +328,7 @@ const ProductCard = (props) => {
                       >
                         <div className="product-content-upper">
                           <p className="product-name f1">{item?.brand.name}</p>
-                          <p className="product-desc">{item?.name}</p>
+                          <p className="product-desc cursor-btn">{item?.name}</p>
                         </div>
 
                         <div className="add-to-cart-box">
@@ -334,6 +350,91 @@ const ProductCard = (props) => {
                   </div>
                 );
               })}
+              {
+                featuredProductList &&
+                featuredProductList.length > 0 &&
+                featuredProductList.map((item,index)=>{
+                  return (
+                    <div className="col-lg-3" key={index}>
+                      <div className="product-single-card">
+                        <div className="product-pic cursor-btn">
+                          <img
+                            src={`${url}${item?.image[0]?.path}`}
+                            onClick={() =>
+                              redirectToProductDiscriptionPage(
+                                item?.slug,
+                                item._id
+                              )
+                            }
+                            className="img-fluid"
+                            alt="..."
+                          />
+                          <div className="product-content-lower">
+                            <ul>
+                              <li
+                                onClick={() =>
+                                  cartfunction(
+                                    item._id,
+                                    item.name,
+                                    quantity,
+                                    item.inrMrp,
+                                    item.inrDiscount,
+                                    item.sortDescription,
+                                    item.category.name,
+                                    item.brand.name,
+                                    item.slug,
+                                    item.subcategory.name,
+                                    item.image[0].path
+                                  )
+                                }
+                              >
+                                <span className="product-card-icon cursor-btn">
+                                  <AiOutlineShoppingCart />
+                                </span>
+                              </li>
+  
+                              <li
+                                onClick={() => onClickWishListHandler(item._id)}
+                              >
+                                <span className="product-card-icon cursor-btn">
+                                  <BsBagHeart />
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div
+                          className="product-content"
+                          onClick={() =>
+                            redirectToProductDiscriptionPage(item.name)
+                          }
+                        >
+                          <div className="product-content-upper">
+                            <p className="product-name f1">{item?.brand.name}</p>
+                            <p className="product-desc cursor-btn">{item?.name}</p>
+                          </div>
+  
+                          <div className="add-to-cart-box">
+                            <div>
+                              <p className="product-price f1">
+                                <BsCurrencyRupee />
+                                {item?.inrDiscount}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="discount-price f1">
+                                <BsCurrencyRupee />
+                                <del>{item?.inrMrp}</del>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+
           </div>
         </div>
       </section>

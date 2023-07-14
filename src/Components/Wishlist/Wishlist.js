@@ -7,7 +7,7 @@ import "./Wishlist.css";
 import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
-import { async } from "q";
+import {RxCross2} from "react-icons/rx";
 
 const Wishlist = () => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Wishlist = () => {
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
+    window.scroll(0,0);
   }, []);
 
   // Get Wishlist Item
@@ -41,13 +42,11 @@ const Wishlist = () => {
   };
 
 const deleteWishlist = async (productId) => {
-  console.log("inside delete wish list", productId)
   let url = "http://localhost:8080/api/wishlist/delete_wishlist_by_id"
   try {
     let response = await axios.delete(url, { data: { _id: productId } } )
 
     if(response) {
-      console.log(response, "response of del wishlist")
       getUserWishlist(userdata._id)
     }
   } catch (error) {
@@ -71,7 +70,7 @@ const deleteWishlist = async (productId) => {
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
-                      <div className="product-pic">
+                      <div className="product-pic cursor-btn">
                         <img
                           src={`${url}${item?.productId?.image[0]?.path}`}
                           onClick={() =>
@@ -84,6 +83,7 @@ const deleteWishlist = async (productId) => {
                           alt="..."
                         />
                       </div>
+                      <RxCross2 className="crose-icon-delete cursor-btn" onClick={()=> deleteWishlist(item._id)}/>
                       <div
                         className="product-content"
                         onClick={() =>
@@ -97,7 +97,7 @@ const deleteWishlist = async (productId) => {
                           <p className="product-name f1">
                             {item?.productId?.brand.name}
                           </p>
-                          <p className="product-desc">{item?.productId?.name}</p>
+                          <p className="product-desc cursor-btn">{item?.productId?.name}</p>
                         </div>
 
                         <div className="add-to-cart-box">
@@ -116,7 +116,6 @@ const deleteWishlist = async (productId) => {
                         </div>
                       </div>
                     </div>
-                    <button className="btn btn-primary" onClick={()=> deleteWishlist(item._id)}>delete</button>
                   </div>
                 );
               })}

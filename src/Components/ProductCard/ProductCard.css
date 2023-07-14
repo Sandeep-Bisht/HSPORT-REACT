@@ -73,6 +73,9 @@
 .product-desc{
     font-size: 14px;
     margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .product-content-lower
 {

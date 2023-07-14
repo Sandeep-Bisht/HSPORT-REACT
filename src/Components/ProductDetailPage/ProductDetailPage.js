@@ -29,16 +29,21 @@ const ProductDetailPage = () => {
   let url = "http://localhost:8080/";
 
   useEffect(() => {
+    if(Cookies.get("userdata"))
+    {
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
-  }, []);
+    }
+    window.scroll(0,0)
+  },[]);
 
   useEffect(() => {
     if (location?.state) {
       getProductDetails(location?.state);
     }
   }, [location.state]);
+  console.log(location.state,"location?.statelocation?.state")
 
   const getProductDetails = async (productId) => {
     try {
@@ -93,10 +98,8 @@ const ProductDetailPage = () => {
       if (response) {
         setWishlistItem(response.data.data);
         let wishlist = response?.data?.data;
-        console.log(wishlist,"wishlist wishlist", location?.state)
         const foundProduct = wishlist?.find((item) => item?.productId._id == location?.state);
         if(foundProduct){
-          console.log(foundProduct,"foundProduct foundProduct")
           addColorClass()
         }
 
@@ -123,7 +126,7 @@ const ProductDetailPage = () => {
         content: `Product is already in wishlist`,
       });
     } else {
-      let userId = userdata._id;
+      let userId = userdata?._id;
       data["productId"] = productId;
       data["userId"] = userId;
 
@@ -178,7 +181,6 @@ const ProductDetailPage = () => {
           delivery_time: "No Status",
         };
         if (userCart.order == null || userCart.order == []) {
-          console.log("inside add to  cart", userCart)
           for (var i = 0; i < order.length; i++) {
             if (order[i].productid == newItemObj.productid) {
               order[i].quantity += newItemObj.quantity;
@@ -193,7 +195,6 @@ const ProductDetailPage = () => {
             
           }
         } else {
-          console.log("inside update cart", userCart)
           for (var i = 0; i < userCart.order.length; i++) {
             if (userCart.order[i].productid == newItemObj.productid) {
               userCart.order[i].quantity += newItemObj.quantity;
@@ -226,7 +227,6 @@ const ProductDetailPage = () => {
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside cart by iddddd")
             setUserCart(data.data[0]);
             let cartItems = data.data[0].order.length;
             dispatch(ACTIONS.getCartItem(cartItems));
@@ -253,7 +253,6 @@ const ProductDetailPage = () => {
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside adddddddd to cart")
             // setUserCart(data.data);
             CartById();
             addToast("Success!", {
@@ -379,7 +378,7 @@ const ProductDetailPage = () => {
                 <h2 className="title-wrap common-heading">
                   {productDetail?.name}
                   <div
-                    className="wishlist-div ps-3"
+                    className="wishlist-div ps-3 cursor-btn"
                     onClick={() => onClickWishListHandler(productDetail._id)}
                   >
                     <span className="wishlist-btn" id="wishlisted" ref={wishlistRef}>

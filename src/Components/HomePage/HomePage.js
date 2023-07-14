@@ -5,13 +5,22 @@ import slider1 from "../../Images/slider1.jpg";
 import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
+import CategoryProduct from "../CategoryProduct/CategoryProduct";
+import TopBrand from "../TopBrands/TopBrands";
+import {Link} from "react-router-dom"
 
 const HomePage = () => {
 
   const [allProducts, setAllProducts] = useState([])
+  const [allCategories,setAllCategories]=useState([]);
+  const [featruedCategories,setFeatruedCategories]=useState([]);
+  const [allTopBrands,setAllTopBrands]=useState([]);
 
 useEffect(() => {
-  getAllProducts()
+  getAllProducts();
+  getAllCategories();
+  getTopBrands();
+  window.scroll(0,0);
 }, [])
 
 const getAllProducts = async() => {
@@ -19,7 +28,23 @@ const getAllProducts = async() => {
   let response = await axios.get(url);
     try {
       if(response){
-         setAllProducts(response.data.data) 
+         setAllProducts(response.data.data) ;
+         let featuredBrand = response.data.data.filter((item)=>{
+          return item.brand.featuredBrands=="Featured Categories"
+         })
+         setFeatruedCategories(featuredBrand);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+const getAllCategories=async()=>{
+  let url = "http://localhost:8080/api/category/all_category";
+  let response = await axios.get(url);
+    try {
+      if(response){
+         setAllCategories(response.data.data) 
        
       }
     } catch (error) {
@@ -27,6 +52,22 @@ const getAllProducts = async() => {
     }
 }
 
+const getTopBrands=async()=>{
+  let url = "http://localhost:8080/api/brands/all_brands";
+  const topBrands=await axios.get(url)
+  {
+    try{
+      if(topBrands)
+      {
+        console.log(topBrands,"inside the top brands")
+        setAllTopBrands(topBrands.data.data);
+      }
+    }catch(error)
+    {
+      console.log(error);
+    }
+  }
+}
 
   return (
     <>
@@ -85,9 +126,9 @@ const getAllProducts = async() => {
                   Products{" "}
                 </p>
                 
-                <a href="#" className="common-btn">
+                <Link to="/allProducts" className="common-btn">
                   <span className="">Shop Now</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="carousel-item">
@@ -161,6 +202,9 @@ const getAllProducts = async() => {
         </div>
       </div>
       <ProductCard  productList={allProducts}/>
+      <CategoryProduct allCategories={allCategories}/>
+      <ProductCard  featuredProductList={featruedCategories}/>
+      <TopBrand allTopBrands={allTopBrands}/>
     </>
   );
 };

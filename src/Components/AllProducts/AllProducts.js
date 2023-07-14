@@ -2,49 +2,156 @@ import React, { useState, useEffect } from "react";
 import { BsBagHeart } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsCurrencyRupee } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AllProducts.css";
 import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
+import Cookies from "js-cookie";
 
 function AllProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedAlphabetic, setSelectedAlphabetic] = useState("");
   const [allProducts, setAllProducts] = useState([]);
-  const [categoryList, setCategoryList] = useState([])
+  const [categoryList, setCategoryList] = useState([]);
+  const [userdata, setUserdata] = useState();
+  const location = useLocation();
 
-  let allCategoryState = useSelector((state) => state.UserCartReducer)
+  let allCategoryState = useSelector((state) => state.UserCartReducer);
 
+  useEffect(() => {
+    if (location?.state) {
+      getProductByCategoryId(location.state);
+    }
+    else{
+      getAllProducts();
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+    }
+    window.scroll(0,0)
+  }, []);
+
+  useEffect(() => {
+    if (allCategoryState?.allCategoryList) {
+      setCategoryList(allCategoryState.allCategoryList);
+    }
+  }, [allCategoryState]);
+
+  useEffect(() => {
+    sortedAccordingPrice();
+    },[selectedPrice]);
+
+    useEffect(() => {
+      sortedAccordingName();
+      },[selectedAlphabetic]);
+
+
+  const getProductByCategoryId = (category) => {
+    setSelectedCategory(category)
+    let url = "http://localhost:8080/api/product/product_by_category";
+    try {
+      axios
+        .post(url, { category })
+        .then((response) => {
+          // Use the data in your frontend logic
+          if (response) {
+            if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+            {
+              setSelectedAlphabetic("");
+            }
+            else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+              setSelectedPrice("");
+            }
+            setAllProducts(response.data.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle any errors that occur during the request
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sortedAccordingPrice=()=>{
+    if(selectedPrice==="lowToHigh")
+    {
+      if(allProducts)
+      {
+        const sortedPriceProducts=[...allProducts].sort((a,b)=>{
+          return (a.inrDiscount-b.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+    else if(selectedPrice==="highToLow"){
+      if(allProducts)
+      {
+        const sortedPriceProducts = [...allProducts].sort((a,b)=>{
+          return (b.inrDiscount-a.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+  }
+
+  const sortedAccordingName = () => {
+    if (selectedAlphabetic === "AtoZ") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return a.slug.localeCompare(b.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    } else if (selectedAlphabetic === "ZtoA") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return b.slug.localeCompare(a.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    }
+  };
+  
 
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
   };
   const handleCheckboxPrice = (event) => {
+    if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+    {
+      setSelectedAlphabetic("");
+    }
     setSelectedPrice(event.target.value);
   };
   const handleCheckboxAlphabetic = (event) => {
+    if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+      setSelectedPrice("");
+    }
     setSelectedAlphabetic(event.target.value);
   };
 
-  useEffect(()=> {
-    if(allCategoryState?.allCategoryList){
-        console.log(allCategoryState, "allCategoryState insdide all prod page")
-        setCategoryList(allCategoryState.allCategoryList)
-    }
-  }, [allCategoryState])
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
   const getAllProducts = async () => {
+    setSelectedCategory("outdoorSports")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
     try {
       if (response) {
+        if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+        {
+          setSelectedAlphabetic("");
+        }
+        else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+          setSelectedPrice("");
+        }
         setAllProducts(response.data.data);
       }
     } catch (error) {
@@ -82,11 +189,36 @@ function AllProducts() {
                   aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample"
                 >
-                    { categoryList && categoryList.map((item, index) => {
-                        return(
-                            <div class="accordion-body accordion-bodies" key={index}>
-                            <div className="filter-category">
-                                <div>
+                  <div class="accordion-body accordion-bodies">
+                    <div className="filter-category">
+                      <div>
+                        <label
+                          htmlFor="outdoorSports"
+                          className="filter-category-name pt-1"
+                        >
+                          All Products
+                        </label>
+                        <input
+                          type="checkbox"
+                          id="outdoorSports"
+                          name="category"
+                          value="outdoorSports"
+                          className="pt-1"
+                          onChange={() => getAllProducts()}
+                          checked={selectedCategory === "outdoorSports"}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {categoryList &&
+                    categoryList.map((item, index) => {
+                      return (
+                        <div
+                          class="accordion-body accordion-bodies"
+                          key={index}
+                        >
+                          <div className="filter-category">
+                            <div>
                               <label
                                 htmlFor="outdoorSports"
                                 className="filter-category-name pt-1"
@@ -95,20 +227,18 @@ function AllProducts() {
                               </label>
                               <input
                                 type="checkbox"
-                                id="outdoorSports"
+                                id={item._id}
                                 name="category"
                                 value="outdoorSports"
                                 className="pt-1"
-                                onChange={handleCheckboxCategory}
-                                checked={selectedCategory === "outdoorSports"}
+                                onChange={()=>getProductByCategoryId(item._id) }
+                                checked={selectedCategory === item._id}
                               />
-                              </div>                      
-                              
                             </div>
                           </div>
-                        )
+                        </div>
+                      );
                     })}
-                 
                 </div>
               </div>
             </div>
