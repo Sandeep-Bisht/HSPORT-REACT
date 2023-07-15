@@ -15,6 +15,7 @@ const HomePage = () => {
   const [allCategories,setAllCategories]=useState([]);
   const [featruedCategories,setFeatruedCategories]=useState([]);
   const [allTopBrands,setAllTopBrands]=useState([]);
+  
 
 useEffect(() => {
   getAllProducts();

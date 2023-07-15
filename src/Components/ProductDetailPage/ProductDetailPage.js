@@ -9,6 +9,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import * as ACTIONS from "../../CommonServices/Action";
+import Loader from "../Loader/Loader";
 
 
 const ProductDetailPage = () => {
@@ -25,6 +26,7 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [userCart, setUserCart] = useState([]);
   const [order, Setorder] = useState([]);
+  const [isLoading,setIsLoading]=useState(true);
 
   let url = "http://localhost:8080/";
 
@@ -53,7 +55,7 @@ const ProductDetailPage = () => {
       let response = await axios.post(url, data);
       if (response) {
         setProductDetail(response?.data?.data[0]);
-       
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -317,9 +319,18 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-      <section className="product-description ">
+        <section className="product-description ">
         <div className="container">
+        {
+        isLoading ? 
+        <div className="row m-5 ">
+        <div className="col-12 d-flex justify-content-center">
+        <Loader/> 
+        </div>
+        </div>
+        :
           <div className="row custom-gutter">
+
             <div className="col-md-6 desktop-view-image">
               <div
                 className="single-image-detail"
@@ -488,7 +499,9 @@ const ProductDetailPage = () => {
                 </div>
               </div>
             </div>
+
           </div>
+}
         </div>
       </section>
     </>

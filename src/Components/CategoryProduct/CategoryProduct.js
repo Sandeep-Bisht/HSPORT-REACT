@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./CategoryProduct.css"
 import aboutImage from "../../Images/about1.jpg"
+
 function CategoryProduct(props) {
 
   const [sliderRef, setSliderRef] = useState(null);

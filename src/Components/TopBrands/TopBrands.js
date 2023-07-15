@@ -38,7 +38,9 @@ const TopBrand =(props)=> {
             {
             return(
               <div className='col-3 brands-image'>
+                <div className='brands-inner-div'>
               <img className="single-image" src={`${url}${item?.image[0].path}`} alt=''></img>
+              </div>
               </div>
             )
             }

@@ -21,7 +21,6 @@ const ProductCard = (props) => {
   const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
   const [setUserCartDetail, setSetUserCartDetail] = useState(null)
-
   const { productList } = props;
   const {featuredProductList} =props
 
