@@ -11,6 +11,7 @@ import { useToasts } from "react-toast-notifications";
 import * as ACTIONS from "../../CommonServices/Action";
 import * as HEADER_ACTIONS from "../Header/Action"
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../Loader/Loader";
 
 const ProductCard = (props) => {
   let { addToast } = useToasts();
@@ -252,13 +253,13 @@ const ProductCard = (props) => {
           <div className="row">
             <div className="col-md-12 ">
               {
-                productList && productList.length && 
+                productList && (productList.length || productList==true) &&
                 <h1 className="common-heading text-center mb-lg-5">
                 Our Products
               </h1>
               }
                             {
-                featuredProductList && featuredProductList.length && 
+                featuredProductList && (featuredProductList.length || featuredProductList==true) && 
                 <h1 className="common-heading text-center mb-lg-5">
                 Featured Products
               </h1>
@@ -267,8 +268,12 @@ const ProductCard = (props) => {
             </div>
           </div>
           <div className="row">
-            {productList &&
-              productList.length > 0 &&
+            {}
+            {productList && productList==true ? 
+            <div className="col-12 d-flex justify-content-center">
+            <Loader/>
+            </div> :
+              productList?.length > 0 &&
               productList.map((item, index) => {
                 return (
                   <div className="col-lg-3" key={index}>
@@ -350,8 +355,11 @@ const ProductCard = (props) => {
                 );
               })}
               {
-                featuredProductList &&
-                featuredProductList.length > 0 &&
+                featuredProductList && featuredProductList==true ?
+                <div className="col-12 d-flex justify-content-center">
+                <Loader/>
+                </div> :
+                featuredProductList?.length > 0 &&
                 featuredProductList.map((item,index)=>{
                   return (
                     <div className="col-lg-3" key={index}>

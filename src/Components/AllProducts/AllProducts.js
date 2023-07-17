@@ -19,18 +19,16 @@ function AllProducts() {
   const [categoryList, setCategoryList] = useState([]);
   const [userdata, setUserdata] = useState();
   const location = useLocation();
-  const [isLoader,setIsLoader] = useState(true);
+  const [isLoading,setIsLoading] = useState(true);
 
   let allCategoryState = useSelector((state) => state.UserCartReducer);
 
   useEffect(() => {
     if (location?.state) {
       getProductByCategoryId(location.state);
-      setIsLoader(false)
     }
     else{
       getAllProducts();
-      setIsLoader(false)
     }
   }, [location.state]);
 
@@ -38,7 +36,6 @@ function AllProducts() {
     if (Cookies.get("userdata")) {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
-      setIsLoader(false)
     }
     window.scroll(0,0)
   }, []);
@@ -59,6 +56,7 @@ function AllProducts() {
 
 
   const getProductByCategoryId = (category) => {
+    setIsLoading(true);
     setSelectedCategory(category)
     let url = "http://localhost:8080/api/product/product_by_category";
     try {
@@ -75,6 +73,7 @@ function AllProducts() {
               setSelectedPrice("");
             }
             setAllProducts(response.data.data);
+            setIsLoading(false);
           }
         })
         .catch((error) => {
@@ -144,6 +143,7 @@ function AllProducts() {
   };
 
   const getAllProducts = async () => {
+    setIsLoading(true);
     setSelectedCategory("outdoorSports")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
@@ -157,6 +157,7 @@ function AllProducts() {
           setSelectedPrice("");
         }
         setAllProducts(response.data.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -316,12 +317,7 @@ function AllProducts() {
           </div>
         </div>
         <div className="col-10">
-          {
-            isLoader ? 
-            <Loader/>
-            :
-            <ProductCard productList={allProducts} />
-          }
+            <ProductCard productList={isLoading ? isLoading : allProducts} />
         </div>
       </div>
     </div>

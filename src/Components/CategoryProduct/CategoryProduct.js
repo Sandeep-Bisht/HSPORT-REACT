@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./CategoryProduct.css"
 import aboutImage from "../../Images/about1.jpg"
+import Loader from "../Loader/Loader";
 
 function CategoryProduct(props) {
 
@@ -13,7 +14,6 @@ function CategoryProduct(props) {
   const navigate=useNavigate();
 
   let url = "http://localhost:8080/";
-
 
   var settings = {
     dots: true,
@@ -43,7 +43,10 @@ function CategoryProduct(props) {
                 Featured Categories
               </h1>
             </div>
-            <Slider ref={setSliderRef} {...settings} className="mb-4 featured-slide">
+            {
+              allCategories==true ? 
+              <div className="col-12 d-flex justify-content-center"><Loader/> </div>:
+              <Slider ref={setSliderRef} {...settings} className="mb-4 featured-slide">
               {allCategories &&
                 allCategories.length > 0 &&
                 allCategories.map((item, index) => {
@@ -69,7 +72,7 @@ function CategoryProduct(props) {
                   );
                 })}
             </Slider>
-
+            }
           </div>
         </div>
       </section>

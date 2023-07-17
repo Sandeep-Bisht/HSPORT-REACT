@@ -8,11 +8,13 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
 import {RxCross2} from "react-icons/rx";
+import Loader from "../Loader/Loader"
 
 const Wishlist = () => {
   const navigate = useNavigate();
   const [userWishlist, setUserWishlist] = useState([]);
   const [userdata, setUserdata] = useState();
+  const [isLoading,setIsLoading] = useState(true);
   let url = "http://localhost:8080/";
 
   useEffect(() => {
@@ -24,11 +26,13 @@ const Wishlist = () => {
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
+    setIsLoading(true);
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
     let response = await axios.post(url, { userId: userid });
     try {
       if (response) {
         setUserWishlist(response.data.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -66,7 +70,8 @@ const deleteWishlist = async (productId) => {
               </div>
             </div>
             <div className="row">
-              {userWishlist.map((item, index) => {
+              { 
+              userWishlist.map((item, index) => {
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
@@ -118,7 +123,8 @@ const deleteWishlist = async (productId) => {
                     </div>
                   </div>
                 );
-              })}
+              })
+            }
             </div>
           </div>
         </section>
