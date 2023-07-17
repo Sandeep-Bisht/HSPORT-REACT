@@ -76,7 +76,7 @@ const ContactUs = () => {
                 </div>
                 <div className='row'>
                   <div className='col-md-6 mt-4'>
-                    <button type='submit' className='login-btn'>Submit</button>
+                    <button type='submit' className='contact-us-submit'>Submit</button>
                   </div>
                 </div>
               </form>

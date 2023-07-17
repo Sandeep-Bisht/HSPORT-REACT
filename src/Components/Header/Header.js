@@ -414,7 +414,7 @@ const Header = () => {
                           role="search"
                         >
                           <input
-                            className="form-control me-2"
+                            className="form-control  form-input-box me-2"
                             type="search"
                             placeholder="Search"
                             value={searchResult}
@@ -559,7 +559,7 @@ const Header = () => {
 
       {/* <!-- Modal --> */}
       <div
-        className="modal fade"
+        className="modal fade login-sign-modal"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -580,9 +580,9 @@ const Header = () => {
             </div>
             <div className="modal-body">
               <div className="row inside-modal-body">
-                <div className="col-md-6 left-login-modal">
+                <div className="col-md-6 col-sm-6 left-login-modal">
                   {activeLogin ?
-                    <div className="m-3 mt-4">
+                    <div className="m-3 mt-4 login-signup-text">
                       <h3 className="login-left-first">LOGIN</h3>
                       <div className="mt-5">
                         <h3 className="login-left-mid pt-2">Get</h3>
@@ -594,7 +594,7 @@ const Header = () => {
                       </div>
                     </div>
                     :
-                    <div className="m-3 mt-4">
+                    <div className="m-3 mt-4 login-signup-text">
                       <h3 className="login-left-first">SIGNUP</h3>
                       <div className="mt-5">
                         <h3 className="login-left-mid pt-2">WE</h3>
@@ -609,7 +609,7 @@ const Header = () => {
 
                 </div>
 
-                <div className="col-md-6 mx-auto mt-3">
+                <div className="col-md-6 col-sm-6 mx-auto mt-3">
                   <div className="row">
                     <ul
                       className="nav nav-pills mb-3 login-section"
@@ -723,7 +723,7 @@ const Header = () => {
                           </form>
 
                           <div className="text-center">
-                            <span>NEW TO HINDUSTAN SPORTS ?</span>
+                            <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
                           <div className="text-center text-danger">
                             <p>{errorMsg}</p>
@@ -845,7 +845,7 @@ const Header = () => {
                           </form>
 
                           <div className="text-center">
-                            <span>ALREADY HAVE AN ACCOUNT LOGIN ?</span>
+                            <span className="endOfLogin-text">ALREADY HAVE AN ACCOUNT LOGIN ?</span>
                           </div>
                           <div className=" text-center text-success ">
                             <p>{successMsg}</p>

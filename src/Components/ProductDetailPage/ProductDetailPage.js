@@ -427,7 +427,7 @@ const ProductDetailPage = () => {
                     <div>
                       <div className="col-md-6">
                         <button
-                          className="common-btn w-100 login-btn"
+                          className="common-btn w-100 porductDetail-addToCart"
                           onClick={() =>
                             cartfunction(
                               productDetail._id,
