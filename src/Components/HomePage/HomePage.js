@@ -60,7 +60,6 @@ const getTopBrands=async()=>{
     try{
       if(topBrands)
       {
-        console.log(topBrands,"inside the top brands")
         setAllTopBrands(topBrands.data.data);
       }
     }catch(error)

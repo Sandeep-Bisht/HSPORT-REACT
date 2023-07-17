@@ -9,6 +9,7 @@ import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
 import Cookies from "js-cookie";
+import Loader from "../Loader/Loader"
 
 function AllProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,15 +19,18 @@ function AllProducts() {
   const [categoryList, setCategoryList] = useState([]);
   const [userdata, setUserdata] = useState();
   const location = useLocation();
+  const [isLoader,setIsLoader] = useState(true);
 
   let allCategoryState = useSelector((state) => state.UserCartReducer);
 
   useEffect(() => {
     if (location?.state) {
       getProductByCategoryId(location.state);
+      setIsLoader(false)
     }
     else{
       getAllProducts();
+      setIsLoader(false)
     }
   }, [location.state]);
 
@@ -34,6 +38,7 @@ function AllProducts() {
     if (Cookies.get("userdata")) {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
+      setIsLoader(false)
     }
     window.scroll(0,0)
   }, []);
@@ -120,7 +125,6 @@ function AllProducts() {
       }
     }
   };
-  
 
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
@@ -312,7 +316,12 @@ function AllProducts() {
           </div>
         </div>
         <div className="col-10">
-          <ProductCard productList={allProducts} />
+          {
+            isLoader ? 
+            <Loader/>
+            :
+            <ProductCard productList={allProducts} />
+          }
         </div>
       </div>
     </div>

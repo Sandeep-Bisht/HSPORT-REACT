@@ -28,8 +28,6 @@ const Cart = () => {
 
   useEffect(() => {
     if (cartState) {
-      console.log("inisde use Effect", cartState)
-      console.log("after updating", cartState[0]?.order)
       setUserCart(cartState[0]?.order);
       setUserCartDetail(cartState[0]);
       cartAmount(cartState[0]?.order);
@@ -37,7 +35,6 @@ const Cart = () => {
     window.scroll(0, 0);
   }, [cartState]);
 
-  console.log(userCart, "usercar")
 
   const cartAmount = (order) => {
 
@@ -67,7 +64,6 @@ const Cart = () => {
 
 
   const updateCart = (cartId, updateOrder) => {
-    console.log("inisde update cart qty")
     fetch(`${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -82,12 +78,7 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("inside response ", res)
         CartById()
-        // dispatch(ACTIONS.getCartDetails(updateOrder));
-        // console.log("inside response", updateOrder)
-        // setUserCart(updateOrder)
-        // dispatch(ACTIONS.getCartItem(order?.length))
       })
       .catch((err) => console.log(err, "error"));
   };
@@ -137,7 +128,6 @@ const Cart = () => {
         .then(async (data) => {
           setUserCart(data.data[0]);
           let cartItems = data.data[0].order.length;
-          console.log(cartItems, "cartItemscartItems")
           dispatch(COMMON_ACTIONS.getCartItem(cartItems));
           dispatch(ACTIONS.getCartDetails(data.data))
         })
