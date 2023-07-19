@@ -275,94 +275,9 @@ const ProductCard = (props) => {
             </div> :
               productList?.length > 0 &&
               productList.map((item, index) => {
-                return (
-                  <div className="col-lg-3" key={index}>
-                    <div className="product-single-card">
-                      <div className="product-pic cursor-btn">
-                        <img
-                          src={`${url}${item?.image[0]?.path}`}
-                          onClick={() =>
-                            redirectToProductDiscriptionPage(
-                              item?.slug,
-                              item._id
-                            )
-                          }
-                          className="img-fluid"
-                          alt="..."
-                        />
-                        <div className="product-content-lower">
-                          <ul>
-                            <li
-                              onClick={() =>
-                                cartfunction(
-                                  item._id,
-                                  item.name,
-                                  quantity,
-                                  item.inrMrp,
-                                  item.inrDiscount,
-                                  item.sortDescription,
-                                  item.category.name,
-                                  item.brand.name,
-                                  item.slug,
-                                  item.subcategory.name,
-                                  item.image[0].path
-                                )
-                              }
-                            >
-                              <span className="product-card-icon cursor-btn">
-                                <AiOutlineShoppingCart />
-                              </span>
-                            </li>
-
-                            <li
-                              onClick={() => onClickWishListHandler(item._id)}
-                            >
-                              <span className="product-card-icon cursor-btn">
-                                <BsBagHeart />
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div
-                        className="product-content"
-                        onClick={() =>
-                          redirectToProductDiscriptionPage(item.name)
-                        }
-                      >
-                        <div className="product-content-upper">
-                          <p className="product-name f1">{item?.brand.name}</p>
-                          <p className="product-desc cursor-btn">{item?.name}</p>
-                        </div>
-
-                        <div className="add-to-cart-box">
-                          <div>
-                            <p className="product-price f1">
-                              <BsCurrencyRupee />
-                              {item?.inrDiscount}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="discount-price f1">
-                              <BsCurrencyRupee />
-                              <del>{item?.inrMrp}</del>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-              {
-                featuredProductList && featuredProductList==true ?
-                <div className="col-12 d-flex justify-content-center">
-                <Loader/>
-                </div> :
-                featuredProductList?.length > 0 &&
-                featuredProductList.map((item,index)=>{
+                if(index<4){
                   return (
-                    <div className="col-lg-3" key={index}>
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
                       <div className="product-single-card">
                         <div className="product-pic cursor-btn">
                           <img
@@ -439,6 +354,95 @@ const ProductCard = (props) => {
                       </div>
                     </div>
                   );
+                }
+              })}
+              {
+                featuredProductList && featuredProductList==true ?
+                <div className="col-12 d-flex justify-content-center">
+                <Loader/>
+                </div> :
+                featuredProductList?.length > 0 &&
+                featuredProductList.map((item,index)=>{
+                  if(index<4){
+                    return (
+                      <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
+                        <div className="product-single-card">
+                          <div className="product-pic cursor-btn">
+                            <img
+                              src={`${url}${item?.image[0]?.path}`}
+                              onClick={() =>
+                                redirectToProductDiscriptionPage(
+                                  item?.slug,
+                                  item._id
+                                )
+                              }
+                              className="img-fluid"
+                              alt="..."
+                            />
+                            <div className="product-content-lower">
+                              <ul>
+                                <li
+                                  onClick={() =>
+                                    cartfunction(
+                                      item._id,
+                                      item.name,
+                                      quantity,
+                                      item.inrMrp,
+                                      item.inrDiscount,
+                                      item.sortDescription,
+                                      item.category.name,
+                                      item.brand.name,
+                                      item.slug,
+                                      item.subcategory.name,
+                                      item.image[0].path
+                                    )
+                                  }
+                                >
+                                  <span className="product-card-icon cursor-btn">
+                                    <AiOutlineShoppingCart />
+                                  </span>
+                                </li>
+    
+                                <li
+                                  onClick={() => onClickWishListHandler(item._id)}
+                                >
+                                  <span className="product-card-icon cursor-btn">
+                                    <BsBagHeart />
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div
+                            className="product-content"
+                            onClick={() =>
+                              redirectToProductDiscriptionPage(item.name)
+                            }
+                          >
+                            <div className="product-content-upper">
+                              <p className="product-name f1">{item?.brand.name}</p>
+                              <p className="product-desc cursor-btn">{item?.name}</p>
+                            </div>
+    
+                            <div className="add-to-cart-box">
+                              <div>
+                                <p className="product-price f1">
+                                  <BsCurrencyRupee />
+                                  {item?.inrDiscount}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="discount-price f1">
+                                  <BsCurrencyRupee />
+                                  <del>{item?.inrMrp}</del>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
                 })
               }
 

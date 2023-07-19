@@ -26,6 +26,7 @@ const TopBrand =(props)=> {
   };
 
   return (
+    <section className='top-brand-section'>
     <div className='container top-brand-container m-auto'>
         <div className='row logo-wrap brand-main'>
         <div className="col-md-12 ">
@@ -36,7 +37,7 @@ const TopBrand =(props)=> {
             {
               allTopBrands==true ? 
               <div className="col-12 d-flex justify-content-center"><Loader/> </div>:
-              <Slider ref={setSliderRef} {...settings} className="mb-4 featured-slide">
+              <Slider ref={setSliderRef} {...settings} className="mb-4 top-brands-slider">
               {allTopBrands && allTopBrands.map((item,index)=>{
                 if(index<4)
                 {
@@ -53,6 +54,7 @@ const TopBrand =(props)=> {
             }
         </div>
     </div>
+    </section>
   )
 }
 

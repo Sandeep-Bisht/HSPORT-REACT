@@ -26,7 +26,7 @@ const Wishlist = () => {
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
     let response = await axios.post(url, { userId: userid });
     try {
@@ -59,7 +59,7 @@ const deleteWishlist = async (productId) => {
 }
   return (
     <section className="wishlist-section">
-      {userWishlist && userWishlist.length > 0 ? (
+      {isLoading || (userWishlist && userWishlist.length > 0) ? (
         <section className="product-card-area">
           <div className="container">
             <div className="row">
@@ -69,7 +69,11 @@ const deleteWishlist = async (productId) => {
                 </h1>
               </div>
             </div>
-            <div className="row">
+            {
+              isLoading ?
+              <div className="col-12 d-flex justify-content-center"> <Loader/> </div>
+              :
+              <div className="row">
               { 
               userWishlist.map((item, index) => {
                 return (
@@ -126,6 +130,8 @@ const deleteWishlist = async (productId) => {
               })
             }
             </div>
+            }
+
           </div>
         </section>
       ) : (

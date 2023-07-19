@@ -13,13 +13,64 @@ height: 90px;
     width: 150px;
     height: 130px;
     align-items: center;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     justify-content: center;
-    border-radius: 5px;
+    background-color: #fff;
     padding: 25px;
+    border: 1px solid #a7afbe;
 }
 .brands-image{
     display:flex!important;
     justify-content: center!important;
 
+}
+
+.slick-dots li button {
+    width: 12px;
+    height: 12px;
+    background: #bdbfc1;
+  }
+  
+  .slick-dots li.slick-active button {
+    background: #1e2737; 
+  }
+  
+  .slick-dots li button::after {
+    content: none!important;
+  }
+  
+  .slick-dots li button:before {
+    content: none!important;
+  }
+  .top-brands-slider .slick-dots{
+    bottom: -50px!important;
+}
+
+@media only screen and (max-width : 767px) {
+    .brands-inner-div {
+    height: 120px!important;
+    width: 120px!important;
+    }
+    .single-image {
+        width: 90px;
+        height: 90px;
+    }
+    .top-brands-slider .slick-dots{
+        bottom: -50px!important;
+    }
+}
+  @media only screen and (max-width : 575px) {
+    .brand-main{
+        padding:60px 15px
+    }
+    .single-image {
+        width: 65px;
+        height: 65px;
+    }
+    .brands-inner-div {
+        height: 85px!important;
+        width: 85px!important;
+    }
+    /* .top-brands-slider .slick-dots{
+        bottom: -50px!important;
+    } */
 }
