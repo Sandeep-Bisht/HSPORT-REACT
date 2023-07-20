@@ -18,9 +18,9 @@ const ContactUs = () => {
             </div>
             <div className='visit-us'>
               <p className='contact-heading'>Visit Us</p>
-                <p> MHA studio,</p>
-                  <p>Urbtech Trade Center,
-                  Dehradun Uttarakhand</p>
+                <p> Hindustan Sports,</p>
+                  <p>22 Connaught Place,
+                  Dehradun Uttarakhand 248001, India</p>
             </div>
             <div className='row'>
               <div className='col-md-12'>
@@ -42,16 +42,16 @@ const ContactUs = () => {
               </div>
             </div>
           </div>
-          <div className='col-md-7'>
+          <div className='col-md-7 form-section'> 
             <div className='col-md-12 removed'>
-              <div className='form-wrap px-5'></div>
+              <div className='form-wrap'></div>
                 <p className='contact-heading'>Get in touch with us</p>
                 <p>Thank you for getting in touch!</p>
                 <p>Kindly fill the form, have a great day!</p>
             </div>
        
           <div className='col-md-12 removed'>
-            <div className='from-wrap px-5'>
+            <div className='from-wrap'>
               <form>
                 <div className='row'>
                    <div className='col-md-6 col-6'>
@@ -76,7 +76,7 @@ const ContactUs = () => {
                 </div>
                 <div className='row'>
                   <div className='col-md-6 mt-4'>
-                    <button type='submit' className='login-btn'>Submit</button>
+                    <button type='submit' className='contact-us-submit'>Submit</button>
                   </div>
                 </div>
               </form>

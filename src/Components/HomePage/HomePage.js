@@ -6,19 +6,28 @@ import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
+import TopBrand from "../TopBrands/TopBrands";
+import {Link} from "react-router-dom"
+import Loader from "../Loader/Loader";
 
 const HomePage = () => {
 
   const [allProducts, setAllProducts] = useState([])
   const [allCategories,setAllCategories]=useState([]);
   const [featruedCategories,setFeatruedCategories]=useState([]);
+  const [allTopBrands,setAllTopBrands]=useState([]);
+  const [isLoading,setIsLoading]=useState(true);
+  
 
 useEffect(() => {
-  getAllProducts()
-  getAllCategories()
+  getAllProducts();
+  getAllCategories();
+  getTopBrands();
+  window.scroll(0,0);
 }, [])
 
 const getAllProducts = async() => {
+  setIsLoading(true);
   let url = "http://localhost:8080/api/product/all_product";
   let response = await axios.get(url);
     try {
@@ -28,6 +37,7 @@ const getAllProducts = async() => {
           return item.brand.featuredBrands=="Featured Categories"
          })
          setFeatruedCategories(featuredBrand);
+         setIsLoading(false);
       }
     } catch (error) {
       console.log(error)
@@ -35,18 +45,36 @@ const getAllProducts = async() => {
 }
 
 const getAllCategories=async()=>{
+  setIsLoading(true);
   let url = "http://localhost:8080/api/category/all_category";
   let response = await axios.get(url);
     try {
       if(response){
          setAllCategories(response.data.data) 
-       
+         setIsLoading(false);
       }
     } catch (error) {
       console.log(error)
     }
 }
 
+const getTopBrands=async()=>{
+  setIsLoading(true);
+  let url = "http://localhost:8080/api/brands/all_brands";
+  const topBrands=await axios.get(url)
+  {
+    try{
+      if(topBrands)
+      {
+        setAllTopBrands(topBrands.data.data);
+        setIsLoading(false);
+      }
+    }catch(error)
+    {
+      console.log(error);
+    }
+  }
+}
 
   return (
     <>
@@ -105,9 +133,9 @@ const getAllCategories=async()=>{
                   Products{" "}
                 </p>
                 
-                <a href="#" className="common-btn">
+                <Link to="/allProducts" className="common-btn">
                   <span className="">Shop Now</span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="carousel-item">
@@ -180,9 +208,10 @@ const getAllCategories=async()=>{
           </button>
         </div>
       </div>
-      <ProductCard  productList={allProducts}/>
-      <CategoryProduct allCategories={allCategories}/>
-      <ProductCard  featuredProductList={featruedCategories}/>
+      <ProductCard  productList={isLoading ? isLoading : allProducts}/>
+      <CategoryProduct allCategories={isLoading ? isLoading : allCategories}/>
+      <ProductCard  featuredProductList={isLoading ? isLoading : featruedCategories}/>
+      <TopBrand allTopBrands={isLoading ? isLoading : allTopBrands}/>
     </>
   );
 };

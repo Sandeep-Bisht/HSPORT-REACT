@@ -119,7 +119,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-md-6 col-6">
-              <div className="single-footer-widget">
+              <div className="single-footer-widget single-footer-widget-newslatter">
                 <h3 className="footer-heading f1">Customer Care</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
@@ -146,7 +146,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-md-6">
-              <div className="single-footer-widget">
+              <div className="single-footer-widget single-footer-widget-newslatter">
                 <h3 className="footer-heading f1">Newsletter</h3>
                 <p className="Subscribe-para f2">
                   Sign up for our mailing list to get the latest updates &amp;

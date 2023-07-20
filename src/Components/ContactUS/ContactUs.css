@@ -72,7 +72,7 @@ p {
     color: #777;
 }
 .contact-us .col-md-7{
-    padding: 0px 50px;
+    padding: 0px 70px;
 }
 .contact-us .contact-heading{
     font-family: Lato,sans-serif;
@@ -97,7 +97,7 @@ input, optgroup, select, textarea {
 button:not(:disabled) {
     cursor: pointer;
 }
-.login-btn {
+.contact-us-submit {
     background: #495057;
     border: none;
     color: #fff;
@@ -107,3 +107,23 @@ button:not(:disabled) {
     text-transform: uppercase;
     width: 100%;
 }
+
+       /*====================================Media Querries========================================*/
+       @media only screen and (max-width : 575px) {
+        .form-section
+        {
+            padding: 0px 12px!important;
+        }
+    }
+
+    /* @media only screen and (max-width : 320px) { 
+        .contact-us .discover-wrapper h2, .contact-us .form-wrap h6
+        {
+            font-size: 18px;
+        }
+        .contact-us .discover-wrapper p, .contact-us-page .visit-us-wrapper p, .contact-us-page .visit-us-wrapper .para-2, .contact-us-page .form-wrap-left p, .contact-us-page .email-wrapper p, .contact-us-page .callus-wrapper p
+        {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    }*/

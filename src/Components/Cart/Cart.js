@@ -40,11 +40,12 @@ const Cart = () => {
   useEffect(() => {
     if (cartState) {
       setUserCart(cartState[0]?.order);
-      setUserCartDetail(cartState[0]); 
+      setUserCartDetail(cartState[0]);
       cartAmount(cartState[0]?.order);
       Setdata({ ...data, order: JSON.stringify(cartState[0]?.order) });
           
     }
+    window.scroll(0, 0);
   }, [cartState]);
 
 
@@ -58,16 +59,12 @@ const Cart = () => {
     const discountTotalAmount = order?.reduce((total, item) => {
       return total + item.quantity * (item.mrp - item.salePrice);
     }, 0);
-    
+
     setDiscount(discountTotalAmount)
     let discount = discountTotalAmount;
     let discountedPrice = subTotalAmount - discount;
     setPayableAmount(discountedPrice)
   };
-
-
-
- 
 
   let url = "http://localhost:8080/";
 
@@ -100,27 +97,27 @@ const Cart = () => {
   };
 
   const minusHander = (quantity, index) => {
-    if (userCart && quantity > 1) {      
+    if (userCart && quantity > 1) {
       let updateOrder = userCart
       updateOrder[index].quantity = quantity - 1;
-       updateCart(userCartDetail._id, updateOrder);
+      updateCart(userCartDetail._id, updateOrder);
     }
   };
 
   const plusHander = (quantity, index) => {
     if (quantity && quantity >= 1 && userCart) {
-       let updateOrder = userCart
-       updateOrder[index].quantity = quantity + 1;
-        updateCart(userCartDetail._id, updateOrder);
+      let updateOrder = userCart
+      updateOrder[index].quantity = quantity + 1;
+      updateCart(userCartDetail._id, updateOrder);
     }
   };
 
-  const deleteCartHandler = async ( productId) => {
+  const deleteCartHandler = async (productId) => {
     try {
       const updatedOrder = userCart.filter((item) => {
         return item.productid !== productId;
       });
-      setNewUserCart(updatedOrder);      
+      setNewUserCart(updatedOrder);
       updateCart(userCartDetail?._id, updatedOrder);
     } catch (error) {
       console.error(error);
@@ -153,6 +150,9 @@ const Cart = () => {
     }
   };
 
+  let redirectToProductDiscriptionPage = (name, productId) => {
+    navigate(`/product/${name}`, { state: productId });
+  };
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -204,13 +204,13 @@ const Cart = () => {
         <div className="row mt-3 mb-3">
           {userCart && userCart?.length ? (
             <>
-              <div className="col-8">
+              <div className="col-lg-8 col-md-7 col-sm-7">
                 <div className="col-row card-header">
                   <div className="col-2"></div>
-                  <div className="col-5">
+                  <div className="col-4">
                     <span className="card-heading">Item Name</span>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <span className="card-heading">Quantity</span>
                   </div>
                   <div className="col-2">
@@ -232,35 +232,39 @@ const Cart = () => {
                                   src={`${url}${item?.image}`}
                                   style={{ width: "60%" }}
                                   alt=""
+                                  className="cursor-btn"
+                                  onClick={() =>
+                                    redirectToProductDiscriptionPage(
+                                      item?.slug,
+                                      item?.productid
+                                    )
+                                  }
                                 />
                               </div>
                             </div>
-                            <div className="col-5">
+                            <div className="col-4 d-flex align-item-center">
                               <span className="product-name">{item?.name}</span>
                               <span className="product-description">
                                 {item?.description}
                               </span>
                             </div>
-                            <div className="col-2 amount mt-2 card-image ps-2">
+                            <div className="col-3 amount mt-2 card-image ps-2">
                               <div className="input-counter">
-                                <div className="plus-minus-btn">
-                                  <span
-                                    onClick={() =>
-                                      minusHander(item?.quantity, index)
-                                    }
-                                  >
+                                <div className="plus-minus-btn cursor-btn"
+                                  onClick={() =>
+                                    minusHander(item?.quantity, index)
+                                  }>
+                                  <span>
                                     -
                                   </span>
                                 </div>
                                 <span className="m-2 quantity-div">
                                   {item?.quantity}
                                 </span>
-                                <div className="plus-minus-btn">
-                                  <span
-                                    onClick={() =>
-                                      plusHander(item?.quantity, index)
-                                    }
-                                  >
+                                <div className="plus-minus-btn cursor-btn" onClick={() =>
+                                  plusHander(item?.quantity, index)
+                                }>
+                                  <span>
                                     +
                                   </span>
                                 </div>
@@ -271,7 +275,7 @@ const Cart = () => {
                                 {item?.quantity * item?.salePrice}
                               </span>
                             </div>
-                            <div className="col-1 product-delete">
+                            <div className="col-1 product-delete cursor-btn">
                               <span
                                 onClick={() =>
                                   deleteCartHandler(item?.productid)
@@ -287,23 +291,23 @@ const Cart = () => {
                   })}
               </div>
 
-              <div className="col-4">
+              <div className="col-lg-4 col-md-5 col-sm-5">
                 <div className="card">
                   <div className="card-body checkout-card">
-                    <h5>Order Summary</h5>
+                    <h5 className="order-payment-detail">Order Summary</h5>
                   </div>
                   <div>
                     <ul className="product-checkout-price">
                       <li className="list-style">
-                        Sub Total
+                        <spam className="product-name">Sub Total</spam>
                         <span>{subTotal}</span>
                       </li>
                       <li className="list-style">
-                        Discount
+                      <spam className="product-name"> Discount</spam>
                         <span>{discount}</span>
                       </li>
                       <li className="list-style">
-                        Payable Amount
+                      <spam className="product-name">Payable Amount</spam>
                         <span>{payableAmount}</span>
                       </li>
                     </ul>

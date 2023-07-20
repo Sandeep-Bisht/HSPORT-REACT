@@ -8,26 +8,31 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import "../ProductCard/ProductCard.css";
 import {RxCross2} from "react-icons/rx";
+import Loader from "../Loader/Loader"
 
 const Wishlist = () => {
   const navigate = useNavigate();
   const [userWishlist, setUserWishlist] = useState([]);
   const [userdata, setUserdata] = useState();
+  const [isLoading,setIsLoading] = useState(true);
   let url = "http://localhost:8080/";
 
   useEffect(() => {
     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
     setUserdata(userdata);
     getUserWishlist(userdata._id);
+    window.scroll(0,0);
   }, []);
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
+    // setIsLoading(true);
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
     let response = await axios.post(url, { userId: userid });
     try {
       if (response) {
         setUserWishlist(response.data.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +59,7 @@ const deleteWishlist = async (productId) => {
 }
   return (
     <section className="wishlist-section">
-      {userWishlist && userWishlist.length > 0 ? (
+      {isLoading || (userWishlist && userWishlist.length > 0) ? (
         <section className="product-card-area">
           <div className="container">
             <div className="row">
@@ -64,8 +69,13 @@ const deleteWishlist = async (productId) => {
                 </h1>
               </div>
             </div>
-            <div className="row">
-              {userWishlist.map((item, index) => {
+            {
+              isLoading ?
+              <div className="col-12 d-flex justify-content-center"> <Loader/> </div>
+              :
+              <div className="row">
+              { 
+              userWishlist.map((item, index) => {
                 return (
                   <div className="col-lg-3" key={index}>
                     <div className="product-single-card">
@@ -117,8 +127,11 @@ const deleteWishlist = async (productId) => {
                     </div>
                   </div>
                 );
-              })}
+              })
+            }
             </div>
+            }
+
           </div>
         </section>
       ) : (

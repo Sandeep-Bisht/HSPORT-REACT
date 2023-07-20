@@ -13,6 +13,7 @@
     color: #8a8a8a;
     transition: 0.5s;
     font-size: 14px;
+    text-decoration: none;
 }
 .address-footer{
     color: #8a8a8a;
@@ -72,6 +73,7 @@
     align-items: center;
     border: 1px solid #c7c7c7;
     background-color: #fff;
+    width: 80%;
 }
 .Subscribe-para{
     font-family: "Roboto", sans-serif;
@@ -97,4 +99,57 @@
     font-weight: 500;
     opacity: .75;
 }
+@media only screen and (max-width : 991px) {
+    .footer-heading{
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    .footer-area .single-footer-widget ul li {
+        margin-bottom: 10px;
+    }
+    .footer-links{
+        font-size: 13px;
+    }
+    .subscribe-main{
+        width: 60%;
+    }
+    .single-footer-widget-newslatter{
+        margin-top: 10px;
+    }
+    .single-footer-widget .newsletter-form .default-btn {
+        left: 45px;
+    }
+    .single-footer-widget .newsletter-form .input-newsletter 
+    {
+        padding: 11px;
+    }
+    .footer-end-para{
+        font-size: 11px;
+    }
+    .footer-ends-link {
+        height: 17px;
+    }
+}
+@media only screen and (max-width : 767px) {
+    .subscribe-main {
+        width: 80%;
+    }
+    .single-footer-widget .newsletter-form .default-btn {
+        left: 50px;
+    }
+}
 
+@media only screen and (max-width : 575px) {
+    .subscribe-main{
+        width: 50%;
+    }
+}
+@media only screen and (max-width : 430px) {
+    .subscribe-main{
+        width: 70%;
+    }
+    .single-footer-widget .newsletter-form .input-newsletter 
+    {
+        padding: 9px;
+    }
+}

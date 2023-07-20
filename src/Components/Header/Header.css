@@ -148,7 +148,7 @@ header{
     --tw-text-opacity: 1;
     color: rgba(52,68,80,var(--tw-text-opacity));
     font-size: 1.8rem;
-    width: 280px;
+    /* width: 280px; */
 }
 .login-left-second{
     --tw-text-opacity: 1;
@@ -312,6 +312,7 @@ max-width: fit-content!important;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 .cart-top-items{
     position: relative;
@@ -319,4 +320,125 @@ max-width: fit-content!important;
     font-size: 12px;
     left: 22px;
     bottom: 7px;
+}
+
+/*----------------- Deepak media query ---------------------- */
+@media only screen and (max-width : 1399px){
+  
+}
+@media only screen and (max-width : 1024px) {
+  
+}
+
+@media only screen and (max-width :991px) {
+  
+}
+@media only screen and (max-width : 815px) {
+    /* login responsive deepak */
+    .registration-section {
+        width: 650px;
+        height: 430px;
+        border-radius: 0px!important;
+    }
+    .inside-modal-body{
+        min-height: 360px;
+    }
+    .login-left-mid {
+        font-size: 24px;
+    }
+    .login-left-second {
+        font-size: 24px;
+    }
+    .login-left-first {
+        font-size: 20px;
+    }
+    .endOfLogin-text{
+        font-size: 15px;
+    }
+    /* end login responsive */
+}
+@media only screen and (max-width : 767.98px) {
+        /* login responsive deepak */
+        .registration-section {
+            width: 590px;
+            height: 465px;
+        }
+        .text-danger {
+            margin-bottom: 0px;
+            font-size: 13px;
+        }
+        .login-left-mid {
+            font-size: 20px;
+        }
+        .login-left-second {
+            font-size: 20px;
+        }
+        .login-left-first {
+            font-size: 17px;
+        }
+        .endOfLogin-text{
+            font-size: 13px;
+        }
+        .login-btn{
+           padding: 8px 35px!important;
+           margin-top: 28px!important;
+        }
+        .login-left-mid{
+            margin-top: 10px;
+        }
+        .login-left-second{
+            margin-top: 10px;
+        }
+        .form-control{
+            font-size: 13px!important;
+        }
+        .nav-pills .nav-link.active {
+            font-size: 13px;
+        }
+        .nav-pills .nav-link {
+            font-size: 13px;
+        }
+        /* end login responsive */
+
+}
+@media only screen and (max-width : 630px) {
+     /* login responsive deepak */
+    .registration-section {
+        width: 470px;
+        height: 465px;
+    }
+    .login-left-mid {
+        font-size: 17px;
+    }
+    .endOfLogin-text {
+        font-size: 11px;
+    }
+    .login-left-second {
+        font-size: 17px;
+    }
+    /* end login responsive */
+
+}
+@media only screen and (max-width : 575px)
+   { 
+    .registration-section {
+        width: 360px;
+    }
+    .left-login-modal {
+        display: none;
+    }
+    .modal-dialog{
+        margin: auto;
+        margin-top: 20px;
+    }
+    .modal-header .btn-close {
+        font-size: 10px;
+    }
+ 
+  }
+
+@media only screen and (max-width : 320px) {
+
+  
+
 }
