@@ -6,7 +6,11 @@ header{
 }
 .main-logo
 {
-    width: 80px;
+    height: 60px;
+}
+.mobile-logo
+{
+    display: none;
 }
 .all-sports-toggler
 {
@@ -108,7 +112,9 @@ header{
 .header-right-link:focus{
     color: hsl(0, 0%, 100%);
 }
-
+.mega-menu-tab-heading.nav-pills .nav-link.active {
+    background-color: transparent!important;
+}
 
 /* sandeeep css login modal */
 
@@ -325,87 +331,46 @@ max-width: fit-content!important;
     padding: 10px;
 }
 
-/*----------------- Deepak media query ---------------------- */
-@media only screen and (max-width : 1399px){
-  
+
+/* -----------------------media query-------------- */
+
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+    .mega-menu
+    {
+        overflow: auto;
+    }  
+    .mega-menu-tab-heading.nav-pills .nav-link.active
+    {
+        background-color: transparent!important;
+    }
+
 }
-@media only screen and (max-width : 1024px) {
-  
+@media (max-width: 840.98px)
+{
+    .mega-menu
+    {
+        height: calc( 100vh - 59.06px);
+        top: 59.6px;
+    }
 }
 
-@media only screen and (max-width :991px) {
-    .mega-menu {
-        top: 63.5px;
-        height: 100vh!important;
-    }
-}
-@media only screen and (max-width : 815px) {
-    /* login responsive deepak */
-    .registration-section {
-        width: 650px;
-        height: 430px;
-        border-radius: 0px!important;
-    }
-    .inside-modal-body{
-        min-height: 360px;
-    }
-    .login-left-mid {
-        font-size: 24px;
-    }
-    .login-left-second {
-        font-size: 24px;
-    }
-    .login-left-first {
-        font-size: 20px;
-    }
-    .endOfLogin-text{
-        font-size: 15px;
-    }
-    /* end login responsive */
-}
-@media only screen and (max-width : 767.98px) {
-        /* login responsive deepak */
-        .registration-section {
-            width: 590px;
-            height: 465px;
-        }
-        .text-danger {
-            margin-bottom: 0px;
-            font-size: 13px;
-        }
-        .login-left-mid {
-            font-size: 20px;
-        }
-        .login-left-second {
-            font-size: 20px;
-        }
-        .login-left-first {
-            font-size: 17px;
-        }
-        .endOfLogin-text{
-            font-size: 13px;
-        }
-        .login-btn{
-           padding: 8px 35px!important;
-           margin-top: 28px!important;
-        }
-        .login-left-mid{
-            margin-top: 10px;
-        }
-        .login-left-second{
-            margin-top: 10px;
-        }
-        .form-control{
-            font-size: 13px!important;
-        }
-        .nav-pills .nav-link.active {
-            font-size: 13px;
-        }
-        .nav-pills .nav-link {
-            font-size: 13px;
-        }
-        /* end login responsive */
 
+@media (max-width: 767.98px)
+{
+    
         /* mega menu responsive */
         .mega-menu-tab-heading.nav-pills .nav-link{
             font-size: 14px;
@@ -416,6 +381,12 @@ max-width: fit-content!important;
         .mega-menu-sub-heading-list li {
             font-size: 13px;
         }
+        
+    .mega-menu
+    {
+        height: calc( 100vh - 55px);
+        top: 55px;
+    }
 
 }
 @media only screen and (max-width : 630px) {
@@ -445,26 +416,65 @@ max-width: fit-content!important;
     /* end mega menu */
 
 }
-@media only screen and (max-width : 575px)
-   { 
-    .registration-section {
-        width: 360px;
-    }
-    .left-login-modal {
-        display: none;
-    }
-    .modal-dialog{
-        margin: auto;
-        margin-top: 20px;
-    }
-    .modal-header .btn-close {
-        font-size: 10px;
-    }
- 
-  }
 
-@media only screen and (max-width : 320px) {
 
+
+
+@media (max-width: 690.98px)
+{
+    }
+
+@media (max-width: 575.98px)
+{
+    .nav-wrapper
+    {
+        flex-wrap: initial!important;
+    }
+    .header-wrapper
+    {
+        justify-content: space-between;
+    }
+    .header-wrapper .navbar-nav
+    {
+        flex-direction: row;
+    }
+    .mega-menu
+    {
+        height: calc( 100vh - 48.94px);
+        top: 48.94px;
+    }
+    .product-single-card .product-pic img {
+            height: 200px;
+    }
+   
+} 
+
+@media (max-width: 480.98px)
+{
+    .mega-menu-sub-heading
+    {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .mega-menu-sub-heading-list li
+    {
+        font-size: 12px;
+    }
+    .close-box span
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .close-box span svg{
+        height: 12px;
+        width: 12px;
+    }
+} 
+
+
+@media (max-width: 440.98px)
+{
   
-
-}
+   
+} 
+ 
