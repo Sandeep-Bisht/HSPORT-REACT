@@ -269,7 +269,7 @@ const ProductCard = (props) => {
               productList.length > 0 &&
               productList.map((item, index) => {
                 return (
-                  <div className="col-lg-3" key={index}>
+                  <div className="col-lg-3 col-md-6 col-sm-6 " key={index}>
                     <div className="product-single-card">
                       <div className="product-pic cursor-btn">
                         <img

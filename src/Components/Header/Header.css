@@ -6,7 +6,11 @@ header{
 }
 .main-logo
 {
-    width: 80px;
+    height: 60px;
+}
+.mobile-logo
+{
+    display: none;
 }
 .all-sports-toggler
 {
@@ -320,3 +324,70 @@ max-width: fit-content!important;
     left: 22px;
     bottom: 7px;
 }
+
+
+/* -----------------------media query-------------- */
+
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+  
+}
+
+@media (max-width: 840.98px)
+{
+  
+}
+
+
+@media (max-width: 767.98px)
+{
+    
+}
+
+
+
+
+@media (max-width: 690.98px)
+{
+    }
+
+@media (max-width: 575.98px)
+{
+    .nav-wrapper
+    {
+        flex-wrap: initial!important;
+    }
+    .header-wrapper
+    {
+        justify-content: space-between;
+    }
+    .header-wrapper .navbar-nav
+    {
+        flex-direction: row;
+    }
+   
+} 
+
+@media (max-width: 480.98px)
+{
+} 
+
+
+@media (max-width: 440.98px)
+{
+
+   
+} 
+ 

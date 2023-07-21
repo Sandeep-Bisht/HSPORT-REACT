@@ -98,3 +98,66 @@
     opacity: .75;
 }
 
+/* ---------------------------media query---------------------------------- */
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+    .single-footer-widget .newsletter-form .default-btn
+    
+    {
+        left:0;
+    }
+}
+
+@media (max-width: 840.98px)
+{
+    
+    
+  
+}
+
+
+@media (max-width: 767.98px)
+{
+
+    
+    
+}
+
+
+
+
+@media (max-width: 690.98px)
+{
+  
+   
+}
+
+@media (max-width: 575.98px)
+{
+} 
+
+@media (max-width: 480.98px)
+{
+} 
+@media (max-width: 440.98px)
+{
+
+    
+}
+
+@media (max-width: 420.98px)
+{
+  
+} 
