@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Popconfirm, Typography } from "antd";
+import { Table, Space, Popconfirm, Typography,Button } from "antd";
 import "./Dashboard.css";
 import axios from "axios";
 import { baseUrl } from "../../Utils/Service";
@@ -20,7 +20,7 @@ export default function AllSubCategoriesDetails() {
   const [filteredData] = useState([]);
   const [subCategories, setSubCategories] = useState("");
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     GetSubCategory();
@@ -44,20 +44,22 @@ export default function AllSubCategoriesDetails() {
   };
 
   const searchHandler = () => {
-    // const filteredData = getuser.filter((value) => {
-    //   return value.name.toLowerCase().includes(searchVal.toLowerCase());
-    // });
-    // setGetuser(filteredData);
+    const filteredData = getuser.filter((value) => {
+      return value.name.toLowerCase().includes(searchVal.toLowerCase());
+    });
+    setGetuser(filteredData);
   };
 
   const handleDelete = async (_id) => {
-    // try {
-    //   const DeletedData = await axios.delete(`${baseUrl}/api/subcategory/delete_subcategory_by_id`, { data: { _id: _id } });
-    //   GetSubCategory();
-    // } catch (error) {
+    try {
+      const DeletedData = await axios.delete(`${baseUrl}/api/subcategory/delete_subcategory_by_id`, { data: { _id: _id } });
+      GetSubCategory();
+    } catch (error) {
+    }
+  }
 
-    // }
-
+  const editFormHandler=(subCategoryRecord)=>{
+    navigate("/dashboard/create-subCategory",{state : {...subCategoryRecord}})
   }
 
 
@@ -72,13 +74,13 @@ export default function AllSubCategoriesDetails() {
       dataIndex: "description",
       key: "description",
     },
-    // {
-    //   title: "Image",
-    //   dataIndex: "image[0].path",
-    //   width: 80,
-    //   maxWidth: 90,
-    //   render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
-    // },
+    {
+      title: "Image",
+      dataIndex: "image[0].path",
+      width: 80,
+      maxWidth: 90,
+      render: (t, r) => <img src={`${baseUrl}/${r?.image[0]?.path}`} style={{width:"100%"}}/>,
+    },
     {
 
       title: 'Action',
@@ -91,16 +93,12 @@ export default function AllSubCategoriesDetails() {
               <a className="delete-icon-wrap" title="Delete" style={{ color: "blue" }}><FaTrashAlt /></a>
             </Popconfirm>
             <Typography.Link   >
-              <Link to={{
-                pathname: "/SubCategory",
-                state:
-                {
-                  ...record,
-                }
-              }}
+              <Button
                 title="Edit"
                 className='edit-icon-wrap'
-                style={{ color: "blue" }}><MdOutlineEditNote /></Link>
+                style={{ color: "blue" }}
+                onClick={()=>editFormHandler(record)}
+                ><MdOutlineEditNote /></Button>
             </Typography.Link>
           </Space>
         ) : null,
