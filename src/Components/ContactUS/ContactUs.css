@@ -97,7 +97,7 @@ input, optgroup, select, textarea {
 button:not(:disabled) {
     cursor: pointer;
 }
-.login-btn {
+.contact-us-submit {
     background: #495057;
     border: none;
     color: #fff;

@@ -9,6 +9,7 @@ import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
 import Cookies from "js-cookie";
+import Loader from "../Loader/Loader"
 
 function AllProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,6 +19,7 @@ function AllProducts() {
   const [categoryList, setCategoryList] = useState([]);
   const [userdata, setUserdata] = useState();
   const location = useLocation();
+  const [isLoading,setIsLoading] = useState(true);
 
   let allCategoryState = useSelector((state) => state.UserCartReducer);
 
@@ -54,6 +56,7 @@ function AllProducts() {
 
 
   const getProductByCategoryId = (category) => {
+    setIsLoading(true);
     setSelectedCategory(category)
     let url = "http://localhost:8080/api/product/product_by_category";
     try {
@@ -70,6 +73,7 @@ function AllProducts() {
               setSelectedPrice("");
             }
             setAllProducts(response.data.data);
+            setIsLoading(false);
           }
         })
         .catch((error) => {
@@ -120,7 +124,6 @@ function AllProducts() {
       }
     }
   };
-  
 
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
@@ -140,6 +143,7 @@ function AllProducts() {
   };
 
   const getAllProducts = async () => {
+    setIsLoading(true);
     setSelectedCategory("outdoorSports")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
@@ -153,6 +157,7 @@ function AllProducts() {
           setSelectedPrice("");
         }
         setAllProducts(response.data.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -162,9 +167,9 @@ function AllProducts() {
   return (
     <div className="container-fluid">
       <div className="row sidebar-filter">
-        <div className="col-2 ps-4">
+        <div className="col-lg-2 col-md-2 col-sm-3 col-4 ps-4 sidebar-category">
           <div className="sidebar-filter-heading">
-            <h4>Filters</h4>
+            <h4 className="filter-top-heading">Filters</h4>
           </div>
           <div class="accordion" id="accordionExample">
             <div className="sidebar-category-filter p-1">
@@ -191,7 +196,7 @@ function AllProducts() {
                 >
                   <div class="accordion-body accordion-bodies">
                     <div className="filter-category">
-                      <div>
+                      <div className="d-flex filter-checkbox">
                         <label
                           htmlFor="outdoorSports"
                           className="filter-category-name pt-1"
@@ -218,7 +223,7 @@ function AllProducts() {
                           key={index}
                         >
                           <div className="filter-category">
-                            <div>
+                            <div className="d-flex filter-checkbox">
                               <label
                                 htmlFor="outdoorSports"
                                 className="filter-category-name pt-1"
@@ -247,6 +252,7 @@ function AllProducts() {
                 <span className="category-main-div">Price</span>
               </div>
               <div className="filter-category">
+                <div className="d-flex filter-checkbox">
                 <label
                   htmlFor="lowToHigh"
                   className="filter-category-name pt-1"
@@ -261,7 +267,8 @@ function AllProducts() {
                   onChange={handleCheckboxPrice}
                   checked={selectedPrice === "lowToHigh"}
                 />
-                <br />
+                </div>
+                <div className="d-flex filter-checkbox">
                 <label
                   htmlFor="highToLow"
                   className="filter-category-name pt-1"
@@ -276,6 +283,7 @@ function AllProducts() {
                   onChange={handleCheckboxPrice}
                   checked={selectedPrice === "highToLow"}
                 />
+                </div>
               </div>
             </div>
             <div className="sidebar-category-filter p-1">
@@ -283,6 +291,7 @@ function AllProducts() {
                 <span className="category-main-div">Allphabetically sort</span>
               </div>
               <div className="filter-category">
+                <div className="d-flex filter-checkbox">
                 <label htmlFor="AtoZ" className="filter-category-name pt-1">
                   A to Z
                 </label>
@@ -294,7 +303,8 @@ function AllProducts() {
                   onChange={handleCheckboxAlphabetic}
                   checked={selectedAlphabetic === "AtoZ"}
                 />
-                <br />
+                </div>
+                <div className="d-flex filter-checkbox">
                 <label htmlFor="ZtoA" className="filter-category-name pt-1">
                   Z to A
                 </label>
@@ -306,13 +316,13 @@ function AllProducts() {
                   onChange={handleCheckboxAlphabetic}
                   checked={selectedAlphabetic === "ZtoA"}
                 />
-                <br />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-10">
-          <ProductCard productList={allProducts} />
+        <div className="col-lg-10 col-md-10 col-sm-9 col-8">
+            <ProductCard productList={isLoading ? isLoading : allProducts} />
         </div>
       </div>
     </div>

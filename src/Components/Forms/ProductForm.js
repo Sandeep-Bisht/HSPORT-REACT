@@ -140,7 +140,6 @@ const [editableData] = useState(props);
         })
         .catch((err) => console.log(err));
     } else {
-      console.log("Form has errors. Please correct them.");
     }
   };
 

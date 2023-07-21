@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./CategoryProduct.css"
 import aboutImage from "../../Images/about1.jpg"
+import Loader from "../Loader/Loader";
+
 function CategoryProduct(props) {
 
   const [sliderRef, setSliderRef] = useState(null);
@@ -12,7 +14,6 @@ function CategoryProduct(props) {
   const navigate=useNavigate();
 
   let url = "http://localhost:8080/";
-
 
   var settings = {
     dots: true,
@@ -24,6 +25,14 @@ function CategoryProduct(props) {
     autoplay: true,
     pauseOnHover: true,
     autoPlaySpeed: 3000,
+    responsive:[
+      {
+      breakpoint:575,
+      settings : {
+        slidesToShow: 2,
+      }
+    }
+    ]
   };
   const categoryHander=(categoeyId)=>{
     navigate(
@@ -42,17 +51,23 @@ function CategoryProduct(props) {
                 Featured Categories
               </h1>
             </div>
-            <Slider ref={setSliderRef} {...settings} className="mb-4 featured-slide">
+            {
+              allCategories==true ? 
+              <div className="col-12 d-flex justify-content-center">
+                <Loader/>
+              </div>:
+              <div className="col-md-12">
+                <Slider ref={setSliderRef} {...settings} className="mb-4 featured-slide">
               {allCategories &&
                 allCategories.length > 0 &&
                 allCategories.map((item, index) => {
                   return (
-                    <div className="row featured-card-row pe-0 d-flex" key={index}>
-                      <div className={`col-12 featured-card ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
+                    <div className="featured-card-row pe-0 d-flex" key={index}>
+                      <div className={` featured-card ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                         <div className="card featured-card-inside m-2">
                           <img src={`${url}${item?.image[0].path}`} className="card-img-top featured-image cursor-btn" alt=""
                           onClick={()=>categoryHander(item._id)} />
-                          <div className={`card-body ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
+                          <div className={`card-body featured-card-body ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                             <h5 className={`card-title category-title cursor-btn ${index % 2 === 0 ? 'even-title' : ''}`}
                             onClick={()=>categoryHander(item._id)}>
                               {item.name}
@@ -67,8 +82,8 @@ function CategoryProduct(props) {
                     </div>
                   );
                 })}
-            </Slider>
-
+            </Slider></div>
+            }
           </div>
         </div>
       </section>

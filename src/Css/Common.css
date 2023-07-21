@@ -49,3 +49,13 @@ body {
 .cursor-btn{
     cursor: pointer;
 }
+@media only screen and (max-width : 767px) {
+    .common-heading {
+        font-size: 23px!important;
+    }
+}
+@media only screen and (max-width : 577px) {
+    .common-heading {
+        font-size: 20px!important;
+    }
+}

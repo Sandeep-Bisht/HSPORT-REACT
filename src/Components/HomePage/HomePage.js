@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HomePage.css";
-import slider1 from "../../Images/slider1.jpg";
+import slider1 from "../../Images/banner-1.jpg";
 import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
 import TopBrand from "../TopBrands/TopBrands";
 import {Link} from "react-router-dom"
+import Loader from "../Loader/Loader";
 
 const HomePage = () => {
 
@@ -15,6 +16,8 @@ const HomePage = () => {
   const [allCategories,setAllCategories]=useState([]);
   const [featruedCategories,setFeatruedCategories]=useState([]);
   const [allTopBrands,setAllTopBrands]=useState([]);
+  const [isLoading,setIsLoading]=useState(true);
+  
 
 useEffect(() => {
   getAllProducts();
@@ -24,6 +27,7 @@ useEffect(() => {
 }, [])
 
 const getAllProducts = async() => {
+  setIsLoading(true);
   let url = "http://localhost:8080/api/product/all_product";
   let response = await axios.get(url);
     try {
@@ -33,6 +37,7 @@ const getAllProducts = async() => {
           return item.brand.featuredBrands=="Featured Categories"
          })
          setFeatruedCategories(featuredBrand);
+         setIsLoading(false);
       }
     } catch (error) {
       console.log(error)
@@ -40,12 +45,13 @@ const getAllProducts = async() => {
 }
 
 const getAllCategories=async()=>{
+  setIsLoading(true);
   let url = "http://localhost:8080/api/category/all_category";
   let response = await axios.get(url);
     try {
       if(response){
          setAllCategories(response.data.data) 
-       
+         setIsLoading(false);
       }
     } catch (error) {
       console.log(error)
@@ -53,14 +59,15 @@ const getAllCategories=async()=>{
 }
 
 const getTopBrands=async()=>{
+  setIsLoading(true);
   let url = "http://localhost:8080/api/brands/all_brands";
   const topBrands=await axios.get(url)
   {
     try{
       if(topBrands)
       {
-        console.log(topBrands,"inside the top brands")
         setAllTopBrands(topBrands.data.data);
+        setIsLoading(false);
       }
     }catch(error)
     {
@@ -201,10 +208,10 @@ const getTopBrands=async()=>{
           </button>
         </div>
       </div>
-      <ProductCard  productList={allProducts}/>
-      <CategoryProduct allCategories={allCategories}/>
-      <ProductCard  featuredProductList={featruedCategories}/>
-      <TopBrand allTopBrands={allTopBrands}/>
+      <ProductCard  productList={isLoading ? isLoading : allProducts}/>
+      <CategoryProduct allCategories={isLoading ? isLoading : allCategories}/>
+      <ProductCard  featuredProductList={isLoading ? isLoading : featruedCategories}/>
+      <TopBrand allTopBrands={isLoading ? isLoading : allTopBrands}/>
     </>
   );
 };
