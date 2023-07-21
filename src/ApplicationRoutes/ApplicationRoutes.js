@@ -10,7 +10,7 @@ import CategoryForm from '../Components/Forms/CategoryForm';
 import AllCategoriesDetails from '../Components/Admin/AllCategoriesDetails';
 import AllBrandsDetails from '../Components/Admin/AllBrandsDetails';
 import PackedOrder from '../Components/Admin/PackedOrder'
-import InProgressOrder from '../Components/Admin/PackedOrder'
+import InProgressOrder from '../Components/Admin/InProgressOrder'
 import ShippedOrder from '../Components/Admin/ShippedOrder'
 import DeliveredOrder from '../Components/Admin/DeliveredOrder'
 import CancelOrder from '../Components/Admin/CancelOrder'
@@ -68,10 +68,10 @@ const ApplicationRoutes = () => {
 
         <Route path='/dashboard/Order/Pending' element={<NewOrder/>} />
         <Route path='/dashboard/Order/InProgress' element={<InProgressOrder/>} />
-        <Route path='/dashboard/Order/Canceled' element={<PackedOrder/>} />
-        <Route path='/dashboard/Order/Packed' element={<ShippedOrder/>} />
-        <Route path='/dashboard/Order/Shipped' element={<DeliveredOrder/>} />
-        <Route path='/dashboard/Order/Delivered' element={<CancelOrder/>} />
+        <Route path='/dashboard/Order/Packed' element={<PackedOrder/>} />
+        <Route path='/dashboard/Order/Shipped' element={<ShippedOrder/>} />
+        <Route path='/dashboard/Order/Delivered' element={<DeliveredOrder/>} />
+        <Route path='/dashboard/Order/Canceled' element={<CancelOrder/>} />
         <Route/>
         </Route>
       <Route path="/PageNotFound" element={ <PageNotFound />} />

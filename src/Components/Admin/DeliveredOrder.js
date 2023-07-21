@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-// import { baseUrl } from "../../utils/services";
+import { baseUrl } from "../../Utils/Service";
 import { BiSearchAlt } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { Table, Space, Dropdown, Modal, Button } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import { AiFillCaretDown } from "react-icons/ai";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 const DeliveredOrder = () => {
   const [orders, setOrders] = useState([]);
@@ -16,77 +17,70 @@ const DeliveredOrder = () => {
   const [searchVal, setSearchVal] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
+  const [userData,setUserdata] = useState();
   const history = useNavigate();
 
 
-
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      GetOrders();
+    }
+  },[])
   const GetOrders = async () => {
-    // setLoading(true);
-    // await fetch(`${baseUrl}/api/order/all_order`)
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //     if (Userdata !== undefined || Userdata !== "") {
-    //       if (Userdata.role === "Vendor") {
-    //         let arr = [];
-
-    //         for (let item of data.data) {
-    //           if (
-    //             item.orderStatus == "Pending" &&
-    //             Userdata &&
-    //             Userdata.manufacturer == item.order[0].order[0].manufacturer
-    //           ) {
-    //             arr.push(item);
-    //           }
-    //         }
-    //         setVendor(true);
-    //         setOrderDetails(arr);
-    //       } else {
-    //         let arr = [];
-    //         for (let item of data.data) {
-    //           if (item.orderStatus == "Pending") {
-    //             item.createdAt = item.createdAt.slice(0, 10);
-    //             arr.push(item);
-    //           }
-    //         }
-    //         setOrderDetails(arr);
-    //       }
-    //     }
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "errors");
-    //   });
+    setLoading(true);
+    await fetch(`${baseUrl}/api/order/all_order`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        if (userData !== undefined || userData !== "") {
+          let arr = [];
+          for (let item of data.data) {
+            if (
+              item.orderStatus == "Delivered"
+            ) {
+              arr.push(item);
+            }
+          }
+          setOrderDetails(arr);
+          setLoading(false);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err, "errors");
+      });
   };
 
   const UpdateOrderStatus = async (order, orderStatus) => {
-    // delete order.createdAt;
-    // order.orderStatus = orderStatus;
-    // await fetch(`${baseUrl}/api/order/update_order`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(order),
-    // })
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //     GetOrders();
-    //     if (order.orderStatus === "In-Progress") {
-    //       toast.success("Order move to In Progress", {
-    //         position: "bottom-right",
-    //         autoClose: 1000,
-    //       });
-    //     } else {
-    //       toast.success("Order move to Cancel", {
-    //         position: "bottom-right",
-    //         autoClose: 1000,
-    //       });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "error");
-    //   });
+    delete order.createdAt;
+    order.orderStatus = orderStatus;
+    await fetch(`${baseUrl}/api/order/update_order`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then(async (data) => {
+        GetOrders();
+        // if (order.orderStatus === "In-Progress") {
+        //   toast.success("Order move to In Progress", {
+        //     position: "bottom-right",
+        //     autoClose: 1000,
+        //   });
+        // } else {
+        //   toast.success("Order move to Cancel", {
+        //     position: "bottom-right",
+        //     autoClose: 1000,
+        //   });
+        // }
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
   };
 
   const onChangeHandler = (e) => {
@@ -103,19 +97,11 @@ const DeliveredOrder = () => {
   };
 
   const showModal = (order) => {
-    // if(Userdata!==null || Userdata!=="")
-    // {
-    //   if(Userdata.role==="Vendor")
-    //   {
-    //     const response=order.order[0].order.filter((item)=>{
-    //     return (Userdata.manufacturer == item.manufacturer)
-    //     })
-    //     setPrticularUserOrder(response);
-    //     setIsModalVisible(true);
-    //   }
-    //   setPrticularUserOrder(order.order);
-    //   setIsModalVisible(true);
-    // }
+    if(userData!==null || userData!=="")
+    {
+      setPrticularUserOrder(order.order);
+      setIsModalVisible(true);
+    }
     
   };
 
@@ -166,25 +152,27 @@ const DeliveredOrder = () => {
                 {
                   key: "1",
                   label: (
-                    <a onClick={() => UpdateOrderStatus(item, "Cancel")}>
+                    <Link onClick={() => UpdateOrderStatus(item, "Cancel")}
+                    className="sidebar-nav-link">
                       Cancel Order
-                    </a>
+                    </Link>
                   ),
                 },
                 {
                   key: "2",
                   label: (
-                    <a onClick={() => UpdateOrderStatus(item, "In-Progress")}>
-                      Move to In-progress
-                    </a>
+                    <Link onClick={() => UpdateOrderStatus(item, "Pending")}
+                    className="sidebar-nav-link">
+                      Move to Pending
+                    </Link>
                   ),
                 },
               ],
             }}
           >
-            <a>
+            <Link className="sidebar-nav-link">
               Pending <AiFillCaretDown className="icon-dropdown-orders" />
-            </a>
+            </Link>
           </Dropdown>
         </Space>
       ),
@@ -237,8 +225,8 @@ const DeliveredOrder = () => {
                           <div className="width-adjust-of-image">
                              <img
                               onClick={() => imageHandler(item.productid)}
-                              style={{ cursor: "pointer" }}
-                            //   src={`${baseUrl}/${item.image}`}
+                              style={{ cursor: "pointer",width:"40px",height:"40px" }}
+                              src={`${baseUrl}/${item.image}`}
                             ></img> 
                           </div>
                         </td>
