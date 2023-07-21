@@ -9,7 +9,7 @@ import { BsListNested } from "react-icons/bs";
 
 const AdminDashboard = () => {
 
-    const [products, Setproducts] = useState("");
+  const [products, Setproducts] = useState("");
   const [categories, setCategories] = useState("");
   const [subCategories, setSubCategories] = useState("");
 
@@ -19,7 +19,7 @@ const AdminDashboard = () => {
       <main className="main graph-main-div">
         <div className="row cardsec-row">
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to="/dashboard/allPrdoucts">
+            <Link to="/dashboard/allPrdoucts" className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/allBrands"}>
+            <Link to={"/dashboard/allBrands"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/allCategories"}>
+            <Link to={"/dashboard/allCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/AllSubCategories"}>
+            <Link to={"/dashboard/AllSubCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">

@@ -61,6 +61,20 @@ useEffect(()=>{
     setIsModalVisible(false);
   };
 
+  const handleDelete = async (_id) => {
+    try {
+      const DeletedData = await axios.delete(
+        `${baseUrl}/api/product/delete_product_by_id`,
+        { data: { _id: _id } }
+      );
+      GetProducts();
+    } catch (error) {}
+  };
+
+  const editFormHandler = (productFormDetails)=>{
+    navigate("/dashboard/create-product", {state:{...productFormDetails}})
+  }
+
   const columns = [
     {
       title: "Name",
@@ -102,7 +116,7 @@ useEffect(()=>{
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
+      render: (t, r) => <img src={`${baseUrl}/${r?.image[0]?.path}`} style={{width:"100%"}}/>,
     },
     {
       title: "Action",
@@ -113,24 +127,19 @@ useEffect(()=>{
           <Space size="middle">
             <Popconfirm
               title="Sure to delete?"
-            //   onConfirm={() => handleDelete(record._id)}
+              onConfirm={() => handleDelete(record._id)}
             >
               <a className="delete-icon-wrap" title="Delete" style={{ color: "blue" }}><FaTrashAlt /></a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{
-                  pathname: "/ProductForm",
-                  state: {
-                    ...record,
-                  },
-                }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>editFormHandler(record)}
               >
                 <MdOutlineEditNote />
-              </Link>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null,
