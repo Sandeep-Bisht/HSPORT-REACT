@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Popconfirm, Typography } from "antd";
+import { Table, Space, Popconfirm, Typography, Button } from "antd";
 import "./Dashboard.css";
 import axios from "axios";
 import { BiSearchAlt } from "react-icons/bi";
@@ -17,7 +17,7 @@ export default function AllBrandsDetails() {
   const [brands, setBrands] = useState("");
 
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -56,14 +56,18 @@ export default function AllBrandsDetails() {
   };
 
   const handleDelete = async (_id) => {
-    // try {
-    //   const DeletedData = await axios.delete(
-    //     `${baseUrl}/api/category/delete_category_by_id`,
-    //     { data: { _id: _id } }
-    //   );
-    //   fetchUsers();
-    // } catch (error) {}
+    try {
+      const DeletedData = await axios.delete(
+        `${baseUrl}/api/brands/delete_brands_by_id`,
+        { data: { _id: _id } }
+      );
+      fetchUsers();
+    } catch (error) {}
   };
+
+  const categoryEditHander=(topBrand)=>{
+    navigate("/dashboard/create-brand", {state:{...topBrand}})    
+  }
 
   const columns = [
     {
@@ -103,19 +107,14 @@ export default function AllBrandsDetails() {
               </a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{
-                  pathname: "/Category",
-                  state: {
-                    ...record,
-                  },
-                }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>categoryEditHander(record)}
               >
                 <MdOutlineEditNote />
-              </Link>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null,

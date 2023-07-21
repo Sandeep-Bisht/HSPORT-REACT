@@ -238,7 +238,11 @@ const Header = () => {
             </div>
             {toggle && (
               <div className="mega-menu visible">
-                <div className="close-box"><span onClick={() => setToggle(false)}><IoMdClose /></span></div>
+                <div className="close-box close-btn-megamenu">
+                  <span onClick={() => setToggle(false)}>
+                    <IoMdClose />
+                  </span>
+                </div>
                 <div className="mega-menu-tab">
                   <div className="container">
                     <div className="row">
@@ -261,7 +265,7 @@ const Header = () => {
                           <div className="tab-content mega-menu-tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabIndex={0}>
                               <div className="row">
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
                                   <p className="mega-menu-sub-heading">
                                     Outdoor Sports
                                   </p>
@@ -275,7 +279,7 @@ const Header = () => {
 
                                   </ul>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
                                   <p className="mega-menu-sub-heading">
                                     Outdoor Sports
                                   </p>
@@ -289,7 +293,7 @@ const Header = () => {
 
                                   </ul>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
                                   <p className="mega-menu-sub-heading">
                                     Outdoor Sports
                                   </p>
@@ -303,7 +307,7 @@ const Header = () => {
 
                                   </ul>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
                                   <p className="mega-menu-sub-heading">
                                     Outdoor Sports
                                   </p>
@@ -317,7 +321,7 @@ const Header = () => {
 
                                   </ul>
                                 </div>
-                                <div className="col-lg-3">
+                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
                                   <p className="mega-menu-sub-heading">
                                     Outdoor Sports
                                   </p>

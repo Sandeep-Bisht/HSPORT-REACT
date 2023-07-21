@@ -268,7 +268,7 @@ textarea.textarea{
     height: calc(var(--header-height) + 1rem);
   }
 .dashboard-logo{
-  max-width: 70%;
+  max-width: 10%!important;
 }
   .header__img{
     width: 40px;
@@ -937,7 +937,7 @@ font-family: 'Roboto', sans-serif;
     padding-right: 0px!important;
   }
   .dashboard-logo{
-    max-width: 70%!important;
+    max-width: 10%!important;
   }
   .cardicon{
     height: 22px;

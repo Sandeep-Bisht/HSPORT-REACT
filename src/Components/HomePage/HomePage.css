@@ -170,6 +170,10 @@
     {
        display: none;
     }
+    .product-single-card .product-pic img
+    {
+        height:200px;
+    }
 } 
 
 @media (max-width: 480.98px)
@@ -177,8 +181,11 @@
 } 
 
 
-@media (max-width: 420.98px)
+@media (max-width: 440.98px)
 {
-    
+    .home-slider #carouselExampleCaptions .slider-title
+    {
+        font-size: 30px;
+    }
 } 
  

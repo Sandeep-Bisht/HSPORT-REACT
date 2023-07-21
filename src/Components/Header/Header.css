@@ -112,7 +112,9 @@ header{
 .header-right-link:focus{
     color: hsl(0, 0%, 100%);
 }
-
+.mega-menu-tab-heading.nav-pills .nav-link.active {
+    background-color: transparent!important;
+}
 
 /* sandeeep css login modal */
 
@@ -325,6 +327,9 @@ max-width: fit-content!important;
     left: 22px;
     bottom: 7px;
 }
+.single-footer-widget .newsletter-form .input-newsletter {
+    padding: 10px;
+}
 
 
 /* -----------------------media query-------------- */
@@ -343,18 +348,73 @@ max-width: fit-content!important;
 
 @media (max-width: 991.98px)
 {
-  
-}
+    .mega-menu
+    {
+        overflow: auto;
+    }  
+    .mega-menu-tab-heading.nav-pills .nav-link.active
+    {
+        background-color: transparent!important;
+    }
 
+}
 @media (max-width: 840.98px)
 {
-  
+    .mega-menu
+    {
+        height: calc( 100vh - 59.06px);
+        top: 59.6px;
+    }
 }
 
 
 @media (max-width: 767.98px)
 {
     
+        /* mega menu responsive */
+        .mega-menu-tab-heading.nav-pills .nav-link{
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading {
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading-list li {
+            font-size: 13px;
+        }
+        
+    .mega-menu
+    {
+        height: calc( 100vh - 55px);
+        top: 55px;
+    }
+
+}
+@media only screen and (max-width : 630px) {
+     /* login responsive deepak */
+    .registration-section {
+        width: 470px;
+        height: 465px;
+    }
+    .login-left-mid {
+        font-size: 17px;
+    }
+    .endOfLogin-text {
+        font-size: 11px;
+    }
+    .login-left-second {
+        font-size: 17px;
+    }
+    /* end login responsive */
+
+
+    /* mega menu responsive */
+
+    .close-btn-megamenu{
+       padding-right: 16px;
+       padding-top: 13px;
+    }
+    /* end mega menu */
+
 }
 
 
@@ -378,17 +438,43 @@ max-width: fit-content!important;
     {
         flex-direction: row;
     }
+    .mega-menu
+    {
+        height: calc( 100vh - 48.94px);
+        top: 48.94px;
+    }
+    .product-single-card .product-pic img {
+            height: 200px;
+    }
    
 } 
 
 @media (max-width: 480.98px)
 {
+    .mega-menu-sub-heading
+    {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .mega-menu-sub-heading-list li
+    {
+        font-size: 12px;
+    }
+    .close-box span
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .close-box span svg{
+        height: 12px;
+        width: 12px;
+    }
 } 
 
 
 @media (max-width: 440.98px)
 {
-
+  
    
 } 
  

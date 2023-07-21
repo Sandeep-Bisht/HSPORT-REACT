@@ -18,7 +18,7 @@ const Dashboard = () => {
                 <div className="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-4 sidebar-dashboard">
                   <Sidemenu />
                 </div>
-                <div className="col-md-10 outlet-wrapper">
+                <div className="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8 outlet-wrapper">
             <Outlet />
           </div>
               </div>

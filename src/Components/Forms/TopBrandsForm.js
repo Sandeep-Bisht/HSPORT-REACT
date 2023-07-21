@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { baseUrl } from "../../Utils/Service";
 import "../Admin/Dashboard.css"
+import axios from "axios";
 
 // var Userdata;
 const TopBrandsForm = (props) => {
@@ -15,22 +16,22 @@ const TopBrandsForm = (props) => {
     featuredBrands:"",
     creatorId: "",
   });
+  const location=useLocation();
   const history = useNavigate();
-  // const [editableData] = useState(props.history.location.state);
-  const [editableData]=useState(props);
-  // useEffect(() => {
-  //   // Userdata = JSON.parse(localStorage.getItem("Userdata"));
-  //   GetBrands();
-  // if (editableData) {
-  //   let { featuredBrands, ...restData } = editableData;
-  //   {
-  //     featuredBrands
-  //       ? (restData.featuredBrands = featuredBrands)
-  //       : (restData.featuredBrands = "");
-  //   }
-  //   Setdata(restData);
-  // }
-  // }, []);
+  const [editableData]=useState(location?.state);
+  useEffect(() => {
+    // Userdata = JSON.parse(localStorage.getItem("Userdata"));
+    GetBrands();
+  if (editableData) {
+    let { featuredBrands, ...restData } = editableData;
+    {
+      featuredBrands
+        ? (restData.featuredBrands = featuredBrands)
+        : (restData.featuredBrands = "");
+    }
+    Setdata(restData);
+  }
+  }, []);
 
 
   const ValidattionForm = (value) => {
@@ -90,29 +91,29 @@ const TopBrandsForm = (props) => {
     e.preventDefault();
     const errors = ValidattionForm(data);
     setFormerror(errors);
-  //   if (Object.keys(errors).length === 0) {
-  //   const formData = new FormData();
-  //   await formData.append("_id", data._id);
-  //   await formData.append("description", data.description);
-  //   await formData.append("name", data.name);
-  //   await formData.append("image", data.image);
-      //formData.append("featuredBrands", data.featuredBrands);
+    if (Object.keys(errors).length === 0) {
+    const formData = new FormData();
+    await formData.append("_id", data._id);
+    await formData.append("description", data.description);
+    await formData.append("name", data.name);
+    await formData.append("image", data.image);
+      formData.append("featuredBrands", data.featuredBrands);
 
-  //   try {
-  //     const response = await axios.put(
-  //       `${baseUrl}/api/manufacture/update_manufacturer_by_id`,
-  //       formData
-  //     );
-  //     if (response.status == 200) {
-  //       await GetBrands();
-  //       setTimeout(() => {
-  //         history.push("Configuration/"+"AllManufactureDetails");
-  //       }, 1500);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+    try {
+      const response = await axios.put(
+        `${baseUrl}/api/brands/update_brands_by_id`,
+        formData
+      );
+      if (response.status == 200) {
+        await GetBrands();
+        setTimeout(() => {
+          history("/dashboard/allBrands");
+        }, 1500);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   };
   useEffect(()=>{
     const arr=[];
@@ -175,7 +176,7 @@ const TopBrandsForm = (props) => {
                             <p className="formerror">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end">
-                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"30px"}} alt=""/> */}
+                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"30px"}} alt=""/>
                           </div>
                           </div>:
                           <div className="col-12 p-2">
@@ -256,7 +257,7 @@ const TopBrandsForm = (props) => {
                             ></textarea>
                             </div>
                           </div>
-                          {/* {editableData ? (
+                          {editableData ? (
                             <div className="col-12 p-1">
                               <button
                                 className="btn btn-primary"
@@ -266,7 +267,7 @@ const TopBrandsForm = (props) => {
                                 Update
                               </button>
                             </div>
-                          ) : ( */}
+                          ) : (
                             <div className="col-12 p-1">
                               <button
                                 className="btn btn-primary"
@@ -275,7 +276,7 @@ const TopBrandsForm = (props) => {
                                 Submit
                               </button>
                             </div>
-                          {/* )} */}
+                           )}
                         </div>
                       </div>
                     </div>

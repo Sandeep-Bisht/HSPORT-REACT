@@ -277,7 +277,7 @@ const ProductCard = (props) => {
               productList.map((item, index) => {
                 if(index<4){
                   return (
-                    <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
+                    <div className="col-lg-3 col-md-3 col-sm-6 col-6" key={index}>
                       <div className="product-single-card">
                         <div className="product-pic cursor-btn">
                           <img
@@ -365,7 +365,7 @@ const ProductCard = (props) => {
                 featuredProductList.map((item,index)=>{
                   if(index<4){
                     return (
-                      <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
+                      <div className="col-lg-3 col-md-3 col-sm-6 col-6" key={index}>
                         <div className="product-single-card">
                           <div className="product-pic cursor-btn">
                             <img
