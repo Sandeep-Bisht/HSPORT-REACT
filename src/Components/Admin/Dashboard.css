@@ -907,9 +907,6 @@ font-family: 'Roboto', sans-serif;
   stroke: rgba(0, 0, 0, 1) !important;
 }
 
-.sidebar-nav-link{
-  text-decoration: none;
-}
 
 @media (max-width:991px){
   .all-products-head{

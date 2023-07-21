@@ -7,6 +7,7 @@ import { Accordion, AccordionTab } from "primereact/accordion";
 import { RiRefund2Fill } from "react-icons/ri";
 import { TbTruckReturn } from "react-icons/tb";
 import { baseUrl } from "../../Utils/Service";
+import Cookies from "js-cookie";
 import {
   Table,
   Input,
@@ -31,7 +32,6 @@ import Base from "antd/es/typography/Base";
 import { FaCheck } from "react-icons/fa";
 import { FcProcess } from "react-icons/fc";
 
-var Userdata = "";
 const UserOrder = () => {
   const [orders, setOrders] = useState([]);
   const [OrderDetails, setOrderDetails] = useState([]);
@@ -43,38 +43,40 @@ const UserOrder = () => {
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
   const [orderstatus, setOrderStatus] = useState();
   const location = useLocation();
+  const [userData,setUserData]=useState();
 
   const history = useNavigate();
-//   useEffect(() => {
-//     Userdata = JSON.parse(localStorage.getItem("Userdata"));
-//     GetOrders();
-
-//     window.scrollTo(0, 0);
-//   }, []);
-//   const GetOrders = async () => {
-//     await fetch(`${baseUrl}/api/order/all_order`)
-//       .then((res) => res.json())
-//       .then(async (data) => {
-//         setLoading(false);
-//         let arr1 = [];
-//         for (let item of data.data) {
-//           if (item.userid === Userdata._id) {
-//             arr1.push(item.order[0].order[0]);
-//           }
-//         }
-//         setFilterData(arr1);
-//         let arr = [];
-//         for (let item of data.data) {
-//           if (item.userid === Userdata._id) {
-//             arr.push(item);
-//           }
-//         }
-//         setOrderDetails(arr);
-//       })
-//       .catch((err) => {
-//         console.log(err, "errors");
-//       });
-//   };
+  useEffect(() => {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserData(userdata);  
+       GetOrders();
+    window.scrollTo(0, 0);
+    
+  },[]);
+  const GetOrders = async () => {
+    await fetch(`${baseUrl}/api/order/all_order`)
+      .then((res) => res.json())
+      .then(async (data) => {
+        setLoading(false);
+        let arr1 = [];
+        for (let item of data.data) {
+          if (item?.userid === userData?._id) {
+            arr1.push(item?.order[0]?.order[0]);
+          }
+        }
+        setFilterData(arr1);
+        let arr = [];
+        for (let item of data.data) {
+          if (item?.userid === userData?._id) {
+            arr.push(item);
+          }
+        }
+        setOrderDetails(arr);
+      })
+      .catch((err) => {
+        console.log(err, "errors");
+      });
+  };
   return (
     <>
       <section className="orders-section">
@@ -405,6 +407,7 @@ const UserOrder = () => {
                                               <div className="button-box">
                                                 <div>
                                                   <Link
+                                                  className="sidebar-nav-link"
                                                     to={
                                                       "/SingleProduct/" +
                                                       item.productid
