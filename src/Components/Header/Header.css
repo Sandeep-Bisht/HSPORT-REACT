@@ -152,7 +152,7 @@ header{
     --tw-text-opacity: 1;
     color: rgba(52,68,80,var(--tw-text-opacity));
     font-size: 1.8rem;
-    width: 280px;
+    /* width: 280px; */
 }
 .login-left-second{
     --tw-text-opacity: 1;
@@ -316,6 +316,7 @@ max-width: fit-content!important;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 .cart-top-items{
     position: relative;

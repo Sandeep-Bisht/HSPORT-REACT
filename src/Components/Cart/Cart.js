@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import * as ACTIONS from "../Header/Action";
+import * as COMMON_ACTIONS from "../../CommonServices/Action"
 
 
 const Cart = () => {
@@ -16,7 +17,7 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState();
   const [discount, setDiscount] = useState();
   const [payableAmount, setPayableAmount] = useState();
-  
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,32 +26,32 @@ const Cart = () => {
     (state) => state?.UserCartReducer?.userCartDetails
   );
 
-  const subTotalAmount = () => {
-    const subTotalAmount = userCart?.reduce((total, item) => {
+  useEffect(() => {
+    if (cartState) {
+      setUserCart(cartState[0]?.order);
+      setUserCartDetail(cartState[0]);
+      cartAmount(cartState[0]?.order);
+    }
+    window.scroll(0, 0);
+  }, [cartState]);
+
+
+  const cartAmount = (order) => {
+
+    const subTotalAmount = order?.reduce((total, item) => {
       return total + item?.quantity * item?.salePrice;
     }, 0);
     setSubTotal(subTotalAmount);
-  };
 
-  const discountAmount = () => {
-    const discountTotalAmount = userCart?.reduce((total, item) => {
+    const discountTotalAmount = order?.reduce((total, item) => {
       return total + item.quantity * (item.mrp - item.salePrice);
     }, 0);
+
     setDiscount(discountTotalAmount)
     let discount = discountTotalAmount;
-    let discountedPrice = subTotal - discount;
+    let discountedPrice = subTotalAmount - discount;
     setPayableAmount(discountedPrice)
   };
-
-  useEffect(() => {
-    if (cartState) {
-      console.log("counter", cartState[0])
-      setUserCart(cartState[0]?.order);
-      setUserCartDetail(cartState[0]);      
-    }
-  }, [cartState]);
-
- 
 
   let url = "http://localhost:8080/";
 
@@ -60,8 +61,6 @@ const Cart = () => {
       setUserdata(userdata);
     }
   }, []);
-  // subTotalAmount();
-  // discountAmount();
 
 
   const updateCart = (cartId, updateOrder) => {
@@ -79,39 +78,67 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-          //dispatch(ACTIONS.getCartDetails(updateOrder));
-          console.log("inside response", updateOrder)
-          setUserCart(updateOrder)
-          // dispatch(ACTIONS.getCartItem(order?.length))
+        CartById()
       })
       .catch((err) => console.log(err, "error"));
   };
 
   const minusHander = (quantity, index) => {
-    if (quantity > 1) {
-      userCart[index].quantity = quantity - 1;
-      updateCart(userCartDetail._id);
+    if (userCart && quantity > 1) {
+      let updateOrder = userCart
+      updateOrder[index].quantity = quantity - 1;
+      updateCart(userCartDetail._id, updateOrder);
     }
   };
 
   const plusHander = (quantity, index) => {
-    if (quantity && quantity >= 1) {
-       let updateOrder = userCart
-       updateOrder[index].quantity = quantity + 1;
-        updateCart(userCartDetail._id, updateOrder);
+    if (quantity && quantity >= 1 && userCart) {
+      let updateOrder = userCart
+      updateOrder[index].quantity = quantity + 1;
+      updateCart(userCartDetail._id, updateOrder);
     }
   };
 
-  const deleteCartHandler = async ( productId) => {
+  const deleteCartHandler = async (productId) => {
     try {
       const updatedOrder = userCart.filter((item) => {
         return item.productid !== productId;
       });
-      setNewUserCart(updatedOrder);      
+      setNewUserCart(updatedOrder);
       updateCart(userCartDetail?._id, updatedOrder);
     } catch (error) {
       console.error(error);
     }
+  };
+
+
+  const CartById = async () => {
+    if (!userdata == []) {
+      await fetch(`${url}api/cart/cart_by_id`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userid: userdata._id,
+        }),
+      })
+        .then((res) => res.json())
+        .then(async (data) => {
+          setUserCart(data.data[0]);
+          let cartItems = data.data[0].order.length;
+          dispatch(COMMON_ACTIONS.getCartItem(cartItems));
+          dispatch(ACTIONS.getCartDetails(data.data))
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  let redirectToProductDiscriptionPage = (name, productId) => {
+    navigate(`/product/${name}`, { state: productId });
   };
 
 
@@ -121,13 +148,13 @@ const Cart = () => {
         <div className="row mt-3 mb-3">
           {userCart && userCart?.length ? (
             <>
-              <div className="col-8">
+              <div className="col-lg-8 col-md-7 col-sm-7">
                 <div className="col-row card-header">
                   <div className="col-2"></div>
-                  <div className="col-5">
+                  <div className="col-4">
                     <span className="card-heading">Item Name</span>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <span className="card-heading">Quantity</span>
                   </div>
                   <div className="col-2">
@@ -149,35 +176,39 @@ const Cart = () => {
                                   src={`${url}${item?.image}`}
                                   style={{ width: "60%" }}
                                   alt=""
+                                  className="cursor-btn"
+                                  onClick={() =>
+                                    redirectToProductDiscriptionPage(
+                                      item?.slug,
+                                      item?.productid
+                                    )
+                                  }
                                 />
                               </div>
                             </div>
-                            <div className="col-5">
+                            <div className="col-4 d-flex align-item-center">
                               <span className="product-name">{item?.name}</span>
                               <span className="product-description">
                                 {item?.description}
                               </span>
                             </div>
-                            <div className="col-2 amount mt-2 card-image ps-2">
+                            <div className="col-3 amount mt-2 card-image ps-2">
                               <div className="input-counter">
-                                <div className="plus-minus-btn">
-                                  <span
-                                    onClick={() =>
-                                      minusHander(item?.quantity, index)
-                                    }
-                                  >
+                                <div className="plus-minus-btn cursor-btn"
+                                  onClick={() =>
+                                    minusHander(item?.quantity, index)
+                                  }>
+                                  <span>
                                     -
                                   </span>
                                 </div>
                                 <span className="m-2 quantity-div">
                                   {item?.quantity}
                                 </span>
-                                <div className="plus-minus-btn">
-                                  <span
-                                    onClick={() =>
-                                      plusHander(item?.quantity, index)
-                                    }
-                                  >
+                                <div className="plus-minus-btn cursor-btn" onClick={() =>
+                                  plusHander(item?.quantity, index)
+                                }>
+                                  <span>
                                     +
                                   </span>
                                 </div>
@@ -188,7 +219,7 @@ const Cart = () => {
                                 {item?.quantity * item?.salePrice}
                               </span>
                             </div>
-                            <div className="col-1 product-delete">
+                            <div className="col-1 product-delete cursor-btn">
                               <span
                                 onClick={() =>
                                   deleteCartHandler(item?.productid)
@@ -204,23 +235,23 @@ const Cart = () => {
                   })}
               </div>
 
-              <div className="col-4">
+              <div className="col-lg-4 col-md-5 col-sm-5">
                 <div className="card">
                   <div className="card-body checkout-card">
-                    <h5>Order Summary</h5>
+                    <h5 className="order-payment-detail">Order Summary</h5>
                   </div>
                   <div>
                     <ul className="product-checkout-price">
                       <li className="list-style">
-                        Sub Total
+                        <spam className="product-name">Sub Total</spam>
                         <span>{subTotal}</span>
                       </li>
                       <li className="list-style">
-                        Discount
+                      <spam className="product-name"> Discount</spam>
                         <span>{discount}</span>
                       </li>
                       <li className="list-style">
-                        Payable Amount
+                      <spam className="product-name">Payable Amount</spam>
                         <span>{payableAmount}</span>
                       </li>
                     </ul>

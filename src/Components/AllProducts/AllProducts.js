@@ -9,6 +9,7 @@ import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
 import ProductCard from "../ProductCard/ProductCard";
 import Cookies from "js-cookie";
+import Loader from "../Loader/Loader"
 
 function AllProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -18,12 +19,16 @@ function AllProducts() {
   const [categoryList, setCategoryList] = useState([]);
   const [userdata, setUserdata] = useState();
   const location = useLocation();
+  const [isLoading,setIsLoading] = useState(true);
 
   let allCategoryState = useSelector((state) => state.UserCartReducer);
 
   useEffect(() => {
     if (location?.state) {
       getProductByCategoryId(location.state);
+    }
+    else{
+      getAllProducts();
     }
   }, [location.state]);
 
@@ -32,6 +37,7 @@ function AllProducts() {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
     }
+    window.scroll(0,0)
   }, []);
 
   useEffect(() => {
@@ -40,11 +46,17 @@ function AllProducts() {
     }
   }, [allCategoryState]);
 
-  // useEffect(() => {
-  //     getAllProducts();
-  //   }, []);
+  useEffect(() => {
+    sortedAccordingPrice();
+    },[selectedPrice]);
+
+    useEffect(() => {
+      sortedAccordingName();
+      },[selectedAlphabetic]);
+
 
   const getProductByCategoryId = (category) => {
+    setIsLoading(true);
     setSelectedCategory(category)
     let url = "http://localhost:8080/api/product/product_by_category";
     try {
@@ -52,7 +64,17 @@ function AllProducts() {
         .post(url, { category })
         .then((response) => {
           // Use the data in your frontend logic
-          setAllProducts(response.data.data);
+          if (response) {
+            if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+            {
+              setSelectedAlphabetic("");
+            }
+            else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+              setSelectedPrice("");
+            }
+            setAllProducts(response.data.data);
+            setIsLoading(false);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -63,23 +85,79 @@ function AllProducts() {
     }
   };
 
+  const sortedAccordingPrice=()=>{
+    if(selectedPrice==="lowToHigh")
+    {
+      if(allProducts)
+      {
+        const sortedPriceProducts=[...allProducts].sort((a,b)=>{
+          return (a.inrDiscount-b.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+    else if(selectedPrice==="highToLow"){
+      if(allProducts)
+      {
+        const sortedPriceProducts = [...allProducts].sort((a,b)=>{
+          return (b.inrDiscount-a.inrDiscount)
+        })
+        setAllProducts(sortedPriceProducts);
+      }
+    }
+  }
+
+  const sortedAccordingName = () => {
+    if (selectedAlphabetic === "AtoZ") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return a.slug.localeCompare(b.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    } else if (selectedAlphabetic === "ZtoA") {
+      if (allProducts) {
+        const sortedNameProducts = [...allProducts].sort((a, b) => {
+          return b.slug.localeCompare(a.slug);
+        });
+        setAllProducts(sortedNameProducts);
+      }
+    }
+  };
+
   const handleCheckboxCategory = (event) => {
     setSelectedCategory(event.target.value);
   };
   const handleCheckboxPrice = (event) => {
+    if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+    {
+      setSelectedAlphabetic("");
+    }
     setSelectedPrice(event.target.value);
   };
   const handleCheckboxAlphabetic = (event) => {
+    if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+      setSelectedPrice("");
+    }
     setSelectedAlphabetic(event.target.value);
   };
 
   const getAllProducts = async () => {
+    setIsLoading(true);
     setSelectedCategory("outdoorSports")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
     try {
       if (response) {
+        if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
+        {
+          setSelectedAlphabetic("");
+        }
+        else if(selectedPrice==="lowToHigh" || selectedPrice==="highToLow"){
+          setSelectedPrice("");
+        }
         setAllProducts(response.data.data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -89,9 +167,9 @@ function AllProducts() {
   return (
     <div className="container-fluid">
       <div className="row sidebar-filter">
-        <div className="col-2 ps-4">
+        <div className="col-lg-2 col-md-2 col-sm-3 col-4 ps-4 sidebar-category">
           <div className="sidebar-filter-heading">
-            <h4>Filters</h4>
+            <h4 className="filter-top-heading">Filters</h4>
           </div>
           <div class="accordion" id="accordionExample">
             <div className="sidebar-category-filter p-1">
@@ -118,7 +196,7 @@ function AllProducts() {
                 >
                   <div class="accordion-body accordion-bodies">
                     <div className="filter-category">
-                      <div>
+                      <div className="d-flex filter-checkbox">
                         <label
                           htmlFor="outdoorSports"
                           className="filter-category-name pt-1"
@@ -145,7 +223,7 @@ function AllProducts() {
                           key={index}
                         >
                           <div className="filter-category">
-                            <div>
+                            <div className="d-flex filter-checkbox">
                               <label
                                 htmlFor="outdoorSports"
                                 className="filter-category-name pt-1"
@@ -174,6 +252,7 @@ function AllProducts() {
                 <span className="category-main-div">Price</span>
               </div>
               <div className="filter-category">
+                <div className="d-flex filter-checkbox">
                 <label
                   htmlFor="lowToHigh"
                   className="filter-category-name pt-1"
@@ -188,7 +267,8 @@ function AllProducts() {
                   onChange={handleCheckboxPrice}
                   checked={selectedPrice === "lowToHigh"}
                 />
-                <br />
+                </div>
+                <div className="d-flex filter-checkbox">
                 <label
                   htmlFor="highToLow"
                   className="filter-category-name pt-1"
@@ -203,6 +283,7 @@ function AllProducts() {
                   onChange={handleCheckboxPrice}
                   checked={selectedPrice === "highToLow"}
                 />
+                </div>
               </div>
             </div>
             <div className="sidebar-category-filter p-1">
@@ -210,6 +291,7 @@ function AllProducts() {
                 <span className="category-main-div">Allphabetically sort</span>
               </div>
               <div className="filter-category">
+                <div className="d-flex filter-checkbox">
                 <label htmlFor="AtoZ" className="filter-category-name pt-1">
                   A to Z
                 </label>
@@ -221,7 +303,8 @@ function AllProducts() {
                   onChange={handleCheckboxAlphabetic}
                   checked={selectedAlphabetic === "AtoZ"}
                 />
-                <br />
+                </div>
+                <div className="d-flex filter-checkbox">
                 <label htmlFor="ZtoA" className="filter-category-name pt-1">
                   Z to A
                 </label>
@@ -233,13 +316,13 @@ function AllProducts() {
                   onChange={handleCheckboxAlphabetic}
                   checked={selectedAlphabetic === "ZtoA"}
                 />
-                <br />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-10">
-          <ProductCard productList={allProducts} />
+        <div className="col-lg-10 col-md-10 col-sm-9 col-8">
+            <ProductCard productList={isLoading ? isLoading : allProducts} />
         </div>
       </div>
     </div>

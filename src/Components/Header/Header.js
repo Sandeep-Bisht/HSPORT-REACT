@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import * as ACTIONS from "./Action"
+import { Link,useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
@@ -17,14 +18,99 @@ import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo3.png";
+import { useDispatch,useSelector } from "react-redux";
 
 const Header = () => {
+  let dispatch = useDispatch();
 
   const [successMsg, setSuccessMsg] = useState()
   const [userdata, setUserdata] = useState()
   const loginModalRef = useRef(null);
-  const [errorMsg, setErrorMsg] = useState()
-  const [toggle, setToggle] = useState()
+  const [errorMsg, setErrorMsg] = useState();
+  const [toggle, setToggle] = useState();
+  const [categoryList, setCategoryList] = useState();
+  const [subCategoryList, setSubCategoryList] = useState();
+  const [activeLogin, setActiveLogin] = useState(true);
+  const [userCartItem, setUserCartItem] = useState(null)
+
+  let loginState = useSelector((state) => state.UserCartReducer)
+  let cartItemState = useSelector((state) => state.CartReducer)
+
+  useEffect(() => {
+    getAllCategory();
+    getAllSubCategory();
+  }, []);
+
+  useEffect(() => {
+    if (cartItemState?.noOfItemsInCart > 0) {
+      setUserCartItem(cartItemState.noOfItemsInCart)
+    }
+    else {
+      setUserCartItem("");
+    }
+  }, [cartItemState])
+
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      getUserCart(userdata._id);
+      dispatch(ACTIONS.getUserDetails(userdata));
+    }
+
+  }, []);
+
+  const getAllCategory = async () => {
+    let url = "http://localhost:8080/api/category/all_category";
+    try {
+      let response = await axios.get(url);
+      if (response) {
+        setCategoryList(response.data.data);
+        dispatch(ACTIONS.getAllCategoryList(response.data.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllSubCategory = async () => {
+    let url = "http://localhost:8080/api/subcategory/all_subcategory";
+    try {
+      let response = await axios.get(url);
+      if (response) {
+        setSubCategoryList(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+  const getUserCart = async (userid) => {
+    try {
+      let url = "http://localhost:8080/api/cart/cart_by_id";
+      let response = await axios.post(url, { userid: userid });
+      if (response) {
+        if (response?.data) {
+          dispatch(ACTIONS.getCartDetails(response?.data.data));
+          if (response?.data.data[0]?.order.length > 0) {
+            setUserCartItem(response?.data.data[0]?.order.length)
+          } else {
+            setUserCartItem(null)
+          }
+
+        } else {
+          setErrorMsg(response.data.error);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const [searchResult, setSearchResult] = useState("");
+
+  const navigate = useNavigate();
 
   // ----Login Form ---------
   const {
@@ -285,7 +371,7 @@ const Header = () => {
                           role="search"
                         >
                           <input
-                            className="form-control me-2"
+                            className="form-control  form-input-box me-2"
                             type="search"
                             placeholder="Search"
                             aria-label="Search"
@@ -390,7 +476,7 @@ const Header = () => {
 
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade login-sign-modal"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -411,21 +497,36 @@ const Header = () => {
             </div>
             <div class="modal-body">
               <div className="row inside-modal-body">
-                <div className="col-md-6 left-login-modal">
-                  <div className="m-3">
-                    <h3 className="login-left-first">LOGIN</h3>
-                    <div className="mt-5">
-                      <h3 className="login-left-mid pt-2">Get</h3>
-                      <h3 className="login-left-mid pt-2">access to</h3>
-                      <h3 className="login-left-second pt-2">personalised</h3>
-                      <h3 className="login-left-mid pt-2">
-                        shopping experience
-                      </h3>
+                <div className="col-md-6 col-sm-6 left-login-modal">
+                  {activeLogin ?
+                    <div className="m-3 mt-4 login-signup-text">
+                      <h3 className="login-left-first">LOGIN</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">Get</h3>
+                        <h3 className="login-left-mid pt-2">access to</h3>
+                        <h3 className="login-left-second pt-2">personalised</h3>
+                        <h3 className="login-left-mid pt-2">
+                          shopping experience
+                        </h3>
+                      </div>
                     </div>
-                  </div>
+                    :
+                    <div className="m-3 mt-4 login-signup-text">
+                      <h3 className="login-left-first">SIGNUP</h3>
+                      <div className="mt-5">
+                        <h3 className="login-left-mid pt-2">WE</h3>
+                        <h3 className="login-left-mid pt-2">promise you</h3>
+                        <h3 className="login-left-second pt-2">100% SECURE</h3>
+                        <h3 className="login-left-mid pt-2">
+                          data protection
+                        </h3>
+                      </div>
+                    </div>
+                  }
+
                 </div>
 
-                <div className="col-md-6 mx-auto mt-3">
+                <div className="col-md-6 col-sm-6 mx-auto mt-3">
                   <div className="row">
                     <ul
                       class="nav nav-pills mb-3 login-section"
@@ -533,7 +634,7 @@ const Header = () => {
                           </form>
 
                           <div className="text-center">
-                            <span>NEW TO HINDUSTAN SPORTS ?</span>
+                            <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
                           <div className="text-center text-danger">
                             <p>
@@ -658,7 +759,7 @@ const Header = () => {
                           </form>
 
                           <div className="text-center">
-                            <span>ALREADY HAVE AN ACCOUNT LOGIN ?</span>
+                            <span className="endOfLogin-text">ALREADY HAVE AN ACCOUNT LOGIN ?</span>
                           </div>
                           <div className=" text-center text-success ">
                             <p>{successMsg}</p>
