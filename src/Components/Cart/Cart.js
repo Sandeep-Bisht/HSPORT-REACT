@@ -23,6 +23,8 @@ const Cart = () => {
     order: [],
     userid: "",
     order_no: "",
+    mobile:"9639156497",
+    username: "Sandeep Bisht",
     status: "pending",
     totalamount: "",
     actualamount: "",
@@ -176,6 +178,8 @@ const Cart = () => {
     const formData = new FormData();
      formData.append("order", JSON.stringify(userCart));
      formData.append("userid", userdata._id);
+     formData.append("username", userdata.username);
+     formData.append("mobile", userdata.mobile);
       formData.append("status", data.status);
      formData.append("order_no", Math.floor(Math.random() * 1000000));
       formData.append("totalamount", payableAmount);

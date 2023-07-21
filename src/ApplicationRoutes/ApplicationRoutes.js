@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, Route, Routes, useNavigate } from "react-router-dom";
+import {  Route, Routes, Navigate } from "react-router-dom";
 import HomePage from '../Components/HomePage/HomePage';
 import Dashboard from '../Components/Admin/Dashboard';
 import PageNotFound from '../PageNotFound';
@@ -32,12 +32,29 @@ import AboutUs from '../Components/AboutUs/AboutUs';
 import UserOrder from '../Components/UserOrder/UserOrder';
 import PaymentSuccessfull from '../Components/PaymentSuccessfull/PaymentSuccessfull';
 import ContactUs from '../Components/ContactUS/ContactUs';
+import Cookies from 'js-cookie';
+
+
+
+const Authanticated = (props) => {
+  if (Cookies.get("userdata")) {
+  let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+  if(userdata?.role != "admin") {
+     return <Navigate to="/" replace />
+  }
+  
+} else{
+  return <Navigate to="/" replace />
+}
+return props.component
+}
 
 const ApplicationRoutes = () => {
+  
   return (
     <Routes>
       <Route path='/' element={<HomePage />} />
-      <Route path='/dashboard' element={<Dashboard />} >
+      <Route path="/dashboard"  element={<Authanticated component= {<Dashboard />} /> } >
       <Route index element={< AdminDashboard/>} />
         <Route path='/dashboard/allPrdoucts' element={< AllProductsDetails />} />
         <Route path='/dashboard/allCategories' element={<AllCategoriesDetails/>}/>
