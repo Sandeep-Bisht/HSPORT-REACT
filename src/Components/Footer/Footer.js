@@ -65,11 +65,11 @@ const Footer = () => {
                   <li>
                     <span className="contact-heading">Email:</span>{" "}
                     <Link
-                      to="mailto:info@nutrazik.com"
+                      to="mailto:hindustan.com"
                       target="_blank"
                       className="footer-links f2"
                     >
-                      info@nutrazik.com
+                      hindustan.com
                     </Link>
                   </li>
                   <li>
@@ -196,7 +196,7 @@ const Footer = () => {
       <section>
         <div className="container-fluid">
           <div className="row footer-end">
-            <div className="col-lg-6 col-md-6 link-footer-first">
+            <div className="col-lg-6 col-md-6 col-sm-6 link-footer-first">
               <p className="footer-end-para footer-links f2 mb-0">
                 Designed & Developed by <i className="bx bx-copyright"></i>
                 2023
@@ -210,9 +210,9 @@ const Footer = () => {
                 </Link>
               </p>
             </div>
-            <div className="col-lg-6 col-md-6 link-footer-second">
+            <div className="col-lg-6 col-md-6 col-sm-6 link-footer-second">
               <div className="payment-types">
-                <ul className="d-flex align-items-center justify-content-end mb-0">
+                <ul className="d-flex align-items-center justify-content-end mb-0 footer-end-text">
                   <li className="footer-end-para footer-links footer-contact-info me-3 f2">
                     We accept payment via:
                   </li>

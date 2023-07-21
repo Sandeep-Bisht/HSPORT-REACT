@@ -235,7 +235,7 @@ const Header = () => {
             </div>
             {toggle && (
               <div className="mega-menu visible">
-                <div className="close-box">
+                <div className="close-box close-btn-megamenu">
                   <span onClick={() => setToggle(false)}>
                     <IoMdClose />
                   </span>

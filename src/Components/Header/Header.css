@@ -321,6 +321,9 @@ max-width: fit-content!important;
     left: 22px;
     bottom: 7px;
 }
+.single-footer-widget .newsletter-form .input-newsletter {
+    padding: 10px;
+}
 
 /*----------------- Deepak media query ---------------------- */
 @media only screen and (max-width : 1399px){
@@ -331,7 +334,10 @@ max-width: fit-content!important;
 }
 
 @media only screen and (max-width :991px) {
-  
+    .mega-menu {
+        top: 63.5px;
+        height: 100vh!important;
+    }
 }
 @media only screen and (max-width : 815px) {
     /* login responsive deepak */
@@ -400,6 +406,17 @@ max-width: fit-content!important;
         }
         /* end login responsive */
 
+        /* mega menu responsive */
+        .mega-menu-tab-heading.nav-pills .nav-link{
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading {
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading-list li {
+            font-size: 13px;
+        }
+
 }
 @media only screen and (max-width : 630px) {
      /* login responsive deepak */
@@ -417,6 +434,15 @@ max-width: fit-content!important;
         font-size: 17px;
     }
     /* end login responsive */
+
+
+    /* mega menu responsive */
+
+    .close-btn-megamenu{
+       padding-right: 16px;
+       padding-top: 13px;
+    }
+    /* end mega menu */
 
 }
 @media only screen and (max-width : 575px)

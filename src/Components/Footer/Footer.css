@@ -137,11 +137,25 @@
     .single-footer-widget .newsletter-form .default-btn {
         left: 50px;
     }
+    .footer-end-text{
+        padding-left: 0px;
+    }
+    .link-footer-second{
+        padding-left: 0px;
+    }
 }
 
 @media only screen and (max-width : 575px) {
     .subscribe-main{
         width: 50%;
+    }
+    .link-footer-first{
+        justify-content: center;
+    }
+    .link-footer-second{
+        display: flex;
+        margin-top: 4px;
+        justify-content: center;
     }
 }
 @media only screen and (max-width : 430px) {

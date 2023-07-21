@@ -45,7 +45,7 @@ const ApplicationRoutes = () => {
         <Route path='/dashboard/allBrands' element={<AllBrandsDetails/>}/>
         <Route path='/dashboard/create-product' element={< ProductForm />} />
         <Route path='/dashboard/create-brand' element={<TopBrandsForm/>}/>
-        <Route path='/dashboard/create-category' element={< CategoryForm />} />SubCategoryForm
+        <Route path='/dashboard/create-category' element={< CategoryForm />} />
         <Route path='/dashboard/create-subCategory' element={< SubCategoryForm />} />
 
 
@@ -74,10 +74,6 @@ const ApplicationRoutes = () => {
       <Route path='/UserOrder' element={<UserOrder />} />
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
       <Route path='/contact-us' element={<ContactUs />} />
-
-
-
-
     </Routes>
   )
 }

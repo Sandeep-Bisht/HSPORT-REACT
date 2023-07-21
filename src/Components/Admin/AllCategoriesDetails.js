@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Popconfirm, Typography } from "antd";
+import { Table, Space, Popconfirm, Typography,Button } from "antd";
 import axios from "axios";
 import { baseUrl } from "../../Utils/Service";
 import "./Dashboard.css";
@@ -17,7 +17,8 @@ export default function AllCategoriesDetails() {
   const [categories, setCategories] = useState("");
 
 
-  const history = useNavigate();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     GetCategory();
@@ -54,6 +55,10 @@ export default function AllCategoriesDetails() {
       GetCategory();
     } catch (error) {}
   };
+
+  const categoryEditHander=(categoryItem)=>{
+    navigate("/dashboard/create-category", {state:{...categoryItem}})    
+  }
 
   const columns = [
     {
@@ -94,14 +99,14 @@ export default function AllCategoriesDetails() {
               </a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{ pathname: "/dashboard/create-category", query: {state: { ...record }} }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>categoryEditHander(record)}
               >
                 <MdOutlineEditNote />
-              </Link>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null;

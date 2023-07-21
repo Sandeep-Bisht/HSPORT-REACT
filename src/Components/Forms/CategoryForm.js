@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import "../Admin/Dashboard.css"
 
 
-const CategoryForm = (props) => {
+const CategoryForm = () => {
   const [categories, setCategories] = useState([]);
   const [formerror, setFormerror] = useState({});
   const [editableArray, setEditableArray] = useState([]);
@@ -14,10 +14,14 @@ const CategoryForm = (props) => {
     featuredCategories: "",
     image: [],
   });
-  const [editableData] = useState(props); 
 
   const history = useNavigate();
   const location = useLocation();
+
+  const [editableData] = useState(location?.state); 
+
+  console.log(location,"check editable location")
+
   
   const ValidationFrom = (value) => {
     const error = {};
@@ -94,11 +98,14 @@ const CategoryForm = (props) => {
       });
   };
 
+
   const UpdateCategory = async (e, _id) => {
     e.preventDefault();
     const errors = ValidationFrom(data);
     setFormerror(errors);
     if (Object.keys(errors).length === 0) {
+      console.log(data.image,"image imgage")
+
       const formData = new FormData();
       formData.append("_id", data._id);
       formData.append("description", data.description);
@@ -112,7 +119,7 @@ const CategoryForm = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          history.push("dashboard/allCategories");
+          history("/dashboard/allCategories");
           GetCategory();
         })
         .catch((err) => {
@@ -176,7 +183,7 @@ const CategoryForm = (props) => {
                             <p className="formerror">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"40px"}} alt=""/> */}
+                            <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
                           <div className="col-12 p-2">
@@ -249,7 +256,7 @@ const CategoryForm = (props) => {
                             </div>
                             <p className="formerror">{formerror.featuredCategories}</p>
                           </div>
-                          {/* {editableData ? (
+                          {editableData ? (
                             <div className="col-12 p-2">
                               <button
                                 className="btn btn-primary"
@@ -258,7 +265,7 @@ const CategoryForm = (props) => {
                                 Update
                               </button>
                             </div>
-                          ) : ( */}
+                          ) : (
                             <div className="col-12 p-1">
                               <button
                                 className="btn btn-primary"
@@ -269,7 +276,7 @@ const CategoryForm = (props) => {
                                 Submit
                               </button>
                             </div>
-                             {/* )}   */}
+                             )}  
                         </div>
                       </div>
                     </div>
