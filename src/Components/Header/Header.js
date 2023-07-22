@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import * as ACTIONS from "./Action"
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io"
-import {CgMenuGridR} from "react-icons/cg"
+import { CgMenuGridR } from "react-icons/cg"
 import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
@@ -18,7 +18,7 @@ import { BsBagHeart } from "react-icons/bs";
 import "./Header.css";
 import "../../Css/Common.css";
 import logo from "../../Images/logo3.png";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   let dispatch = useDispatch();
@@ -125,9 +125,8 @@ const Header = () => {
     },
     mode: "onBlur",
   });
-  useEffect(() => {
-    setUserdata(Cookies.get("userdata"));
-  }, []);
+
+
   const handleLogin = async (data) => {
     let url = "http://localhost:8080/api/auth/login";
 
@@ -170,7 +169,6 @@ const Header = () => {
     },
     mode: "onBlur",
   });
-
   const handleRegistration = async (data) => {
     data["role"] = "user";
     let url = "http://localhost:8080/api/auth/register";
@@ -179,26 +177,41 @@ const Header = () => {
     try {
       if (response) {
         resetRegistration();
-        setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`)
+        setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-  console.log(userdata, "user datatatatattatata")
-  const logOutUser =()=>{
-    setUserdata("");
+  const searchResultHandler = (e) => {
+    setSearchResult(e.target.value);
+  };
+
+  const searchData = (searchResult) => {
+    dispatch(ACTIONS.getSearchValue(searchResult));
+    navigate("/SearchResult");
+  };
+
+  const logOutUser = () => {
+    setUserdata(undefined);
     Cookies.remove("userdata");
-    Cookies.remove("hsports_token")
+    Cookies.remove("hsports_token");
+  };
+
+  // Re Direction to all product page
+  const redirectToAllProductPage = async (categoryName, categoeyId) => {
+    setToggle(false)
+    navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
+  
 
   return (
     <>
       <header>
         <nav className="navbar navbar-expand-sm">
           <div className="container-fluid nav-wrapper">
-            
+
             {/* <button
               className="navbar-toggler"
               type="button"
@@ -213,7 +226,7 @@ const Header = () => {
                 <CgMenuGridR/>
               </span>
             </button> */}
-           
+
 
             <div className="all-sports-toggler" onClick={() => setToggle(true)}>
               <div className="me-2">
@@ -228,13 +241,13 @@ const Header = () => {
               </div>
             </div>
             <div>
-            <Link className="  p-0" to="/">
-                          <img
-                            src={logo}
-                            alt=""
-                            className="img-fluid mobile-logo"
-                          />
-                        </Link>
+              <Link className="  p-0" to="/">
+                <img
+                  src={logo}
+                  alt=""
+                  className="img-fluid mobile-logo"
+                />
+              </Link>
             </div>
             {toggle && (
               <div className="mega-menu visible">
@@ -263,79 +276,46 @@ const Header = () => {
                             </li>
                           </ul>
                           <div className="tab-content mega-menu-tab-content" id="pills-tabContent">
-                            <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabIndex={0}>
+                            <div className="tab-pane fade show active" id="pills-home"
+                              role="tabpanel" aria-labelledby="pills-home-tab" tabIndex={0}>
                               <div className="row">
-                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
-
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
-
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
-
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
-
-                                  </ul>
-                                </div>
-                                <div className="col-lg-3 col-md-4 col-sm-4 col-4">
-                                  <p className="mega-menu-sub-heading">
-                                    Outdoor Sports
-                                  </p>
-                                  <ul className="mega-menu-sub-heading-list">
-
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Wildlife Watching</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Camping</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Skiing and Snowboarding</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Fishing</li>
-                                    <li> <Link className="mega-menu-list-item" to="/cart" />Horse Riding</li>
-
-                                  </ul>
-                                </div>
+                                {categoryList &&
+                                  categoryList.length > 0 &&
+                                  categoryList.map((item, index) => {
+                                    return (
+                                      <div className="col-lg-3" key={index}>
+                                        <p className="mega-menu-sub-heading">
+                                          {item.name}
+                                        </p>
+                                        {subCategoryList &&
+                                          subCategoryList.length > 0 &&
+                                          subCategoryList.map(
+                                            (element, ind) => {
+                                              if (
+                                                item._id ===
+                                                element.category._id
+                                              ) {
+                                                return (
+                                                  <ul className="mega-menu-sub-heading-list" key={ind}>
+                                                    <li onClick={() => redirectToAllProductPage(item.name, element.category._id)}>
+                                                      {" "}
+                                                      <Link
+                                                        className="mega-menu-list-item"
+                                                        to="/allproducts"
+                                                      />
+                                                      {element.name}
+                                                    </li>
+                                                  </ul>
+                                                );
+                                              }
+                                            }
+                                          )}
+                                      </div>
+                                    );
+                                  })}
                               </div>
+
+
                             </div>
                             <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabIndex={0}>...</div>
                             <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabIndex={0}>...</div>
@@ -350,6 +330,8 @@ const Header = () => {
               </div>
 
             )}
+
+
             <div
               className=" navbar-collapse"
               id="navbarSupportedContent"
@@ -374,19 +356,33 @@ const Header = () => {
                           className="d-flex header-search-feild"
                           role="search"
                         >
-                          <input
+                                                  <input
                             className="form-control  form-input-box me-2"
                             type="search"
                             placeholder="Search"
+                            value={searchResult}
                             aria-label="Search"
+                            onChange={(e) => searchResultHandler(e)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && searchResult.length) {
+                                e.preventDefault(); // Prevent form submission
+                                searchData(searchResult);
+                                // Additional logic or function calls for handling the search
+                              }
+                            }}
                           />
+
+
+
                           <button className="search-btn" type="submit">
                             <AiOutlineSearch />
                           </button>
                         </form>
                       </div>
-                      <div className="header-right">
+                     {/* =======header right====t */}
+                                           <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                          <span className="cart-top-items">{userCartItem}</span>
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"
@@ -394,81 +390,116 @@ const Header = () => {
                             <span>
                               <AiOutlineShoppingCart />
                             </span>
-                            <span className="mb-0 below-heading">Cart</span>
+                           
+                            <span class="mb-0 below-heading">Cart</span>
                           </Link>
-                          <Link
-                            className="nav-link header-right-link  me-lg-4"
-                            to="/wishlist"
-                          >
-                            <span>
-                              <BsBagHeart />
-                            </span>
-                            <span className="mb-0 below-heading">Wishlist</span>
-                          </Link>
-                          {userdata ?
-                            (
-                              <div className="dropdown after-login-dropdown">
-                          <a
-                                  className="header-right-link nav-link  icon m-0 dropdown-toggle"
-                                  role="button"
-                                  id="dropdownMenuButton"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                  aria-current="page"
-                                >
-                                  <div className="me-1"><FiUserCheck className="one" /></div>
-                                  <div><IoIosArrowDown className="mobile-user-view-icon" /></div>
-                                </a>
-                                
-                                <ul
-                                  className="dropdown-menu br-dr after-login-menu"
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <li>
-                                    <Link
-                                      className="dropdown-item-1"
-                                      to="/user/profile"
-                                    >
-                                      My Profile
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link
-                                      className="dropdown-item-2"
-                                      to="/wishlist"
-                                    >
-                                      Wishlist
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/"
-                                      className="dropdown-item-1"
-                                    onClick={() => logOutUser()}
-                                    >
-                                      Logout
-                                    </Link>
-                                  </li>
-                                </ul>
-                              </div>
-                            )
-                            :
-                            (
-                              <button
-                                className="header-right-link nav-link "
-                                data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop"
-                                type="button"
+                          {userdata ? (
+                            <Link
+                              className="nav-link header-right-link  me-lg-4"
+                              to="/wishlist"
+                            >
+                              <span>
+                                <BsBagHeart />
+                              </span>
+                            
+                              <span class="mb-0 below-heading">Wishlist</span>
+                            </Link>
+                          ) : (
+                            <button
+                              className="nav-link header-right-link  me-lg-4 header-right-link nav-link "
+                              data-bs-toggle="modal"
+                              data-bs-target="#staticBackdrop"
+                              type="button"
+                            >
+                              <span>
+                                <BsBagHeart />
+                              </span>
+                              
+                                <span class="mb-0 below-heading">Wishlist</span>
+                            </button>
+                          )}
+                          {userdata && userdata ? (
+                            <div className="dropdown after-login-dropdown">
+                              <a
+                                className="header-right-link nav-link  icon m-0 dropdown-toggle"
+                                role="button"
+                                id="dropdownMenuButton"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="isDropdownOpen"
+                                aria-current="page"
+                              // onClick={toggleDropdown}
                               >
-                                <span>
-                                  <AiOutlineUser />
-                                </span>
-                                <span className="mb-0 below-heading">Login/Register</span>
-                              </button>
-                            )
+                                <div className="me-1">
+                                  <FiUserCheck className="one" />
+                                </div>
+                                <div>
+                                  <IoIosArrowDown className="mobile-user-view-icon" />
+                                </div>
+                              </a>
 
-                          }
+                              <ul className="dropdown-menu br-dr after-login-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                  <Link
+                                    className="dropdown-item-1"
+                                    to="/user/profile"
+                                  >
+                                    My Profile
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
+                                    to="/UserOrder"
+                                  >
+                                    User Order
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
+                                    className="dropdown-item-2"
+                                    to="/wishlist"
+                                  >
+                                    Wishlist
+                                  </Link>
+                                </li>
+                                {userdata?.role === "admin"  &&
+                                  <li>
+                                    <Link
+                                      to="/dashboard"
+                                      className="dropdown-item-1"
+                                    >
+                                      Dashboard
+                                    </Link>
+                                  </li>
+                                                                }
+
+                                <li>
+                                  <Link
+                                    to="/"
+                                    className="dropdown-item-1"
+                                    onClick={() => logOutUser()}
+                                  >
+                                    Logout
+                                  </Link>
+                                </li>
+                              </ul>
+                            </div>
+                          ) : (
+                            <button
+                              className="header-right-link nav-link "
+                              data-bs-toggle="modal"
+                              data-bs-target="#staticBackdrop"
+                              type="button"
+                            >
+                              <span>
+                                <AiOutlineUser />
+                              </span>
+                             
+                              <span class="mb-0 below-heading">Login/Register</span>
+                            </button>
+                          )}
                         </ul>
                       </div>
+                     {/* =====header right===== */}
                     </div>
                   </div>
                 </div>
