@@ -186,7 +186,6 @@ const Cart = () => {
       formData.append("actualamount", subTotal);
      formData.append("email", userdata.email);
 
-     console.log("inside handle checko0ut", data)
 
     const url = `http://localhost:8080/api/order/create-checkout-session`;
      await fetch(url, {

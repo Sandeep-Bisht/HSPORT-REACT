@@ -34,12 +34,15 @@
 }
 
 .crose-icon-delete{
-    position: relative;
-    bottom: 249px;
+    position: absolute;
     color: #cc0034;
-    left: 217px;
+    right: 10px;
+    top: 5px;
     font-size: 22px;
     border: 1px solid black;
     border-radius: 50%;
     background-color: #fff;
+}
+.product-single-card-wishlist{
+    position: relative;
 }

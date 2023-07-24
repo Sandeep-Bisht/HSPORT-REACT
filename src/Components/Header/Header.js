@@ -91,7 +91,6 @@ const Header = () => {
       let response = await axios.post(url, { userid: userid });
       if (response) {
         if (response?.data) {
-          console.log(response?.data.data,"response?.data.dataresponse?.data.data")
           dispatch(ACTIONS.getCartDetails(response?.data.data));
           if (response?.data.data[0]?.order.length > 0) {
             setUserCartItem(response?.data.data[0]?.order.length)
@@ -132,11 +131,10 @@ const Header = () => {
     let response = await axios.post(url, data);
     try {
       if (response) {
-        console.log(response.data.success, "login")
         if (response?.data?.success === 200) {
           resetLoginForm();
           setUserdata(response.data.user)
-          getUserCart();
+          getUserCart(response.data.user._id);
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
 
