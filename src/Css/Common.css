@@ -219,6 +219,10 @@ body {
         height: 30px;
         width: 30px;
     }
+    .main-logo
+    {
+        height: 27px;
+    }
 }
 
 @media (max-width: 420.98px)
