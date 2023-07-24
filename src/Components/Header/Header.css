@@ -288,6 +288,10 @@ max-width: fit-content!important;
     justify-content: center;
 }
 /* ---------------after-login-dropdown------------ */
+.after-login-dropdown
+{
+  position: static;
+}
 .after-login-dropdown .header-right-link
 {
     flex-direction:row;
@@ -300,9 +304,15 @@ max-width: fit-content!important;
     height: 21px;
     width: 21px;
 }
+
 .after-login-dropdown  .dropdown-menu[data-bs-popper]
 {
-    left:-90px
+    /* left:-90px */
+        /* left: -90px; */
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 14%;
+        margin-left: auto;
 }
 .after-login-dropdown .dropdown-menu 
 {
@@ -332,13 +342,22 @@ input::-webkit-inner-spin-button {
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
     text-decoration: none;
+    display: block;
 }
 .cart-top-items{
     position: relative;
-    color: #a7afbe;
-    font-size: 12px;
-    left: 22px;
-    bottom: 7px;
+    color: #000;
+    font-size: 10px;
+    left: 38px;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 .single-footer-widget .newsletter-form .input-newsletter {
     padding: 10px;
@@ -378,6 +397,13 @@ input::-webkit-inner-spin-button {
         height: calc( 100vh - 59.06px);
         top: 59.6px;
     }
+    .cart-top-items {
+   
+        font-size: 9px;
+       width: 13px;
+        height: 13px;
+       
+    }
 }
 
 
@@ -399,6 +425,10 @@ input::-webkit-inner-spin-button {
     {
         height: calc( 100vh - 55px);
         top: 55px;
+    }
+    .after-login-dropdown .dropdown-menu li a
+    {
+        font-size: 13px;
     }
 
 }
@@ -435,7 +465,12 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 690.98px)
 {
+    .cart-top-items
+    {
+        left: 34px;
     }
+    
+}
 
 @media (max-width: 575.98px)
 {
@@ -459,7 +494,15 @@ input::-webkit-inner-spin-button {
     .product-single-card .product-pic img {
             height: 200px;
     }
-   
+    .after-login-dropdown .dropdown-menu
+   {
+       position: absolute!important;
+   }
+   .cart-top-items
+   {
+    left: 30px;
+    bottom: 5px;
+   }
 } 
 
 @media (max-width: 480.98px)
@@ -488,6 +531,6 @@ input::-webkit-inner-spin-button {
 @media (max-width: 440.98px)
 {
   
-   
+  
 } 
  
