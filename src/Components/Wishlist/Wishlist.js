@@ -14,7 +14,7 @@ const Wishlist = () => {
   const navigate = useNavigate();
   const [userWishlist, setUserWishlist] = useState([]);
   const [userdata, setUserdata] = useState();
-  const [isLoading,setIsLoading] = useState(true);
+  const [isLoading,setIsLoading] = useState(false);
   let url = "http://localhost:8080/";
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Wishlist = () => {
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
     let response = await axios.post(url, { userId: userid });
     try {

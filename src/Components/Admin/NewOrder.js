@@ -227,7 +227,7 @@ const NewOrder = () => {
                              <img
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer",width:"40px",height:"40px" }}
-                            //   src={`${baseUrl}/${item.image}`}
+                              src={`${baseUrl}/${item.image}`}
                             ></img> 
                           </div>
                         </td>

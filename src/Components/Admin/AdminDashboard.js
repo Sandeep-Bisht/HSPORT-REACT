@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8">
+    <div className="">
       <main className="main graph-main-div">
         <div className="row cardsec-row">
           <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">

@@ -85,14 +85,13 @@ const Header = () => {
   };
 
 
-
-
   const getUserCart = async (userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
       let response = await axios.post(url, { userid: userid });
       if (response) {
         if (response?.data) {
+          console.log(response?.data.data,"response?.data.dataresponse?.data.data")
           dispatch(ACTIONS.getCartDetails(response?.data.data));
           if (response?.data.data[0]?.order.length > 0) {
             setUserCartItem(response?.data.data[0]?.order.length)
@@ -137,6 +136,7 @@ const Header = () => {
         if (response?.data?.success === 200) {
           resetLoginForm();
           setUserdata(response.data.user)
+          getUserCart();
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
 
@@ -163,11 +163,14 @@ const Header = () => {
     watch,
   } = useForm({
     defaultValues: {
+      username: "",
       email: "",
+      phonenumber: "",
       password: "",
       confirmPassword: "",
     },
     mode: "onBlur",
+    
   });
   const handleRegistration = async (data) => {
     data["role"] = "user";
@@ -197,6 +200,8 @@ const Header = () => {
     setUserdata(undefined);
     Cookies.remove("userdata");
     Cookies.remove("hsports_token");
+    dispatch(ACTIONS.getCartDetails({}));
+    setUserCartItem(null)
   };
 
   // Re Direction to all product page
@@ -204,7 +209,7 @@ const Header = () => {
     setToggle(false)
     navigate(`/collection/${categoryName}`, { state: categoeyId });
   }
-  
+
 
   return (
     <>
@@ -356,7 +361,7 @@ const Header = () => {
                           className="d-flex header-search-feild"
                           role="search"
                         >
-                                                  <input
+                          <input
                             className="form-control  form-input-box me-2"
                             type="search"
                             placeholder="Search"
@@ -379,8 +384,8 @@ const Header = () => {
                           </button>
                         </form>
                       </div>
-                     {/* =======header right====t */}
-                                           <div className="header-right">
+                      {/* =======header right====t */}
+                      <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                           <span className="cart-top-items">{userCartItem}</span>
                           <Link
@@ -390,7 +395,7 @@ const Header = () => {
                             <span>
                               <AiOutlineShoppingCart />
                             </span>
-                           
+
                             <span class="mb-0 below-heading">Cart</span>
                           </Link>
                           {userdata ? (
@@ -401,7 +406,7 @@ const Header = () => {
                               <span>
                                 <BsBagHeart />
                               </span>
-                            
+
                               <span class="mb-0 below-heading">Wishlist</span>
                             </Link>
                           ) : (
@@ -414,8 +419,8 @@ const Header = () => {
                               <span>
                                 <BsBagHeart />
                               </span>
-                              
-                                <span class="mb-0 below-heading">Wishlist</span>
+
+                              <span class="mb-0 below-heading">Wishlist</span>
                             </button>
                           )}
                           {userdata && userdata ? (
@@ -461,7 +466,7 @@ const Header = () => {
                                     Wishlist
                                   </Link>
                                 </li>
-                                {userdata?.role === "admin"  &&
+                                {userdata?.role === "admin" &&
                                   <li>
                                     <Link
                                       to="/dashboard"
@@ -470,7 +475,7 @@ const Header = () => {
                                       Dashboard
                                     </Link>
                                   </li>
-                                                                }
+                                }
 
                                 <li>
                                   <Link
@@ -489,17 +494,19 @@ const Header = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#staticBackdrop"
                               type="button"
+                              onClick={()=>{resetLoginForm()
+                              resetRegistration()}}
                             >
                               <span>
                                 <AiOutlineUser />
                               </span>
-                             
+
                               <span class="mb-0 below-heading">Login/Register</span>
                             </button>
                           )}
                         </ul>
                       </div>
-                     {/* =====header right===== */}
+                      {/* =====header right===== */}
                     </div>
                   </div>
                 </div>
@@ -530,7 +537,7 @@ const Header = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body login-registration-modal">
               <div className="row inside-modal-body">
                 <div className="col-md-6 col-sm-6 left-login-modal">
                   {activeLogin ?
@@ -578,7 +585,9 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
-                          onClick={() => setSuccessMsg("")}
+                          onClick={() =>{ setSuccessMsg("")
+                          setActiveLogin(true);
+                        resetLoginForm()}}
                         >
                           LOGIN
                         </button>
@@ -593,7 +602,9 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
-                          onClick={() => setErrorMsg()}
+                          onClick={() =>{ setErrorMsg()
+                            setActiveLogin(false);
+                          resetRegistration()}}
                         >
                           SIGNUP
                         </button>
@@ -628,13 +639,13 @@ const Header = () => {
                                   />
 
                                   {errors?.email?.type === "required" && (
-                                    <p className="text-danger">
+                                    <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
                                   )}
 
                                   {errors?.email?.type === "pattern" && (
-                                    <p className="text-danger">
+                                    <p className="text-danger error-text-form">
                                       Please enter Valid email Address
                                     </p>
                                   )}
@@ -653,7 +664,7 @@ const Header = () => {
                                   />
 
                                   {errors?.password?.type === "required" && (
-                                    <p className="text-danger">
+                                    <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
                                   )}
@@ -671,7 +682,7 @@ const Header = () => {
                           <div className="text-center">
                             <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
-                          <div className="text-center text-danger">
+                          <div className="text-center text-danger error-text-form">
                             <p>
                               {errorMsg}
                             </p>
@@ -694,6 +705,32 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="text"
+                                    placeholder="Enter your name"
+                                    className="form-control"
+                                    {...registrationRegister("username", {
+                                      required: true,
+                                      pattern: /^[A-Za-z]*$/,
+                                    })}
+                                    onInput={(event) =>
+                                      (event.target.value = event.target.value.toLowerCase())
+                                    }
+                                  />
+                                  {errors?.username?.type === "required" && (
+                                    <p className="text-danger error-text-form">
+                                      This field is required
+                                    </p>
+                                  )}
+                                  {errors?.username?.type === "pattern" && (
+                                    <p className="text-danger error-text-form">
+                                      Username does not contain space, special
+                                      key and num key
+                                    </p>
+                                  )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="text"
                                     className="form-control"
                                     autoComplete="off"
                                     name="email"
@@ -708,17 +745,49 @@ const Header = () => {
 
                                   {registrationError?.email?.type ===
                                     "required" && (
-                                      <p className="text-danger">
+                                      <p className="text-danger error-text-form">
                                         This field is required
                                       </p>
                                     )}
 
                                   {registrationError?.email?.type ===
                                     "pattern" && (
-                                      <p className="text-danger">
+                                      <p className="text-danger error-text-form">
                                         Please enter Valid email Address
                                       </p>
                                     )}
+                                </div>
+
+                                <div className="form-fields">
+                                  <input
+                                    type="number"
+                                    placeholder="Enter your phone number"
+                                    className="form-control"
+                                    {...registrationRegister("phonenumber", {
+                                      required: true,
+                                      minLength: 10,
+                                    })}
+                                    onInput={(e) => {
+                                      if (
+                                        e.target.value.length > e.target.maxLength
+                                      )
+                                        e.target.value = e.target.value.slice(
+                                          0,
+                                          e.target.maxLength
+                                        );
+                                    }}
+                                    maxlength={10}
+                                  />
+                                  {errors?.phonenumber?.type === "required" && (
+                                    <p className="text-danger error-text-form">
+                                      This field is required
+                                    </p>
+                                  )}
+                                  {errors?.phonenumber?.type === "minLength" && (
+                                    <p className="text-danger error-text-form">
+                                      Please enter a valid phone number.
+                                    </p>
+                                  )}
                                 </div>
 
                                 <div className="form-fields">
@@ -736,13 +805,13 @@ const Header = () => {
                                   />
                                   {registrationError?.password?.type ===
                                     "required" && (
-                                      <p className="text-danger">
+                                      <p className="text-danger error-text-form">
                                         This field is required
                                       </p>
                                     )}
                                   {registrationError?.password?.type ===
                                     "pattern" && (
-                                      <p className="text-danger password-err">
+                                      <p className="text-danger error-text-form password-err">
                                         Must have atleast 8 characters, one
                                         number, upper & lowercase letters &
                                         special character
@@ -771,13 +840,13 @@ const Header = () => {
                                   />
                                   {registrationError?.confirmPassword?.type ===
                                     "required" && (
-                                      <p className="text-danger">
+                                      <p className="text-danger error-text-form">
                                         This field is required
                                       </p>
                                     )}
                                   {registrationError?.confirmPassword?.type ===
                                     "validate" && (
-                                      <p className="text-danger">
+                                      <p className="text-danger error-text-form">
                                         Password does not match
                                       </p>
                                     )}

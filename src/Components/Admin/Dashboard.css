@@ -87,7 +87,14 @@
 a{
   text-decoration: none;
 }
+:where(.css-dev-only-do-not-override-12upa3x).ant-table-wrapper .ant-table {
+  overflow-x: auto!important;
+}
+
 /*===== HEADER =====*/
+.userName-dashboard{
+  width: 270px;
+}
 .headsec:after {
     content: '';
     height: 47vh;
@@ -233,7 +240,7 @@ textarea.textarea{
 .nav__icon{
   height: 20px;
   width: auto;
-  color:#007bff;
+  color:#1e2737;
   opacity: .6;
 }
 .nav__icon:hover{
@@ -251,13 +258,14 @@ textarea.textarea{
   width: 65px!important;
 }
 .dashboard-logo{
-  max-width: 11%!important;
+  max-width: 15%!important;
 }
 /* ===== MEDIA QUERIES=====*/
 @media screen and (min-width: 1199px){
   .sidebar-dashboard .nav__list{
   padding-left: 0px!important;
 }
+
 }
 
 @media screen and (min-width: 768px){
@@ -267,9 +275,6 @@ textarea.textarea{
   .header{
     height: calc(var(--header-height) + 1rem);
   }
-.dashboard-logo{
-  max-width: 10%!important;
-}
   .header__img{
     width: 40px;
     height: 40px;
@@ -344,7 +349,7 @@ textarea.textarea{
 .cardicon{
   height: 30px;
   width: auto;
-  color:#007bff;
+  color:#1e2737;
   opacity: .6;
 }
 .all-manufacturer-head, .all-category-head, .sub-category-head, .all-products-head
@@ -665,7 +670,7 @@ font-family: 'Roboto', sans-serif;
 }
 .nav__logo .user-name
 {
-  color: #1e144f;
+  color: #fff;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -811,15 +816,15 @@ font-family: 'Roboto', sans-serif;
 {
     height: 18px;
     width: auto;
-    color: #007bff;
+    color: #1e2737;
     opacity: .6;
     padding-right: 8px;
 }
 .accordion-header svg path{
-  stroke: #007bff!important;
+  stroke: #1e2737!important;
 }
 .Configration-List .configuration-icons-wrap path{
-  stroke: #007bff!important;
+  stroke: #1e2737!important;
 }
 .Configration-List li
 {
@@ -907,7 +912,14 @@ font-family: 'Roboto', sans-serif;
   stroke: rgba(0, 0, 0, 1) !important;
 }
 
-
+.dashboard-header{
+  background-color: #1e2737;
+}
+@media (max-width:1199px){
+.dashboard-logo{
+  max-width: 20%!important;
+}
+}
 @media (max-width:991px){
   .all-products-head{
     font-size: 21px;
@@ -936,9 +948,6 @@ font-family: 'Roboto', sans-serif;
     padding: 0px!important;
     padding-left: 0px!important;
     padding-right: 0px!important;
-  }
-  .dashboard-logo{
-    max-width: 10%!important;
   }
   .cardicon{
     height: 22px;
@@ -1047,9 +1056,6 @@ font-family: 'Roboto', sans-serif;
 .nav__name {
   font-size: 11px;
 }
-.dashboard-logo{
-  max-width: 85%!important;
-} 
 .nav__logo .user-name {
   font-size: 14px;
 }
