@@ -72,6 +72,7 @@ export default function AllSubCategoriesDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -114,9 +115,11 @@ export default function AllSubCategoriesDetails() {
               <div className="sub-category-details-section all-products-details-section">
                 <h3 className="all-category-head all-products-head">All Subcategories <span className="count">{subCategories}</span></h3>
                 <div className="subcategory-search-wrap all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-subCategory" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type='text'

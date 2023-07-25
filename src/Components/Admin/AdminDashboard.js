@@ -18,7 +18,7 @@ const AdminDashboard = () => {
     <div className="">
       <main className="main graph-main-div">
         <div className="row cardsec-row">
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
             <Link to="/dashboard/allPrdoucts" className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
@@ -38,7 +38,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
 
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
             <Link to={"/dashboard/allBrands"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
             <Link to={"/dashboard/allCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
@@ -76,7 +76,7 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
             <Link to={"/dashboard/AllSubCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">

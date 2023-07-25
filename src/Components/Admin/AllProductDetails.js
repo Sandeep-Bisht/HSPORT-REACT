@@ -138,7 +138,7 @@ useEffect(()=>{
                 style={{ color: "blue" }}
                 onClick={()=>editFormHandler(record)}
               >
-                <MdOutlineEditNote />
+                <MdOutlineEditNote className="edit-icon-button"/>
               </Button>
             </Typography.Link>
           </Space>
@@ -148,7 +148,7 @@ useEffect(()=>{
       title: "View Order",
       key: "action",
       render: (_, record) => (
-        <Button type="primary" onClick={() => showModal(record)}>
+        <Button type="primary" onClick={() => showModal(record)} className="see-order-button">
           See Order
         </Button>
       ),
@@ -187,9 +187,12 @@ useEffect(()=>{
               <div className="all-products-details-section">
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-product" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
+                  </div>
+                  <div>
                   <input
                     type='text'
                     onChange={e => onChangeHandler(e)}
@@ -199,6 +202,7 @@ useEffect(()=>{
                     style={{ position: "sticky", top: "0", left: "0" }}
                   />
                   <button type="button" className="dashboard-search-btn"><BiSearchAlt /></button>
+                </div>
                 </div>
               </div>
               <Table
@@ -243,7 +247,7 @@ useEffect(()=>{
                           <div className="width-adjust-of-image">
                             <img
                               onClick={() => imageHandler(item.productid)}
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer",width:"40px", height:"40px" }}
                               src={`${baseUrl}/${item.image[0].path}`}
                             ></img>
                           </div>

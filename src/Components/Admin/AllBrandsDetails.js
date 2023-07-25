@@ -78,6 +78,7 @@ export default function AllBrandsDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -132,10 +133,12 @@ export default function AllBrandsDetails() {
                   All Brands <span className="count">{brands}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type="text"

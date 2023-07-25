@@ -44,7 +44,7 @@
     color: #000;
     transition: .5s;
     transition: var(--transition);
-    padding: 16px;
+    padding: 10px;
     border-radius: 0;
     font-weight: 300;
     font-family: "Roboto",sans-serif;
@@ -63,7 +63,7 @@
     border-radius: 0.25rem;
     font-family: "Roboto",sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 11px;
     height: 30px;
     position: relative;
     left: 40px;
