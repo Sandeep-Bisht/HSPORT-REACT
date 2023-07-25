@@ -573,7 +573,7 @@ const Header = () => {
                       id="pills-tab"
                       role="tablist"
                     >
-                      <li class="nav-item" role="presentation">
+                      <li class="nav-item login-signup-btn" role="presentation">
                         <button
                           class="nav-link active"
                           id="pills-home-tab"
@@ -590,7 +590,7 @@ const Header = () => {
                           LOGIN
                         </button>
                       </li>
-                      <li class="nav-item" role="presentation">
+                      <li class="nav-item login-signup-btn" role="presentation">
                         <button
                           class="nav-link"
                           id="pills-profile-tab"
@@ -625,7 +625,7 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     autoComplete="off"
                                     name="email"
                                     placeholder="Enter your email address"
@@ -652,7 +652,7 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="password"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     name="password"
                                     autoComplete="off"
                                     placeholder="Password"
@@ -704,7 +704,7 @@ const Header = () => {
                                   <input
                                     type="text"
                                     placeholder="Enter your name"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     {...registrationRegister("username", {
                                       required: true,
                                       pattern: /^[A-Za-z]*$/,
@@ -729,7 +729,7 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="text"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     autoComplete="off"
                                     name="email"
                                     placeholder="Enter your email address"
@@ -760,7 +760,7 @@ const Header = () => {
                                   <input
                                     type="number"
                                     placeholder="Enter your phone number"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     {...registrationRegister("phonenumber", {
                                       required: true,
                                       minLength: 10,
@@ -791,7 +791,7 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="password"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     name="password"
                                     autoComplete="off"
                                     placeholder="Password"
@@ -820,7 +820,7 @@ const Header = () => {
                                 <div className="form-fields">
                                   <input
                                     type="password"
-                                    className="form-control"
+                                    className="form-control placeholder-text"
                                     name="confirmPassword"
                                     autoComplete="off"
                                     placeholder="Confirm Password"

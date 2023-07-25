@@ -84,7 +84,7 @@ const UserOrder = () => {
           <div className="row">
             <div className="col-md-12">
               <div className="user-order-head">
-                <h2>Your Orders</h2>
+                <h1 className="common-heading text-center mb-lg-5">Your Orders</h1>
               </div>
             </div>
           </div>
@@ -278,7 +278,6 @@ const UserOrder = () => {
                                         <div className="row">
                                           <div className="order-tracking-details">
                                             <div className="col-md-12">
-                                              <div className="row">
                                                 <div className="Right-order-content">
                                                   <div className="col-md-3 col-3">
                                                     <div className="orderno-heading">
@@ -337,7 +336,6 @@ const UserOrder = () => {
                                                   )}
                                                 </div>
                                               </div>
-                                            </div>
                                           </div>
                                         </div>
                                       </div>

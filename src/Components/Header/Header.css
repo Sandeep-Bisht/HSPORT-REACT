@@ -430,13 +430,8 @@ input::-webkit-inner-spin-button {
     {
         font-size: 13px;
     }
-
-}
-@media only screen and (max-width : 630px) {
-     /* login responsive deepak */
     .registration-section {
-        width: 470px;
-        height: 465px;
+        width: 590px;
     }
     .login-left-mid {
         font-size: 17px;
@@ -447,6 +442,22 @@ input::-webkit-inner-spin-button {
     .login-left-second {
         font-size: 17px;
     }
+    .placeholder-text{
+        font-size: 13px;
+    }
+    .login-signup-btn .nav-link{
+        font-size: 14px;
+    }
+
+
+}
+@media only screen and (max-width : 630px) {
+     /* login responsive deepak */
+    .registration-section {
+        width: 470px;
+        height: 465px;
+    }
+
     /* end login responsive */
 
 
@@ -469,6 +480,9 @@ input::-webkit-inner-spin-button {
     {
         left: 34px;
     }
+    .left-login-modal {
+        padding-left: 10px!important;
+       }
     
 }
 
@@ -503,6 +517,21 @@ input::-webkit-inner-spin-button {
     left: 30px;
     bottom: 5px;
    }
+   .left-login-modal {
+    display: none;
+   }
+   .registration-section {
+    width: 364px;
+    height: fit-content;
+}
+.modal.show .modal-dialog {
+   margin: auto;
+   margin-top: 15px;
+}
+.modal-header-top{
+    padding-bottom: 0px;
+}
+
 } 
 
 @media (max-width: 480.98px)
@@ -524,6 +553,10 @@ input::-webkit-inner-spin-button {
     .close-box span svg{
         height: 12px;
         width: 12px;
+    }
+    .registration-section {
+        width: 300px;
+        height: fit-content;
     }
 } 
 
