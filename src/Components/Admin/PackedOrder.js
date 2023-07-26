@@ -38,7 +38,6 @@ const InProgressOrder = () => {
       GetOrders();
     }
   },[])
-
   const GetOrders = async () => {
     setLoading(true);
     await fetch(`${baseUrl}/api/order/all_order`)
@@ -61,8 +60,6 @@ const InProgressOrder = () => {
         console.log(err, "errors");
       });
   };
-  console.log(OrderDetails,"OrderDetails OrderDetails")
-
   const UpdateOrderStatus = async (e, order, orderStatus) => {
     e.preventDefault();
     order.shipperName = shipper;
@@ -110,7 +107,6 @@ const InProgressOrder = () => {
     });
     setOrders(filteredData);
   };
-
   const CustomCloseIcon = () => (
     <svg
       className="custom-close-icon-forget"
@@ -122,7 +118,6 @@ const InProgressOrder = () => {
       <line x1="1" y1="1" x2="11" y2="11" strokeWidth="2" />
     </svg>
   );
-
   const columns = [
     { title: "Order No.", dataIndex: "order_no", key: "order_no" },
     {
@@ -161,7 +156,6 @@ const InProgressOrder = () => {
       ),
     },
   ];
-
   const showModal = (order) => {
     if(Userdata!==null || Userdata!=="")
     {
@@ -182,7 +176,6 @@ const InProgressOrder = () => {
   const handleOk = () => {
     setIsModalVisible(false);
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };

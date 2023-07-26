@@ -6,16 +6,6 @@ import Cookies from "js-cookie";
 
 
 function DashboardHeaader() {
-  const [userData,setUserData] = useState()
-
-  // useEffect(() => {
-  //   if (Cookies.get("userdata")) {
-  //     let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-  //     setUserData(userdata);
-  //   }
-  // }, []);
-
-  console.log(userData,"setUserDatasetUserDatasetUserData")
 
   return (
     <>

@@ -16,21 +16,24 @@ import { MdRealEstateAgent } from "react-icons/md";
 import { GrConfigure } from "react-icons/gr";
 import { ToastContainer, toast } from "react-toastify";
 import "./Dashboard.css";
-
+import * as ACTIONS from "../Header/Action"
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 
 const Sidemenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const pathName = location.pathname;
 
+
   const logout = () => {
-    localStorage.setItem("Userdata", null);
-    toast.success("Logout Successfully", {
-      position: "bottom-right",
-      autoClose: 1000,
-    });
+    Cookies.remove("userdata");
+    Cookies.remove("hsports_token");
+    dispatch(ACTIONS.getCartDetails({}));
     navigate("/");
+
   };
 
   return (
