@@ -16,7 +16,7 @@ export default function AllProductsDetails() {
   const [loading, setLoading] = useState(false);
   const [searchVal, setSearchVal] = useState("");
   const [filteredData] = useState([]);
-  const [products, Setproducts] = useState([]);
+  const [products, Setproducts] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
 
@@ -43,6 +43,7 @@ useEffect(()=>{
     setLoading(true);
     const response=await axios.get(`${baseUrl}/api/product/all_product`)
     setGetuser(response.data.data);
+    Setproducts(response.data.data.length)
     setLoading(false);
   };
 

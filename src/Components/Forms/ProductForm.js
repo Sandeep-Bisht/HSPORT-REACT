@@ -289,10 +289,10 @@ console.log(editableData,"editableData v editableData")
             
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
+                      <div className="card p-4  product-form">
                         <h5>Product Creation</h5>
                         <div className="row">
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                           <div className="">
                           <span className="category-select-div">Product Name</span>
                             <input
@@ -310,7 +310,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.name}</p>
                           </div>
-                          <div className="col-md-6 col-12 image-main-div">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">
                           {
                             editableData   ?
@@ -334,7 +334,7 @@ console.log(editableData,"editableData v editableData")
                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
-                          <div className="col-12 p-2">
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
                           <div>
                             <span className="category-select-div">Image</span>
                             <input
@@ -352,7 +352,7 @@ console.log(editableData,"editableData v editableData")
                           }
                           </div>
                           </div>
-                          <div className="col-6 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="">
                           <span className="category-select-div">Other Image</span>
                             <input
@@ -370,7 +370,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.otherImage}</p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="">
                             <span className="category-select-div">Category</span>
                             <select
@@ -398,7 +398,7 @@ console.log(editableData,"editableData v editableData")
                           </div>
                           {
                             editableData  &&
-                           <div className="col-md-6 col-12 p-2">
+                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                            <div className="row">
                              {
                                editableData ? 
@@ -415,7 +415,7 @@ console.log(editableData,"editableData v editableData")
                            </div>
                          </div>
                           }
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">SubCategory</span>
                             <select
@@ -443,7 +443,7 @@ console.log(editableData,"editableData v editableData")
                               {formErrors.subcategory}
                             </p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">Brand</span>
                             <select
@@ -474,7 +474,7 @@ console.log(editableData,"editableData v editableData")
                             </p>
                           </div>
 
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">warehouse</span>
                             <select
@@ -505,7 +505,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.warehouse}</p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">Gender</span>
                             <select
@@ -533,10 +533,10 @@ console.log(editableData,"editableData v editableData")
                               {formErrors.gender}
                             </p>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">
-                              Quantity of Product
+                              Quantity
                             </span>
                             <input
                               type="number"
@@ -557,7 +557,7 @@ console.log(editableData,"editableData v editableData")
                             
                             <p className="formerror">{formErrors.quantity}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Height</span>
                             <input
@@ -578,7 +578,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.inrMrp}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Width</span>
                             <input
@@ -599,7 +599,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.width}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">MRP In Rupees</span>
                             <input
@@ -620,7 +620,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.inrMrp}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">MRP after Discount</span>
                             <input
@@ -641,7 +641,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.inrDiscount}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Re-Order Quantity</span>
                             <input
@@ -662,7 +662,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.reorderQuantity}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Maximum Order</span>
                             <input
@@ -683,7 +683,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.maximumOrder}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Weight</span>
                             <input
@@ -704,9 +704,7 @@ console.log(editableData,"editableData v editableData")
                             </div>
                             <p className="formerror">{formErrors.weight}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
-                          </div>
-                          <div className="col-6 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="mt-2">
                             <span className="category-select-div">Product Type</span>
                             <select
@@ -728,7 +726,7 @@ console.log(editableData,"editableData v editableData")
                             </select>
                             </div>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Product Sort Description</span>
                             <textarea
@@ -745,7 +743,7 @@ console.log(editableData,"editableData v editableData")
                             ></textarea>
                             </div>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Product Description</span>
                             <textarea

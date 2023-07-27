@@ -159,10 +159,10 @@ const CategoryForm = () => {
             
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
+                      <div className="card p-4 product-form">
                         <h5>Category Creation</h5>
                         <div className="row">
-                        <div className="col-md-6 col-12 image-main-div">
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">
                           {
                             editableArray && editableArray.length>0  ?
@@ -186,7 +186,7 @@ const CategoryForm = () => {
                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
-                          <div className="col-12 p-2">
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
                           <div>
                             <span className="category-select-div">Image</span>
                             <input
@@ -204,7 +204,7 @@ const CategoryForm = () => {
                           }
                           </div>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Category Name</span>
                               <input
@@ -222,7 +222,7 @@ const CategoryForm = () => {
                             </div>
                             <p className="formerror">{formerror.name}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Category Description</span>
                               <textarea
@@ -236,7 +236,7 @@ const CategoryForm = () => {
                               ></textarea>
                             </div>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Featured Categories</span>
                               <select
@@ -248,7 +248,7 @@ const CategoryForm = () => {
                                   handleInputChange(e);
                                 }}
                               >
-                                <option value="" hidden>
+                                <option value="" hidden className="select-dropdown">
                                   Select Category Type
                                 </option>
                                 <option value="Featured Categories">Featured Categories</option>

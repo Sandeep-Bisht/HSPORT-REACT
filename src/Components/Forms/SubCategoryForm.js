@@ -157,10 +157,10 @@ const [editableData]=useState(location?.state);
             <div className="col-xl-12 px-0">
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
+                      <div className="card p-4 product-form">
                         <h5>SubCategory Creation</h5>
                         <div className="row">
-                        <div className="col-md-6 col-12 image-main-div">
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">
                           {
                             editableArray && editableArray.length>0  ?
@@ -184,7 +184,7 @@ const [editableData]=useState(location?.state);
                              <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/> 
                           </div>
                           </div>:
-                          <div className="col-12 p-2">
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
                           <div>
                             <span className="category-select-div">Image</span>
                             <input
@@ -202,7 +202,7 @@ const [editableData]=useState(location?.state);
                           }
                           </div>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="">
                           <span className="category-select-div">Category</span>
                             <select
@@ -218,7 +218,7 @@ const [editableData]=useState(location?.state);
                               }}
                               onBlur={handleBlur}
                             >
-                              <option value="" hidden defaultChecked>
+                              <option value="" hidden defaultChecked className="select-dropdown">
                                 Select Category
                               </option>
                               {categories.map((el, ind) => (
@@ -228,7 +228,7 @@ const [editableData]=useState(location?.state);
                             </div>
                             <p className="formerror">{formerror.category}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                             <span className="category-select-div">SubCategory Name</span>
                             </div>
@@ -248,7 +248,7 @@ const [editableData]=useState(location?.state);
                             />
                             <p className="formerror">{formerror.name}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                             <span className="category-select-div">SubCategory Description</span>
                             </div>
