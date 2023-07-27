@@ -23,8 +23,8 @@ const Cart = () => {
     order: [],
     userid: "",
     order_no: "",
-    mobile:"9639156497",
-    username: "Sandeep Bisht",
+    mobile:"",
+    username: "",
     status: "pending",
     totalamount: "",
     actualamount: "",
@@ -179,12 +179,13 @@ const Cart = () => {
      formData.append("order", JSON.stringify(userCart));
      formData.append("userid", userdata._id);
      formData.append("username", userdata.username);
-     formData.append("mobile", userdata.mobile);
+     formData.append("mobile", userdata.phonenumber);
       formData.append("status", data.status);
      formData.append("order_no", Math.floor(Math.random() * 1000000));
       formData.append("totalamount", payableAmount);
       formData.append("actualamount", subTotal);
      formData.append("email", userdata.email);
+     console.log("user dtata ", userdata)
 
 
     const url = `http://localhost:8080/api/order/create-checkout-session`;

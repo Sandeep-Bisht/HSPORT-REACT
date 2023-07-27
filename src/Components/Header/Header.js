@@ -171,6 +171,7 @@ const Header = () => {
     
   });
   const handleRegistration = async (data) => {
+    console.log("inside handle registraion", data)
     data["role"] = "user";
     let url = "http://localhost:8080/api/auth/register";
 
@@ -706,8 +707,7 @@ const Header = () => {
                                     placeholder="Enter your name"
                                     className="form-control placeholder-text"
                                     {...registrationRegister("username", {
-                                      required: true,
-                                      pattern: /^[A-Za-z]*$/,
+                                      required: true,                                     
                                     })}
                                     onInput={(event) =>
                                       (event.target.value = event.target.value.toLowerCase())
@@ -718,12 +718,7 @@ const Header = () => {
                                       This field is required
                                     </p>
                                   )}
-                                  {errors?.username?.type === "pattern" && (
-                                    <p className="text-danger error-text-form">
-                                      Username does not contain space, special
-                                      key and num key
-                                    </p>
-                                  )}
+                                 
                                 </div>
 
                                 <div className="form-fields">
