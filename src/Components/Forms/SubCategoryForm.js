@@ -178,7 +178,7 @@ const [editableData]=useState(location?.state);
                                 }}
                               />
                             </div>
-                            <p className="formerror">{formerror.image}</p>
+                            <p className="formerror mb-0">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
                              <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/> 
@@ -197,7 +197,7 @@ const [editableData]=useState(location?.state);
                               }}
                             />
                           </div>
-                          <p className="formerror">{formerror.image}</p>
+                          <p className="formerror mb-0">{formerror.image}</p>
                         </div>
                           }
                           </div>
@@ -226,7 +226,7 @@ const [editableData]=useState(location?.state);
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">{formerror.category}</p>
+                            <p className="formerror mb-0">{formerror.category}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
@@ -246,7 +246,7 @@ const [editableData]=useState(location?.state);
                               }}
                               onBlur={handleBlur}
                             />
-                            <p className="formerror">{formerror.name}</p>
+                            <p className="formerror mb-0">{formerror.name}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>

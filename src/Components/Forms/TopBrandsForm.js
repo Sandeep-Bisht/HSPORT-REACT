@@ -174,7 +174,7 @@ const TopBrandsForm = (props) => {
                                       }}
                                     />
                                   </div>
-                                  <p className="formerror">{formerror.image}</p>
+                                  <p className="formerror mb-0">{formerror.image}</p>
                                 </div>
                                 <div className="col-2 p-2 d-flex align-items-end">
                                   <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{ width: "70px", height: "30px" }} alt="" />
@@ -193,7 +193,7 @@ const TopBrandsForm = (props) => {
                                     }}
                                   />
                                 </div>
-                                <p className="formerror">{formerror.image}</p>
+                                <p className="formerror mb-0">{formerror.image}</p>
                               </div>
                           }
                         </div>
@@ -217,7 +217,7 @@ const TopBrandsForm = (props) => {
 
                           />
                         </div>
-                        <p className="formerror">{formerror.name}</p>
+                        <p className="formerror mb-0">{formerror.name}</p>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                         <div>
@@ -251,7 +251,7 @@ const TopBrandsForm = (props) => {
                             <label className="form-check-label">No</label>
                           </div>
                         </div>
-                        <p className="formerror">{formerror.featuredBrands}</p>
+                        <p className="formerror mb-0">{formerror.featuredBrands}</p>
                       </div>
                       <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                         <div>

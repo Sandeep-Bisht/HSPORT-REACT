@@ -180,7 +180,7 @@ const CategoryForm = () => {
                                 }}
                               />
                             </div>
-                            <p className="formerror">{formerror.image}</p>
+                            <p className="formerror mb-0">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
@@ -199,7 +199,7 @@ const CategoryForm = () => {
                               }}
                             />
                           </div>
-                          <p className="formerror">{formerror.image}</p>
+                          <p className="formerror mb-0">{formerror.image}</p>
                         </div>
                           }
                           </div>
@@ -220,7 +220,7 @@ const CategoryForm = () => {
                                 onBlur={handleBlur}
                               />
                             </div>
-                            <p className="formerror">{formerror.name}</p>
+                            <p className="formerror mb-0">{formerror.name}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
@@ -254,7 +254,7 @@ const CategoryForm = () => {
                                 <option value="Featured Categories">Featured Categories</option>
                               </select>
                             </div>
-                            <p className="formerror">{formerror.featuredCategories}</p>
+                            <p className="formerror mb-0">{formerror.featuredCategories}</p>
                           </div>
                           {editableData ? (
                             <div className="col-12 p-2">

@@ -308,7 +308,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.name}</p>
+                            <p className="formerror mb-0">{formErrors.name}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">
@@ -328,7 +328,7 @@ console.log(editableData,"editableData v editableData")
                                 }}
                               />
                             </div>
-                            <p className="formerror">{formErrors.image}</p>
+                            <p className="formerror mb-0">{formErrors.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
@@ -347,7 +347,7 @@ console.log(editableData,"editableData v editableData")
                               }}
                             />
                           </div>
-                          <p className="formerror">{formErrors.image}</p>
+                          <p className="formerror mb-0">{formErrors.image}</p>
                         </div>
                           }
                           </div>
@@ -368,7 +368,7 @@ console.log(editableData,"editableData v editableData")
                               }}
                             />
                             </div>
-                            <p className="formerror">{formErrors.otherImage}</p>
+                            <p className="formerror mb-0">{formErrors.otherImage}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="">
@@ -394,7 +394,7 @@ console.log(editableData,"editableData v editableData")
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">{formErrors.category}</p>
+                            <p className="formerror mb-0">{formErrors.category}</p>
                           </div>
                           {
                             editableData  &&
@@ -439,7 +439,7 @@ console.log(editableData,"editableData v editableData")
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.subcategory}
                             </p>
                           </div>
@@ -469,7 +469,7 @@ console.log(editableData,"editableData v editableData")
                               )}
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.brand}
                             </p>
                           </div>
@@ -503,7 +503,7 @@ console.log(editableData,"editableData v editableData")
                               </option>
                             </select>
                             </div>
-                            <p className="formerror">{formErrors.warehouse}</p>
+                            <p className="formerror mb-0">{formErrors.warehouse}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
@@ -529,7 +529,7 @@ console.log(editableData,"editableData v editableData")
                               <option>Unisex</option>
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.gender}
                             </p>
                           </div>
@@ -555,7 +555,7 @@ console.log(editableData,"editableData v editableData")
                             />
                             </div>
                             
-                            <p className="formerror">{formErrors.quantity}</p>
+                            <p className="formerror mb-0">{formErrors.quantity}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -576,7 +576,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrMrp}</p>
+                            <p className="formerror mb-0">{formErrors.inrMrp}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -597,7 +597,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.width}</p>
+                            <p className="formerror mb-0">{formErrors.width}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -618,7 +618,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrMrp}</p>
+                            <p className="formerror mb-0">{formErrors.inrMrp}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -639,7 +639,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrDiscount}</p>
+                            <p className="formerror mb-0">{formErrors.inrDiscount}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -660,7 +660,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.reorderQuantity}</p>
+                            <p className="formerror mb-0">{formErrors.reorderQuantity}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -681,7 +681,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.maximumOrder}</p>
+                            <p className="formerror mb-0">{formErrors.maximumOrder}</p>
                           </div>
                           <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
@@ -702,7 +702,7 @@ console.log(editableData,"editableData v editableData")
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.weight}</p>
+                            <p className="formerror mb-0">{formErrors.weight}</p>
                           </div>
                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="mt-2">
