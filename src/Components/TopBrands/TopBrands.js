@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import logo from "../../Images/logo.png"
+import logo from "../../Images/logo3.png"
 import "./TopBrands.css"
 import Slider from "react-slick";
 import Loader from '../Loader/Loader';

@@ -23,8 +23,8 @@ const Cart = () => {
     order: [],
     userid: "",
     order_no: "",
-    mobile:"9639156497",
-    username: "Sandeep Bisht",
+    mobile:"",
+    username: "",
     status: "pending",
     totalamount: "",
     actualamount: "",
@@ -179,12 +179,13 @@ const Cart = () => {
      formData.append("order", JSON.stringify(userCart));
      formData.append("userid", userdata._id);
      formData.append("username", userdata.username);
-     formData.append("mobile", userdata.mobile);
+     formData.append("mobile", userdata.phonenumber);
       formData.append("status", data.status);
      formData.append("order_no", Math.floor(Math.random() * 1000000));
       formData.append("totalamount", payableAmount);
       formData.append("actualamount", subTotal);
      formData.append("email", userdata.email);
+     console.log("user dtata ", userdata)
 
 
     const url = `http://localhost:8080/api/order/create-checkout-session`;
@@ -315,7 +316,7 @@ const Cart = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="checkout-button-div">
+                  <div className="checkout-button-div pb-2">
                     <button className="checkout-button" onClick={(e)=> handleCheckout(e)}>Checkout</button>
                   </div>
                 </div>
@@ -325,7 +326,7 @@ const Cart = () => {
             <div className="row">
               <div className="col-12 cart-card">
                 <p className="cart-card-text">
-                  <span>YOUR CART IS EMPTY</span>
+                  <span className="common-heading">YOUR CART IS EMPTY</span>
                 </p>
                 <div>
                   <p className="m-0 cart-para">
@@ -338,7 +339,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <button
-                    className="cart-button"
+                    className="continue-shopping-btn w-10 login-btn"
                     onClick={() => {
                       navigate("/");
                     }}

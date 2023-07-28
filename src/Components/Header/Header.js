@@ -171,6 +171,7 @@ const Header = () => {
     
   });
   const handleRegistration = async (data) => {
+    console.log("inside handle registraion", data)
     data["role"] = "user";
     let url = "http://localhost:8080/api/auth/register";
 
@@ -179,6 +180,9 @@ const Header = () => {
       if (response) {
         resetRegistration();
         setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`);
+        setTimeout(()=>{
+          setSuccessMsg("");
+        },2000)
       }
     } catch (error) {
       console.log(error);
@@ -385,7 +389,11 @@ const Header = () => {
                       {/* =======header right====t */}
                       <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                          <span className="cart-top-items">{userCartItem}</span>
+                          {
+                            userCartItem == null || userCartItem == "" ?
+                            "":
+                            <span className="cart-top-items">{userCartItem}</span>
+                          }
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"
@@ -706,8 +714,7 @@ const Header = () => {
                                     placeholder="Enter your name"
                                     className="form-control placeholder-text"
                                     {...registrationRegister("username", {
-                                      required: true,
-                                      pattern: /^[A-Za-z]*$/,
+                                      required: true,                                     
                                     })}
                                     onInput={(event) =>
                                       (event.target.value = event.target.value.toLowerCase())
@@ -718,12 +725,7 @@ const Header = () => {
                                       This field is required
                                     </p>
                                   )}
-                                  {errors?.username?.type === "pattern" && (
-                                    <p className="text-danger error-text-form">
-                                      Username does not contain space, special
-                                      key and num key
-                                    </p>
-                                  )}
+                                 
                                 </div>
 
                                 <div className="form-fields">

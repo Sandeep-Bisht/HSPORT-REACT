@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {FaTelegramPlane} from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
 import './Footer.css'
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 
 const Footer = () => {
   const [msg, setMsg] = useState();
   const [message, setMessage] = useState();
+  const [userData, setUserData] = useState();
+
+
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserData(userdata);
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const {
     register,
@@ -127,16 +138,42 @@ const Footer = () => {
                       FAQs
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/MyAccount" className="footer-links f2">
-                      My Account
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/UserOrder" className="footer-links f2">
-                      Order History
-                    </Link>
-                  </li>
+                  <div>
+                    {
+                      userData ?
+                        <li>
+                          <Link to="/MyAccount" className="footer-links f2">
+                            My Account
+                          </Link>
+                        </li> :
+                        <button
+                          className="footer-links f2 order-history-btn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          type="button"
+                        >
+                          My Account
+                        </button>
+                    }
+                  </div>
+                  <div>
+                    {
+                      userData ?
+                        <li>
+                          <Link to="/UserOrder" className="footer-links f2">
+                            Order History
+                          </Link>
+                        </li> :
+                        <button
+                          className="footer-links f2 order-history-btn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          type="button"
+                        >
+                          Order History
+                        </button>
+                    }
+                  </div>
                   <li>
                     <Link to="/support" className="footer-links f2">
                       Need Support?

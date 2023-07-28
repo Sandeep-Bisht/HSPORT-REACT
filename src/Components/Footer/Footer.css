@@ -99,6 +99,12 @@
     font-weight: 500;
     opacity: .75;
 }
+.order-history-btn{
+    border: none;
+    background: no-repeat;
+    margin-bottom: 14px;
+    padding-left: 0px;
+}
 @media only screen and (max-width : 991px) {
     .footer-heading{
         font-size: 15px;
