@@ -323,7 +323,6 @@ const Cart = () => {
               </div>
             </>
           ) : (
-            <div className="row">
               <div className="col-12 cart-card">
                 <p className="cart-card-text">
                   <span className="common-heading">YOUR CART IS EMPTY</span>
@@ -348,7 +347,6 @@ const Cart = () => {
                   </button>
                 </div>
               </div>
-            </div>
           )}
         </div>
       </div>

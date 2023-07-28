@@ -88,6 +88,9 @@ p {
     border-bottom: 1px solid #b3b3b3;
     width: 100%;
 }
+:focus-visible{
+    outline: none;
+}
 input, optgroup, select, textarea {
     margin: 0;
     font-family: inherit;

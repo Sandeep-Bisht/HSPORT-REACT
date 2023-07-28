@@ -120,7 +120,7 @@ const getTopBrands=async()=>{
                 </p>
                
                 <Link to="/allProducts" className="common-btn">
-                  <span className="banner-shopnow-btn">Shop Now</span>
+                  <span>Shop Now</span>
                 </Link>
               </div>
             </div>
@@ -134,7 +134,7 @@ const getTopBrands=async()=>{
                 </p>
                 
                 <Link to="/allProducts" className="common-btn">
-                  <span className="banner-shopnow-btn">Shop Now</span>
+                  <span>Shop Now</span>
                 </Link>
               </div>
             </div>
@@ -146,8 +146,8 @@ const getTopBrands=async()=>{
                   <br />
                   Experience{" "}
                 </p>               
-                <Link to="/allProducts" className="common-btn">
-                  <span className="banner-shopnow-btn">Shop Now</span>
+                <Link to="/allProducts" className="common-btn banner-shopnow-btn">
+                  <span>Shop Now</span>
                 </Link>
               </div>
             </div>
