@@ -137,12 +137,12 @@
      .home-slider .common-btn span{
            margin-right: 0!important;
     }
-    .home-slider .carousel-control-prev-icon, .home-slider .carousel-control-next-icon
+    .home-slider .carousel-control-next-icon
     {
         height: 30px;
         width: 30px;
     }
-    .home-slider .carousel-control-prev-icon svg, .home-slider .carousel-control-next-icon svg
+    .home-slider .carousel-control-next-icon svg
     {
         height: 20px;
         width: 20px;
@@ -150,6 +150,14 @@
     .home-slider #carouselExampleCaptions img
     {
         height: 350px;
+    }
+    .home-slider .carousel-control-prev-icon svg{
+        height: 20px;
+        width: 20px;
+    }
+    .home-slider .carousel-control-prev-icon{
+        height: 30px;
+        width: 30px;
     }
 }
 
@@ -179,9 +187,13 @@
         font-size: 24px;
     }
     .banner-shopnow-btn{
-        padding: 7px 12px!important;
+        padding: 7px 8px!important;
     }
     .home-slider .carousel-control-next-icon {
+        height: 25px;
+        width: 25px;
+    }
+    .home-slider .carousel-control-prev-icon {
         height: 25px;
         width: 25px;
     }

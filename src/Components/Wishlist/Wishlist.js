@@ -63,7 +63,7 @@ const deleteWishlist = async (productId) => {
         <section className="">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 ">
+              <div className="col-md-12">
                 <h1 className="common-heading text-center mb-lg-5">
                   Your Wishlist
                 </h1>
@@ -136,6 +136,7 @@ const deleteWishlist = async (productId) => {
         </section>
       ) : (
         <>
+           <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
               <div className="wishlist-card">
@@ -163,7 +164,7 @@ const deleteWishlist = async (productId) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div></div>
         </>
       )}
     </section>
