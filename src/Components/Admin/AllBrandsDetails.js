@@ -20,31 +20,21 @@ export default function AllBrandsDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-    // GetBrands();
+    GetBrands();
   }, []);
-  const GetBrands = async () => {
-    await fetch(`${baseUrl}/api/brands/all_brands`)
-      .then((res) => res.json())
-      .then(async (data) => {
-        setBrands(data.data);
-      })
-      .catch((err) => {
-        console.log(err, "errors");
-      });
-  };
 
-  const fetchUsers = async () => {
+  const GetBrands = async () => {
     setLoading(true);
     const response = await axios.get(`${baseUrl}/api/brands/all_brands`);
     setGetuser(response.data.data);
+    setBrands(response.data.data.length);
     setLoading(false);
   };
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
     if (e.target.value === "") {
-      fetchUsers();
+      GetBrands();
     }
   };
 
@@ -61,7 +51,7 @@ export default function AllBrandsDetails() {
         `${baseUrl}/api/brands/delete_brands_by_id`,
         { data: { _id: _id } }
       );
-      fetchUsers();
+      GetBrands();
     } catch (error) {}
   };
 
@@ -78,6 +68,7 @@ export default function AllBrandsDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -132,10 +123,12 @@ export default function AllBrandsDetails() {
                   All Brands <span className="count">{brands}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type="text"

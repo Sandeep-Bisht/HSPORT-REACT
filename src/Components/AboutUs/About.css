@@ -2,9 +2,7 @@
     padding: 60px 0;
 }
 
-.container{
-    max-width: 1080px!important;
-}
+
 
 .align-item-center{
     align-items: center!important;
@@ -18,18 +16,14 @@
     padding: 40px;
 }
 
-.common-heading{
-    font-size: 34px;
-    padding: 3px 0;
-    text-align: start;
-}
+
 
 .common-heading {
     font-weight: 400;
     font-family: Playfair Display,serif;
 }
 
-.common-para {
+.about-page .common-para {
     font-weight: 400;
     font-size: 14px;
     color: #777;

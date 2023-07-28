@@ -69,6 +69,7 @@ export default function AllCategoriesDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -126,10 +127,12 @@ export default function AllCategoriesDetails() {
                   All Category <span className="count">{categories}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-category" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type="text"

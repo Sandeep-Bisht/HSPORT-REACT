@@ -16,27 +16,30 @@ import { MdRealEstateAgent } from "react-icons/md";
 import { GrConfigure } from "react-icons/gr";
 import { ToastContainer, toast } from "react-toastify";
 import "./Dashboard.css";
-
+import * as ACTIONS from "../Header/Action"
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 
 
 const Sidemenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const pathName = location.pathname;
 
+
   const logout = () => {
-    localStorage.setItem("Userdata", null);
-    toast.success("Logout Successfully", {
-      position: "bottom-right",
-      autoClose: 1000,
-    });
+    Cookies.remove("userdata");
+    Cookies.remove("hsports_token");
+    dispatch(ACTIONS.getCartDetails({}));
     navigate("/");
+
   };
 
   return (
     <>
       <div className="nav__list">
-        <Link to="/dashboard" className="nav__link active">
+        <Link to="/dashboard" className="nav__link active sidebar-nav-link">
           <RxDashboard className="nav__icon" />
           <span className="nav__name">Dashboard</span>
         </Link>
@@ -68,42 +71,42 @@ const Sidemenu = () => {
               >
                 <div className="dashboard-accordion-body">
                   <ul className="Configration-List">
-                    <Link to={"/dashboard/Order/Pending"}>
+                    <Link to={"/dashboard/Order/Pending"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <FaCartPlus className="configuration-icons-wrap" />
                         New Orders
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/InProgress"}>
+                    <Link to={"/dashboard/Order/InProgress"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <GrInProgress className="configuration-icons-wrap" />
                         In Progress
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Packed"}>
+                    <Link to={"/dashboard/Order/Packed"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <BsBox className="configuration-icons-wrap" />
                         Packed
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Shipped"}>
+                    <Link to={"/dashboard/Order/Shipped"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <FaShippingFast className="configuration-icons-wrap" />
                         Shipped
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Delivered"}>
+                    <Link to={"/dashboard/Order/Delivered"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <MdRealEstateAgent className="configuration-icons-wrap" />
                         Delivered
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Canceled"}>
+                    <Link to={"/dashboard/Order/Canceled"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <BsCartXFill className="configuration-icons-wrap" />
@@ -143,13 +146,13 @@ const Sidemenu = () => {
                 >
                   <div className="dashboard-accordion-body">
                     <ul className="Configration-List">
-                      <Link to={"/dashboard/allBrands"}>
+                      <Link to={"/dashboard/allBrands"} className="sidebar-nav-link">
                         <li className="nav-name">
                           <GiFactory className="configuration-icons-wrap" />
                           Top Brands
                         </li>
                       </Link>
-                      <Link to={"/dashboard/allCategories"}>
+                      <Link to={"/dashboard/allCategories"} className="sidebar-nav-link">
                         <li>
                           <BiCategory className="configuration-icons-wrap" />
                           Category
@@ -157,13 +160,14 @@ const Sidemenu = () => {
                       </Link>
                       <Link
                               to={"/dashboard/AllSubCategories"}
+                              className="sidebar-nav-link"
                             >
                               <li>
                                 <BsListNested className="configuration-icons-wrap" />
                                 SubCategory
                               </li>
                             </Link>
-                      <Link to="/dashboard/allPrdoucts">
+                      <Link to="/dashboard/allPrdoucts" className="sidebar-nav-link">
                         <li>
                           <GiBoxUnpacking className="configuration-icons-wrap" />
                           Products

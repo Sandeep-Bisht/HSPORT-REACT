@@ -29,7 +29,7 @@ const ContactUs = () => {
                   <p>
                   For customer service, product or order related inquiries, and suggestions, 
                   please contact us by completing the form below or via email at:
-                  <a href="mailto:info@giksindia.com">info@giksindia.com</a>
+                  <a href="mailto:hindustan.com">hindustan.com</a>
                   </p>
                 </div>
               </div>

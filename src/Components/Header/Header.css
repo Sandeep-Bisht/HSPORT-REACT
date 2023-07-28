@@ -6,7 +6,11 @@ header{
 }
 .main-logo
 {
-    width: 80px;
+    height: 60px;
+}
+.mobile-logo
+{
+    display: none;
 }
 .all-sports-toggler
 {
@@ -108,7 +112,9 @@ header{
 .header-right-link:focus{
     color: hsl(0, 0%, 100%);
 }
-
+.mega-menu-tab-heading.nav-pills .nav-link.active {
+    background-color: transparent!important;
+}
 
 /* sandeeep css login modal */
 
@@ -131,7 +137,7 @@ header{
 }
  .left-login-modal {
     display: flex;
-    justify-content: center;
+    padding-left: 35px;
     background: #eff1f3!important;
     color: #f7f8f9;
     margin-left: -4px!important;
@@ -166,6 +172,7 @@ max-width: fit-content!important;
 }
 .login-btn{
     border: 0px;
+    margin-top: 20px!important;
 }
 
 
@@ -281,6 +288,10 @@ max-width: fit-content!important;
     justify-content: center;
 }
 /* ---------------after-login-dropdown------------ */
+.after-login-dropdown
+{
+  position: static;
+}
 .after-login-dropdown .header-right-link
 {
     flex-direction:row;
@@ -293,9 +304,15 @@ max-width: fit-content!important;
     height: 21px;
     width: 21px;
 }
+
 .after-login-dropdown  .dropdown-menu[data-bs-popper]
 {
-    left:-90px
+    /* left:-90px */
+        /* left: -90px; */
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 14%;
+        margin-left: auto;
 }
 .after-login-dropdown .dropdown-menu 
 {
@@ -303,6 +320,18 @@ max-width: fit-content!important;
     border-radius: 0;
     padding: 10px;
     right: 17px;
+}
+.login-registration-modal{
+    background-color: #fff;
+}
+.error-text-form{
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 .after-login-dropdown .dropdown-menu li a
 {
@@ -313,99 +342,74 @@ max-width: fit-content!important;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
     text-decoration: none;
+    display: block;
 }
 .cart-top-items{
     position: relative;
-    color: #a7afbe;
-    font-size: 12px;
-    left: 22px;
-    bottom: 7px;
+    color: #000;
+    font-size: 10px;
+    left: 38px;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 .single-footer-widget .newsletter-form .input-newsletter {
     padding: 10px;
 }
 
-/*----------------- Deepak media query ---------------------- */
-@media only screen and (max-width : 1399px){
-  
+
+/* -----------------------media query-------------- */
+
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+    .mega-menu
+    {
+        overflow: auto;
+    }  
+    .mega-menu-tab-heading.nav-pills .nav-link.active
+    {
+        background-color: transparent!important;
+    }
+
 }
-@media only screen and (max-width : 1024px) {
-  
+@media (max-width: 840.98px)
+{
+    .mega-menu
+    {
+        height: calc( 100vh - 59.06px);
+        top: 59.6px;
+    }
+    .cart-top-items {
+   
+        font-size: 9px;
+       width: 13px;
+        height: 13px;
+       
+    }
 }
 
-@media only screen and (max-width :991px) {
-    .mega-menu {
-        top: 63.5px;
-        height: 100vh!important;
-    }
-}
-@media only screen and (max-width : 815px) {
-    /* login responsive deepak */
-    .registration-section {
-        width: 650px;
-        height: 430px;
-        border-radius: 0px!important;
-    }
-    .inside-modal-body{
-        min-height: 360px;
-    }
-    .login-left-mid {
-        font-size: 24px;
-    }
-    .login-left-second {
-        font-size: 24px;
-    }
-    .login-left-first {
-        font-size: 20px;
-    }
-    .endOfLogin-text{
-        font-size: 15px;
-    }
-    /* end login responsive */
-}
-@media only screen and (max-width : 767.98px) {
-        /* login responsive deepak */
-        .registration-section {
-            width: 590px;
-            height: 465px;
-        }
-        .text-danger {
-            margin-bottom: 0px;
-            font-size: 13px;
-        }
-        .login-left-mid {
-            font-size: 20px;
-        }
-        .login-left-second {
-            font-size: 20px;
-        }
-        .login-left-first {
-            font-size: 17px;
-        }
-        .endOfLogin-text{
-            font-size: 13px;
-        }
-        .login-btn{
-           padding: 8px 35px!important;
-           margin-top: 28px!important;
-        }
-        .login-left-mid{
-            margin-top: 10px;
-        }
-        .login-left-second{
-            margin-top: 10px;
-        }
-        .form-control{
-            font-size: 13px!important;
-        }
-        .nav-pills .nav-link.active {
-            font-size: 13px;
-        }
-        .nav-pills .nav-link {
-            font-size: 13px;
-        }
-        /* end login responsive */
 
+@media (max-width: 767.98px)
+{
+    
         /* mega menu responsive */
         .mega-menu-tab-heading.nav-pills .nav-link{
             font-size: 14px;
@@ -416,13 +420,18 @@ max-width: fit-content!important;
         .mega-menu-sub-heading-list li {
             font-size: 13px;
         }
-
-}
-@media only screen and (max-width : 630px) {
-     /* login responsive deepak */
+        
+    .mega-menu
+    {
+        height: calc( 100vh - 55px);
+        top: 55px;
+    }
+    .after-login-dropdown .dropdown-menu li a
+    {
+        font-size: 13px;
+    }
     .registration-section {
-        width: 470px;
-        height: 465px;
+        width: 590px;
     }
     .login-left-mid {
         font-size: 17px;
@@ -433,6 +442,22 @@ max-width: fit-content!important;
     .login-left-second {
         font-size: 17px;
     }
+    .placeholder-text{
+        font-size: 13px;
+    }
+    .login-signup-btn .nav-link{
+        font-size: 14px;
+    }
+
+
+}
+@media only screen and (max-width : 630px) {
+     /* login responsive deepak */
+    .registration-section {
+        width: 470px;
+        height: 465px;
+    }
+
     /* end login responsive */
 
 
@@ -445,26 +470,100 @@ max-width: fit-content!important;
     /* end mega menu */
 
 }
-@media only screen and (max-width : 575px)
-   { 
-    .registration-section {
-        width: 360px;
+
+
+
+
+@media (max-width: 690.98px)
+{
+    .cart-top-items
+    {
+        left: 34px;
     }
     .left-login-modal {
-        display: none;
-    }
-    .modal-dialog{
-        margin: auto;
-        margin-top: 20px;
-    }
-    .modal-header .btn-close {
-        font-size: 10px;
-    }
- 
-  }
-
-@media only screen and (max-width : 320px) {
-
-  
-
+        padding-left: 10px!important;
+       }
+    
 }
+
+@media (max-width: 575.98px)
+{
+    .nav-wrapper
+    {
+        flex-wrap: initial!important;
+    }
+    .header-wrapper
+    {
+        justify-content: space-between;
+    }
+    .header-wrapper .navbar-nav
+    {
+        flex-direction: row;
+    }
+    .mega-menu
+    {
+        height: calc( 100vh - 48.94px);
+        top: 48.94px;
+    }
+    .product-single-card .product-pic img {
+            height: 200px;
+    }
+    .after-login-dropdown .dropdown-menu
+   {
+       position: absolute!important;
+   }
+   .cart-top-items
+   {
+    left: 30px;
+    bottom: 5px;
+   }
+   .left-login-modal {
+    display: none;
+   }
+   .registration-section {
+    width: 364px;
+    height: fit-content;
+}
+.modal.show .modal-dialog {
+   margin: auto;
+   margin-top: 15px;
+}
+.modal-header-top{
+    padding-bottom: 0px;
+}
+
+} 
+
+@media (max-width: 480.98px)
+{
+    .mega-menu-sub-heading
+    {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .mega-menu-sub-heading-list li
+    {
+        font-size: 12px;
+    }
+    .close-box span
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .close-box span svg{
+        height: 12px;
+        width: 12px;
+    }
+    .registration-section {
+        width: 300px;
+        height: fit-content;
+    }
+} 
+
+
+@media (max-width: 440.98px)
+{
+  
+  
+} 
+ 

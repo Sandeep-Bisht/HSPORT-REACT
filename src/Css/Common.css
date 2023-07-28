@@ -49,13 +49,196 @@ body {
 .cursor-btn{
     cursor: pointer;
 }
+.sidebar-nav-link{
+    text-decoration: none;
+  }
 @media only screen and (max-width : 767px) {
     .common-heading {
         font-size: 23px!important;
+
+    }}
+/* ---------------------------media query---------------------------------- */
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+    .header-search-feild
+    {
+        width: auto;
+    }
+    .all-sports-toggler
+    {
+        margin-right: 10px;
+    }
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+    .main-logo
+    {
+        height: 40px;
+    }
+    .all-sports-toggler span
+    {
+        font-size: 14px;
     }
 }
-@media only screen and (max-width : 577px) {
-    .common-heading {
-        font-size: 20px!important;
+
+@media (max-width: 840.98px)
+{
+    .all-sports-toggler svg
+    {
+        height: 30px;
+        width: 30px;
+    }
+    .all-sports-toggler span
+    {
+        font-size: 13px;
+        line-height: 1.3;
+        display: inline-block;
+    }
+    .main-logo
+    {
+        height: 35px;
+    }
+    .header-search-feild input
+    {
+        padding: 0 6px;
+    }
+    .header-search-feild
+    {
+        border-radius: 0;
+    }
+    .header-right-link
+    {
+        font-size: 13px;
+        padding: 0 8px !important;
+    }
+    .navbar-nav
+    {
+        margin-bottom: 0!important;
     }
 }
+
+
+@media (max-width: 767.98px)
+{
+
+     .common-btn
+      {
+          padding: 8px 20px;
+          margin-top: 20px;
+          font-size: 10px;
+     }
+    .all-sports-toggler span
+    {
+        font-size: 12px;
+    }
+    .main-logo
+    {
+        font-size: 32px;
+    }
+    .header-search-feild .search-btn
+    {
+        padding: 0 4px;
+    }
+    .header-search-feild .search-btn svg
+    {
+        height: 16px;
+        width: 16px;
+    }
+    .header-right-link 
+    {
+        font-size: 12px;
+    }
+    .header-right-link span svg
+    {
+        height: 16px;
+        width: 16px;
+
+    }
+    .home-slider #carouselExampleCaptions .slider-title
+    {
+        font-size: 35px;
+    }
+}
+
+
+
+
+@media (max-width: 690.98px)
+{
+    .header-search-feild
+    {
+        width: 150px;
+    }
+    .header-search-feild input::placeholder
+    {
+        font-size: 12px;
+    }
+    .header-right-link 
+    {
+       padding:  0 5px!important;
+    }
+    .all-sports-toggler svg
+    {
+        height: 25px;
+        width: 25px;
+    }
+    .all-sports-toggler svg
+    {
+        font-size: 11px;
+    }
+    .main-logo
+    {
+        height: 30px;
+    }
+}
+
+@media (max-width: 575.98px)
+{
+} 
+
+@media (max-width: 480.98px)
+{
+} 
+@media (max-width: 440.98px)
+{
+
+    .header-search-feild
+    {
+        width: 100px;
+    border-radius: 3px;
+    height: 25px;
+    }
+    .all-sports-toggler
+    {
+        margin-right: 0;
+    }
+    .all-sports-toggler svg
+    {
+        height: 30px;
+        width: 30px;
+    }
+    .main-logo
+    {
+        height: 27px;
+    }
+}
+
+@media (max-width: 420.98px)
+{
+    
+    .header-search-feild
+    {
+        width: 90px;
+    border-radius: 3px;
+    height: 25px;
+    }
+} 
+ 

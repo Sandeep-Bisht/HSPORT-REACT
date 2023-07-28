@@ -52,7 +52,7 @@ function AllProducts() {
 
     useEffect(() => {
       sortedAccordingName();
-      },[selectedAlphabetic]);
+      },[selectedAlphabetic]); 
 
 
   const getProductByCategoryId = (category) => {

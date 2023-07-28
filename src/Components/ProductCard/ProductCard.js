@@ -5,7 +5,7 @@ import { BsCurrencyRupee } from "react-icons/bs";
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsBagHeart } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import * as ACTIONS from "../../CommonServices/Action";
@@ -21,11 +21,19 @@ const ProductCard = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
+  const [classUsingLocation,setClassUsingLocation]=useState(false);
   const [setUserCartDetail, setSetUserCartDetail] = useState(null)
   const { productList } = props;
   const {featuredProductList} =props
 
   let cartState = useSelector((state) => state.UserCartReducer);
+  const location=useLocation();
+
+  useEffect(() => {
+    if ((location.pathname.includes("collection")) || (location.pathname.includes("allProducts"))) {
+      setClassUsingLocation(true);
+    }
+  }, [productList]);
 
   useEffect(() => { 
     if (cartState.userCartDetails) {
@@ -277,7 +285,7 @@ const ProductCard = (props) => {
               productList.map((item, index) => {
                 if(index<4){
                   return (
-                    <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
+                    <div className={`${classUsingLocation ? 'col-lg-3 col-md-4 col-sm-6 col-12' : 'col-lg-3 col-md-3 col-sm-6 col-6'}`} key={index}>
                       <div className="product-single-card">
                         <div className="product-pic cursor-btn">
                           <img
@@ -365,7 +373,7 @@ const ProductCard = (props) => {
                 featuredProductList.map((item,index)=>{
                   if(index<4){
                     return (
-                      <div className="col-lg-3 col-md-3 col-sm-6 col-12" key={index}>
+                      <div className="col-lg-3 col-md-3 col-sm-6 col-6" key={index}>
                         <div className="product-single-card">
                           <div className="product-pic cursor-btn">
                             <img

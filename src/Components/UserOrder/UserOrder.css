@@ -1,5 +1,4 @@
 .orders-section {
-    margin-top: 150px;
     margin-bottom: 45px;
   }
   .orders-user-page {
@@ -392,9 +391,7 @@
     .Re-order-button {
       font-size: 10px !important;
     }
-    .orders-section {
-      margin-top: 160px !important;
-    }
+
     .Buttons-order-page button {
       font-size: 10px !important;
     }
@@ -473,17 +470,11 @@
     }
   }
   @media only screen and (max-width: 730.98px) {
-    .orders-section {
-      margin-top: 130px !important;
-    }
   }
   @media only screen and (max-width: 575.98px) {
     .order-details-image .order-main-Image {
       height: 70% !important;
       width: 24% !important;
-    }
-    .orders-section {
-      margin-top: 130px !important;
     }
   }
   @media only screen and (max-width: 415.98px) {
@@ -502,9 +493,7 @@
     }
   }
   @media only screen and (max-width: 390.98px) {
-    .orders-section {
-      margin-top: 114px !important;
-    }
+
   }
   .Buttons-order-page {
     display: flex;

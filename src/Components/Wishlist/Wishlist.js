@@ -14,7 +14,7 @@ const Wishlist = () => {
   const navigate = useNavigate();
   const [userWishlist, setUserWishlist] = useState([]);
   const [userdata, setUserdata] = useState();
-  const [isLoading,setIsLoading] = useState(true);
+  const [isLoading,setIsLoading] = useState(false);
   let url = "http://localhost:8080/";
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Wishlist = () => {
 
   // Get Wishlist Item
   const getUserWishlist = async (userid) => {
-    // setIsLoading(true);
+    setIsLoading(true);
     let url = "http://localhost:8080/api/wishlist/wishlist_by_id";
     let response = await axios.post(url, { userId: userid });
     try {
@@ -60,7 +60,7 @@ const deleteWishlist = async (productId) => {
   return (
     <section className="wishlist-section">
       {isLoading || (userWishlist && userWishlist.length > 0) ? (
-        <section className="product-card-area">
+        <section className="">
           <div className="container">
             <div className="row">
               <div className="col-md-12 ">
@@ -78,7 +78,7 @@ const deleteWishlist = async (productId) => {
               userWishlist.map((item, index) => {
                 return (
                   <div className="col-lg-3 col-md-3 col-sm-4 col-6" key={index}>
-                    <div className="product-single-card">
+                    <div className="product-single-card product-single-card-wishlist">
                       <div className="product-pic cursor-btn">
                         <img
                           src={`${url}${item?.productId?.image[0]?.path}`}

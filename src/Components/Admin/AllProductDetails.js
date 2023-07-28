@@ -16,7 +16,7 @@ export default function AllProductsDetails() {
   const [loading, setLoading] = useState(false);
   const [searchVal, setSearchVal] = useState("");
   const [filteredData] = useState([]);
-  const [products, Setproducts] = useState([]);
+  const [products, Setproducts] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [prticularUserOrder, setPrticularUserOrder] = useState([]);
 
@@ -43,6 +43,7 @@ useEffect(()=>{
     setLoading(true);
     const response=await axios.get(`${baseUrl}/api/product/all_product`)
     setGetuser(response.data.data);
+    Setproducts(response.data.data.length)
     setLoading(false);
   };
 
@@ -60,6 +61,20 @@ useEffect(()=>{
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  const handleDelete = async (_id) => {
+    try {
+      const DeletedData = await axios.delete(
+        `${baseUrl}/api/product/delete_product_by_id`,
+        { data: { _id: _id } }
+      );
+      GetProducts();
+    } catch (error) {}
+  };
+
+  const editFormHandler = (productFormDetails)=>{
+    navigate("/dashboard/create-product", {state:{...productFormDetails}})
+  }
 
   const columns = [
     {
@@ -102,7 +117,7 @@ useEffect(()=>{
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
+      render: (t, r) => <img src={`${baseUrl}/${r?.image[0]?.path}`} style={{width:"100%"}}/>,
     },
     {
       title: "Action",
@@ -113,24 +128,19 @@ useEffect(()=>{
           <Space size="middle">
             <Popconfirm
               title="Sure to delete?"
-            //   onConfirm={() => handleDelete(record._id)}
+              onConfirm={() => handleDelete(record._id)}
             >
               <a className="delete-icon-wrap" title="Delete" style={{ color: "blue" }}><FaTrashAlt /></a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{
-                  pathname: "/ProductForm",
-                  state: {
-                    ...record,
-                  },
-                }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>editFormHandler(record)}
               >
-                <MdOutlineEditNote />
-              </Link>
+                <MdOutlineEditNote className="edit-icon-button"/>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null,
@@ -139,7 +149,7 @@ useEffect(()=>{
       title: "View Order",
       key: "action",
       render: (_, record) => (
-        <Button type="primary" onClick={() => showModal(record)}>
+        <Button type="primary" onClick={() => showModal(record)} className="see-order-button">
           See Order
         </Button>
       ),
@@ -178,9 +188,12 @@ useEffect(()=>{
               <div className="all-products-details-section">
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
+                  <div>
                   <Link to="/dashboard/create-product" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
+                  </div>
+                  <div>
                   <input
                     type='text'
                     onChange={e => onChangeHandler(e)}
@@ -190,6 +203,7 @@ useEffect(()=>{
                     style={{ position: "sticky", top: "0", left: "0" }}
                   />
                   <button type="button" className="dashboard-search-btn"><BiSearchAlt /></button>
+                </div>
                 </div>
               </div>
               <Table
@@ -234,7 +248,7 @@ useEffect(()=>{
                           <div className="width-adjust-of-image">
                             <img
                               onClick={() => imageHandler(item.productid)}
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer",width:"40px", height:"40px" }}
                               src={`${baseUrl}/${item.image[0].path}`}
                             ></img>
                           </div>

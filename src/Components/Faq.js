@@ -8,7 +8,7 @@ function Faq () {
 
     return (
         <>
-        <div className="container m-auto">
+        <div className="container m-auto mt-4">
         <div className="single-faq">
           <div className="row">
             <div className="col-12">

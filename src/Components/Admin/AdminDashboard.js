@@ -6,20 +6,50 @@ import { FiUserCheck } from "react-icons/fi";
 import { GiBoxUnpacking } from "react-icons/gi";
 import { BiCategory } from "react-icons/bi";
 import { BsListNested } from "react-icons/bs";
+import { useEffect } from "react";
+import { baseUrl } from "../../Utils/Service";
+import axios from "axios";
 
 const AdminDashboard = () => {
 
-    const [products, Setproducts] = useState("");
+  const [products, Setproducts] = useState("");
   const [categories, setCategories] = useState("");
   const [subCategories, setSubCategories] = useState("");
+  const [topbrands,setTopbrands] = useState("");
 
+  useEffect(()=>{
+    GetProducts();
+    topBrands();
+    GetCategory();
+    GetSubCategory();
+  },[])
+
+  const GetProducts = async () => {
+    const response=await axios.get(`${baseUrl}/api/product/all_product`)
+    Setproducts(response.data.data.length);
+  };
+
+  const topBrands = async () => {
+    const response = await axios.get(`${baseUrl}/api/brands/all_brands`);
+    setTopbrands(response.data.data.length);
+  };
+
+  const GetCategory = async () => {
+    const response = await axios.get(`${baseUrl}/api/category/all_category`);
+    setCategories(response.data.data.length);
+  };
+
+  const GetSubCategory = async () => {
+    const response = await axios.get(`${baseUrl}/api/subcategory/all_subcategory`);
+    setSubCategories(response.data.data.length)
+  };
 
   return (
-    <div className="col-xl-10 col-lg-9 col-md-9 col-sm-8 col-8">
+    <div className="">
       <main className="main graph-main-div">
         <div className="row cardsec-row">
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to="/dashboard/allPrdoucts">
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
+            <Link to="/dashboard/allPrdoucts" className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -37,9 +67,8 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
-
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/allBrands"}>
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
+            <Link to={"/dashboard/allBrands"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -49,7 +78,7 @@ const AdminDashboard = () => {
                         <h6 className="cardheads">Top Brand </h6>
                       </div>
                       <div>
-                        <span className="count1">{products}</span>
+                        <span className="count1">{topbrands}</span>
                       </div>
                     </div>
                   </div>
@@ -57,8 +86,8 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/allCategories"}>
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
+            <Link to={"/dashboard/allCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -76,8 +105,8 @@ const AdminDashboard = () => {
               </div>
             </Link>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-6 col-12 pt-4">
-            <Link to={"/dashboard/AllSubCategories"}>
+          <div className="col-lg-3 col-md-6 col-sm-6 col-6 pt-4">
+            <Link to={"/dashboard/AllSubCategories"} className="sidebar-nav-link">
               <div className="card cardsec">
                 <div className="row">
                   <div className="col-12">
@@ -94,8 +123,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </Link>
-          </div>
-       
+          </div>      
         </div>
       </main>
     </div>

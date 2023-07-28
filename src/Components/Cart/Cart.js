@@ -18,6 +18,19 @@ const Cart = () => {
   const [discount, setDiscount] = useState();
   const [payableAmount, setPayableAmount] = useState();
 
+  const [data, Setdata] = useState({
+    
+    order: [],
+    userid: "",
+    order_no: "",
+    mobile:"9639156497",
+    username: "Sandeep Bisht",
+    status: "pending",
+    totalamount: "",
+    actualamount: "",
+    email: "",
+  });
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +44,8 @@ const Cart = () => {
       setUserCart(cartState[0]?.order);
       setUserCartDetail(cartState[0]);
       cartAmount(cartState[0]?.order);
+      Setdata({ ...data, order: JSON.stringify(cartState[0]?.order) });
+          
     }
     window.scroll(0, 0);
   }, [cartState]);
@@ -140,6 +155,50 @@ const Cart = () => {
   let redirectToProductDiscriptionPage = (name, productId) => {
     navigate(`/product/${name}`, { state: productId });
   };
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    
+
+    // let { order } = data;
+    // let neworder = JSON.parse(order);
+    // neworder.forEach(function (item) {
+    //   delete item.category;
+    //   delete item.description;
+    //   delete item.delivery_time;
+    //   delete item.justification;
+    //   delete item.manufacturer;
+    //   delete item.mrp;
+    // });
+
+    
+  
+
+
+    const formData = new FormData();
+     formData.append("order", JSON.stringify(userCart));
+     formData.append("userid", userdata._id);
+     formData.append("username", userdata.username);
+     formData.append("mobile", userdata.mobile);
+      formData.append("status", data.status);
+     formData.append("order_no", Math.floor(Math.random() * 1000000));
+      formData.append("totalamount", payableAmount);
+      formData.append("actualamount", subTotal);
+     formData.append("email", userdata.email);
+
+
+    const url = `http://localhost:8080/api/order/create-checkout-session`;
+     await fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        window.location.href = res.url;
+      })
+      .catch((err) => console.log(err));
+  };
+
 
 
   return (
@@ -257,7 +316,7 @@ const Cart = () => {
                     </ul>
                   </div>
                   <div className="checkout-button-div">
-                    <button className="checkout-button">Checkout</button>
+                    <button className="checkout-button" onClick={(e)=> handleCheckout(e)}>Checkout</button>
                   </div>
                 </div>
               </div>
