@@ -180,6 +180,9 @@ const Header = () => {
       if (response) {
         resetRegistration();
         setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`);
+        setTimeout(()=>{
+          setSuccessMsg("");
+        },2000)
       }
     } catch (error) {
       console.log(error);
@@ -386,7 +389,11 @@ const Header = () => {
                       {/* =======header right====t */}
                       <div className="header-right">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                          <span className="cart-top-items">{userCartItem}</span>
+                          {
+                            userCartItem == null || userCartItem == "" ?
+                            "":
+                            <span className="cart-top-items">{userCartItem}</span>
+                          }
                           <Link
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"

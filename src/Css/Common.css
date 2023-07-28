@@ -30,7 +30,7 @@ body {
     padding: 13px 74px 13px 24px;
     z-index: 1;
     overflow: hidden;
-    
+    text-decoration: none;
     display: inline-block;
     padding: 13px 35px;
      color: #fff!important;

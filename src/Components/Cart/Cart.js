@@ -316,7 +316,7 @@ const Cart = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="checkout-button-div">
+                  <div className="checkout-button-div pb-2">
                     <button className="checkout-button" onClick={(e)=> handleCheckout(e)}>Checkout</button>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ const Cart = () => {
             <div className="row">
               <div className="col-12 cart-card">
                 <p className="cart-card-text">
-                  <span>YOUR CART IS EMPTY</span>
+                  <span className="common-heading">YOUR CART IS EMPTY</span>
                 </p>
                 <div>
                   <p className="m-0 cart-para">
@@ -339,7 +339,7 @@ const Cart = () => {
                 </div>
                 <div>
                   <button
-                    className="cart-button"
+                    className="continue-shopping-btn w-10 login-btn"
                     onClick={() => {
                       navigate("/");
                     }}

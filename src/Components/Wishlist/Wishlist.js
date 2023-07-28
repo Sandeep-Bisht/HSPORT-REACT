@@ -140,10 +140,10 @@ const deleteWishlist = async (productId) => {
             <div className="col-md-12">
               <div className="wishlist-card">
                 <p className="wishlist-card-text">
-                  <span>YOUR WISHLIST IS EMPTY</span>
+                  <span className="common-heading">YOUR WISHLIST IS EMPTY</span>
                 </p>
                 <div>
-                  <p className="m-0 wishlist-para">
+                  <p className="m-0 wishlist-para f1">
                     Add items that you like to your wishlist. Review them
                     anytime and easily move them to the cart.
                   </p>
@@ -153,7 +153,7 @@ const deleteWishlist = async (productId) => {
                 </div>
                 <div>
                   <button
-                    className="wishlist-button"
+                    className="continue-shopping-btn w-10 login-btn"
                     onClick={() => {
                       navigate("/");
                     }}

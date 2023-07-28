@@ -23,7 +23,6 @@
 .wishlist-section .wishlist-para
 {
     color: #95989F;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .wishlist-section .wishlist-card .wishlist-empty-icon img
@@ -45,4 +44,46 @@
 }
 .product-single-card-wishlist{
     position: relative;
+}
+.continue-shopping-btn{
+    position: relative;
+    padding: 13px 74px 13px 24px;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
+    padding: 13px 35px;
+    color: #fff!important;
+    background-color: #1e2737;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.5s;
+    text-transform: uppercase;
+    margin-top: 40px;
+    font-weight: 600;
+}
+@media (max-width:767px)
+{
+    .continue-shopping-btn{
+        padding: 10px 20px;
+        font-size: 11px;
+    }
+    .wishlist-section .wishlist-card-text span {
+        font-size: 18px;
+    }
+    .wishlist-section .wishlist-para {
+        font-size: 15px;
+    }
+}
+@media (max-width:575px)
+{
+    .wishlist-section .wishlist-card-text span {
+        font-size: 15px;
+    }
+    .wishlist-section .wishlist-para {
+        font-size: 13px;
+    }
+    .continue-shopping-btn{
+        padding: 8px 15px;
+        font-size: 10px;
+    }
 }

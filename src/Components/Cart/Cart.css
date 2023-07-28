@@ -23,7 +23,6 @@
 .cart-section .cart-para
 {
     color: #95989F;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .cart-section .cart-card .cart-empty-icon img
@@ -138,6 +137,22 @@
     font-size: 15px!important;
     width: 39%;
 }
+.continue-shopping-btn{
+    position: relative;
+    padding: 13px 74px 13px 24px;
+    z-index: 1;
+    overflow: hidden;
+    display: inline-block;
+    padding: 13px 35px;
+    color: #fff!important;
+    background-color: #1e2737;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.5s;
+    text-transform: uppercase;
+    margin-top: 40px;
+    font-weight: 600;
+}
 
 /*----------------- Deepak media query ---------------------- */
 @media only screen and (max-width : 1399px){
@@ -169,9 +184,28 @@
     .checkout-card{
         
     }
+    .continue-shopping-btn{
+        padding: 10px 20px;
+        font-size: 11px;
+    }
+    .cart-section .cart-card-text span {
+        font-size: 18px;
+    }
+    .cart-section .cart-para {
+        font-size: 15px;
+    }
 }
 @media only screen and (max-width : 575.98px) {
-
+    .continue-shopping-btn{
+        padding: 8px 15px;
+        font-size: 10px;
+    }
+    .cart-section .cart-card-text span {
+        font-size: 15px;
+    }
+    .cart-section .cart-para {
+        font-size: 13px;
+    }
 }
 @media only screen and (max-width : 480px) {
  
