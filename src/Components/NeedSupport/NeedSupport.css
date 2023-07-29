@@ -3,9 +3,8 @@ body{
     padding: 0;
     overflow-x: hidden;
 }
-.main{
-    margin-top: 0;
-    padding-bottom: 60px;
+.need-support-main{
+   padding: 60px 40px;
 }
 
 .support-text{
@@ -44,6 +43,7 @@ body{
     background: #1e2737;
     color:#fff;
 }
+
 @media (max-width:815px){
     .text p{
         font-size:13px;
