@@ -33,7 +33,8 @@ import UserOrder from '../Components/UserOrder/UserOrder';
 import PaymentSuccessfull from '../Components/PaymentSuccessfull/PaymentSuccessfull';
 import ContactUs from '../Components/ContactUS/ContactUs';
 import Cookies from 'js-cookie';
-
+import NeedSupport from '../Components/NeedSupport/NeedSupport';
+import UserProfile from '../Components/UserProfile/userprofile';
 
 
 const Authanticated = (props) => {
@@ -91,6 +92,8 @@ const ApplicationRoutes = () => {
       <Route path='/UserOrder' element={<UserOrder />} />
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
       <Route path='/contact-us' element={<ContactUs />} />
+      <Route path='/NeedSupport' element={<NeedSupport />} />
+      <Route path='/UserProfile' element={<UserProfile />} />
     </Routes>
   )
 }

@@ -141,6 +141,9 @@ const Header = () => {
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
+          setTimeout(()=>{
+            setErrorMsg("");
+          },2000);
         }
 
       }
