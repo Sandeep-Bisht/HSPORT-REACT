@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./userprofile.css"
 
-const userprofile= ()=>{
+const Userprofile= ()=>{
+
+    useEffect(()=>{
+        window.scroll(0,0);
+    },[]);
 return(
     <>
 <section>
@@ -38,4 +42,4 @@ return(
     </>
 )
 }
-export default userprofile;
+export default Userprofile;

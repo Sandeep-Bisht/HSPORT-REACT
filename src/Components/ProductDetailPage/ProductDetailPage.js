@@ -27,6 +27,7 @@ const ProductDetailPage = () => {
   const [userCart, setUserCart] = useState([]);
   const [order, Setorder] = useState([]);
   const [isLoading,setIsLoading]=useState(true);
+  const [categoryId,setCategoryId] = useState("");
 
   let url = "http://localhost:8080/";
 
@@ -54,17 +55,19 @@ const ProductDetailPage = () => {
       let response = await axios.post(url, data);
       if (response) {
         setProductDetail(response?.data?.data[0]);
+        setCategoryId(response?.data?.data[0]?.category?._id);
         setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
+  console.log(productDetail,"check all the details or products",categoryId);
 
 
-  let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
+  let rediretToSubCategories = (categoryId) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");
-    // navigate(`/collections/${subCategories}`, { state: subCategoryId });
+    navigate("/allProducts" , { state: categoryId });
   };
 
   let imageOnClickHandler = (imageUrl) => {
@@ -308,7 +311,7 @@ const ProductDetailPage = () => {
               <span className="separator">/</span>
               <span
                 className="bred-crumb-one"
-                onClick={() => rediretToSubCategories()}
+                onClick={() => rediretToSubCategories(categoryId)}
               >
                 Categories
               </span>

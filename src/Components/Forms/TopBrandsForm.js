@@ -67,7 +67,7 @@ const TopBrandsForm = (props) => {
       })
         .then((res) => {
           res.json();
-          history("/dashboard/allBrands");
+          history("/dashboard/configuration/allBrands");
         })
         .then((res) => {
           GetBrands();
@@ -108,7 +108,7 @@ const TopBrandsForm = (props) => {
         if (response.status == 200) {
           await GetBrands();
           setTimeout(() => {
-            history("/dashboard/allBrands");
+            history("/dashboard/configuration/allBrands");
           }, 1500);
         }
       } catch (error) {

@@ -72,7 +72,7 @@ const [editableData]=useState(location?.state);
       })
         .then((res) => {
           res.json();
-          history("/dashboard/AllSubCategories");
+          history("/dashboard/configuration/AllSubCategories");
         })
         .then((res) => {
           GetSubCategory();
@@ -121,7 +121,7 @@ const [editableData]=useState(location?.state);
     if (response.status === 200) {
       await GetSubCategory();
       setTimeout(() => {
-        history("/dashboard/AllSubCategories");
+        history("/dashboard/configuration/AllSubCategories");
       }, 1500);
     }
   }

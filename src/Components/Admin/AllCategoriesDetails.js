@@ -57,7 +57,7 @@ export default function AllCategoriesDetails() {
   };
 
   const categoryEditHander=(categoryItem)=>{
-    navigate("/dashboard/create-category", {state:{...categoryItem}})    
+    navigate("/dashboard/configuration/create-category", {state:{...categoryItem}})    
   }
 
   const columns = [
@@ -128,7 +128,7 @@ export default function AllCategoriesDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/create-category" className="add-icon">
+                  <Link to="/dashboard/configuration/create-category" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>

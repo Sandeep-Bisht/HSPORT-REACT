@@ -92,7 +92,7 @@ const ApplicationRoutes = () => {
       <Route path='/UserOrder' element={<UserOrder />} />
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
       <Route path='/contact-us' element={<ContactUs />} />
-      <Route path='/MyAccount' element={<UserProfile/>} />
+      <Route path='/userProfile' element={<UserProfile/>} />
     </Routes>
   )
 }

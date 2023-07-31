@@ -142,7 +142,7 @@ const Footer = () => {
                     {
                       userData ?
                         <li>
-                          <Link to="/MyAccount" className="footer-links f2">
+                          <Link to="/userProfile" className="footer-links f2">
                             My Account
                           </Link>
                         </li> :
@@ -175,7 +175,7 @@ const Footer = () => {
                     }
                   </div>
                   <li>
-                    <Link to="/support" className="footer-links f2">
+                    <Link to="/NeedSupport" className="footer-links f2">
                       Need Support?
                     </Link>
                   </li>
