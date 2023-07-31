@@ -57,14 +57,14 @@ const ApplicationRoutes = () => {
       <Route path='/' element={<HomePage />} />
       <Route path="/dashboard"  element={<Authanticated component= {<Dashboard />} /> } >
       <Route index element={< AdminDashboard/>} />
-        <Route path='/dashboard/allPrdoucts' element={< AllProductsDetails />} />
-        <Route path='/dashboard/allCategories' element={<AllCategoriesDetails/>}/>
-        <Route path='/dashboard/allSubCategories' element={<AllSubCategoriesDetails/>}/>
-        <Route path='/dashboard/allBrands' element={<AllBrandsDetails/>}/>
-        <Route path='/dashboard/create-product' element={< ProductForm />} />
-        <Route path='/dashboard/create-brand' element={<TopBrandsForm/>}/>
-        <Route path='/dashboard/create-category' element={< CategoryForm />} />
-        <Route path='/dashboard/create-subCategory' element={< SubCategoryForm />} />
+        <Route path='/dashboard/configuration/allPrdoucts' element={< AllProductsDetails />} />
+        <Route path='/dashboard/configuration/allCategories' element={<AllCategoriesDetails/>}/>
+        <Route path='/dashboard/configuration/allSubCategories' element={<AllSubCategoriesDetails/>}/>
+        <Route path='/dashboard/configuration/allBrands' element={<AllBrandsDetails/>}/>
+        <Route path='/dashboard/configuration/create-product' element={< ProductForm />} />
+        <Route path='/dashboard/configuration/create-brand' element={<TopBrandsForm/>}/>
+        <Route path='/dashboard/configuration/create-category' element={< CategoryForm />} />
+        <Route path='/dashboard/configuration/create-subCategory' element={< SubCategoryForm />} />
 
 
         <Route path='/dashboard/Order/Pending' element={<NewOrder/>} />
