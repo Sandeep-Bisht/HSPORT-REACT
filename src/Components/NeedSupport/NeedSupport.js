@@ -14,7 +14,9 @@ const NeedSupport = () => {
                         <div className="col-lg-6 col-md-6 col-sm-6 col-12 support-text">
                             <div className="text">
                                 <h1 className="common-heading text-start">Our Customer Support 24/7</h1>
-                                <p className="f1">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                <p className="f1">Experience exceptional customer support anytime, anywhere with our 24/7 service.
+                                 Our expert team is always available to address your queries and provide timely solutions.
+                                  Convenience and customer satisfaction are our top priorities, ensuring a seamless experience with us. Reach out to us via phone, email, live chat, or social media for immediate assistance.
                                 </p>
                                 <button className="btn support-btn">Contact-us</button>
                             </div>

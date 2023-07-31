@@ -73,7 +73,7 @@ useEffect(()=>{
   };
 
   const editFormHandler = (productFormDetails)=>{
-    navigate("/dashboard/create-product", {state:{...productFormDetails}})
+    navigate("/dashboard/configuration/create-product", {state:{...productFormDetails}})
   }
 
   const columns = [
@@ -189,7 +189,7 @@ useEffect(()=>{
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/create-product" className="add-icon">
+                  <Link to="/dashboard/configuration/create-product" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
                   </div>

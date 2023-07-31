@@ -59,7 +59,7 @@ export default function AllSubCategoriesDetails() {
   }
 
   const editFormHandler=(subCategoryRecord)=>{
-    navigate("/dashboard/create-subCategory",{state : {...subCategoryRecord}})
+    navigate("/dashboard/configuration/create-subCategory",{state : {...subCategoryRecord}})
   }
 
 
@@ -116,7 +116,7 @@ export default function AllSubCategoriesDetails() {
                 <h3 className="all-category-head all-products-head">All Subcategories <span className="count">{subCategories}</span></h3>
                 <div className="subcategory-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/create-subCategory" className="add-icon">
+                  <Link to="/dashboard/configuration/create-subCategory" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
                   </div>

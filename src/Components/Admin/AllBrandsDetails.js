@@ -56,7 +56,7 @@ export default function AllBrandsDetails() {
   };
 
   const categoryEditHander=(topBrand)=>{
-    navigate("/dashboard/create-brand", {state:{...topBrand}})    
+    navigate("/dashboard/configuration/create-brand", {state:{...topBrand}})    
   }
 
   const columns = [
@@ -124,7 +124,7 @@ export default function AllBrandsDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/create-brand" className="add-icon">
+                  <Link to="/dashboard/configuration/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>

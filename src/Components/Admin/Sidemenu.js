@@ -139,27 +139,27 @@ const Sidemenu = () => {
                 <div
                   id="collapseTwo"
                   className={`accordion-collapse collapse ${
-                    pathName.includes("/dashboard") && "show"
+                    pathName.includes("/dashboard/configuration") && "show"
                   }`}
                   aria-labelledby="headingTwo"
                   data-bs-parent="#accordionExample"
                 >
                   <div className="dashboard-accordion-body">
                     <ul className="Configration-List">
-                      <Link to={"/dashboard/allBrands"} className="sidebar-nav-link">
+                      <Link to={"/dashboard/configuration/allBrands"} className="sidebar-nav-link">
                         <li className="nav-name">
                           <GiFactory className="configuration-icons-wrap" />
                           Top Brands
                         </li>
                       </Link>
-                      <Link to={"/dashboard/allCategories"} className="sidebar-nav-link">
+                      <Link to={"/dashboard/configuration/allCategories"} className="sidebar-nav-link">
                         <li>
                           <BiCategory className="configuration-icons-wrap" />
                           Category
                         </li>
                       </Link>
                       <Link
-                              to={"/dashboard/AllSubCategories"}
+                              to={"/dashboard/configuration/AllSubCategories"}
                               className="sidebar-nav-link"
                             >
                               <li>
@@ -167,7 +167,7 @@ const Sidemenu = () => {
                                 SubCategory
                               </li>
                             </Link>
-                      <Link to="/dashboard/allPrdoucts" className="sidebar-nav-link">
+                      <Link to="/dashboard/configuration/allPrdoucts" className="sidebar-nav-link">
                         <li>
                           <GiBoxUnpacking className="configuration-icons-wrap" />
                           Products

@@ -307,7 +307,7 @@ const Header = () => {
                                               ) {
                                                 return (
                                                   <ul className="mega-menu-sub-heading-list" key={ind}>
-                                                    <li onClick={() => redirectToAllProductPage(item.name, element.category._id)}>
+                                                    <li onClick={() => redirectToAllProductPage(item.name, element.category._id)} className="cursor-btn">
                                                       {" "}
                                                       <Link
                                                         className="mega-menu-list-item"

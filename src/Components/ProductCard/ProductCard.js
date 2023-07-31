@@ -335,13 +335,20 @@ const ProductCard = (props) => {
                         </div>
                         <div
                           className="product-content"
-                          onClick={() =>
-                            redirectToProductDiscriptionPage(item.name)
-                          }
                         >
                           <div className="product-content-upper">
-                            <p className="product-name f1">{item?.brand.name}</p>
-                            <p className="product-desc cursor-btn">{item?.name}</p>
+                            <div onClick={() =>
+                            redirectToProductDiscriptionPage(
+                              item?.slug,
+                              item._id
+                            )
+                          }>
+                            <p className="product-name product-desc cursor-btn f1">{item?.name} 
+                            </p>
+                          </div>
+                          <div>
+                            <p className=" ">{item?.brand.name}</p>
+                          </div>
                           </div>
   
                           <div className="add-to-cart-box">
@@ -423,13 +430,20 @@ const ProductCard = (props) => {
                           </div>
                           <div
                             className="product-content"
-                            onClick={() =>
-                              redirectToProductDiscriptionPage(item.name)
-                            }
                           >
                             <div className="product-content-upper">
-                              <p className="product-name f1">{item?.brand.name}</p>
-                              <p className="product-desc cursor-btn">{item?.name}</p>
+                              <div onClick={() =>
+                              redirectToProductDiscriptionPage(
+                                item?.slug,
+                                item._id
+                              )
+                            }>
+                              <p className="product-name f1 product-desc cursor-btn">{item?.name}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="">{item?.brand.name}</p>
+                              </div>
                             </div>
     
                             <div className="add-to-cart-box">
