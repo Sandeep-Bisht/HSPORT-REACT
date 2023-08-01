@@ -276,7 +276,6 @@ const ProductCard = (props) => {
             </div>
           </div>
           <div className="row">
-            {}
             {productList && productList==true ? 
             <div className="col-12 d-flex justify-content-center">
             <Loader/>

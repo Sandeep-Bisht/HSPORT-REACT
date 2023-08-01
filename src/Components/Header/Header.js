@@ -455,7 +455,7 @@ const Header = () => {
                                 <li>
                                   <Link
                                     className="dropdown-item-1"
-                                    to="/user/profile"
+                                    to="/userProfile"
                                   >
                                     My Profile
                                   </Link>
