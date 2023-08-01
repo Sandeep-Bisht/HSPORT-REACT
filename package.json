@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@mui/material": "^5.14.1",
     "@popperjs/core": "^2.11.8",
     "@react-icons/all-files": "^4.1.0",

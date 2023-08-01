@@ -7,9 +7,10 @@ import { GiBoxUnpacking } from "react-icons/gi";
 import { BiCategory } from "react-icons/bi";
 import { BsListNested } from "react-icons/bs";
 import { useEffect } from "react";
-import { baseUrl } from "../../Utils/Service";
 import axios from "axios";
-
+import { baseUrl } from "../../Utils/Service.js";
+import BarChart from "./BarChart.js/BarChart.js"
+import PieChart from "./PieChart/PieChart";
 const AdminDashboard = () => {
 
   const [products, Setproducts] = useState("");
@@ -123,7 +124,13 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </Link>
-          </div>      
+          </div>  
+          <div className="col-lg-6 col-md-6 col-sm-6 col-6 pt-5">
+            <PieChart/>
+          </div>
+          <div className="col-lg-6 col-md-6 col-sm-6 col-6 pt-5">
+            <BarChart/>
+          </div>    
         </div>
       </main>
     </div>

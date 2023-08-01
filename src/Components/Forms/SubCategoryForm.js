@@ -158,7 +158,7 @@ const [editableData]=useState(location?.state);
                   <form>
                     <div className="col-12 px-0">
                       <div className="card p-4 product-form">
-                        <h5>SubCategory Creation</h5>
+                        <h5>Sports Creation</h5>
                         <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">

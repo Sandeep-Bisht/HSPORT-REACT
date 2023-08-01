@@ -113,7 +113,7 @@ export default function AllSubCategoriesDetails() {
           <div className="row px-0 dashboard-container">
             <div className="col-xl-12 mt-2">
               <div className="sub-category-details-section all-products-details-section">
-                <h3 className="all-category-head all-products-head">All Subcategories <span className="count">{subCategories}</span></h3>
+                <h3 className="all-category-head all-products-head">All Sports <span className="count">{subCategories}</span></h3>
                 <div className="subcategory-search-wrap all-products-search-wrap">
                   <div>
                   <Link to="/dashboard/configuration/create-subCategory" className="add-icon">
