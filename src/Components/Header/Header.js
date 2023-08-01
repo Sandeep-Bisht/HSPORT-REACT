@@ -275,7 +275,7 @@ const Header = () => {
                             <li className="nav-item" role="presentation">
                               <button className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">All Sports</button>
                             </li>
-                            <li className="nav-item" role="presentation">
+                            {/* <li className="nav-item" role="presentation">
                               <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
                             </li>
                             <li className="nav-item" role="presentation">
@@ -283,7 +283,7 @@ const Header = () => {
                             </li>
                             <li className="nav-item" role="presentation">
                               <button className="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
-                            </li>
+                            </li> */}
                           </ul>
                           <div className="tab-content mega-menu-tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="pills-home"

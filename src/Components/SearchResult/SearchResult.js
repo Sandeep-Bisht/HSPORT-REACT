@@ -28,7 +28,6 @@ function SearchResult() {
         console.log(error);
       }
     };    
-      
 
   return (
 <ProductCard  productList={allProducts}/>  )

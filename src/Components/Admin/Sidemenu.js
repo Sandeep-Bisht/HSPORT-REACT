@@ -164,7 +164,7 @@ const Sidemenu = () => {
                             >
                               <li>
                                 <BsListNested className="configuration-icons-wrap" />
-                                SubCategory
+                                Sports
                               </li>
                             </Link>
                       <Link to="/dashboard/configuration/allPrdoucts" className="sidebar-nav-link">
