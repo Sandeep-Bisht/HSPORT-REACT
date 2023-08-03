@@ -56,12 +56,11 @@ const Header = () => {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
       getUserCart(userdata._id);
-      dispatch(ACTIONS.getUserDetails(userdata));
+     
     }
 
   }, []);
 
-  console.log(userCartItem,"userCartItem userCartItem")
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
     try {
@@ -135,8 +134,10 @@ const Header = () => {
       if (response) {
         if (response?.data?.success === 200) {
           resetLoginForm();
+          
           setUserdata(response.data.user)
           getUserCart(response.data.user._id);
+          dispatch(ACTIONS.getUserDetails(response.data.user));
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
           localStorage.removeItem("guestData");
@@ -208,6 +209,7 @@ const Header = () => {
     Cookies.remove("userdata");
     Cookies.remove("hsports_token");
     dispatch(ACTIONS.getCartDetails({}));
+    dispatch(ACTIONS.resetUserToInitialState());
     setUserCartItem(null)
   };
 
@@ -725,7 +727,7 @@ const Header = () => {
                                       (event.target.value = event.target.value.toLowerCase())
                                     }
                                   />
-                                  {errors?.username?.type === "required" && (
+                                  {registrationError?.username?.type === "required" && (
                                     <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
@@ -783,12 +785,12 @@ const Header = () => {
                                     }}
                                     maxlength={10}
                                   />
-                                  {errors?.phonenumber?.type === "required" && (
+                                  {registrationError?.phonenumber?.type === "required" && (
                                     <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
                                   )}
-                                  {errors?.phonenumber?.type === "minLength" && (
+                                  {registrationError?.phonenumber?.type === "minLength" && (
                                     <p className="text-danger error-text-form">
                                       Please enter a valid phone number.
                                     </p>

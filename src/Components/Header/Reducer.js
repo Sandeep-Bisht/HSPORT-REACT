@@ -23,10 +23,18 @@ export default (state = INITIAL_STATE, action) => {
         };
 
     case CONSTANTS.GET_USER_DETAILS :
+      console.log("inside the login state")
       return {
         ...state,
         userDetail: action.userDetails
       };
+      case CONSTANTS.RESET_USER_STATE_TO_INITIAL_STATE : {
+        console.log("inside reste tp oinitial state" )
+        return {
+          ...state,
+          userDetail : ""
+        }
+      }
       default:
         return state;
     }

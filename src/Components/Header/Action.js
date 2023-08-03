@@ -22,13 +22,21 @@ export const getSearchValue = (searchValue) => {
 };
 
 export let getUserDetails = (userDetails) => {
+  console.log(userDetails,"inside the redux for checking user");
   return {
     type: CONSTANTS.GET_USER_DETAILS,
     userDetails,
   };
-};
+}
 // export let resetCartToInitialState = () => {
 //     return {
 //       type : CONSTANTS.RESET_CART_TO_INITIAL_STATE
 //     }
 //   }
+
+export let resetUserToInitialState = () => {
+  return {
+    type: CONSTANTS.RESET_USER_STATE_TO_INITIAL_STATE,
+    
+  }
+}

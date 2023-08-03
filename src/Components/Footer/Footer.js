@@ -4,30 +4,33 @@ import { FaTelegramPlane } from "react-icons/fa";
 import './Footer.css'
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
   const [msg, setMsg] = useState();
   const [message, setMessage] = useState();
-  const [userData, setUserData] = useState({});
-  const [cookiesLoaded, setCookiesLoaded] = useState(false);
+  const [userData, setUserData] = useState();
+  const [isUserData,setIsUserData] = useState();
+
+
+  let userDetails = useSelector(
+    (state) => state?.UserCartReducer?.userDetail
+  );
+console.log(userDetails,"inside footer for checking user|Details")
+  useEffect(() => {
+    if (userDetails) {
+      setIsUserData(userDetails);
+    }
+  },[userDetails]);
 
   useEffect(() => {
-    const getAndSetUserData = () => {
-      if (Cookies.get('userdata')) {
-        let userdata = JSON.parse(decodeURIComponent(Cookies.get('userdata')));
-        setUserData(userdata);
-        window.scrollTo(0, 0);
-      }
-    };
+    if (isUserData) {
+      console.log("inside the useEffect")
+      setUserData(isUserData);
+    }
+  }, [isUserData]);
+  console.log(userData,"userdatauserdatauserdata helooooooooo")
 
-    // Use a slight delay to ensure cookies data is fetched correctly
-    const delay = 100;
-    const timer = setTimeout(() => {
-      getAndSetUserData();
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const {
     register,
