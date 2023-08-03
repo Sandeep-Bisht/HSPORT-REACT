@@ -153,6 +153,27 @@
     font-weight: 600;
 }
 
+.checkout-modal-content{
+    width: 400px;
+}
+.checkout-modal-header{
+    border-bottom: none;
+    padding-bottom: 5px;
+}
+.checkout-close-btn{
+    font-size: 12px;
+}
+.checkout-form-fields{
+    margin-bottom: 13px;
+    padding: 3px 27px;
+}
+.checkout-heading{
+    padding-top: 0px!important;
+}
+.checkout-modal-body{
+    padding-top: 5px;
+}
+
 /*----------------- Deepak media query ---------------------- */
 @media only screen and (max-width : 1399px){
   
@@ -193,6 +214,9 @@
     .cart-section .cart-para {
         font-size: 15px;
     }
+    .checkout-modal-content{
+        width: 320px;
+    }
 }
 @media only screen and (max-width : 575.98px) {
     .continue-shopping-btn{
@@ -213,7 +237,12 @@
 }
 @media only screen and (max-width : 430px)
    { 
-
+    .checkout-form-fields{
+        padding: 3px 10px;
+    }
+    .checkout-modal-content{
+        width: 280px;
+    }
  
   }
 

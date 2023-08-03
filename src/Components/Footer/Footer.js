@@ -8,15 +8,25 @@ import Cookies from "js-cookie";
 const Footer = () => {
   const [msg, setMsg] = useState();
   const [message, setMessage] = useState();
-  const [userData, setUserData] = useState();
-
+  const [userData, setUserData] = useState({});
+  const [cookiesLoaded, setCookiesLoaded] = useState(false);
 
   useEffect(() => {
-    if (Cookies.get("userdata")) {
-      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-      setUserData(userdata);
-      window.scrollTo(0, 0);
-    }
+    const getAndSetUserData = () => {
+      if (Cookies.get('userdata')) {
+        let userdata = JSON.parse(decodeURIComponent(Cookies.get('userdata')));
+        setUserData(userdata);
+        window.scrollTo(0, 0);
+      }
+    };
+
+    // Use a slight delay to ensure cookies data is fetched correctly
+    const delay = 100;
+    const timer = setTimeout(() => {
+      getAndSetUserData();
+    }, delay);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const {

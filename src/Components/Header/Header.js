@@ -36,6 +36,7 @@ const Header = () => {
   let loginState = useSelector((state) => state.UserCartReducer)
   let cartItemState = useSelector((state) => state.CartReducer)
 
+
   useEffect(() => {
     getAllCategory();
     getAllSubCategory();
@@ -60,6 +61,7 @@ const Header = () => {
 
   }, []);
 
+  console.log(userCartItem,"userCartItem userCartItem")
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
     try {
@@ -137,7 +139,7 @@ const Header = () => {
           getUserCart(response.data.user._id);
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
-
+          localStorage.removeItem("guestData");
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
@@ -455,7 +457,7 @@ const Header = () => {
                                 <li>
                                   <Link
                                     className="dropdown-item-1"
-                                    to="/user/profile"
+                                    to="/userProfile"
                                   >
                                     My Profile
                                   </Link>

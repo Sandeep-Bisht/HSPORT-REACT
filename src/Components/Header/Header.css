@@ -563,7 +563,9 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 440.98px)
 {
-  
+    .placeholder-text{
+        font-size: 12px;
+    }
   
 } 
  

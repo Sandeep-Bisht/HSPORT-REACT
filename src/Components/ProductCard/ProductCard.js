@@ -18,6 +18,7 @@ const ProductCard = (props) => {
   let dispatch = useDispatch();
   const [wishlistItem, setWishlistItem] = useState([]);
   const [userdata, setUserdata] = useState();
+  const [guestData,setGuestData]=useState()
   const [quantity, setQuantity] = useState(1);
   const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
@@ -56,6 +57,25 @@ const ProductCard = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('guestData');
+    if (storedData) {
+      setGuestData(storedData);
+    } else {
+      const generatedData = generateRandomID(20);
+      setGuestData(generatedData);
+      localStorage.setItem('guestData', generatedData);
+    }
+  }, []);
+  const generateRandomID = (length) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomID = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomID += characters[randomIndex];
+    }
+    return randomID;
+  };
 
   // Re Direction to single product page
   let redirectToProductDiscriptionPage = (name, productId) => {
@@ -176,7 +196,7 @@ const ProductCard = (props) => {
   // cart by id
 
   const CartById = async () => {
-    if (!userdata == []) {
+    if (!userdata == [] || guestData) {
       await fetch(`${url}api/cart/cart_by_id`, {
         method: "POST",
         headers: {
@@ -184,7 +204,7 @@ const ProductCard = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userid: userdata._id,
+          userid: `${userdata ? userdata._id : guestData}`,
         }),
       })
         .then((res) => res.json())
@@ -202,7 +222,8 @@ const ProductCard = (props) => {
 
   // Add to cart
   const AddtoCart = async () => {
-    if (!userdata == []) {
+    if (!userdata == [] || guestData) {
+      console.log("inside the userdata")
       await fetch(`${url}api/cart/add_to_cart`, {
         method: "POST",
         headers: {
@@ -210,7 +231,7 @@ const ProductCard = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userid: userdata._id,
+          userid: `${userdata ? userdata._id : guestData}`,
           order: order,
         }),
       })
@@ -239,7 +260,7 @@ const ProductCard = (props) => {
       },
       body: JSON.stringify({
         _id: setUserCartDetail._id,
-        userid: userdata._id,
+        userid: `${userdata ? userdata._id : guestData}`,
         order: userCart,
       }),
     })

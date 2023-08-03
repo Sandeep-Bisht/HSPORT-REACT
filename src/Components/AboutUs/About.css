@@ -37,9 +37,6 @@
     background: #f7f7f7;
     padding: 60px 0 80px;
 }
-.container {
-    max-width: 1080px!important;
-}
 .common-heading {
     font-size: 30px;
     letter-spacing: 2px;
@@ -61,9 +58,7 @@
 .about-3{
     padding: 80px 0;
 }
-.container {
-    max-width: 1080px!important;
-}
+
 .align-items-center {
     align-items: center!important;
 }

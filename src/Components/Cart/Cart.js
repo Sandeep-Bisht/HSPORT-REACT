@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import * as ACTIONS from "../Header/Action";
 import * as COMMON_ACTIONS from "../../CommonServices/Action"
+import { useForm } from "react-hook-form";
 
 
 const Cart = () => {
@@ -17,20 +18,49 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState();
   const [discount, setDiscount] = useState();
   const [payableAmount, setPayableAmount] = useState();
+  const [checkoutForm, setCheckoutForm] = useState(false);
 
   const [data, Setdata] = useState({
-    
+
     order: [],
     userid: "",
     order_no: "",
-    mobile:"",
+    mobile: "",
     username: "",
     status: "pending",
     totalamount: "",
     actualamount: "",
     email: "",
   });
-  
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors},
+    reset,
+    watch,
+  } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      phonenumber: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onBlur",
+    
+  });
+  useEffect(() => {
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+    }
+  }, [userdata]);
+
+  const handleRegistration = async (data) => {
+     console.log(data, "check checkout register page");
+  };
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,7 +75,7 @@ const Cart = () => {
       setUserCartDetail(cartState[0]);
       cartAmount(cartState[0]?.order);
       Setdata({ ...data, order: JSON.stringify(cartState[0]?.order) });
-          
+
     }
     window.scroll(0, 0);
   }, [cartState]);
@@ -69,14 +99,6 @@ const Cart = () => {
   };
 
   let url = "http://localhost:8080/";
-
-  useEffect(() => {
-    if (Cookies.get("userdata")) {
-      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-      setUserdata(userdata);
-    }
-  }, []);
-
 
   const updateCart = (cartId, updateOrder) => {
     fetch(`${url}api/cart/update_cart_by_id`, {
@@ -158,51 +180,42 @@ const Cart = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault();
-    
-
-    // let { order } = data;
-    // let neworder = JSON.parse(order);
-    // neworder.forEach(function (item) {
-    //   delete item.category;
-    //   delete item.description;
-    //   delete item.delivery_time;
-    //   delete item.justification;
-    //   delete item.manufacturer;
-    //   delete item.mrp;
-    // });
-
-    
-  
-
-
-    const formData = new FormData();
-     formData.append("order", JSON.stringify(userCart));
-     formData.append("userid", userdata._id);
-     formData.append("username", userdata.username);
-     formData.append("mobile", userdata.phonenumber);
+    if (!userdata == []) {
+      const formData = new FormData();
+      formData.append("order", JSON.stringify(userCart));
+      formData.append("userid", userdata._id);
+      formData.append("username", userdata.username);
+      formData.append("mobile", userdata.phonenumber);
       formData.append("status", data.status);
-     formData.append("order_no", Math.floor(Math.random() * 1000000));
+      formData.append("order_no", Math.floor(Math.random() * 1000000));
       formData.append("totalamount", payableAmount);
       formData.append("actualamount", subTotal);
-     formData.append("email", userdata.email);
-     console.log("user dtata ", userdata)
+      formData.append("email", userdata.email);
+      console.log("user dtata ", userdata)
 
 
-    const url = `http://localhost:8080/api/order/create-checkout-session`;
-     await fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        window.location.href = res.url;
+      const url = `http://localhost:8080/api/order/create-checkout-session`;
+      await fetch(url, {
+        method: "POST",
+        body: formData,
       })
-      .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((res) => {
+          window.location.href = res.url;
+        })
+        .catch((err) => console.log(err));
+    }
+    else {
+      reset();
+      setCheckoutForm(true);
+    }
+
   };
 
 
 
   return (
+    <>
     <section className="cart-section">
       <div className="container">
         <div className="row mt-3 mb-3">
@@ -307,50 +320,237 @@ const Cart = () => {
                         <span>{subTotal}</span>
                       </li>
                       <li className="list-style">
-                      <spam className="product-name"> Discount</spam>
+                        <spam className="product-name"> Discount</spam>
                         <span>{discount}</span>
                       </li>
                       <li className="list-style">
-                      <spam className="product-name">Payable Amount</spam>
+                        <spam className="product-name">Payable Amount</spam>
                         <span>{payableAmount}</span>
                       </li>
                     </ul>
                   </div>
-                  <div className="checkout-button-div pb-2">
-                    <button className="checkout-button" onClick={(e)=> handleCheckout(e)}>Checkout</button>
-                  </div>
+                  {
+                    userdata ?
+                      <div className="checkout-button-div pb-2">
+                        <button className="checkout-button" onClick={(e) => handleCheckout(e)}>Checkout</button>
+                      </div> :
+                      <div className="checkout-button-div pb-2">
+                        <button type="button" class="checkout-button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={(e) => handleCheckout(e)}>
+                          Checkout
+                        </button>
+                      </div>
+                  }
+
                 </div>
               </div>
             </>
           ) : (
-              <div className="col-12 cart-card">
-                <p className="cart-card-text">
-                  <span className="common-heading">YOUR CART IS EMPTY</span>
+            <div className="col-12 cart-card">
+              <p className="cart-card-text">
+                <span className="common-heading">YOUR CART IS EMPTY</span>
+              </p>
+              <div>
+                <p className="m-0 cart-para">
+                  Add items that you like to your cart. Review them anytime
+                  and easily move them to the bag.
                 </p>
-                <div>
-                  <p className="m-0 cart-para">
-                    Add items that you like to your cart. Review them anytime
-                    and easily move them to the bag.
-                  </p>
-                </div>
-                <div className="cart-empty-icon">
-                  <img src={Empty} alt="" className="img-fluid" />
-                </div>
-                <div>
-                  <button
-                    className="continue-shopping-btn w-10 login-btn"
-                    onClick={() => {
-                      navigate("/");
-                    }}
-                  >
-                    Continue Shopping
-                  </button>
-                </div>
               </div>
+              <div className="cart-empty-icon">
+                <img src={Empty} alt="" className="img-fluid" />
+              </div>
+              <div>
+                <button
+                  className="continue-shopping-btn w-10 login-btn"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            </div>
           )}
         </div>
-      </div>
+        </div>
     </section>
+              <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div className="modal-dialog">
+                <div className="modal-content checkout-modal-content">
+                  <div className=" modal-header checkout-modal-header">
+                  <button type="button" className="btn-close checkout-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body checkout-modal-body">
+                  <div className="container">
+                    <div className="row">
+              <div className="col-12">
+              <form
+                              className="newsletter-form"
+                              onSubmit={handleSubmit(handleRegistration)}
+                            >
+                              <div className="row">
+                                <div className="col-md-12">
+                                <h1 className="common-heading checkout-heading" id="exampleModalLabel">Checkout Registration</h1>
+                                  <div className="form-fields checkout-form-fields">
+                                    <input
+                                      type="text"
+                                      placeholder="Enter your name"
+                                      className="form-control placeholder-text"
+                                      {...register("username", {
+                                        required: true,                                     
+                                      })}
+                                      onInput={(event) =>
+                                        (event.target.value = event.target.value.toLowerCase())
+                                      }
+                                    />
+                                    {errors?.username?.type === "required" && (
+                                      <p className="text-danger error-text-form">
+                                        This field is required
+                                      </p>
+                                    )}
+                                   
+                                  </div>
+  
+                                  <div className="form-fields checkout-form-fields">
+                                    <input
+                                      type="text"
+                                      className="form-control placeholder-text"
+                                      autoComplete="off"
+                                      name="email"
+                                      placeholder="Enter your email address"
+                                      // onInput={() => setMessage("")}
+                                      {...register("email", {
+                                        required: true,
+                                        pattern:
+                                          /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
+                                      })}
+                                    />
+  
+                                    {errors?.email?.type ===
+                                      "required" && (
+                                        <p className="text-danger error-text-form">
+                                          This field is required
+                                        </p>
+                                      )}
+  
+                                    {errors?.email?.type ===
+                                      "pattern" && (
+                                        <p className="text-danger error-text-form">
+                                          Please enter Valid email Address
+                                        </p>
+                                      )}
+                                  </div>
+  
+                                  <div className="form-fields checkout-form-fields">
+                                    <input
+                                      type="number"
+                                      placeholder="Enter your phone number"
+                                      className="form-control placeholder-text"
+                                      {...register("phonenumber", {
+                                        required: true,
+                                        minLength: 10,
+                                      })}
+                                      onInput={(e) => {
+                                        if (
+                                          e.target.value.length > e.target.maxLength
+                                        )
+                                          e.target.value = e.target.value.slice(
+                                            0,
+                                            e.target.maxLength
+                                          );
+                                      }}
+                                      maxlength={10}
+                                    />
+                                    {errors?.phonenumber?.type === "required" && (
+                                      <p className="text-danger error-text-form">
+                                        This field is required
+                                      </p>
+                                    )}
+                                    {errors?.phonenumber?.type === "minLength" && (
+                                      <p className="text-danger error-text-form">
+                                        Please enter a valid phone number.
+                                      </p>
+                                    )}
+                                  </div>
+  
+                                  <div className="form-fields checkout-form-fields">
+                                    <input
+                                      type="password"
+                                      className="form-control placeholder-text"
+                                      name="password"
+                                      autoComplete="off"
+                                      placeholder="Password"
+                                      {...register("password", {
+                                        required: true,
+                                        pattern:
+                                          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                                      })}
+                                    />
+                                    {errors?.password?.type ===
+                                      "required" && (
+                                        <p className="text-danger error-text-form">
+                                          This field is required
+                                        </p>
+                                      )}
+                                    {errors?.password?.type ===
+                                      "pattern" && (
+                                        <p className="text-danger error-text-form password-err">
+                                          Must have atleast 8 characters, one
+                                          number, upper & lowercase letters &
+                                          special character
+                                        </p>
+                                      )}
+                                  </div>
+  
+                                  <div className="form-fields checkout-form-fields">
+                                    <input
+                                      type="password"
+                                      className="form-control placeholder-text"
+                                      name="confirmPassword"
+                                      autoComplete="off"
+                                      placeholder="Confirm Password"
+                                      {...register(
+                                        "confirmPassword",
+                                        {
+                                          required: true,
+                                          validate: (val) => {
+                                            if (watch("password") !== val) {
+                                              return "Your Password Does not Match";
+                                            }
+                                          },
+                                        }
+                                      )}
+                                    />
+                                    {errors?.confirmPassword?.type ===
+                                      "required" && (
+                                        <p className="text-danger error-text-form">
+                                          This field is required
+                                        </p>
+                                      )}
+                                    {errors?.confirmPassword?.type ===
+                                      "validate" && (
+                                        <p className="text-danger error-text-form">
+                                          Password does not match
+                                        </p>
+                                      )}
+                                  </div>
+  
+                                  <div className="form-fields checkout-form-fields">
+                                    <button className="common-btn w-100 login-btn"
+                                    >
+                                      SIGNUP
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+              </div>
+              </div>
+            </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </>
   );
 };
 
