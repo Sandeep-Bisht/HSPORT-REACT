@@ -175,7 +175,7 @@ const Footer = () => {
                     }
                   </div>
                   <li>
-                    <Link to="/NeedSupport" className="footer-links f2">
+                    <Link to="/needAndSupport" className="footer-links f2">
                       Need Support?
                     </Link>
                   </li>
