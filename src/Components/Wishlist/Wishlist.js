@@ -60,7 +60,7 @@ const deleteWishlist = async (productId) => {
   return (
     <section className="wishlist-section">
       {isLoading || (userWishlist && userWishlist.length > 0) ? (
-        <section className="">
+        <section className="product-card-area">
           <div className="container">
             <div className="row">
               <div className="col-md-12">

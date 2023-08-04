@@ -27,7 +27,7 @@ function CategoryProduct(props) {
     autoPlaySpeed: 3000,
     responsive:[
       {
-      breakpoint:575,
+      breakpoint:767,
       settings : {
         slidesToShow: 2,
       }

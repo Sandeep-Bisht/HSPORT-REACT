@@ -5,7 +5,6 @@
     width: 450px;
     display: flex;
     flex-direction: column;
-    /* box-shadow: 0 9px 1px 18px #f5f5f5; */
   }
   .Myacount-page .card:hover {
     box-shadow: 0 0 14px rgba(0,0,0,.19), 0 0 12px rgba(2,0,0,.23);
