@@ -20,6 +20,7 @@ const Cart = () => {
   const [payableAmount, setPayableAmount] = useState();
   const [checkoutForm, setCheckoutForm] = useState(false);
   const [isUserData, setIsUserData] = useState();
+  const [guestData,setGuestData]=useState()
 
 
   const [data, Setdata] = useState({
@@ -54,8 +55,11 @@ const Cart = () => {
   });
 
   let userDetails = useSelector(
-    (state) => state?.UserCartReducer?.userDetail
+    (state) =>{ 
+      console.log(state,"inside the use selector");
+      return state?.UserCartReducer?.userDetail}
   );
+
 
   useEffect(() => {
     if (userDetails) {
@@ -69,6 +73,8 @@ const Cart = () => {
     }
   }, [isUserData]);
 
+
+  console.log(userDetails,"inside the cart to check user details")
   const handleRegistration = async (data) => {
     console.log(data, "check checkout register page");
   };
@@ -92,6 +98,12 @@ const Cart = () => {
     window.scroll(0, 0);
   }, [cartState]);
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('guestData');
+    if (storedData) {
+      setGuestData(storedData);
+    }
+  },[]);
 
   const cartAmount = (order) => {
 
@@ -121,7 +133,7 @@ const Cart = () => {
       },
       body: JSON.stringify({
         _id: cartId,
-        userid: userdata?._id,
+        userid: `${userdata ? userdata._id : guestData}`,
         order: updateOrder?.length > 0 ? updateOrder : [],
       }),
     })
@@ -162,7 +174,7 @@ const Cart = () => {
 
 
   const CartById = async () => {
-    if (!userdata == []) {
+    if (!userdata == [] || guestData) {
       await fetch(`${url}api/cart/cart_by_id`, {
         method: "POST",
         headers: {
@@ -170,7 +182,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userid: userdata._id,
+          userid: `${userdata ? userdata._id : guestData}`,
         }),
       })
         .then((res) => res.json())

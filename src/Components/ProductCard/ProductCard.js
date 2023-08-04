@@ -23,9 +23,10 @@ const ProductCard = (props) => {
   const [userCart, setUserCart] = useState(null);
   const [order, Setorder] = useState([]);
   const [classUsingLocation,setClassUsingLocation]=useState(false);
-  const [setUserCartDetail, setSetUserCartDetail] = useState(null)
+  const [userCartDetail, setSetUserCartDetail] = useState(null)
   const { productList } = props;
   const {featuredProductList} =props
+  
 
   let cartState = useSelector((state) => state.UserCartReducer);
   const location=useLocation();
@@ -84,6 +85,7 @@ const ProductCard = (props) => {
 
   // Add to wishlist
   const onClickWishListHandler = async (productId) => {
+    if(userdata){
     let data = {};
     const foundNumber = wishlistItem.find(
       (item) => item.productId._id === productId
@@ -116,6 +118,7 @@ const ProductCard = (props) => {
         });
       }
     }
+  }
   };
 
   // Get Wishlist Item
@@ -259,7 +262,7 @@ const ProductCard = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id: setUserCartDetail._id,
+        _id: userCartDetail._id,
         userid: `${userdata ? userdata._id : guestData}`,
         order: userCart,
       }),

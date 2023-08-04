@@ -10,6 +10,7 @@ import "react-multi-carousel/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import * as ACTIONS from "../../CommonServices/Action";
 import Loader from "../Loader/Loader";
+import * as HEADER_ACTIONS from "../Header/Action"
 
 
 const ProductDetailPage = () => {
@@ -28,8 +29,16 @@ const ProductDetailPage = () => {
   const [order, Setorder] = useState([]);
   const [isLoading,setIsLoading]=useState(true);
   const [categoryId,setCategoryId] = useState("");
+  const [guestData,setGuestData]=useState()
 
   let url = "http://localhost:8080/";
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('guestData');
+    if (storedData) {
+      setGuestData(storedData);
+    }
+  },[]);
 
   useEffect(() => {
     if(Cookies.get("userdata"))
@@ -119,6 +128,7 @@ const ProductDetailPage = () => {
 
    // Add to wishlist
    const onClickWishListHandler = async (productId) => {
+    if(userdata){
     addColorClass()
     let data = {};
     const foundNumber = wishlistItem.find(
@@ -152,6 +162,7 @@ const ProductDetailPage = () => {
         });
       }
     }
+  }
   };
 
     //cart finction
@@ -184,7 +195,7 @@ const ProductDetailPage = () => {
           status: "Pending",
           delivery_time: "No Status",
         };
-        if (userCart.order == null || userCart.order == []) {
+        if (userCart.order == null || userCart.order == []) { 
           for (var i = 0; i < order.length; i++) {
             if (order[i].productid == newItemObj.productid) {
               order[i].quantity += newItemObj.quantity;
@@ -214,11 +225,11 @@ const ProductDetailPage = () => {
         }
       }
     };
-  
+  console.log(userCart,"userCart userCart userCart")
     // cart by id
   
     const CartById = async () => {
-      if (!userdata == []) {
+      if (!userdata == [] || guestData) {
         await fetch(`${url}api/cart/cart_by_id`, {
           method: "POST",
           headers: {
@@ -226,7 +237,7 @@ const ProductDetailPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userid: userdata._id,
+            userid: `${userdata ? userdata._id : guestData}`,
           }),
         })
           .then((res) => res.json())
@@ -234,6 +245,7 @@ const ProductDetailPage = () => {
             setUserCart(data.data[0]);
             let cartItems = data.data[0].order.length;
             dispatch(ACTIONS.getCartItem(cartItems));
+            dispatch(HEADER_ACTIONS.getCartDetails(data.data))
           })
           .catch((err) => {
             console.log(err, "error");
@@ -243,7 +255,7 @@ const ProductDetailPage = () => {
   
     // Add to cart
     const AddtoCart = async () => {
-      if (!userdata == []) {
+      if (!userdata == [] || guestData) {
         await fetch(`${url}api/cart/add_to_cart`, {
           method: "POST",
           headers: {
@@ -251,7 +263,7 @@ const ProductDetailPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userid: userdata._id,
+            userid: `${userdata ? userdata._id : guestData}`,
             order: order,
           }),
         })
@@ -281,7 +293,7 @@ const ProductDetailPage = () => {
         },
         body: JSON.stringify({
           _id: userCart._id,
-          userid: userdata._id,
+          userid: `${userdata ? userdata._id : guestData}`,
           order: userCart.order,
         }),
       })

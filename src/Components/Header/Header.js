@@ -32,10 +32,24 @@ const Header = () => {
   const [subCategoryList, setSubCategoryList] = useState();
   const [activeLogin, setActiveLogin] = useState(true);
   const [userCartItem, setUserCartItem] = useState(null)
+  const [guestData,setGuestData]=useState()
 
   let loginState = useSelector((state) => state.UserCartReducer)
-  let cartItemState = useSelector((state) => state.CartReducer)
+  let cartItemState = useSelector((state) =>
+  { 
+    console.log(state,"state to check after refresh")
+    return state.CartReducer
+  }) 
 
+  useEffect(() => {
+    const storedData = localStorage.getItem('guestData');
+    if (storedData) {
+      setGuestData(storedData);
+      getUserCart(storedData);
+    }
+  },[]);
+
+  console.log(guestData,"check the guest data inside the header")
 
   useEffect(() => {
     getAllCategory();
@@ -56,9 +70,8 @@ const Header = () => {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
       getUserCart(userdata._id);
-     
+      dispatch(ACTIONS.getUserDetails(userdata));
     }
-
   }, []);
 
   const getAllCategory = async () => {
@@ -89,7 +102,7 @@ const Header = () => {
   const getUserCart = async (userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
-      let response = await axios.post(url, { userid: userid });
+      let response = await axios.post(url, {userid: userid } );
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
@@ -177,7 +190,6 @@ const Header = () => {
     
   });
   const handleRegistration = async (data) => {
-    console.log("inside handle registraion", data)
     data["role"] = "user";
     let url = "http://localhost:8080/api/auth/register";
 

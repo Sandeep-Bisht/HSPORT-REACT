@@ -14,23 +14,17 @@ const Footer = () => {
 
 
   let userDetails = useSelector(
-    (state) => state?.UserCartReducer?.userDetail
+    (state) =>
+    { 
+      return state;
+    }
   );
-console.log(userDetails,"inside footer for checking user|Details")
   useEffect(() => {
-    if (userDetails) {
-      setIsUserData(userDetails);
+    if (userDetails?.UserCartReducer) {
+      let userInfo=userDetails.UserCartReducer.userDetail
+      setUserData(userInfo);
     }
   },[userDetails]);
-
-  useEffect(() => {
-    if (isUserData) {
-      console.log("inside the useEffect")
-      setUserData(isUserData);
-    }
-  }, [isUserData]);
-  console.log(userData,"userdatauserdatauserdata helooooooooo")
-
 
   const {
     register,
@@ -154,19 +148,20 @@ console.log(userDetails,"inside footer for checking user|Details")
                   <div>
                     {
                       userData ?
-                        <li>
-                          <Link to="/userProfile" className="footer-links f2">
-                            My Account
-                          </Link>
-                        </li> :
-                        <button
-                          className="footer-links f2 order-history-btn"
-                          data-bs-toggle="modal"
-                          data-bs-target="#staticBackdrop"
-                          type="button"
-                        >
-                          My Account
-                        </button>
+                      <li>
+                      <Link to="/userProfile" className="footer-links f2">
+                        My Account
+                      </Link>
+                    </li>
+                    :
+                      <button
+                      className="footer-links f2 order-history-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      type="button"
+                    >
+                      My Account
+                    </button>
                     }
                   </div>
                   <div>
