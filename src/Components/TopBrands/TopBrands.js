@@ -39,8 +39,6 @@ const TopBrand =(props)=> {
               <div className="col-12 d-flex justify-content-center"><Loader/> </div>:
               <Slider ref={setSliderRef} {...settings} className="mb-4 top-brands-slider">
               {allTopBrands && allTopBrands.map((item,index)=>{
-                if(index<4)
-                {
                 return(
                   <div className='col-3 brands-image'>
                     <div className='brands-inner-div'>
@@ -48,7 +46,6 @@ const TopBrand =(props)=> {
                   </div>
                   </div>
                 )
-                }
               })}
               </Slider>
             }

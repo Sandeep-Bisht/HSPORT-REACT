@@ -34,6 +34,7 @@ import PaymentSuccessfull from '../Components/PaymentSuccessfull/PaymentSuccessf
 import ContactUs from '../Components/ContactUS/ContactUs';
 import Cookies from 'js-cookie';
 import UserProfile from '../Components/UserProfile/userprofile';
+import NeedAndSupport from '../Components/NeedSupport/NeedSupport';
 
 
 
@@ -93,6 +94,7 @@ const ApplicationRoutes = () => {
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
       <Route path='/contact-us' element={<ContactUs />} />
       <Route path='/userProfile' element={<UserProfile/>} />
+      <Route path='/needAndSupport' element={<NeedAndSupport/>} />
     </Routes>
   )
 }
