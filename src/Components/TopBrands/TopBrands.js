@@ -16,18 +16,18 @@ const TopBrand =(props)=> {
   var settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     arrows: false,
-    speed: 4000,
+    speed: 2000,
     autoplay: true,
     pauseOnHover: true,
     autoPlaySpeed: 3000,
   };
 
   return (
-    <section className='top-brand-section'>
-    <div className='container top-brand-container m-auto'>
+    <section className='container-fluid top-brand-section'>
+    <div className='top-brand-container m-auto'>
         <div className='row logo-wrap brand-main'>
         <div className="col-md-12 ">
               <h1 className="common-heading text-center mb-lg-5">

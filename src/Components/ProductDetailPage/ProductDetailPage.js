@@ -71,7 +71,6 @@ const ProductDetailPage = () => {
       console.log(error);
     }
   };
-  console.log(productDetail,"check all the details or products",categoryId);
 
 
   let rediretToSubCategories = (categoryId) => {
@@ -221,11 +220,10 @@ const ProductDetailPage = () => {
             userCart.order.push(newItemObj);
           }
           setQuantity(1);
-           UpdateCart();
+           UpdateCart(productid);
         }
       }
     };
-  console.log(userCart,"userCart userCart userCart")
     // cart by id
   
     const CartById = async () => {
@@ -284,7 +282,11 @@ const ProductDetailPage = () => {
   
     //update cart
   
-    const UpdateCart = () => {
+    const UpdateCart = (productid) => {
+      const product=userCart.order.map((item)=>item)
+      const productsData=product.filter((item)=>item.productid==productid)
+        if(productsData[0].quantity<productsData[0].maximumOrder)
+        {
       fetch( `${url}api/cart/update_cart_by_id`, {
         method: "put",
         headers: {
@@ -305,7 +307,13 @@ const ProductDetailPage = () => {
             content: `Product added to cart`,
           });
         })
-        .then((err) => console.log(err, "inside update cart"));
+        .then((err) => console.log(err));
+      }else{
+        addToast("Warning!", {
+          appearance: "success",
+          content: `You have exceed the maximum limit`,
+        });
+      }
     };
 
   return (

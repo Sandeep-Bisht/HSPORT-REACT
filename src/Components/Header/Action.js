@@ -22,7 +22,6 @@ export const getSearchValue = (searchValue) => {
 };
 
 export let getUserDetails = (userDetails) => {
-  console.log(userDetails,"inside the redux for checking user");
   return {
     type: CONSTANTS.GET_USER_DETAILS,
     userDetails,

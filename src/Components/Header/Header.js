@@ -37,7 +37,6 @@ const Header = () => {
   let loginState = useSelector((state) => state.UserCartReducer)
   let cartItemState = useSelector((state) =>
   { 
-    console.log(state,"state to check after refresh")
     return state.CartReducer
   }) 
 
@@ -49,7 +48,6 @@ const Header = () => {
     }
   },[]);
 
-  console.log(guestData,"check the guest data inside the header")
 
   useEffect(() => {
     getAllCategory();

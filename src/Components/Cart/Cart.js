@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import * as ACTIONS from "../Header/Action";
 import * as COMMON_ACTIONS from "../../CommonServices/Action"
 import { useForm } from "react-hook-form";
+import { useToasts } from "react-toast-notifications";
 
 
 const Cart = () => {
@@ -54,9 +55,10 @@ const Cart = () => {
 
   });
 
+  let { addToast } = useToasts();
+
   let userDetails = useSelector(
     (state) =>{ 
-      console.log(state,"inside the use selector");
       return state?.UserCartReducer?.userDetail}
   );
 
@@ -74,7 +76,6 @@ const Cart = () => {
   }, [isUserData]);
 
 
-  console.log(userDetails,"inside the cart to check user details")
   const handleRegistration = async (data) => {
     console.log(data, "check checkout register page");
   };
@@ -152,11 +153,16 @@ const Cart = () => {
     }
   };
 
-  const plusHander = (quantity, index) => {
-    if (quantity && quantity >= 1 && userCart) {
+  const plusHander = (quantity, maximumOrder, index) => {
+    if (quantity && quantity >= 1 && (quantity < maximumOrder) && userCart) {
       let updateOrder = userCart
       updateOrder[index].quantity = quantity + 1;
       updateCart(userCartDetail._id, updateOrder);
+    }else{
+      addToast("Success!", {
+        appearance: "success",
+        content: `You have exceed the maximum limit`,
+      });
     }
   };
 
@@ -299,7 +305,7 @@ const Cart = () => {
                                     {item?.quantity}
                                   </span>
                                   <div className="plus-minus-btn cursor-btn" onClick={() =>
-                                    plusHander(item?.quantity, index)
+                                    plusHander(item?.quantity,item?.maximumOrder, index)
                                   }>
                                     <span>
                                       +

@@ -142,6 +142,7 @@ const ProductCard = (props) => {
     quantity,
     mrp,
     salePrice,
+    maximumOrder,
     sortDescription,
     category,
     brand,
@@ -156,6 +157,7 @@ const ProductCard = (props) => {
         name: name,
         image: image,
         quantity: quantity,
+        maximumOrder:maximumOrder,
         mrp: parseInt(mrp),
         salePrice: parseInt(salePrice),
         sortDescription: sortDescription,
@@ -191,7 +193,9 @@ const ProductCard = (props) => {
           userCart.push(newItemObj);
         }
         setQuantity(1);
-         UpdateCart();
+
+         UpdateCart(productid);
+        
       }
     }
   };
@@ -226,7 +230,6 @@ const ProductCard = (props) => {
   // Add to cart
   const AddtoCart = async () => {
     if (!userdata == [] || guestData) {
-      console.log("inside the userdata")
       await fetch(`${url}api/cart/add_to_cart`, {
         method: "POST",
         headers: {
@@ -254,7 +257,11 @@ const ProductCard = (props) => {
   };
 
   //update cart
-  const UpdateCart = () => {
+  const UpdateCart = (productid) => {
+    const product=userCart.map((item)=>item)
+    const productsData=product.filter((item)=>item.productid==productid)
+      if(productsData[0].quantity<productsData[0].maximumOrder)
+      {
     fetch( `${url}api/cart/update_cart_by_id`, {
       method: "put",
       headers: {
@@ -276,6 +283,13 @@ const ProductCard = (props) => {
         });
       })
       .catch((err) => console.log(err));
+    }
+    else{
+      addToast("Warning!", {
+        appearance: "success",
+        content: `You have exceed the maximum limit`,
+      });
+    }
   };
 
   return (
@@ -332,6 +346,7 @@ const ProductCard = (props) => {
                                     quantity,
                                     item.inrMrp,
                                     item.inrDiscount,
+                                    item.maximumOrder,
                                     item.sortDescription,
                                     item.category.name,
                                     item.brand.name,
@@ -420,6 +435,7 @@ const ProductCard = (props) => {
                                     quantity,
                                     item.inrMrp,
                                     item.inrDiscount,
+                                    item.maximumOrder,
                                     item.sortDescription,
                                     item.category.name,
                                     item.brand.name,
@@ -515,6 +531,7 @@ const ProductCard = (props) => {
                                       quantity,
                                       item.inrMrp,
                                       item.inrDiscount,
+                                      item.maximumOrder,
                                       item.sortDescription,
                                       item.category.name,
                                       item.brand.name,
