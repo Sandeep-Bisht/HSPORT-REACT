@@ -285,7 +285,7 @@ const ProductCard = (props) => {
       .catch((err) => console.log(err));
     }
     else{
-      addToast("Warning!", {
+      addToast("Success!", {
         appearance: "success",
         content: `You have exceed the maximum limit`,
       });

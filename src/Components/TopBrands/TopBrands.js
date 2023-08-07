@@ -16,7 +16,7 @@ const TopBrand =(props)=> {
   var settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
     speed: 2000,

@@ -33,6 +33,7 @@ const Header = () => {
   const [activeLogin, setActiveLogin] = useState(true);
   const [userCartItem, setUserCartItem] = useState(null)
   const [guestData,setGuestData]=useState()
+  const [logout,setLogout]=useState(false);
 
   let loginState = useSelector((state) => state.UserCartReducer)
   let cartItemState = useSelector((state) =>
@@ -46,7 +47,7 @@ const Header = () => {
       setGuestData(storedData);
       getUserCart(storedData);
     }
-  },[]);
+  },[logout]);
 
 
   useEffect(() => {
@@ -106,6 +107,7 @@ const Header = () => {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
           if (response?.data.data[0]?.order.length > 0) {
             setUserCartItem(response?.data.data[0]?.order.length)
+            setLogout(false);
           } else {
             setUserCartItem(null)
           }
@@ -220,7 +222,8 @@ const Header = () => {
     Cookies.remove("hsports_token");
     dispatch(ACTIONS.getCartDetails({}));
     dispatch(ACTIONS.resetUserToInitialState());
-    setUserCartItem(null)
+    setUserCartItem(null);
+    setLogout(true);
   };
 
   // Re Direction to all product page

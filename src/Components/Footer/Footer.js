@@ -5,6 +5,7 @@ import './Footer.css'
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import BaseLine from "../baseLine/BaseLine";
 
 const Footer = () => {
   const [msg, setMsg] = useState();
@@ -67,6 +68,7 @@ const Footer = () => {
   };
   return (
     <>
+      <BaseLine/>
       <footer className="footer-area">
         <div className="container m-auto">
           <div className="row">

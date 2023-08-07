@@ -2,11 +2,12 @@
     background-color: #fafafa;
 } */
 .logo-wrap {
-    padding: 60px 65px;
+    padding: 30px 65px 60px 65px;
     /* box-shadow: -21.213px 21.213px 30px 0px rgba(157, 157, 157, 0.2); */
 }
 .single-image{
 height: 90px;
+width: 100px;
 }
 .brands-inner-div{
     display: flex;
