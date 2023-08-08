@@ -9,7 +9,7 @@ import "./BaseLine.css"
 
 function BaseLine() {
   return (
-    <section className='container-fluie baseLine-container'>
+    <section className='container-fluie baseLine-container mt-5'>
         <div className='row baseLine-row'>
             <div className='col-lg-2 col-md-2 col-sm-4 col-6 d-flex justify-content-center align-item-center baseLine-content'>
                 <div className='d-flex justify-content-center baseLine-main'>
