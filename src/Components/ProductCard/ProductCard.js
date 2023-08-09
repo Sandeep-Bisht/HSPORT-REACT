@@ -26,8 +26,8 @@ const ProductCard = (props) => {
   const [userCartDetail, setSetUserCartDetail] = useState(null)
   const { productList } = props;
   const {featuredProductList} =props
+  const {related} = props
   
-
   let cartState = useSelector((state) => state.UserCartReducer);
   const location=useLocation();
 
@@ -299,10 +299,14 @@ const ProductCard = (props) => {
           <div className="row">
             <div className="col-md-12 ">
               {
-                productList && (productList.length || productList==true) &&
+                productList && (productList.length || productList==true) && (related=="related")?
                 <h1 className="common-heading text-center mb-lg-5">
-                Our Products
+                Related Products
               </h1>
+              :
+              <h1 className="common-heading text-center mb-lg-5">
+              Our Products
+            </h1>
               }
                             {
                 featuredProductList && (featuredProductList.length || featuredProductList==true) && 

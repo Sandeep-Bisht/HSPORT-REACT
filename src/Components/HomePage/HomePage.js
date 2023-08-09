@@ -7,7 +7,7 @@ import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
 import TopBrand from "../TopBrands/TopBrands";
-import {Link} from "react-router-dom"
+import {Link, Navigate, useNavigate} from "react-router-dom"
 import Loader from "../Loader/Loader";
 
 const HomePage = () => {
@@ -18,6 +18,9 @@ const HomePage = () => {
   const [allTopBrands,setAllTopBrands]=useState([]);
   const [isLoading,setIsLoading]=useState(true);
   
+
+  let url="http://localhost:8080/"
+  let navigate = useNavigate();
 
 useEffect(() => {
   getAllProducts();
@@ -76,6 +79,10 @@ const getTopBrands=async()=>{
   }
 }
 
+const bannerShopNowClickHandler = (categoryId)=>{
+ navigate("/allProducts", {state:categoryId})
+}
+
   return (
     <>
       <div className="home-slider">
@@ -109,7 +116,32 @@ const getTopBrands=async()=>{
             />
           </div>
           <div className="carousel-inner">
-            <div className="carousel-item">
+            {
+              allCategories && allCategories.length>0 ?
+              allCategories.map((item,index)=>{
+                return (
+                  <>
+            <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={`duplicate-${index}`}>
+              <img src={`${url}${item?.image[0].path}`} className="d-block w-100" alt="..." />
+
+              <div className="carousel-caption d-md-block">
+                <p className="slider-title">
+                  Amazing Shopping
+                  <br />
+                  Experience{" "}
+                </p>
+               
+                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id)}>
+                  <span>Shop Now</span>
+                </button>
+              </div>
+            </div>
+                  </>
+                )
+              })
+              :
+              <>
+              <div className="carousel-item">
               <img src={slider1} className="d-block w-100" alt="..." />
 
               <div className="carousel-caption d-md-block">
@@ -124,7 +156,7 @@ const getTopBrands=async()=>{
                 </Link>
               </div>
             </div>
-            <div className="carousel-item active">
+              <div className="carousel-item active">
               <img src={slider2} className="d-block w-100" alt="..." />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
@@ -151,6 +183,10 @@ const getTopBrands=async()=>{
                 </Link>
               </div>
             </div>
+            </>
+            }
+
+
           </div>
           <button
             className="carousel-control-prev"

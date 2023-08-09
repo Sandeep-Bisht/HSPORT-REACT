@@ -11,12 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import * as ACTIONS from "../../CommonServices/Action";
 import Loader from "../Loader/Loader";
 import * as HEADER_ACTIONS from "../Header/Action"
+import ProductCard from "../ProductCard/ProductCard";
 
 
 const ProductDetailPage = () => {
 
   let { addToast } = useToasts();
-  const wishlistRef = useRef();
+  const wishlistRef = useRef(null);
   let dispatch = useDispatch()
   const navigate = useNavigate();
   let location = useLocation();
@@ -30,6 +31,9 @@ const ProductDetailPage = () => {
   const [isLoading,setIsLoading]=useState(true);
   const [categoryId,setCategoryId] = useState("");
   const [guestData,setGuestData]=useState()
+  const [allRelatedCategory,setAllRelatedCategory] = useState([]);
+  const [currentWishlistProduct,setCurrentWishlistProduct]=useState({});
+
 
   let url = "http://localhost:8080/";
 
@@ -40,15 +44,18 @@ const ProductDetailPage = () => {
     }
   },[]);
 
+  useEffect(()=>{
+    getAllProducs();
+  },[categoryId])
+
   useEffect(() => {
-    if(Cookies.get("userdata"))
-    {
-    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-    setUserdata(userdata);
-    getUserWishlist(userdata._id);
+    if (Cookies.get("userdata")) {
+      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
+      setUserdata(userdata);
+      getUserWishlist(userdata._id);
     }
-    window.scroll(0,0)
-  },[]);
+    window.scroll(0, 0);
+  }, [ productDetail]);
 
   useEffect(() => {
     if (location?.state) {
@@ -71,6 +78,21 @@ const ProductDetailPage = () => {
       console.log(error);
     }
   };
+
+  const getAllProducs = async()=>{
+    try{
+      let url = "http://localhost:8080/api/product/all_product";
+      const response = await axios.get(url);
+      const relatedCategory =  response?.data.data.filter((item)=>
+      {
+        return categoryId==item?.category._id;
+      }
+      )
+      setAllRelatedCategory(relatedCategory)
+    }catch(err){
+      console.log(err);
+    }
+  }
 
 
   let rediretToSubCategories = (categoryId) => {
@@ -112,17 +134,28 @@ const ProductDetailPage = () => {
         let wishlist = response?.data?.data;
         const foundProduct = wishlist?.find((item) => item?.productId._id == location?.state);
         if(foundProduct){
-          addColorClass()
+          setCurrentWishlistProduct(foundProduct);
+        }else{
+          setCurrentWishlistProduct({});
         }
-
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    addColorClass();
+  }, [currentWishlistProduct]);
+
+
   const addColorClass = () => {
-    wishlistRef.current.classList.add('wishlist-icon');
+    if (currentWishlistProduct?.productId) {
+      wishlistRef.current?.classList.add('wishlist-icon');
+    }
+    else{
+      wishlistRef.current?.classList.remove('wishlist-icon');
+    }
   };
 
    // Add to wishlist
@@ -526,6 +559,7 @@ const ProductDetailPage = () => {
 }
         </div>
       </section>
+      <ProductCard productList={allRelatedCategory} related="related"/>
     </>
   );
 };
