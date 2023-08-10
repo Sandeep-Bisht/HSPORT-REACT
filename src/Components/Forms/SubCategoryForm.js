@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../Admin/Dashboard.css"
 import { baseUrl } from "../../Utils/Service";
 import { useNavigate } from "react-router";
+import {useLocation} from "react-router-dom"
+import axios from "axios";
 
 var Userdata;
 const SubCategoryForm = (props) => {
@@ -12,26 +14,26 @@ const SubCategoryForm = (props) => {
     name: "",
     description: "",
     category: "",
-    // image: [],
+    image: [],
   });
 
-//   const [editableData] = useState(props.history.location.state);
-const [editableData]=useState(props);
+const location=useLocation();
+const [editableData]=useState(location?.state);
   const history = useNavigate();
 
   useEffect(() => {
     Userdata = JSON.parse(localStorage.getItem("Userdata"));
     GetSubCategory();
     GetCategory();
-    // if (editableData) {
-    //   let { category, ...restData } = editableData;
-    //   {
-    //     category
-    //       ? (restData.category = category)
-    //       : (restData.category = "");
-    //   }
-    //   Setdata(restData);
-    // }
+    if (editableData) {
+      let { category, ...restData } = editableData;
+      {
+        category
+          ? (restData.category = category)
+          : (restData.category = "");
+      }
+      Setdata(restData);
+    }
   }, []);
 
   useEffect(()=>{
@@ -62,7 +64,7 @@ const [editableData]=useState(props);
        formData.append("description", data.description);
        formData.append("category", data.category);
        formData.append("name", data.name);
-      // formData.append("image", data.image);
+      formData.append("image", data.image);
       const url = `${baseUrl}/api/subcategory/add_subcategory`;
       await fetch(url, {
         method: "POST",
@@ -70,7 +72,7 @@ const [editableData]=useState(props);
       })
         .then((res) => {
           res.json();
-          history("/dashboard/AllSubCategories");
+          history("/dashboard/configuration/AllSubCategories");
         })
         .then((res) => {
           GetSubCategory();
@@ -92,37 +94,37 @@ const [editableData]=useState(props);
       });
   };
   const GetSubCategory = async () => {
-    // await fetch(`${baseUrl}/api/subcategory/all_subcategory`)
-    //   .then((res) => res.json())
-    //   .then(async (data) => {
-    //   })
-    //   .catch((err) => {
-    //     console.log(err, "error");
-    //   });
+    await fetch(`${baseUrl}/api/subcategory/all_subcategory`)
+      .then((res) => res.json())
+      .then(async (data) => {
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
   };
 
   const UpdateSubCategory = async (e, _id) => {
     e.preventDefault();
     const errors = ValidationFrom(data);
     Setformerror(errors);
-//     if (Object.keys(errors).length === 0) {
-//     const formData = new FormData();
-//     await formData.append("_id", data._id);
-//     await formData.append("name", data.name);
-//     await formData.append("description", data.description);
-//     await formData.append("category", data.category);
-//     await formData.append("image", data.image);
-//     const response = await axios.put(
-//       `${baseUrl}/api/subcategory/update_subcategory_by_id`,
-//       formData
-//     );
-//     if (response.status === 200) {
-//       await GetSubCategory();
-//       setTimeout(() => {
-//         history.push("Configuration/"+"AllSubCategoriesDetails");
-//       }, 1500);
-//     }
-//   }
+    if (Object.keys(errors).length === 0) {
+    const formData = new FormData();
+    await formData.append("_id", data._id);
+    await formData.append("name", data.name);
+    await formData.append("description", data.description);
+    await formData.append("category", data.category);
+    await formData.append("image", data.image);
+    const response = await axios.put(
+      `${baseUrl}/api/subcategory/update_subcategory_by_id`,
+      formData
+    );
+    if (response.status === 200) {
+      await GetSubCategory();
+      setTimeout(() => {
+        history("/dashboard/configuration/AllSubCategories");
+      }, 1500);
+    }
+  }
   };
 
   const handleInputChange = (event) => {
@@ -155,12 +157,12 @@ const [editableData]=useState(props);
             <div className="col-xl-12 px-0">
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
-                        <h5>SubCategory Creation</h5>
+                      <div className="card p-4 product-form">
+                        <h5>Sports Creation</h5>
                         <div className="row">
-                        {/* <div className="col-md-6 col-12 image-main-div">
-                              <div className="row image-second-div"> */}
-                          {/* {
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
+                              <div className="row image-second-div">
+                          {
                             editableArray && editableArray.length>0  ?
                             <div className="d-flex">
                             <div className="col-10">
@@ -176,13 +178,13 @@ const [editableData]=useState(props);
                                 }}
                               />
                             </div>
-                            <p className="formerror">{formerror.image}</p>
+                            <p className="formerror mb-0">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"40px"}} alt=""/> 
+                             <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/> 
                           </div>
                           </div>:
-                          <div className="col-12 p-2">
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
                           <div>
                             <span className="category-select-div">Image</span>
                             <input
@@ -195,12 +197,12 @@ const [editableData]=useState(props);
                               }}
                             />
                           </div>
-                          <p className="formerror">{formerror.image}</p>
+                          <p className="formerror mb-0">{formerror.image}</p>
                         </div>
                           }
                           </div>
-                          </div> */}
-                          <div className="col-md-6 col-12 p-2">
+                          </div>
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="">
                           <span className="category-select-div">Category</span>
                             <select
@@ -216,7 +218,7 @@ const [editableData]=useState(props);
                               }}
                               onBlur={handleBlur}
                             >
-                              <option value="" hidden defaultChecked>
+                              <option value="" hidden defaultChecked className="select-dropdown">
                                 Select Category
                               </option>
                               {categories.map((el, ind) => (
@@ -224,9 +226,9 @@ const [editableData]=useState(props);
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">{formerror.category}</p>
+                            <p className="formerror mb-0">{formerror.category}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                             <span className="category-select-div">SubCategory Name</span>
                             </div>
@@ -244,9 +246,9 @@ const [editableData]=useState(props);
                               }}
                               onBlur={handleBlur}
                             />
-                            <p className="formerror">{formerror.name}</p>
+                            <p className="formerror mb-0">{formerror.name}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                             <span className="category-select-div">SubCategory Description</span>
                             </div>
@@ -265,7 +267,7 @@ const [editableData]=useState(props);
                               }}
                             ></textarea>
                           </div>
-                          {/* {editableData ? (
+                          {editableData ? (
                             <div className="col-12 p-2">
                               <button
                                 className="btn btn-primary"
@@ -274,7 +276,7 @@ const [editableData]=useState(props);
                                 Update
                               </button>
                             </div>
-                          ) : ( */}
+                          ) : (
                             <div className="col-12 p-2">
                               <button
                                 className="btn btn-primary"
@@ -285,7 +287,7 @@ const [editableData]=useState(props);
                                 Submit
                               </button>
                             </div>
-                          {/* )} */}
+                           )}
                         </div>
                       </div>
                     </div>

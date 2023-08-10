@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../../Utils/Service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 import "../Admin/Dashboard.css"
+import axios from "axios";
 
 
 
@@ -15,7 +16,6 @@ const ProductForm = (props) => {
   const [shwoTable, setShowTable] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 //   const [editableData] = useState(props.history.location.state);
-const [editableData] = useState(props); 
   let [data, Setdata] = useState({
     name: "",
     description: "",
@@ -38,7 +38,11 @@ const [editableData] = useState(props);
     maximumOrder:""
   });
 
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const [editableData] = useState(location?.state); 
+console.log(editableData,"editableData v editableData")
 
   const validateForm = (Value) => {
     const error = {};
@@ -132,7 +136,7 @@ const [editableData] = useState(props);
       })
         .then((res) => {
           res.json();
-          navigate("/dashboard/allPrdoucts");
+          navigate("/dashboard/configuration/allPrdoucts");
         })
         .then((res) => {
           // GetData();
@@ -140,49 +144,48 @@ const [editableData] = useState(props);
         })
         .catch((err) => console.log(err));
     } else {
-      console.log("Form has errors. Please correct them.");
     }
   };
 
   const UpdateProduct = async (e, _id) => {
     e.preventDefault();
-//     const Errors = await validateForm(data);
-//     setFormErrors(Errors);
-//     if (Object.keys(Errors).length === 0) {
-//     const formData = new FormData();
-//     await formData.append("_id", data._id);
-//     await formData.append("description", data.description);
-//     await formData.append("name", data.name);
-//     await formData.append("warehouse", data.warehouse);
-//     await formData.append("category", data.category);
-//     await formData.append("subcategory", data.subcategory);
-//     await formData.append("quantity", data.quantity);
-//     await formData.append("inrMrp", data.inrMrp);
-//     await formData.append("inrDiscount", data.inrDiscount);
-//     await formData.append("manufacturer", data.manufacturer);
-//     await formData.append("type", data.type);
-//     await formData.append("image", data.image);
-//     for (let item of data.otherImage) {
-//       await formData.append("otherImage", item);
-//     }
-//     try {
-//       const response = await axios.put(
-//         `${baseUrl}/api/product/update_product_by_id`,
-//         formData
-//       );
-//       if (response.status === 200) {
-//         await GetData();
-//         setTimeout(() => {
-//           navigate("/Configuration/" + "AllProductsDetails");
-//         }, 1500);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-//   else {
-//     console.log("Form has errors. Please correct them.");
-//   }
+    const Errors =  validateForm(data);
+    setFormErrors(Errors);
+    if (Object.keys(Errors).length === 0) {
+    const formData = new FormData();
+     formData.append("_id", data._id);
+     formData.append("description", data.description);
+     formData.append("name", data.name);
+     formData.append("warehouse", data.warehouse);
+     formData.append("category", data.category);
+     formData.append("subcategory", data.subcategory);
+     formData.append("quantity", data.quantity);
+     formData.append("inrMrp", data.inrMrp);
+     formData.append("inrDiscount", data.inrDiscount);
+     formData.append("manufacturer", data.manufacturer);
+     formData.append("type", data.type);
+     formData.append("image", data.image);
+    for (let item of data.otherImage) {
+       formData.append("otherImage", item);
+    }
+    try {
+      const response = await axios.put(
+        `${baseUrl}/api/product/update_product_by_id`,
+        formData
+      );
+      if (response.status === 200) {
+        // await GetData();
+        setTimeout(() => {
+          navigate("/dashboard/configuration/allPrdoucts");
+        }, 1500);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  else {
+    console.log("Form has errors. Please correct them.");
+  }
   };
 
 
@@ -192,34 +195,34 @@ const [editableData] = useState(props);
     GetCategory()
     GetSubCategory();
     // GetData();
-    // if (editableData) {
-    //   let {
-    //     category,
-    //     subcategory,
-    //     manufacturer,
-    //     type,
-    //     ...restData
-    //   } = editableData;
-    //   {
-    //     category
-    //       ? (restData.category = category._id)
-    //       : (restData.category = "");
-    //   }
-    //   {
-    //     subcategory
-    //       ? (restData.subcategory = subcategory._id)
-    //       : (restData.subcategory = "");
-    //   }
-    //   {
-    //     manufacturer
-    //       ? (restData.manufacturer = manufacturer._id)
-    //       : (restData.manufacturer = "");
-    //   }
-    //   {
-    //     type ? (restData.type = type._id) : (restData.type = "");
-    //   }
-    //   Setdata(restData);
-    // }
+    if (editableData) {
+      let {
+        category,
+        subcategory,
+        manufacturer,
+        type,
+        ...restData
+      } = editableData;
+      {
+        category
+          ? (restData.category = category._id)
+          : (restData.category = "");
+      }
+      {
+        subcategory
+          ? (restData.subcategory = subcategory._id)
+          : (restData.subcategory = "");
+      }
+      {
+        manufacturer
+          ? (restData.manufacturer = manufacturer._id)
+          : (restData.manufacturer = "");
+      }
+      {
+        type ? (restData.type = type._id) : (restData.type = "");
+      }
+      Setdata(restData);
+    }
   }, []);
 
   const GetCategory = async () => {
@@ -277,7 +280,6 @@ const [editableData] = useState(props);
   };
 
  
-
   return (
     <>
       <section className="allProducts-section">
@@ -287,10 +289,10 @@ const [editableData] = useState(props);
             
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
+                      <div className="card p-4  product-form">
                         <h5>Product Creation</h5>
                         <div className="row">
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                           <div className="">
                           <span className="category-select-div">Product Name</span>
                             <input
@@ -306,27 +308,51 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.name}</p>
+                            <p className="formerror mb-0">{formErrors.name}</p>
                           </div>
-                          <div className="col-6 p-2">
-                          <div className="">
-                          <span className="category-select-div">Image</span>
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
+                              <div className="row image-second-div">
+                          {
+                            editableData   ?
+                            <div className="d-flex">
+                            <div className="col-10">
+                            <div>
+                              <span className="category-select-div">Image</span>
+                              <input
+                                type="file"
+                                name="image"
+                                className="form-control Dashborad-search"
+                                onChange={(e) => {
+                                  Setdata({ ...data, image: e.target.files[0] });
+                                  // handleInputChange(e);
+                                }}
+                              />
+                            </div>
+                            <p className="formerror mb-0">{formErrors.image}</p>
+                            </div>
+                            <div className="col-2 p-2 d-flex align-items-end edit-images">
+                            <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
+                          </div>
+                          </div>:
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
+                          <div>
+                            <span className="category-select-div">Image</span>
                             <input
                               type="file"
-                              className="form-control Dashborad-search"
                               name="image"
+                              className="form-control Dashborad-search"
                               onChange={(e) => {
-                                Setdata({
-                                  ...data,
-                                  image: e.target.files[0],
-                                });
+                                Setdata({ ...data, image: e.target.files[0] });
+                                // handleInputChange(e);
                               }}
                             />
-                            </div>
-                            <p className="formerror">{formErrors.image}</p>
                           </div>
-
-                          <div className="col-6 p-2">
+                          <p className="formerror mb-0">{formErrors.image}</p>
+                        </div>
+                          }
+                          </div>
+                          </div>
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="">
                           <span className="category-select-div">Other Image</span>
                             <input
@@ -342,10 +368,9 @@ const [editableData] = useState(props);
                               }}
                             />
                             </div>
-                            <p className="formerror">{formErrors.otherImage}</p>
+                            <p className="formerror mb-0">{formErrors.otherImage}</p>
                           </div>
-
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="">
                             <span className="category-select-div">Category</span>
                             <select
@@ -369,9 +394,28 @@ const [editableData] = useState(props);
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">{formErrors.category}</p>
+                            <p className="formerror mb-0">{formErrors.category}</p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          {
+                            editableData  &&
+                           <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
+                           <div className="row">
+                             {
+                               editableData ? 
+                               editableData.otherImage.map((item,index)=>{
+                                 return (
+                                   <>
+                                   <div className="col-2 p-2 d-flex align-items-end edit-images" key={index}>
+                             <img src={`${baseUrl}/${item.path}`} style={{width:"60px", height:"50px"}} alt=""/>
+                          </div>
+                                   </>
+                                 )
+                               }):""
+                             }
+                           </div>
+                         </div>
+                          }
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">SubCategory</span>
                             <select
@@ -395,11 +439,11 @@ const [editableData] = useState(props);
                               ))}
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.subcategory}
                             </p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">Brand</span>
                             <select
@@ -425,12 +469,12 @@ const [editableData] = useState(props);
                               )}
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.brand}
                             </p>
                           </div>
 
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">warehouse</span>
                             <select
@@ -459,9 +503,9 @@ const [editableData] = useState(props);
                               </option>
                             </select>
                             </div>
-                            <p className="formerror">{formErrors.warehouse}</p>
+                            <p className="formerror mb-0">{formErrors.warehouse}</p>
                           </div>
-                          <div className="col-6 p-2 required">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 required">
                           <div className="mt-2">
                             <span className="category-select-div">Gender</span>
                             <select
@@ -485,14 +529,14 @@ const [editableData] = useState(props);
                               <option>Unisex</option>
                             </select>
                             </div>
-                            <p className="formerror">
+                            <p className="formerror mb-0">
                               {formErrors.gender}
                             </p>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">
-                              Quantity of Product
+                              Quantity
                             </span>
                             <input
                               type="number"
@@ -511,9 +555,9 @@ const [editableData] = useState(props);
                             />
                             </div>
                             
-                            <p className="formerror">{formErrors.quantity}</p>
+                            <p className="formerror mb-0">{formErrors.quantity}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Height</span>
                             <input
@@ -532,9 +576,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrMrp}</p>
+                            <p className="formerror mb-0">{formErrors.inrMrp}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Width</span>
                             <input
@@ -553,9 +597,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.width}</p>
+                            <p className="formerror mb-0">{formErrors.width}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">MRP In Rupees</span>
                             <input
@@ -574,9 +618,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrMrp}</p>
+                            <p className="formerror mb-0">{formErrors.inrMrp}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">MRP after Discount</span>
                             <input
@@ -595,9 +639,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.inrDiscount}</p>
+                            <p className="formerror mb-0">{formErrors.inrDiscount}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Re-Order Quantity</span>
                             <input
@@ -616,9 +660,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.reorderQuantity}</p>
+                            <p className="formerror mb-0">{formErrors.reorderQuantity}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Maximum Order</span>
                             <input
@@ -637,9 +681,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.maximumOrder}</p>
+                            <p className="formerror mb-0">{formErrors.maximumOrder}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
+                          <div className="col-lg-3 col-md-3 col-sm-6 col-6 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Weight</span>
                             <input
@@ -658,11 +702,9 @@ const [editableData] = useState(props);
                               onBlur={handleBlur}
                             />
                             </div>
-                            <p className="formerror">{formErrors.weight}</p>
+                            <p className="formerror mb-0">{formErrors.weight}</p>
                           </div>
-                          <div className="col-3 p-2 form-floating">
-                          </div>
-                          <div className="col-6 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                           <div className="mt-2">
                             <span className="category-select-div">Product Type</span>
                             <select
@@ -684,7 +726,7 @@ const [editableData] = useState(props);
                             </select>
                             </div>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Product Sort Description</span>
                             <textarea
@@ -701,7 +743,7 @@ const [editableData] = useState(props);
                             ></textarea>
                             </div>
                           </div>
-                          <div className="col-6 p-2 form-floating">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2 form-floating">
                             <div className="mt-2">
                             <span className="category-select-div">Product Description</span>
                             <textarea
@@ -720,7 +762,7 @@ const [editableData] = useState(props);
                           </div>
 
                           <div className="row">
-                            {/* {editableData ? (
+                           {editableData ? (
                               <div className="col-6 p-2">
                                 <button
                                   className="btn btn-registration"
@@ -729,9 +771,9 @@ const [editableData] = useState(props);
                                   Update
                                 </button>
                               </div>
-                            )  */}
-                            {/* :  */}
-                            {/* ( */}
+                            )  
+                            :
+                             ( 
                               <div className="col-6 p-2">
                                 <button
                                   className="btn btn-primary submit"
@@ -741,8 +783,8 @@ const [editableData] = useState(props);
                                   Submit
                                 </button>
                               </div>
-                            {/* ) */}
-                            {/* } */}
+                            )
+                            }
                           </div>
                         </div>
                       </div>

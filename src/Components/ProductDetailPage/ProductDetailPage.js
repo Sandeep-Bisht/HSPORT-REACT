@@ -9,12 +9,15 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import * as ACTIONS from "../../CommonServices/Action";
+import Loader from "../Loader/Loader";
+import * as HEADER_ACTIONS from "../Header/Action"
+import ProductCard from "../ProductCard/ProductCard";
 
 
 const ProductDetailPage = () => {
 
   let { addToast } = useToasts();
-  const wishlistRef = useRef();
+  const wishlistRef = useRef(null);
   let dispatch = useDispatch()
   const navigate = useNavigate();
   let location = useLocation();
@@ -25,14 +28,40 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [userCart, setUserCart] = useState([]);
   const [order, Setorder] = useState([]);
+  const [isLoading,setIsLoading]=useState(true);
+  const [categoryId,setCategoryId] = useState("");
+  const [guestData,setGuestData]=useState()
+  const [allRelatedCategory,setAllRelatedCategory] = useState([]);
+  const [currentWishlistProduct,setCurrentWishlistProduct]=useState({});
+
 
   let url = "http://localhost:8080/";
 
+  let userDetails = useSelector(
+    (state) =>{ 
+      return state
+    }
+  );
+
   useEffect(() => {
-    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-    setUserdata(userdata);
-    getUserWishlist(userdata._id);
-  }, []);
+    const storedData = localStorage.getItem('guestData');
+    if (storedData) {
+      setGuestData(storedData);
+    }
+  },[]);
+
+  useEffect(()=>{
+    getAllProducs();
+  },[categoryId])
+
+  useEffect(() => {
+    if (userDetails?.UserCartReducer?.userDetail) {
+      const userDetail = userDetails?.UserCartReducer?.userDetail;
+      setUserdata(userDetail);
+      getUserWishlist(userDetail?._id);
+    }
+    window.scroll(0, 0);
+  }, [userDetails, productDetail]);
 
   useEffect(() => {
     if (location?.state) {
@@ -48,17 +77,33 @@ const ProductDetailPage = () => {
       let response = await axios.post(url, data);
       if (response) {
         setProductDetail(response?.data?.data[0]);
-       
+        setCategoryId(response?.data?.data[0]?.category?._id);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getAllProducs = async()=>{
+    try{
+      let url = "http://localhost:8080/api/product/all_product";
+      const response = await axios.get(url);
+      const relatedCategory =  response?.data.data.filter((item)=>
+      {
+        return categoryId==item?.category._id;
+      }
+      )
+      setAllRelatedCategory(relatedCategory)
+    }catch(err){
+      console.log(err);
+    }
+  }
 
-  let rediretToSubCategories = (subCategoryId, subCategoriesName) => {
+
+  let rediretToSubCategories = (categoryId) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");
-    // navigate(`/collections/${subCategories}`, { state: subCategoryId });
+    navigate("/allProducts" , { state: categoryId });
   };
 
   let imageOnClickHandler = (imageUrl) => {
@@ -93,25 +138,35 @@ const ProductDetailPage = () => {
       if (response) {
         setWishlistItem(response.data.data);
         let wishlist = response?.data?.data;
-        console.log(wishlist,"wishlist wishlist", location?.state)
         const foundProduct = wishlist?.find((item) => item?.productId._id == location?.state);
         if(foundProduct){
-          console.log(foundProduct,"foundProduct foundProduct")
-          addColorClass()
+          setCurrentWishlistProduct(foundProduct);
+        }else{
+          setCurrentWishlistProduct({});
         }
-
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    addColorClass();
+  }, [currentWishlistProduct]);
+
+
   const addColorClass = () => {
-    wishlistRef.current.classList.add('wishlist-icon');
+    if (currentWishlistProduct?.productId) {
+      wishlistRef.current?.classList.add('wishlist-icon');
+    }
+    else{
+      wishlistRef.current?.classList.remove('wishlist-icon');
+    }
   };
 
    // Add to wishlist
    const onClickWishListHandler = async (productId) => {
+    if(userdata){
     addColorClass()
     let data = {};
     const foundNumber = wishlistItem.find(
@@ -123,7 +178,7 @@ const ProductDetailPage = () => {
         content: `Product is already in wishlist`,
       });
     } else {
-      let userId = userdata._id;
+      let userId = userdata?._id;
       data["productId"] = productId;
       data["userId"] = userId;
 
@@ -145,6 +200,7 @@ const ProductDetailPage = () => {
         });
       }
     }
+  }
   };
 
     //cart finction
@@ -177,8 +233,7 @@ const ProductDetailPage = () => {
           status: "Pending",
           delivery_time: "No Status",
         };
-        if (userCart.order == null || userCart.order == []) {
-          console.log("inside add to  cart", userCart)
+        if (userCart.order == null || userCart.order == []) { 
           for (var i = 0; i < order.length; i++) {
             if (order[i].productid == newItemObj.productid) {
               order[i].quantity += newItemObj.quantity;
@@ -193,7 +248,6 @@ const ProductDetailPage = () => {
             
           }
         } else {
-          console.log("inside update cart", userCart)
           for (var i = 0; i < userCart.order.length; i++) {
             if (userCart.order[i].productid == newItemObj.productid) {
               userCart.order[i].quantity += newItemObj.quantity;
@@ -205,15 +259,14 @@ const ProductDetailPage = () => {
             userCart.order.push(newItemObj);
           }
           setQuantity(1);
-           UpdateCart();
+           UpdateCart(productid);
         }
       }
     };
-  
     // cart by id
   
     const CartById = async () => {
-      if (!userdata == []) {
+      if (!userdata == [] || guestData) {
         await fetch(`${url}api/cart/cart_by_id`, {
           method: "POST",
           headers: {
@@ -221,15 +274,15 @@ const ProductDetailPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userid: userdata._id,
+            userid: `${userdata ? userdata._id : guestData}`,
           }),
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside cart by iddddd")
             setUserCart(data.data[0]);
             let cartItems = data.data[0].order.length;
             dispatch(ACTIONS.getCartItem(cartItems));
+            dispatch(HEADER_ACTIONS.getCartDetails(data.data))
           })
           .catch((err) => {
             console.log(err, "error");
@@ -239,7 +292,7 @@ const ProductDetailPage = () => {
   
     // Add to cart
     const AddtoCart = async () => {
-      if (!userdata == []) {
+      if (!userdata == [] || guestData) {
         await fetch(`${url}api/cart/add_to_cart`, {
           method: "POST",
           headers: {
@@ -247,13 +300,12 @@ const ProductDetailPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userid: userdata._id,
+            userid: `${userdata ? userdata._id : guestData}`,
             order: order,
           }),
         })
           .then((res) => res.json())
           .then(async (data) => {
-            console.log(data, "inside adddddddd to cart")
             // setUserCart(data.data);
             CartById();
             addToast("Success!", {
@@ -269,7 +321,11 @@ const ProductDetailPage = () => {
   
     //update cart
   
-    const UpdateCart = () => {
+    const UpdateCart = (productid) => {
+      const product=userCart.order.map((item)=>item)
+      const productsData=product.filter((item)=>item.productid==productid)
+        if(productsData[0].quantity<productsData[0].maximumOrder)
+        {
       fetch( `${url}api/cart/update_cart_by_id`, {
         method: "put",
         headers: {
@@ -278,7 +334,7 @@ const ProductDetailPage = () => {
         },
         body: JSON.stringify({
           _id: userCart._id,
-          userid: userdata._id,
+          userid: `${userdata ? userdata._id : guestData}`,
           order: userCart.order,
         }),
       })
@@ -290,7 +346,13 @@ const ProductDetailPage = () => {
             content: `Product added to cart`,
           });
         })
-        .then((err) => console.log(err, "inside update cart"));
+        .then((err) => console.log(err));
+      }else{
+        addToast("Warning!", {
+          appearance: "success",
+          content: `You have exceed the maximum limit`,
+        });
+      }
     };
 
   return (
@@ -308,7 +370,7 @@ const ProductDetailPage = () => {
               <span className="separator">/</span>
               <span
                 className="bred-crumb-one"
-                onClick={() => rediretToSubCategories()}
+                onClick={() => rediretToSubCategories(categoryId)}
               >
                 Categories
               </span>
@@ -318,9 +380,18 @@ const ProductDetailPage = () => {
           </div>
         </div>
       </div>
-      <section className="product-description ">
+        <section className="product-description ">
         <div className="container">
+        {
+        isLoading ? 
+        <div className="row m-5 ">
+        <div className="col-12 d-flex justify-content-center">
+        <Loader/> 
+        </div>
+        </div>
+        :
           <div className="row custom-gutter">
+
             <div className="col-md-6 desktop-view-image">
               <div
                 className="single-image-detail"
@@ -379,7 +450,7 @@ const ProductDetailPage = () => {
                 <h2 className="title-wrap common-heading">
                   {productDetail?.name}
                   <div
-                    className="wishlist-div ps-3"
+                    className="wishlist-div ps-3 cursor-btn"
                     onClick={() => onClickWishListHandler(productDetail._id)}
                   >
                     <span className="wishlist-btn" id="wishlisted" ref={wishlistRef}>
@@ -418,7 +489,7 @@ const ProductDetailPage = () => {
                     <div>
                       <div className="col-md-6">
                         <button
-                          className="common-btn w-100 login-btn"
+                          className="common-btn w-100 porductDetail-addToCart"
                           onClick={() =>
                             cartfunction(
                               productDetail._id,
@@ -489,9 +560,12 @@ const ProductDetailPage = () => {
                 </div>
               </div>
             </div>
+
           </div>
+}
         </div>
       </section>
+      <ProductCard productList={allRelatedCategory} related="related"/>
     </>
   );
 };

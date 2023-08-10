@@ -1,0 +1,58 @@
+.baseLine-container{
+   padding:0px 20px;
+   background-color:#f7f7f7;
+}
+.baseLine-main{
+    padding: 20px 5px;
+}
+.baseLine-text{
+    font-size: 12px;
+    margin-bottom: 0px;
+    padding: 5px 5px 5px 15px;
+    font-weight: 600;
+}
+.baseLine-icon{
+    height: 35px;
+    width: 35px;
+}
+@media (max-width:991px){
+    .baseLine-text{
+        font-size: 9px;
+        padding: 5px;
+    }
+    .baseLine-icon{
+        height: 20px;
+        width: 20px;
+    }
+    .baseLine-content{
+        padding: 0px;
+    }
+}
+@media(max-width:767px){
+    .baseLine-text{
+        font-size: 10px;
+    }
+    .baseLine-icon{
+        height: 23px;
+        width: 23px;
+    }
+    .baseLine-main{
+        padding: 15px 5px;
+    }
+}
+@media(max-width:575px){
+    .baseLine-text{
+        font-size: 10px;
+    }
+    .baseLine-icon{
+        height: 20px;
+        width: 20px;
+    }
+    .baseLine-content{
+        justify-content: start!important;
+        align-items: start!important;
+    }
+    .baseLine-main{
+        padding: 8px 5px;
+    }
+}

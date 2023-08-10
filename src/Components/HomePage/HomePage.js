@@ -1,32 +1,87 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HomePage.css";
-import slider1 from "../../Images/slider1.jpg";
+import slider1 from "../../Images/banner-1.jpg";
 import slider2 from "../../Images/slider2.jpg";
 import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
+import CategoryProduct from "../CategoryProduct/CategoryProduct";
+import TopBrand from "../TopBrands/TopBrands";
+import {Link, Navigate, useNavigate} from "react-router-dom"
+import Loader from "../Loader/Loader";
 
 const HomePage = () => {
 
   const [allProducts, setAllProducts] = useState([])
+  const [allCategories,setAllCategories]=useState([]);
+  const [featruedCategories,setFeatruedCategories]=useState([]);
+  const [allTopBrands,setAllTopBrands]=useState([]);
+  const [isLoading,setIsLoading]=useState(true);
+  
+
+  let url="http://localhost:8080/"
+  let navigate = useNavigate();
 
 useEffect(() => {
-  getAllProducts()
+  getAllProducts();
+  getAllCategories();
+  getTopBrands();
+  window.scroll(0,0);
 }, [])
 
 const getAllProducts = async() => {
+  setIsLoading(true);
   let url = "http://localhost:8080/api/product/all_product";
   let response = await axios.get(url);
     try {
       if(response){
-         setAllProducts(response.data.data) 
-       
+         setAllProducts(response.data.data) ;
+         let featuredBrand = response.data.data.filter((item)=>{
+          return item.brand.featuredBrands=="Featured Categories"
+         })
+         setFeatruedCategories(featuredBrand);
+         setIsLoading(false);
       }
     } catch (error) {
       console.log(error)
     }
 }
 
+const getAllCategories=async()=>{
+  setIsLoading(true);
+  let url = "http://localhost:8080/api/category/all_category";
+  let response = await axios.get(url);
+    try {
+      if(response){
+         setAllCategories(response.data.data) 
+         setIsLoading(false);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+const getTopBrands=async()=>{
+  setIsLoading(true);
+  let url = "http://localhost:8080/api/brands/all_brands";
+  const topBrands=await axios.get(url)
+  {
+    try{
+      if(topBrands)
+      {
+        setAllTopBrands(topBrands.data.data);
+        setIsLoading(false);
+      }
+    }catch(error)
+    {
+      console.log(error);
+    }
+  }
+}
+
+const bannerShopNowClickHandler = (categoryId)=>{
+ navigate("/allProducts", {state:categoryId})
+}
 
   return (
     <>
@@ -61,7 +116,32 @@ const getAllProducts = async() => {
             />
           </div>
           <div className="carousel-inner">
-            <div className="carousel-item">
+            {
+              allCategories && allCategories.length>0 ?
+              allCategories.map((item,index)=>{
+                return (
+                  <>
+            <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={`duplicate-${index}`}>
+              <img src={`${url}${item?.image[0].path}`} className="d-block w-100" alt="..." />
+
+              <div className="carousel-caption d-md-block">
+                <p className="slider-title">
+                  Amazing Shopping
+                  <br />
+                  Experience{" "}
+                </p>
+               
+                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id)}>
+                  <span>Shop Now</span>
+                </button>
+              </div>
+            </div>
+                  </>
+                )
+              })
+              :
+              <>
+              <div className="carousel-item">
               <img src={slider1} className="d-block w-100" alt="..." />
 
               <div className="carousel-caption d-md-block">
@@ -71,12 +151,12 @@ const getAllProducts = async() => {
                   Experience{" "}
                 </p>
                
-                <a href="#" className="common-btn">
+                <Link to="/allProducts" className="common-btn">
                   <span>Shop Now</span>
-                </a>
+                </Link>
               </div>
             </div>
-            <div className="carousel-item active">
+              <div className="carousel-item active">
               <img src={slider2} className="d-block w-100" alt="..." />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
@@ -85,9 +165,9 @@ const getAllProducts = async() => {
                   Products{" "}
                 </p>
                 
-                <a href="#" className="common-btn">
-                  <span className="">Shop Now</span>
-                </a>
+                <Link to="/allProducts" className="common-btn">
+                  <span>Shop Now</span>
+                </Link>
               </div>
             </div>
             <div className="carousel-item">
@@ -98,11 +178,15 @@ const getAllProducts = async() => {
                   <br />
                   Experience{" "}
                 </p>               
-                <a href="#" className="common-btn">
-                  <span className="">Shop Now</span>
-                </a>
+                <Link to="/allProducts" className="common-btn banner-shopnow-btn">
+                  <span>Shop Now</span>
+                </Link>
               </div>
             </div>
+            </>
+            }
+
+
           </div>
           <button
             className="carousel-control-prev"
@@ -160,7 +244,10 @@ const getAllProducts = async() => {
           </button>
         </div>
       </div>
-      <ProductCard  productList={allProducts}/>
+      <ProductCard  productList={isLoading ? isLoading : allProducts}/>
+      <CategoryProduct allCategories={isLoading ? isLoading : allCategories}/>
+      <ProductCard  featuredProductList={isLoading ? isLoading : featruedCategories}/>
+      <TopBrand allTopBrands={isLoading ? isLoading : allTopBrands}/>
     </>
   );
 };

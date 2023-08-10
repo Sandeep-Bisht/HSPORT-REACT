@@ -101,3 +101,115 @@
 .home-slider .carousel-control-next-icon:hover {
     background:#cc0034;
 }
+
+/* -----------------------media query-------------- */
+
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+  
+}
+
+@media (max-width: 840.98px)
+{
+  
+}
+
+
+@media (max-width: 767.98px)
+{
+    .home-slider #carouselExampleCaptions .slider-title
+    {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+     .home-slider .common-btn span{
+           margin-right: 0!important;
+    }
+    .home-slider .carousel-control-next-icon
+    {
+        height: 30px;
+        width: 30px;
+    }
+    .home-slider .carousel-control-next-icon svg
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .home-slider #carouselExampleCaptions img
+    {
+        height: 350px;
+    }
+    .home-slider .carousel-control-prev-icon svg{
+        height: 20px;
+        width: 20px;
+    }
+    .home-slider .carousel-control-prev-icon{
+        height: 30px;
+        width: 30px;
+    }
+}
+
+
+
+
+@media (max-width: 690.98px)
+{
+    }
+
+@media (max-width: 575.98px)
+{
+    .all-sports-toggler span
+    {
+        display: none;
+    }
+    .below-heading
+    {
+       display: none;
+    }
+    .product-single-card .product-pic img
+    {
+        height:200px;
+    }
+    .home-slider #carouselExampleCaptions .slider-title
+    {
+        font-size: 24px;
+    }
+    .banner-shopnow-btn{
+        padding: 7px 8px!important;
+    }
+    .home-slider .carousel-control-next-icon {
+        height: 25px;
+        width: 25px;
+    }
+    .home-slider .carousel-control-prev-icon {
+        height: 25px;
+        width: 25px;
+    }
+    .home-slider .carousel-control-next-icon svg {
+        height: 15px;
+        width: 15px;
+    }
+} 
+
+@media (max-width: 480.98px)
+{
+} 
+
+
+@media (max-width: 440.98px)
+{
+
+} 
+ 

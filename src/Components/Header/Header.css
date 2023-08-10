@@ -6,7 +6,11 @@ header{
 }
 .main-logo
 {
-    width: 80px;
+    height: 60px;
+}
+.mobile-logo
+{
+    display: none;
 }
 .all-sports-toggler
 {
@@ -108,7 +112,9 @@ header{
 .header-right-link:focus{
     color: hsl(0, 0%, 100%);
 }
-
+.mega-menu-tab-heading.nav-pills .nav-link.active {
+    background-color: transparent!important;
+}
 
 /* sandeeep css login modal */
 
@@ -116,6 +122,7 @@ header{
     display: flex;
     justify-content: space-around!important;
     flex-direction: row!important;
+    padding-left: 10px;
 
 }
 .registration-section {
@@ -130,7 +137,7 @@ header{
 }
  .left-login-modal {
     display: flex;
-    justify-content: center;
+    padding-left: 35px;
     background: #eff1f3!important;
     color: #f7f8f9;
     margin-left: -4px!important;
@@ -147,6 +154,7 @@ header{
     --tw-text-opacity: 1;
     color: rgba(52,68,80,var(--tw-text-opacity));
     font-size: 1.8rem;
+    /* width: 280px; */
 }
 .login-left-second{
     --tw-text-opacity: 1;
@@ -164,6 +172,7 @@ max-width: fit-content!important;
 }
 .login-btn{
     border: 0px;
+    margin-top: 20px!important;
 }
 
 
@@ -262,12 +271,26 @@ max-width: fit-content!important;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
 }
-
-
+.nav-pills .nav-link{
+    --tw-text-opacity: 1;
+    color: rgba(52,68,80,var(--tw-text-opacity));
+    font-weight: 500;
+}
+.nav-pills .nav-link.active{
+    background-color: #fff!important;
+    color: #0d6efd!important;
+    font-weight: 500;
+    border-bottom: 2px solid #0d6efd;
+    border-radius: 0px;
+}
+.login-signup-btn{
+    display: flex;
+    justify-content: center;
+}
 /* ---------------after-login-dropdown------------ */
 .after-login-dropdown
 {
-    
+  position: static;
 }
 .after-login-dropdown .header-right-link
 {
@@ -281,15 +304,34 @@ max-width: fit-content!important;
     height: 21px;
     width: 21px;
 }
+
 .after-login-dropdown  .dropdown-menu[data-bs-popper]
 {
-    left:-90px
+    /* left:-90px */
+        /* left: -90px; */
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        background: #fff;
+        width: 14%;
+        margin-left: auto;
 }
 .after-login-dropdown .dropdown-menu 
 {
     background-color: #fafafa;
     border-radius: 0;
     padding: 10px;
+    right: 17px;
+}
+.login-registration-modal{
+    background-color: #fff;
+}
+.error-text-form{
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 .after-login-dropdown .dropdown-menu li a
 {
@@ -299,4 +341,232 @@ max-width: fit-content!important;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 5px;
+    text-decoration: none;
+    display: block;
 }
+.cart-top-items{
+    position: relative;
+    color: #000;
+    font-size: 10px;
+    left: 38px;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+.single-footer-widget .newsletter-form .input-newsletter {
+    padding: 10px;
+}
+
+
+
+/* -----------------------media query-------------- */
+
+@media (max-width: 1399.98px)
+{
+} 
+@media (max-width: 1199.98px)
+{
+   
+} 
+
+@media (max-width: 1024.98px)
+{
+} 
+
+@media (max-width: 991.98px)
+{
+    .mega-menu
+    {
+        overflow: auto;
+    }  
+    .mega-menu-tab-heading.nav-pills .nav-link.active
+    {
+        background-color: transparent!important;
+    }
+
+}
+@media (max-width: 840.98px)
+{
+    .mega-menu
+    {
+        height: calc( 100vh - 59.06px);
+        top: 59.6px;
+    }
+    .cart-top-items {
+   
+        font-size: 9px;
+       width: 13px;
+        height: 13px;
+       
+    }
+}
+
+
+@media (max-width: 767.98px)
+{
+    
+        /* mega menu responsive */
+        .mega-menu-tab-heading.nav-pills .nav-link{
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading {
+            font-size: 14px;
+        }
+        .mega-menu-sub-heading-list li {
+            font-size: 13px;
+        }
+        
+    .mega-menu
+    {
+        height: calc( 100vh - 55px);
+        top: 55px;
+    }
+    .after-login-dropdown .dropdown-menu li a
+    {
+        font-size: 13px;
+    }
+    .registration-section {
+        width: 590px;
+    }
+    .login-left-mid {
+        font-size: 17px;
+    }
+    .endOfLogin-text {
+        font-size: 11px;
+    }
+    .login-left-second {
+        font-size: 17px;
+    }
+    .placeholder-text{
+        font-size: 13px;
+    }
+    .login-signup-btn .nav-link{
+        font-size: 14px;
+    }
+
+
+}
+@media only screen and (max-width : 630px) {
+     /* login responsive deepak */
+    .registration-section {
+        width: 470px;
+        height: 465px;
+    }
+
+    /* end login responsive */
+
+
+    /* mega menu responsive */
+
+    .close-btn-megamenu{
+       padding-right: 16px;
+       padding-top: 13px;
+    }
+    /* end mega menu */
+
+}
+
+
+
+
+@media (max-width: 690.98px)
+{
+    .cart-top-items
+    {
+        left: 34px;
+    }
+    .left-login-modal {
+        padding-left: 10px!important;
+       }
+    
+}
+
+@media (max-width: 575.98px)
+{
+    .nav-wrapper
+    {
+        flex-wrap: initial!important;
+    }
+    .header-wrapper
+    {
+        justify-content: space-between;
+    }
+    .header-wrapper .navbar-nav
+    {
+        flex-direction: row;
+    }
+    .mega-menu
+    {
+        height: calc( 100vh - 48.94px);
+        top: 48.94px;
+    }
+    .product-single-card .product-pic img {
+            height: 200px;
+    }
+    .after-login-dropdown .dropdown-menu
+   {
+       position: absolute!important;
+   }
+   .cart-top-items
+   {
+    left: 30px;
+    bottom: 5px;
+   }
+   .left-login-modal {
+    display: none;
+   }
+   .registration-section {
+    width: 364px;
+    height: fit-content;
+}
+.modal.show .modal-dialog {
+   margin: auto;
+   margin-top: 15px;
+}
+.modal-header-top{
+    padding-bottom: 0px;
+}
+
+} 
+
+@media (max-width: 480.98px)
+{
+    .mega-menu-sub-heading
+    {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    .mega-menu-sub-heading-list li
+    {
+        font-size: 12px;
+    }
+    .close-box span
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .close-box span svg{
+        height: 12px;
+        width: 12px;
+    }
+    .registration-section {
+        width: 300px;
+        height: fit-content;
+    }
+} 
+
+
+@media (max-width: 440.98px)
+{
+    .placeholder-text{
+        font-size: 12px;
+    }
+  
+} 
+ 

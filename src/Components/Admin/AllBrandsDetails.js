@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Popconfirm, Typography } from "antd";
+import { Table, Space, Popconfirm, Typography, Button } from "antd";
 import "./Dashboard.css";
 import axios from "axios";
 import { BiSearchAlt } from "react-icons/bi";
@@ -17,34 +17,24 @@ export default function AllBrandsDetails() {
   const [brands, setBrands] = useState("");
 
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUsers();
-    // GetBrands();
+    GetBrands();
   }, []);
-  const GetBrands = async () => {
-    await fetch(`${baseUrl}/api/brands/all_brands`)
-      .then((res) => res.json())
-      .then(async (data) => {
-        setBrands(data.data);
-      })
-      .catch((err) => {
-        console.log(err, "errors");
-      });
-  };
 
-  const fetchUsers = async () => {
+  const GetBrands = async () => {
     setLoading(true);
     const response = await axios.get(`${baseUrl}/api/brands/all_brands`);
     setGetuser(response.data.data);
+    setBrands(response.data.data.length);
     setLoading(false);
   };
 
   const onChangeHandler = (e) => {
     setSearchVal(e.target.value);
     if (e.target.value === "") {
-      fetchUsers();
+      GetBrands();
     }
   };
 
@@ -56,14 +46,18 @@ export default function AllBrandsDetails() {
   };
 
   const handleDelete = async (_id) => {
-    // try {
-    //   const DeletedData = await axios.delete(
-    //     `${baseUrl}/api/category/delete_category_by_id`,
-    //     { data: { _id: _id } }
-    //   );
-    //   fetchUsers();
-    // } catch (error) {}
+    try {
+      const DeletedData = await axios.delete(
+        `${baseUrl}/api/brands/delete_brands_by_id`,
+        { data: { _id: _id } }
+      );
+      GetBrands();
+    } catch (error) {}
   };
+
+  const categoryEditHander=(topBrand)=>{
+    navigate("/dashboard/configuration/create-brand", {state:{...topBrand}})    
+  }
 
   const columns = [
     {
@@ -74,6 +68,7 @@ export default function AllBrandsDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -103,19 +98,14 @@ export default function AllBrandsDetails() {
               </a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{
-                  pathname: "/Category",
-                  state: {
-                    ...record,
-                  },
-                }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>categoryEditHander(record)}
               >
                 <MdOutlineEditNote />
-              </Link>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null,
@@ -133,10 +123,12 @@ export default function AllBrandsDetails() {
                   All Brands <span className="count">{brands}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
-                  <Link to="/dashboard/create-brand" className="add-icon">
+                  <div>
+                  <Link to="/dashboard/configuration/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type="text"

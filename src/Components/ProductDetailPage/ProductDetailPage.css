@@ -189,8 +189,79 @@
     cursor: pointer;
 }
 
-
-
 .wishlist-icon{
     color: red!important
+}
+.porductDetail-addToCart{
+    padding: 13px 17px!important;
+}
+
+/*----------------- Deepak media query ---------------------- */
+@media only screen and (max-width : 1399px){
+  
+}
+@media only screen and (max-width : 1024px) {
+  
+}
+
+@media only screen and (max-width :991px) {
+  
+}
+@media only screen and (max-width : 767px) {
+.product-description .product-details {
+    margin-left: 0px
+}
+.porductDetail-addToCart {
+    font-size: 14px!important;
+    padding: 10px 30px!important;
+    margin-top: 10px;
+    width: auto!important;
+}
+.product-description .product-details .title-wrap {
+    font-size: 15px!important;
+}
+.porductDetail-addToCart {
+    font-size: 12px!important;
+    padding: 6px 5px!important;
+}
+.product-description .product-details .price-wrap {
+    font-size: 15px;
+}
+}
+@media only screen and (max-width : 575.98px) {
+    .product-description .product-details .wishlist-btn{
+        font-size: 20px;
+    } 
+    .product-description .product-details .title-wrap {
+        font-size: 15px;
+    }
+    .product-description .tab-btn-ui {
+        font-size: 15px;
+    }
+    .porductDetail-addToCart {
+        font-size: 11px!important;
+        padding: 4px 0px!important;
+    }
+    .product-description .tabs-section .tab-content .tab-1 {
+        font-size: 12px;
+    }
+    .product-description .product-details .title-wrap {
+        font-size: 13px;
+    }
+}
+@media only screen and (max-width : 480px) {
+ 
+ 
+
+}
+@media only screen and (max-width : 430px)
+   { 
+
+ 
+  }
+
+@media only screen and (max-width : 320px) {
+
+  
+
 }

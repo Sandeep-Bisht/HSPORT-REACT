@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Space, Popconfirm, Typography } from "antd";
+import { Table, Space, Popconfirm, Typography,Button } from "antd";
 import axios from "axios";
 import { baseUrl } from "../../Utils/Service";
 import "./Dashboard.css";
@@ -17,7 +17,8 @@ export default function AllCategoriesDetails() {
   const [categories, setCategories] = useState("");
 
 
-  const history = useNavigate();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     GetCategory();
@@ -55,6 +56,10 @@ export default function AllCategoriesDetails() {
     } catch (error) {}
   };
 
+  const categoryEditHander=(categoryItem)=>{
+    navigate("/dashboard/configuration/create-category", {state:{...categoryItem}})    
+  }
+
   const columns = [
     {
       title: "Name",
@@ -64,6 +69,7 @@ export default function AllCategoriesDetails() {
     {
       title: "Description",
       dataIndex: "description",
+      responsive:["md"],
       key: "description",
     },
     {
@@ -78,7 +84,6 @@ export default function AllCategoriesDetails() {
       dataIndex: "Action",
       width: "20%",
       render: (_, record) => {
-        console.log("record:", record); // Add this line to log the record object
   
         return getuser.length >= 1 ? (
           <Space size="middle">
@@ -95,14 +100,14 @@ export default function AllCategoriesDetails() {
               </a>
             </Popconfirm>
             <Typography.Link>
-              <Link
-                to={{ pathname: "/dashboard/create-category", query: {state: { ...record }} }}
+              <Button
                 title="Edit"
                 className="edit-icon-wrap"
                 style={{ color: "blue" }}
+                onClick={()=>categoryEditHander(record)}
               >
                 <MdOutlineEditNote />
-              </Link>
+              </Button>
             </Typography.Link>
           </Space>
         ) : null;
@@ -122,10 +127,12 @@ export default function AllCategoriesDetails() {
                   All Category <span className="count">{categories}</span>
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
-                  <Link to="/dashboard/create-category" className="add-icon">
+                  <div>
+                  <Link to="/dashboard/configuration/create-category" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
+                  </div>
                   <div>
                   <input
                     type="text"

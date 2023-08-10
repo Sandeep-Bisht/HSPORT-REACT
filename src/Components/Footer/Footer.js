@@ -1,12 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {FaTelegramPlane} from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
 import './Footer.css'
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
+import BaseLine from "../baseLine/BaseLine";
 
 const Footer = () => {
   const [msg, setMsg] = useState();
   const [message, setMessage] = useState();
+  const [userData, setUserData] = useState();
+  const [isUserData,setIsUserData] = useState();
+
+
+  let userDetails = useSelector(
+    (state) =>
+    { 
+      return state;
+    }
+  );
+  useEffect(() => {
+    if (userDetails?.UserCartReducer) {
+      let userInfo=userDetails.UserCartReducer.userDetail
+      setUserData(userInfo);
+    }
+  },[userDetails]);
 
   const {
     register,
@@ -49,6 +68,7 @@ const Footer = () => {
   };
   return (
     <>
+      <BaseLine/>
       <footer className="footer-area">
         <div className="container m-auto">
           <div className="row">
@@ -65,11 +85,11 @@ const Footer = () => {
                   <li>
                     <span className="contact-heading">Email:</span>{" "}
                     <Link
-                      to="mailto:info@nutrazik.com"
+                      to="mailto:hindustan.com"
                       target="_blank"
                       className="footer-links f2"
                     >
-                      info@nutrazik.com
+                      hindustan.com
                     </Link>
                   </li>
                   <li>
@@ -86,12 +106,12 @@ const Footer = () => {
                 <h3 className="footer-heading f1">Information</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
-                    <Link to="/aboutus" className="footer-links f2">
+                    <Link to="/about-us" className="footer-links f2">
                       About Us
                     </Link>
                   </li>
                   <li>
-                    <Link to="/ContactUs" className="footer-links f2">
+                    <Link to="/contact-us" className="footer-links f2">
                       Contact Us
                     </Link>
                   </li>
@@ -119,7 +139,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-md-6 col-6">
-              <div className="single-footer-widget">
+              <div className="single-footer-widget single-footer-widget-newslatter">
                 <h3 className="footer-heading f1">Customer Care</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
@@ -127,18 +147,45 @@ const Footer = () => {
                       FAQs
                     </Link>
                   </li>
-                  <li>
-                    <Link to="/MyAccount" className="footer-links f2">
+                  <div>
+                    {
+                      userData ?
+                      <li>
+                      <Link to="/userProfile" className="footer-links f2">
+                        My Account
+                      </Link>
+                    </li>
+                    :
+                      <button
+                      className="footer-links f2 order-history-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      type="button"
+                    >
                       My Account
-                    </Link>
-                  </li>
+                    </button>
+                    }
+                  </div>
+                  <div>
+                    {
+                      userData ?
+                        <li>
+                          <Link to="/UserOrder" className="footer-links f2">
+                            Order History
+                          </Link>
+                        </li> :
+                        <button
+                          className="footer-links f2 order-history-btn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          type="button"
+                        >
+                          Order History
+                        </button>
+                    }
+                  </div>
                   <li>
-                    <Link to="/UserOrder" className="footer-links f2">
-                      Order History
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/support" className="footer-links f2">
+                    <Link to="/needAndSupport" className="footer-links f2">
                       Need Support?
                     </Link>
                   </li>
@@ -146,7 +193,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-lg-3 col-sm-6 col-md-6">
-              <div className="single-footer-widget">
+              <div className="single-footer-widget single-footer-widget-newslatter">
                 <h3 className="footer-heading f1">Newsletter</h3>
                 <p className="Subscribe-para f2">
                   Sign up for our mailing list to get the latest updates &amp;
@@ -196,7 +243,7 @@ const Footer = () => {
       <section>
         <div className="container-fluid">
           <div className="row footer-end">
-            <div className="col-lg-6 col-md-6 link-footer-first">
+            <div className="col-lg-6 col-md-6 col-sm-6 link-footer-first">
               <p className="footer-end-para footer-links f2 mb-0">
                 Designed & Developed by <i className="bx bx-copyright"></i>
                 2023
@@ -210,9 +257,9 @@ const Footer = () => {
                 </Link>
               </p>
             </div>
-            <div className="col-lg-6 col-md-6 link-footer-second">
+            <div className="col-lg-6 col-md-6 col-sm-6 link-footer-second">
               <div className="payment-types">
-                <ul className="d-flex align-items-center justify-content-end mb-0">
+                <ul className="d-flex align-items-center justify-content-end mb-0 footer-end-text">
                   <li className="footer-end-para footer-links footer-contact-info me-3 f2">
                     We accept payment via:
                   </li>

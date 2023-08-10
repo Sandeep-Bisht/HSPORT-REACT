@@ -4,7 +4,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import "../Admin/Dashboard.css"
 
 
-const CategoryForm = (props) => {
+const CategoryForm = () => {
   const [categories, setCategories] = useState([]);
   const [formerror, setFormerror] = useState({});
   const [editableArray, setEditableArray] = useState([]);
@@ -14,10 +14,14 @@ const CategoryForm = (props) => {
     featuredCategories: "",
     image: [],
   });
-  const [editableData] = useState(props); 
 
   const history = useNavigate();
   const location = useLocation();
+
+  const [editableData] = useState(location?.state); 
+
+  console.log(location,"check editable location")
+
   
   const ValidationFrom = (value) => {
     const error = {};
@@ -49,7 +53,7 @@ const CategoryForm = (props) => {
       })
         .then((res) => {
           res.json()
-          history("/dashboard/allCategories");
+          history("/dashboard/configuration/allCategories");
         })
         .then((res) => {
           // GetCategory();
@@ -94,11 +98,14 @@ const CategoryForm = (props) => {
       });
   };
 
+
   const UpdateCategory = async (e, _id) => {
     e.preventDefault();
     const errors = ValidationFrom(data);
     setFormerror(errors);
     if (Object.keys(errors).length === 0) {
+      console.log(data.image,"image imgage")
+
       const formData = new FormData();
       formData.append("_id", data._id);
       formData.append("description", data.description);
@@ -112,7 +119,7 @@ const CategoryForm = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          history.push("dashboard/allCategories");
+          history("/dashboard/configuration/allCategories");
           GetCategory();
         })
         .catch((err) => {
@@ -152,10 +159,10 @@ const CategoryForm = (props) => {
             
                   <form>
                     <div className="col-12 px-0">
-                      <div className="card p-4 m-2 mt-4 product-form">
+                      <div className="card p-4 product-form">
                         <h5>Category Creation</h5>
                         <div className="row">
-                        <div className="col-md-6 col-12 image-main-div">
+                        <div className="col-lg-6 col-md-6 col-sm-6 col-12 image-main-div">
                               <div className="row image-second-div">
                           {
                             editableArray && editableArray.length>0  ?
@@ -173,13 +180,13 @@ const CategoryForm = (props) => {
                                 }}
                               />
                             </div>
-                            <p className="formerror">{formerror.image}</p>
+                            <p className="formerror mb-0">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                             {/* <img src={`${baseUrl}/${data.image[0].path}`} style={{width:"70px", height:"40px"}} alt=""/> */}
+                            <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
-                          <div className="col-12 p-2">
+                          <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
                           <div>
                             <span className="category-select-div">Image</span>
                             <input
@@ -192,12 +199,12 @@ const CategoryForm = (props) => {
                               }}
                             />
                           </div>
-                          <p className="formerror">{formerror.image}</p>
+                          <p className="formerror mb-0">{formerror.image}</p>
                         </div>
                           }
                           </div>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Category Name</span>
                               <input
@@ -213,9 +220,9 @@ const CategoryForm = (props) => {
                                 onBlur={handleBlur}
                               />
                             </div>
-                            <p className="formerror">{formerror.name}</p>
+                            <p className="formerror mb-0">{formerror.name}</p>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Category Description</span>
                               <textarea
@@ -229,7 +236,7 @@ const CategoryForm = (props) => {
                               ></textarea>
                             </div>
                           </div>
-                          <div className="col-md-6 col-12 p-2">
+                          <div className="col-lg-6 col-md-6 col-sm-6 col-12 p-2">
                             <div>
                               <span className="category-select-div">Featured Categories</span>
                               <select
@@ -241,15 +248,15 @@ const CategoryForm = (props) => {
                                   handleInputChange(e);
                                 }}
                               >
-                                <option value="" hidden>
+                                <option value="" hidden className="select-dropdown">
                                   Select Category Type
                                 </option>
                                 <option value="Featured Categories">Featured Categories</option>
                               </select>
                             </div>
-                            <p className="formerror">{formerror.featuredCategories}</p>
+                            <p className="formerror mb-0">{formerror.featuredCategories}</p>
                           </div>
-                          {/* {editableData ? (
+                          {editableData ? (
                             <div className="col-12 p-2">
                               <button
                                 className="btn btn-primary"
@@ -258,7 +265,7 @@ const CategoryForm = (props) => {
                                 Update
                               </button>
                             </div>
-                          ) : ( */}
+                          ) : (
                             <div className="col-12 p-1">
                               <button
                                 className="btn btn-primary"
@@ -269,7 +276,7 @@ const CategoryForm = (props) => {
                                 Submit
                               </button>
                             </div>
-                             {/* )}   */}
+                             )}  
                         </div>
                       </div>
                     </div>

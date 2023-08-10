@@ -6,13 +6,13 @@
     font-size: 20px;
 }
 .footer-area{
-    background-color: #fff7ef;
     padding: 30px 0px;
 }
 .footer-links{
     color: #8a8a8a;
     transition: 0.5s;
     font-size: 14px;
+    text-decoration: none;
 }
 .address-footer{
     color: #8a8a8a;
@@ -43,7 +43,7 @@
     color: #000;
     transition: .5s;
     transition: var(--transition);
-    padding: 16px;
+    padding: 10px;
     border-radius: 0;
     font-weight: 300;
     font-family: "Roboto",sans-serif;
@@ -62,7 +62,7 @@
     border-radius: 0.25rem;
     font-family: "Roboto",sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 11px;
     height: 30px;
     position: relative;
     left: 40px;
@@ -72,6 +72,7 @@
     align-items: center;
     border: 1px solid #c7c7c7;
     background-color: #fff;
+    width: 80%;
 }
 .Subscribe-para{
     font-family: "Roboto", sans-serif;
@@ -97,4 +98,77 @@
     font-weight: 500;
     opacity: .75;
 }
+.order-history-btn{
+    border: none;
+    background: no-repeat;
+    margin-bottom: 14px;
+    padding-left: 0px;
+}
+@media only screen and (max-width : 991px) {
+    .footer-heading{
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    .footer-area .single-footer-widget ul li {
+        margin-bottom: 10px;
+    }
+    .footer-links{
+        font-size: 13px;
+    }
+    .subscribe-main{
+        width: 60%;
+    }
+    .single-footer-widget-newslatter{
+        margin-top: 10px;
+    }
+    .single-footer-widget .newsletter-form .default-btn {
+        left: 45px;
+    }
+    .single-footer-widget .newsletter-form .input-newsletter 
+    {
+        padding: 11px;
+    }
+    .footer-end-para{
+        font-size: 11px;
+    }
+    .footer-ends-link {
+        height: 17px;
+    }
+}
+@media only screen and (max-width : 767px) {
+    .subscribe-main {
+        width: 80%;
+    }
+    .single-footer-widget .newsletter-form .default-btn {
+        left: 50px;
+    }
+    .footer-end-text{
+        padding-left: 0px;
+    }
+    .link-footer-second{
+        padding-left: 0px;
+    }
+}
 
+@media only screen and (max-width : 575px) {
+    .subscribe-main{
+        width: 50%;
+    }
+    .link-footer-first{
+        justify-content: center;
+    }
+    .link-footer-second{
+        display: flex;
+        margin-top: 4px;
+        justify-content: center;
+    }
+}
+@media only screen and (max-width : 430px) {
+    .subscribe-main{
+        width: 70%;
+    }
+    .single-footer-widget .newsletter-form .input-newsletter 
+    {
+        padding: 9px;
+    }
+}
