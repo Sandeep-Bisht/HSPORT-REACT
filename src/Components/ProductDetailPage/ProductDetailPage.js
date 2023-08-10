@@ -37,6 +37,12 @@ const ProductDetailPage = () => {
 
   let url = "http://localhost:8080/";
 
+  let userDetails = useSelector(
+    (state) =>{ 
+      return state
+    }
+  );
+
   useEffect(() => {
     const storedData = localStorage.getItem('guestData');
     if (storedData) {
@@ -49,13 +55,13 @@ const ProductDetailPage = () => {
   },[categoryId])
 
   useEffect(() => {
-    if (Cookies.get("userdata")) {
-      let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-      setUserdata(userdata);
-      getUserWishlist(userdata._id);
+    if (userDetails?.UserCartReducer?.userDetail) {
+      const userDetail = userDetails?.UserCartReducer?.userDetail;
+      setUserdata(userDetail);
+      getUserWishlist(userDetail?._id);
     }
     window.scroll(0, 0);
-  }, [ productDetail]);
+  }, [userDetails, productDetail]);
 
   useEffect(() => {
     if (location?.state) {

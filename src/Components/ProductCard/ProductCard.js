@@ -51,12 +51,12 @@ const ProductCard = (props) => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if(Cookies.get("userdata")){
-    let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
-    setUserdata(userdata);
-    getUserWishlist(userdata._id);
+    if (cartState?.userDetail) {
+      const userDetail = cartState?.userDetail;
+    setUserdata(userDetail);
+    getUserWishlist(userdata?._id);
     }
-  }, []);
+  }, [cartState.userDetail]);
 
   useEffect(() => {
     const storedData = localStorage.getItem('guestData');
@@ -299,7 +299,7 @@ const ProductCard = (props) => {
           <div className="row">
             <div className="col-md-12 ">
               {
-                productList && (productList.length || productList==true) && (related=="related")?
+                (related=="related")?
                 <h1 className="common-heading text-center mb-lg-5">
                 Related Products
               </h1>
