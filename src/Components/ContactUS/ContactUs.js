@@ -1,7 +1,12 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import "./ContactUs.css"
 
+
 const ContactUs = () => {
+  useEffect(()=>{
+    window.scroll(0,0);
+  },[])
+
   return (
    <>
   <section className='contact-us'>
@@ -10,23 +15,23 @@ const ContactUs = () => {
         <div className='col-md-5'>
           <div className='left-side-text'>
             <div className='discover-wrap'>
-              <p className='contact-heading'>Discover Us</p>
-              <p>
+              <h1 className='common-heading text-start'>Discover Us</h1>
+              <p className='common-para paragraph-footer f1'>
               Discover the timeless elegance and joy of antique and vintage 
               decorative arts with a visit to our studio in Noida.
               </p>
             </div>
             <div className='visit-us'>
-              <p className='contact-heading'>Visit Us</p>
-                <p> Hindustan Sports,</p>
-                  <p>22 Connaught Place,
+              <h2 className='common-heading text-start'>Visit Us</h2>
+                <p className='common-para paragraph-footern f1'> Hindustan Sports,</p>
+                  <p className='common-para paragraph-footer f1'>22 Connaught Place,
                   Dehradun Uttarakhand 248001, India</p>
             </div>
             <div className='row'>
               <div className='col-md-12'>
                 <div className='email-wrap'>
-                  <p className='contact-heading'>Email Us</p>
-                  <p>
+                  <h2 className='common-heading text-start'>Email Us</h2>
+                  <p className='common-para paragraph-footer f1'>
                   For customer service, product or order related inquiries, and suggestions, 
                   please contact us by completing the form below or via email at:
                   <a href="mailto:hindustan.com">hindustan.com</a>
@@ -35,8 +40,8 @@ const ContactUs = () => {
               </div>
               <div className='col-md-12'>
                 <div className='callus-wrap'>
-                  <p className='contact-heading'>Call Us</p>
-                    <p> You can also call us at: +919582081905</p>
+                  <h2 className='common-heading text-start'>Call Us</h2>
+                    <p className='common-para paragraph-footer f1'> You can also call us at: +919582081905</p>
                   </div>
                 </div>
               </div>
@@ -45,9 +50,9 @@ const ContactUs = () => {
           <div className='col-md-7 form-section'> 
             <div className='col-md-12 removed'>
               <div className='form-wrap'></div>
-                <p className='contact-heading'>Get in touch with us</p>
-                <p>Thank you for getting in touch!</p>
-                <p>Kindly fill the form, have a great day!</p>
+                <h2 className='common-heading text-start'>Get in touch with us</h2>
+                <p className='common-para paragraph-footer f1'>Thank you for getting in touch!</p>
+                <p className='common-para paragraph-footer f1'>Kindly fill the form, have a great day!</p>
             </div>
        
           <div className='col-md-12 removed'>

@@ -154,7 +154,7 @@ const InProgressOrder = () => {
                 {
                   key: "1",
                   label: (
-                    <Link onClick={() => UpdateOrderStatus(item, "Cancel")}
+                    <Link rel="canonical" onClick={() => UpdateOrderStatus(item, "Cancel")}
                     className="sidebar-nav-link">
                       Cancel Order
                     </Link>
@@ -163,7 +163,7 @@ const InProgressOrder = () => {
                 {
                   key: "2",
                   label: (
-                    <Link onClick={() => UpdateOrderStatus(item, "Packed")}
+                    <Link rel="canonical" onClick={() => UpdateOrderStatus(item, "Packed")}
                     className="sidebar-nav-link">
                       Move to Packed
                     </Link>
@@ -172,7 +172,7 @@ const InProgressOrder = () => {
               ],
             }}
           >
-            <Link className="sidebar-nav-link">
+            <Link rel="canonical" className="sidebar-nav-link">
               Pending <AiFillCaretDown className="icon-dropdown-orders" />
             </Link>
           </Dropdown>
@@ -229,6 +229,7 @@ const InProgressOrder = () => {
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer",width:"40px",height:"40px"}}
                               src={`${baseUrl}/${item.image}`}
+                              alt="order-image"
                             ></img> 
                           </div>
                         </td>

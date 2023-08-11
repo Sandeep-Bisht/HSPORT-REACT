@@ -34,10 +34,10 @@ function CategoryProduct(props) {
     }
     ]
   };
-  const categoryHander=(categoeyId)=>{
+  const categoryHander=(categoryId,slugName)=>{
     navigate(
-      '/allProducts',
-      {state:categoeyId}
+      `/allproducts/${slugName}`,
+      {state:{categoryId:categoryId,slugName:slugName}}
     )
   }
 
@@ -65,17 +65,17 @@ function CategoryProduct(props) {
                     <div className="featured-card-row pe-0 d-flex" key={index}>
                       <div className={` featured-card ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                         <div className="card featured-card-inside m-2">
-                          <img src={`${url}${item?.image[0].path}`} className="card-img-top featured-image cursor-btn" alt=""
-                          onClick={()=>categoryHander(item._id)} />
+                          <img src={`${url}${item?.image[0].path}`} alt="all-category-image" className="card-img-top featured-image cursor-btn" alt=""
+                          onClick={()=>categoryHander(item._id,item.slug)} />
                           <div className={`card-body featured-card-body ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                             <h5 className={`card-title category-title cursor-btn ${index % 2 === 0 ? 'even-title' : ''}`}
-                            onClick={()=>categoryHander(item._id)}>
+                            onClick={()=>categoryHander(item._id,item.slug)}>
                               {item.name}
                             </h5>
                             <p className="card-text category-description">
                               {item.description}
                             </p>
-                            <button onClick={()=>categoryHander(item._id)} className="btn featured-shop-btn common-btn">Shop Now</button>
+                            <button onClick={()=>categoryHander(item._id,item.slug)} className="btn featured-shop-btn common-btn">Shop Now</button>
                           </div>
                         </div>
                       </div>

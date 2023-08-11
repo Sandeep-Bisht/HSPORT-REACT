@@ -268,10 +268,10 @@ const Header = () => {
               </div>
             </div>
             <div>
-              <Link className="  p-0" to="/">
+              <Link rel="canonical" className="  p-0" to="/">
                 <img
                   src={logo}
-                  alt=""
+                  alt="header-image"
                   className="img-fluid mobile-logo"
                 />
               </Link>
@@ -326,7 +326,7 @@ const Header = () => {
                                                   <ul className="mega-menu-sub-heading-list" key={ind}>
                                                     <li onClick={() => redirectToAllProductPage(item.name, element.category._id)} className="cursor-btn">
                                                       {" "}
-                                                      <Link
+                                                      <Link rel="canonical"
                                                         className="mega-menu-list-item"
                                                         to="/allproducts"
                                                       />
@@ -370,10 +370,10 @@ const Header = () => {
                       <div className="header-left">
 
 
-                        <Link className="navbar-brand p-0 " to="/">
+                        <Link rel="canonical" className="navbar-brand p-0 " to="/">
                           <img
                             src={logo}
-                            alt=""
+                            alt="header-image"
                             className="img-fluid main-logo"
                           />
                         </Link>
@@ -414,7 +414,7 @@ const Header = () => {
                             "":
                             <span className="cart-top-items">{userCartItem}</span>
                           }
-                          <Link
+                          <Link rel="canonical"
                             className="nav-link header-right-link me-lg-4"
                             to="/cart"
                           >
@@ -425,7 +425,7 @@ const Header = () => {
                             <span class="mb-0 below-heading">Cart</span>
                           </Link>
                           {userdata ? (
-                            <Link
+                            <Link rel="canonical"
                               className="nav-link header-right-link  me-lg-4"
                               to="/wishlist"
                             >
@@ -470,7 +470,7 @@ const Header = () => {
 
                               <ul className="dropdown-menu br-dr after-login-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
-                                  <Link
+                                  <Link rel="canonical"
                                     className="dropdown-item-1"
                                     to="/userProfile"
                                   >
@@ -478,14 +478,14 @@ const Header = () => {
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link
+                                  <Link rel="canonical"
                                     to="/UserOrder"
                                   >
                                     User Order
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link
+                                  <Link rel="canonical"
                                     className="dropdown-item-2"
                                     to="/wishlist"
                                   >
@@ -494,7 +494,7 @@ const Header = () => {
                                 </li>
                                 {userdata?.role === "admin" &&
                                   <li>
-                                    <Link
+                                    <Link rel="canonical"
                                       to="/dashboard"
                                       className="dropdown-item-1"
                                     >
@@ -504,7 +504,7 @@ const Header = () => {
                                 }
 
                                 <li>
-                                  <Link
+                                  <Link rel="canonical"
                                     to="/"
                                     className="dropdown-item-1"
                                     onClick={() => logOutUser()}

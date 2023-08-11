@@ -7,7 +7,7 @@ import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
 import TopBrand from "../TopBrands/TopBrands";
-import {Link, Navigate, useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import Loader from "../Loader/Loader";
 
 const HomePage = () => {
@@ -79,8 +79,8 @@ const getTopBrands=async()=>{
   }
 }
 
-const bannerShopNowClickHandler = (categoryId)=>{
- navigate("/allProducts", {state:categoryId})
+const bannerShopNowClickHandler = (categoryId,slugName)=>{
+ navigate(`/allproducts/${slugName}`, {state:{categoryId:categoryId,slugName:slugName}})
 }
 
   return (
@@ -114,6 +114,13 @@ const bannerShopNowClickHandler = (categoryId)=>{
               aria-label="Slide 3"
               className
             />
+              <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to={3}
+              aria-label="Slide 4"
+              className
+            />
           </div>
           <div className="carousel-inner">
             {
@@ -122,7 +129,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                 return (
                   <>
             <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={`duplicate-${index}`}>
-              <img src={`${url}${item?.image[0].path}`} className="d-block w-100" alt="..." />
+              <img src={`${url}${item?.image[0].path}`} alt="home-page-image" className="d-block w-100" alt="..." />
 
               <div className="carousel-caption d-md-block">
                 <p className="slider-title">
@@ -131,7 +138,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Experience{" "}
                 </p>
                
-                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id)}>
+                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id,item.slug)}>
                   <span>Shop Now</span>
                 </button>
               </div>
@@ -142,7 +149,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
               :
               <>
               <div className="carousel-item">
-              <img src={slider1} className="d-block w-100" alt="..." />
+              <img src={slider1} className="d-block w-100" alt="home-page-image" />
 
               <div className="carousel-caption d-md-block">
                 <p className="slider-title">
@@ -151,13 +158,13 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Experience{" "}
                 </p>
                
-                <Link to="/allProducts" className="common-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>
             </div>
               <div className="carousel-item active">
-              <img src={slider2} className="d-block w-100" alt="..." />
+              <img src={slider2} className="d-block w-100" alt="home-page-image" />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
                   Amazing Sports
@@ -165,20 +172,20 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Products{" "}
                 </p>
                 
-                <Link to="/allProducts" className="common-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>
             </div>
             <div className="carousel-item">
-              <img src={slider3} className="d-block w-100" alt="..." />
+              <img src={slider3} className="d-block w-100" alt="home-page-image" />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
                   Amazing Sports
                   <br />
                   Experience{" "}
                 </p>               
-                <Link to="/allProducts" className="common-btn banner-shopnow-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn banner-shopnow-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>

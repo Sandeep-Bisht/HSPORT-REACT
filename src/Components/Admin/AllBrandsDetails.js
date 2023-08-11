@@ -76,7 +76,7 @@ export default function AllBrandsDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} style={{width:"100%"}}/>,
+      render: (t, r) => <img src={`${baseUrl}/${r.image[0].path}`} alt="all-brands-image" style={{width:"100%"}}/>,
     },
     {
       title: "Action",
@@ -124,7 +124,7 @@ export default function AllBrandsDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-brand" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>

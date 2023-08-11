@@ -78,7 +78,7 @@ const Footer = () => {
                 <ul className="footer-contact-info px-0">
                   <li>
                     <span className="contact-heading">Phone:</span>{" "}
-                    <Link to="tel:+91-7500872014" className="footer-links f2">
+                    <Link rel="canonical" to="tel:+91-7500872014" className="footer-links f2">
                       +91-98975 77558
                     </Link>
                   </li>
@@ -106,32 +106,32 @@ const Footer = () => {
                 <h3 className="footer-heading f1">Information</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
-                    <Link to="/about-us" className="footer-links f2">
+                    <Link rel="canonical" to="/about-us" className="footer-links f2">
                       About Us
                     </Link>
                   </li>
                   <li>
-                    <Link to="/contact-us" className="footer-links f2">
+                    <Link rel="canonical" to="/contact-us" className="footer-links f2">
                       Contact Us
                     </Link>
                   </li>
                   <li>
-                    <Link to="/privacy&policy" className="footer-links f2">
+                    <Link rel="canonical" to="/privacy&policy" className="footer-links f2">
                       Privacy Policy
                     </Link>
                   </li>
                   <li>
-                    <Link to="/terms&condition" className="footer-links f2">
+                    <Link rel="canonical" to="/terms&condition" className="footer-links f2">
                       Terms &amp; Conditions
                     </Link>
                   </li>
                   <li>
-                    <Link to="/shippingPolicy" className="footer-links f2">
+                    <Link rel="canonical" to="/shippingPolicy" className="footer-links f2">
                       Shipping Policy
                     </Link>
                   </li>
                   {/* <li>
-                    <Link to="/return&refund" className="footer-links f2">
+                    <Link rel="canonical" to="/return&refund" className="footer-links f2">
                       Return & Refund
                     </Link>
                   </li> */}
@@ -143,7 +143,7 @@ const Footer = () => {
                 <h3 className="footer-heading f1">Customer Care</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
-                    <Link to="/Faq" className="footer-links f2">
+                    <Link rel="canonical" to="/Faq" className="footer-links f2">
                       FAQs
                     </Link>
                   </li>
@@ -151,7 +151,7 @@ const Footer = () => {
                     {
                       userData ?
                       <li>
-                      <Link to="/userProfile" className="footer-links f2">
+                      <Link rel="canonical" to="/userProfile" className="footer-links f2">
                         My Account
                       </Link>
                     </li>
@@ -170,7 +170,7 @@ const Footer = () => {
                     {
                       userData ?
                         <li>
-                          <Link to="/UserOrder" className="footer-links f2">
+                          <Link rel="canonical" to="/UserOrder" className="footer-links f2">
                             Order History
                           </Link>
                         </li> :
@@ -185,7 +185,7 @@ const Footer = () => {
                     }
                   </div>
                   <li>
-                    <Link to="/needAndSupport" className="footer-links f2">
+                    <Link rel="canonical" to="/needAndSupport" className="footer-links f2">
                       Need Support?
                     </Link>
                   </li>
@@ -264,7 +264,7 @@ const Footer = () => {
                     We accept payment via:
                   </li>
                   <li className="footer-contact-info">
-                    <Link to="#" target="_blank">
+                    <Link rel="canonical" to="#" target="_blank">
                       <img
                         src={require("../../Images/payment-types/visa.png")}
                         alt="image"
@@ -273,7 +273,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="footer-contact-info">
-                    <Link to="#" target="_blank">
+                    <Link rel="canonical" to="#" target="_blank">
                       <img
                         src={require("../../Images/payment-types/mastercard.png")}
                         alt="image"
@@ -282,7 +282,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="footer-contact-info">
-                    <Link to="#" target="_blank">
+                    <Link rel="canonical" to="#" target="_blank">
                       <img
                         src={require("../../Images/payment-types/paypal.png")}
                         alt="image"
@@ -291,7 +291,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="footer-contact-info">
-                    <Link to="#" target="_blank">
+                    <Link rel="canonical" to="#" target="_blank">
                       <img
                         src={require("../../Images/payment-types/descpver.png")}
                         alt="image"
@@ -300,7 +300,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="footer-contact-info">
-                    <Link to="#" target="_blank">
+                    <Link rel="canonical" to="#" target="_blank">
                       <img
                         src={require("../../Images/payment-types/american-express.png")}
                         alt="image"

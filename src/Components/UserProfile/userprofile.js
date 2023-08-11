@@ -22,7 +22,7 @@ return(
 <div className="container">
     <div className="row userProfile-account">
         <div className="col-6 userProfile-image">
-            <img src={myProfile} alt=""/>
+            <img src={myProfile} alt="user-profile-image"/>
         </div>
     <div className="col-lg-6 col-md-6 col-sm-6 col-12 acount-page">
     <div class="card">

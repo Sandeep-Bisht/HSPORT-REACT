@@ -77,7 +77,7 @@ export default function AllCategoriesDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      render: (text, record) => <img src={`${baseUrl}/${record.image[0].path}`} style={{width:"100%"}} />,
+      render: (text, record) => <img src={`${baseUrl}/${record.image[0].path}`} alt="all-category-image" style={{width:"100%"}} />,
     },
     {
       title: "Action",
@@ -128,7 +128,7 @@ export default function AllCategoriesDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-category" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-category" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>

@@ -32,7 +32,7 @@ const ProductCard = (props) => {
   const location=useLocation();
 
   useEffect(() => {
-    if ((location.pathname.includes("collection")) || (location.pathname.includes("allProducts")) || (location.pathname.includes("SearchResult"))) {
+    if ((location.pathname.includes("collection")) || (location.pathname.includes("allproducts")) || (location.pathname.includes("SearchResult"))) {
       setClassUsingLocation(true);
     }
   }, [productList]);
@@ -338,7 +338,7 @@ const ProductCard = (props) => {
                               )
                             }
                             className="img-fluid"
-                            alt="..."
+                            alt="product-card-image"
                           />
                           <div className="product-content-lower">
                             <ul>
@@ -427,7 +427,7 @@ const ProductCard = (props) => {
                               )
                             }
                             className="img-fluid"
-                            alt="..."
+                            alt="product-card-image"
                           />
                           <div className="product-content-lower">
                             <ul>
@@ -523,7 +523,7 @@ const ProductCard = (props) => {
                                 )
                               }
                               className="img-fluid"
-                              alt="..."
+                              alt="product-card-image"
                             />
                             <div className="product-content-lower">
                               <ul>

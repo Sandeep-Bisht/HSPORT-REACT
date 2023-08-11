@@ -189,7 +189,7 @@ useEffect(()=>{
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-product" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-product" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
                   </div>
@@ -250,6 +250,7 @@ useEffect(()=>{
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer",width:"40px", height:"40px" }}
                               src={`${baseUrl}/${item.image[0].path}`}
+                              alt="order-image"
                             ></img>
                           </div>
                         </td>

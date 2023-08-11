@@ -89,7 +89,7 @@ const deleteWishlist = async (productId) => {
                             )
                           }
                           className="img-fluid"
-                          alt="..."
+                          alt="wishlit-product-image"
                         />
                       </div>
                       <RxCross2 className="crose-icon-delete cursor-btn" onClick={()=> deleteWishlist(item._id)}/>
@@ -150,7 +150,7 @@ const deleteWishlist = async (productId) => {
                   </p>
                 </div>
                 <div className="wishlist-empty-icon">
-                  <img src={Empty} alt="" className="img-fluid" />
+                  <img src={Empty} alt="wishlit-product-image" className="img-fluid" />
                 </div>
                 <div>
                   <button

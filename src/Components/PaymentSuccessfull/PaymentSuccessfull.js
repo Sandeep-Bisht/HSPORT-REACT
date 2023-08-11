@@ -22,7 +22,7 @@ function PaymentSuccessfull() {
             </div>
         </div>
         <div className='d-flex justify-content-center mb-5'>
-        <Link to="/" className='btn common-btn span'>Go Back</Link>
+        <Link rel="canonical" to="/" className='btn common-btn span'>Go Back</Link>
         </div>
   </div>
   )

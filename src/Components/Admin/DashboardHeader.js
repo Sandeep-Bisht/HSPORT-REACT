@@ -12,11 +12,11 @@ function DashboardHeaader() {
     
         <div className="nav__logo dashboard-header">
         <div className="nav__logo__img">
-          <Link to="/" style={{ cursor: "pointer" }}>
+          <Link rel="canonical" to="/" style={{ cursor: "pointer" }}>
             <img
               src={logo}
               className="dashboard-logo"
-              alt="image"
+              alt="dashboard-header-image"
             />
           </Link>
         </div>

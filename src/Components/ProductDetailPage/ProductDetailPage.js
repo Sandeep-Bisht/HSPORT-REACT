@@ -32,6 +32,7 @@ const ProductDetailPage = () => {
   const [categoryId,setCategoryId] = useState("");
   const [guestData,setGuestData]=useState()
   const [allRelatedCategory,setAllRelatedCategory] = useState([]);
+  const [categorySlugName,setCategorySlugName]=useState()
   const [currentWishlistProduct,setCurrentWishlistProduct]=useState({});
 
 
@@ -78,6 +79,7 @@ const ProductDetailPage = () => {
       if (response) {
         setProductDetail(response?.data?.data[0]);
         setCategoryId(response?.data?.data[0]?.category?._id);
+        setCategorySlugName(response?.data?.data[0]?.category?.slug)
         setIsLoading(false);
       }
     } catch (error) {
@@ -100,10 +102,9 @@ const ProductDetailPage = () => {
     }
   }
 
-
-  let rediretToSubCategories = (categoryId) => {
+  let rediretToSubCategories = (categoryId,SlugName) => {
     // var subCategories = subCategoriesName.replace(/\s/g, "");
-    navigate("/allProducts" , { state: categoryId });
+    navigate(`/allproducts/${SlugName}` , { state: {categoryId:categoryId,slugName:SlugName}});
   };
 
   let imageOnClickHandler = (imageUrl) => {
@@ -363,14 +364,14 @@ const ProductDetailPage = () => {
             
             <div className="col-sm-12 col-md-12 col-lg-12">
               <span>
-                <Link to="/" className="bred-crumb-one">
+                <Link rel="canonical" to="/" className="bred-crumb-one">
                   Home
                 </Link>
               </span>
               <span className="separator">/</span>
               <span
                 className="bred-crumb-one"
-                onClick={() => rediretToSubCategories(categoryId)}
+                onClick={() => rediretToSubCategories(categoryId,categorySlugName)}
               >
                 Categories
               </span>
@@ -402,13 +403,13 @@ const ProductDetailPage = () => {
                   <img
                   src={imageUrl}
                   className="img-fluid"
-                  alt=""
+                  alt="product-detail-image"
                 />
                 :
                 <img
                 src={`${url}${ productDetail?.image?.[0]?.path }`}
                 className="img-fluid"
-                alt=""
+                alt="product-detail-image"
               />
                 }
 
@@ -434,7 +435,7 @@ const ProductDetailPage = () => {
                 className="img-fluid other-Images-carousl"
                 onClick={() => imageOnClickHandler(`${url}${item.path}`)}
                 src={`${url}${item.path}`}
-                alt="Image"
+                alt="product-detail-image"
               />
                         </span>
                     );

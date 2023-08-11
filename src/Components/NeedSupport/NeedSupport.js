@@ -23,7 +23,7 @@ const NeedSupport = () => {
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6 col-12 need-support-image-box">
                             <div className="support-image-div">
-                                <img className="support-image" src={help}></img>
+                                <img className="support-image" alt="need-support-image" src={help}></img>
                             </div>
                         </div>
                     </div>

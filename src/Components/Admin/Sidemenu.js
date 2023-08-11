@@ -39,7 +39,7 @@ const Sidemenu = () => {
   return (
     <>
       <div className="nav__list">
-        <Link to="/dashboard" className="nav__link active sidebar-nav-link">
+        <Link rel="canonical" to="/dashboard" className="nav__link active sidebar-nav-link">
           <RxDashboard className="nav__icon" />
           <span className="nav__name">Dashboard</span>
         </Link>
@@ -71,42 +71,42 @@ const Sidemenu = () => {
               >
                 <div className="dashboard-accordion-body">
                   <ul className="Configration-List">
-                    <Link to={"/dashboard/Order/Pending"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/pending"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <FaCartPlus className="configuration-icons-wrap" />
                         New Orders
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/InProgress"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/in-progress"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <GrInProgress className="configuration-icons-wrap" />
                         In Progress
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Packed"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/packed"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <BsBox className="configuration-icons-wrap" />
                         Packed
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Shipped"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/shipped"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <FaShippingFast className="configuration-icons-wrap" />
                         Shipped
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Delivered"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/delivered"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <MdRealEstateAgent className="configuration-icons-wrap" />
                         Delivered
                       </li>
                     </Link>
-                    <Link to={"/dashboard/Order/Canceled"} className="sidebar-nav-link">
+                    <Link rel="canonical" to={"/dashboard/order/canceled"} className="sidebar-nav-link">
                       <li>
                         {" "}
                         <BsCartXFill className="configuration-icons-wrap" />
@@ -146,20 +146,20 @@ const Sidemenu = () => {
                 >
                   <div className="dashboard-accordion-body">
                     <ul className="Configration-List">
-                      <Link to={"/dashboard/configuration/allBrands"} className="sidebar-nav-link">
+                      <Link rel="canonical" to={"/dashboard/configuration/all-brands"} className="sidebar-nav-link">
                         <li className="nav-name">
                           <GiFactory className="configuration-icons-wrap" />
                           Top Brands
                         </li>
                       </Link>
-                      <Link to={"/dashboard/configuration/allCategories"} className="sidebar-nav-link">
+                      <Link rel="canonical" to={"/dashboard/configuration/all-categories"} className="sidebar-nav-link">
                         <li>
                           <BiCategory className="configuration-icons-wrap" />
                           Category
                         </li>
                       </Link>
-                      <Link
-                              to={"/dashboard/configuration/AllSubCategories"}
+                      <Link rel="canonical"
+                              to={"/dashboard/configuration/all-sub-categories"}
                               className="sidebar-nav-link"
                             >
                               <li>
@@ -167,7 +167,7 @@ const Sidemenu = () => {
                                 Sports
                               </li>
                             </Link>
-                      <Link to="/dashboard/configuration/allPrdoucts" className="sidebar-nav-link">
+                      <Link rel="canonical" to="/dashboard/configuration/all-prdoucts" className="sidebar-nav-link">
                         <li>
                           <GiBoxUnpacking className="configuration-icons-wrap" />
                           Products

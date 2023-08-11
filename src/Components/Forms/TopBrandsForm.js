@@ -67,7 +67,7 @@ const TopBrandsForm = (props) => {
       })
         .then((res) => {
           res.json();
-          history("/dashboard/configuration/allBrands");
+          history("/dashboard/configuration/all-brands");
         })
         .then((res) => {
           GetBrands();
@@ -108,7 +108,7 @@ const TopBrandsForm = (props) => {
         if (response.status == 200) {
           await GetBrands();
           setTimeout(() => {
-            history("/dashboard/configuration/allBrands");
+            history("/dashboard/configuration/all-brands");
           }, 1500);
         }
       } catch (error) {
@@ -177,7 +177,7 @@ const TopBrandsForm = (props) => {
                                   <p className="formerror mb-0">{formerror.image}</p>
                                 </div>
                                 <div className="col-2 p-2 d-flex align-items-end">
-                                  <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{ width: "70px", height: "30px" }} alt="" />
+                                  <img src={`${baseUrl}/${data?.image[0]?.path}`} alt="brand-image" style={{ width: "70px", height: "30px" }} alt="" />
                                 </div>
                               </div> :
                               <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">

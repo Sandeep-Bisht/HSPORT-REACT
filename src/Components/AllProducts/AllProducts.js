@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BsBagHeart } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsCurrencyRupee } from "react-icons/bs";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AllProducts.css";
 import { baseUrl } from "../../Utils/Service";
@@ -23,14 +23,13 @@ function AllProducts() {
 
   let allCategoryState = useSelector((state) => state.UserCartReducer);
 
+  let navegate = useNavigate();
+
   useEffect(() => {
     if (location?.state) {
-      getProductByCategoryId(location.state);
+      getProductByCategoryId(location.state.categoryId,location.state.slugName);
     }
-    else{
-      getAllProducts();
-    }
-  }, [location.state]);
+  },[location.state]);
 
   useEffect(() => {
     if (Cookies.get("userdata")) {
@@ -55,7 +54,7 @@ function AllProducts() {
       },[selectedAlphabetic]); 
 
 
-  const getProductByCategoryId = (category) => {
+  const getProductByCategoryId = (category,slugName) => {
     setIsLoading(true);
     setSelectedCategory(category)
     let url = "http://localhost:8080/api/product/product_by_category";
@@ -65,6 +64,7 @@ function AllProducts() {
         .then((response) => {
           // Use the data in your frontend logic
           if (response) {
+            navegate(`/allproducts/${slugName}`)
             if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
             {
               setSelectedAlphabetic("");
@@ -144,11 +144,12 @@ function AllProducts() {
 
   const getAllProducts = async () => {
     setIsLoading(true);
-    setSelectedCategory("outdoorSports")
+    setSelectedCategory("allproducts")
     let url = "http://localhost:8080/api/product/all_product";
     let response = await axios.get(url);
     try {
       if (response) {
+        navegate('/allproducts')
         if(selectedAlphabetic==="AtoZ" || selectedAlphabetic==="ZtoA")
         {
           setSelectedAlphabetic("");
@@ -198,7 +199,7 @@ function AllProducts() {
                     <div className="filter-category">
                       <div className="d-flex filter-checkbox">
                         <label
-                          htmlFor="outdoorSports"
+                          htmlFor="alproducts"
                           className="filter-category-name pt-1"
                         >
                           All Products
@@ -207,10 +208,10 @@ function AllProducts() {
                           type="checkbox"
                           id="outdoorSports"
                           name="category"
-                          value="outdoorSports"
+                          value="allproducts"
                           className="pt-1"
                           onChange={() => getAllProducts()}
-                          checked={selectedCategory === "outdoorSports"}
+                          checked={selectedCategory === "allproducts"}
                         />
                       </div>
                     </div>
@@ -225,7 +226,7 @@ function AllProducts() {
                           <div className="filter-category">
                             <div className="d-flex filter-checkbox">
                               <label
-                                htmlFor="outdoorSports"
+                                htmlFor="allproducts"
                                 className="filter-category-name pt-1"
                               >
                                 {item.name}
@@ -234,9 +235,9 @@ function AllProducts() {
                                 type="checkbox"
                                 id={item._id}
                                 name="category"
-                                value="outdoorSports"
+                                value="allproducts"
                                 className="pt-1"
-                                onChange={()=>getProductByCategoryId(item._id) }
+                                onChange={()=>getProductByCategoryId(item._id,item.slug) }
                                 checked={selectedCategory === item._id}
                               />
                             </div>
