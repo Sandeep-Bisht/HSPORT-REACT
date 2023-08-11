@@ -136,7 +136,7 @@ console.log(editableData,"editableData v editableData")
       })
         .then((res) => {
           res.json();
-          navigate("/dashboard/configuration/allPrdoucts");
+          navigate("/dashboard/configuration/all-prdoucts");
         })
         .then((res) => {
           // GetData();
@@ -176,7 +176,7 @@ console.log(editableData,"editableData v editableData")
       if (response.status === 200) {
         // await GetData();
         setTimeout(() => {
-          navigate("/dashboard/configuration/allPrdoucts");
+          navigate("/dashboard/configuration/all-prdoucts");
         }, 1500);
       }
     } catch (error) {

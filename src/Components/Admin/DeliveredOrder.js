@@ -152,7 +152,7 @@ const DeliveredOrder = () => {
                 {
                   key: "1",
                   label: (
-                    <Link onClick={() => UpdateOrderStatus(item, "Cancel")}
+                    <Link  rel="canonical" onClick={() => UpdateOrderStatus(item, "Cancel")}
                     className="sidebar-nav-link">
                       Cancel Order
                     </Link>
@@ -161,7 +161,7 @@ const DeliveredOrder = () => {
                 {
                   key: "2",
                   label: (
-                    <Link onClick={() => UpdateOrderStatus(item, "Pending")}
+                    <Link  rel="canonical" onClick={() => UpdateOrderStatus(item, "Pending")}
                     className="sidebar-nav-link">
                       Move to Pending
                     </Link>
@@ -170,7 +170,7 @@ const DeliveredOrder = () => {
               ],
             }}
           >
-            <Link className="sidebar-nav-link">
+            <Link  rel="canonical" className="sidebar-nav-link">
               Pending <AiFillCaretDown className="icon-dropdown-orders" />
             </Link>
           </Dropdown>

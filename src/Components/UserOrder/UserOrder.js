@@ -413,7 +413,7 @@ const UserOrder = () => {
                                             <div className="col-md-2 ">
                                               <div className="button-box">
                                                 <div>
-                                                  <Link
+                                                  <Link rel="canonical"
                                                     className="sidebar-nav-link"
                                                     to={
                                                       "/SingleProduct/" +

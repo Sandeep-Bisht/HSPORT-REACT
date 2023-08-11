@@ -128,7 +128,7 @@ export default function AllCategoriesDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-category" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-category" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>

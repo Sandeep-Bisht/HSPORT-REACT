@@ -32,7 +32,7 @@ const ProductCard = (props) => {
   const location=useLocation();
 
   useEffect(() => {
-    if ((location.pathname.includes("collection")) || (location.pathname.includes("allProducts")) || (location.pathname.includes("SearchResult"))) {
+    if ((location.pathname.includes("collection")) || (location.pathname.includes("allproducts")) || (location.pathname.includes("SearchResult"))) {
       setClassUsingLocation(true);
     }
   }, [productList]);

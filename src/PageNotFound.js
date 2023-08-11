@@ -18,7 +18,7 @@ function PageNotFound() {
                   We're sorry, the page you requested could not be found. Please click on the Home.
                   </p><div className="error-home-btn">
                   <button type="button">
-                    <Link to="/">Back to Home</Link>
+                    <Link to="/" rel="canonical">Back to Home</Link>
                   </button>
                   </div>
                 </div>

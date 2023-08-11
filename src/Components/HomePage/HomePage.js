@@ -7,7 +7,7 @@ import slider3 from "../../Images/slider3.jpg";
 import ProductCard from "../ProductCard/ProductCard";
 import CategoryProduct from "../CategoryProduct/CategoryProduct";
 import TopBrand from "../TopBrands/TopBrands";
-import {Link, Navigate, useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import Loader from "../Loader/Loader";
 
 const HomePage = () => {
@@ -79,8 +79,8 @@ const getTopBrands=async()=>{
   }
 }
 
-const bannerShopNowClickHandler = (categoryId)=>{
- navigate("/allProducts", {state:categoryId})
+const bannerShopNowClickHandler = (categoryId,slugName)=>{
+ navigate(`/allproducts/${slugName}`, {state:{categoryId:categoryId,slugName:slugName}})
 }
 
   return (
@@ -114,6 +114,13 @@ const bannerShopNowClickHandler = (categoryId)=>{
               aria-label="Slide 3"
               className
             />
+              <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to={3}
+              aria-label="Slide 4"
+              className
+            />
           </div>
           <div className="carousel-inner">
             {
@@ -131,7 +138,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Experience{" "}
                 </p>
                
-                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id)}>
+                <button className="common-btn" onClick={()=>bannerShopNowClickHandler(item?._id,item.slug)}>
                   <span>Shop Now</span>
                 </button>
               </div>
@@ -151,7 +158,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Experience{" "}
                 </p>
                
-                <Link to="/allProducts" className="common-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>
@@ -165,7 +172,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   Products{" "}
                 </p>
                 
-                <Link to="/allProducts" className="common-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>
@@ -178,7 +185,7 @@ const bannerShopNowClickHandler = (categoryId)=>{
                   <br />
                   Experience{" "}
                 </p>               
-                <Link to="/allProducts" className="common-btn banner-shopnow-btn">
+                <Link rel="canonical" to="/allproducts" className="common-btn banner-shopnow-btn">
                   <span>Shop Now</span>
                 </Link>
               </div>

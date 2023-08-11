@@ -53,7 +53,7 @@ const CategoryForm = () => {
       })
         .then((res) => {
           res.json()
-          history("/dashboard/configuration/allCategories");
+          history("/dashboard/configuration/all-categories");
         })
         .then((res) => {
           // GetCategory();
@@ -119,7 +119,7 @@ const CategoryForm = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          history("/dashboard/configuration/allCategories");
+          history("/dashboard/configuration/all-categories");
           GetCategory();
         })
         .catch((err) => {

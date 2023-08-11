@@ -189,7 +189,7 @@ useEffect(()=>{
                 <h3 className="all-products-head">All Products <span className="count">{products}</span></h3>
                 <div className="all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-product" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-product" className="add-icon">
                     <MdPlaylistAdd />Add
                   </Link>
                   </div>

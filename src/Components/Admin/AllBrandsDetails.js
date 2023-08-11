@@ -124,7 +124,7 @@ export default function AllBrandsDetails() {
                 </h3>
                 <div className="all-category-search-wrap all-products-search-wrap">
                   <div>
-                  <Link to="/dashboard/configuration/create-brand" className="add-icon">
+                  <Link rel="canonical" to="/dashboard/configuration/create-brand" className="add-icon">
                     <MdPlaylistAdd />
                     Add
                   </Link>
