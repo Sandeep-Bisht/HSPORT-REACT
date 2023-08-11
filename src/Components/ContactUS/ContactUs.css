@@ -7,12 +7,11 @@ body{
 .container{
     max-width: 1080!important;
 }
-.contact-us .discover-wrap p{
+/* .contact-us .discover-wrap p{
     font-size: 15px;
     font-weight: 400;
-    font-family: Lato,sans-serif;
     color: #777;
-}
+} */
 .contact-us p.contact-heading{
     font-family: Lato,sans-serif;
     font-size: 16px!important;
@@ -26,22 +25,22 @@ p {
     margin-top: 0;
     margin-bottom: 1rem;
 }
-.contact-us .visit-us p{
+/* .contact-us .visit-us p{
     font-size: 15px;
     font-weight: 400;
     font-family: Lato,sans-serif;
     color: #777;
-}
+} */
 p{
     margin-top: 0;
     margin-bottom: 1rem;
 }
-.contact-us .email-wrap p{
+/* .contact-us .email-wrap p{
     font-size: 15px;
     font-weight: 400;
     font-family: Lato,sans-serif;
     color: #777;
-}
+} */
 p {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -51,12 +50,12 @@ a {
     color: var(--bs-link-color);
     text-decoration: underline;
 }
-.contact-us .callus-wrap p{
+/* .contact-us .callus-wrap p{
     font-size: 15px;
     font-weight: 400;
     font-family: Lato,sans-serif;
     color: #777;
-}
+} */
 p {
     margin-top: 0;
     margin-bottom: 1rem;

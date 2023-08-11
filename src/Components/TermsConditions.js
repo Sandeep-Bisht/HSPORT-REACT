@@ -47,9 +47,9 @@ function TermsConditions() {
                 interchangeable and therefore as referring to same.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Cookies
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 We employ the use of cookies. By accessing info@Hindustan.com,
@@ -65,9 +65,9 @@ function TermsConditions() {
                 affiliate/advertising partners may also use cookies.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 License
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 Unless otherwise stated, Hindustan and/or its licensors own the
@@ -143,9 +143,9 @@ function TermsConditions() {
                 any of your Comments in any and all forms, formats or media.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Hyperlinking to our Content
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 The following organizations may link to our Website without
@@ -243,9 +243,9 @@ function TermsConditions() {
                 linking absent a trademark license agreement.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 I-Frames
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 Without prior approval and written permission, you may not
@@ -253,9 +253,9 @@ function TermsConditions() {
                 visual presentation or appearance of our Website.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Content Liability
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 We shall not be hold responsible for any content that appears on
@@ -266,15 +266,15 @@ function TermsConditions() {
                 the infringement or other violation of, any third party rights.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Your Privacy
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>Please read Privacy Policy</p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Reservation of Rights
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 We reserve the right to request that you remove all links or any
@@ -286,9 +286,9 @@ function TermsConditions() {
                 conditions.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Removal of links from our website
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 If you find any link on our Website that is offensive for any
@@ -304,9 +304,9 @@ function TermsConditions() {
                 the material on the website is kept up to date.
               </p>
 
-              <h1 className='common-heading text-start'>
+              <h2 className='common-heading text-start'>
                 Disclaimer
-              </h1>
+              </h2>
 
               <p className='common-para f1 paragraph-footer f1'>
                 To the maximum extent permitted by applicable law, we exclude
