@@ -77,7 +77,7 @@ export default function AllCategoriesDetails() {
       dataIndex: "image[0].path",
       width: 80,
       maxWidth: 90,
-      render: (text, record) => <img src={`${baseUrl}/${record.image[0].path}`} style={{width:"100%"}} />,
+      render: (text, record) => <img src={`${baseUrl}/${record.image[0].path}`} alt="all-category-image" style={{width:"100%"}} />,
     },
     {
       title: "Action",

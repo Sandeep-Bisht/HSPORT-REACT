@@ -183,7 +183,7 @@ const CategoryForm = () => {
                             <p className="formerror mb-0">{formerror.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                            <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
+                            <img src={`${baseUrl}/${data?.image[0]?.path}`} alt="category-image" style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
                           <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">

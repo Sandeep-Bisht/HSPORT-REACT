@@ -65,7 +65,7 @@ function CategoryProduct(props) {
                     <div className="featured-card-row pe-0 d-flex" key={index}>
                       <div className={` featured-card ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                         <div className="card featured-card-inside m-2">
-                          <img src={`${url}${item?.image[0].path}`} className="card-img-top featured-image cursor-btn" alt=""
+                          <img src={`${url}${item?.image[0].path}`} alt="all-category-image" className="card-img-top featured-image cursor-btn" alt=""
                           onClick={()=>categoryHander(item._id,item.slug)} />
                           <div className={`card-body featured-card-body ${index % 2 === 0 ? 'even-featured-card' : ''}`}>
                             <h5 className={`card-title category-title cursor-btn ${index % 2 === 0 ? 'even-title' : ''}`}

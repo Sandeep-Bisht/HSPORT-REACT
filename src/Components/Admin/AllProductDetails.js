@@ -250,6 +250,7 @@ useEffect(()=>{
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer",width:"40px", height:"40px" }}
                               src={`${baseUrl}/${item.image[0].path}`}
+                              alt="order-image"
                             ></img>
                           </div>
                         </td>

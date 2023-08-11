@@ -331,7 +331,7 @@ console.log(editableData,"editableData v editableData")
                             <p className="formerror mb-0">{formErrors.image}</p>
                             </div>
                             <div className="col-2 p-2 d-flex align-items-end edit-images">
-                            <img src={`${baseUrl}/${data?.image[0]?.path}`} style={{width:"70px", height:"40px"}} alt=""/>
+                            <img src={`${baseUrl}/${data?.image[0]?.path}`} alt="all-product-image" style={{width:"70px", height:"40px"}} alt=""/>
                           </div>
                           </div>:
                           <div className="col-lg-12 p-2 col-md-12 col-sm-12 col-12 choose-images-input">
@@ -406,7 +406,7 @@ console.log(editableData,"editableData v editableData")
                                  return (
                                    <>
                                    <div className="col-2 p-2 d-flex align-items-end edit-images" key={index}>
-                             <img src={`${baseUrl}/${item.path}`} style={{width:"60px", height:"50px"}} alt=""/>
+                             <img src={`${baseUrl}/${item.path}`} alt="all-product-image" style={{width:"60px", height:"50px"}} alt=""/>
                           </div>
                                    </>
                                  )

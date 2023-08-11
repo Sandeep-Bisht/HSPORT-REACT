@@ -129,7 +129,7 @@ const bannerShopNowClickHandler = (categoryId,slugName)=>{
                 return (
                   <>
             <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={`duplicate-${index}`}>
-              <img src={`${url}${item?.image[0].path}`} className="d-block w-100" alt="..." />
+              <img src={`${url}${item?.image[0].path}`} alt="home-page-image" className="d-block w-100" alt="..." />
 
               <div className="carousel-caption d-md-block">
                 <p className="slider-title">
@@ -149,7 +149,7 @@ const bannerShopNowClickHandler = (categoryId,slugName)=>{
               :
               <>
               <div className="carousel-item">
-              <img src={slider1} className="d-block w-100" alt="..." />
+              <img src={slider1} className="d-block w-100" alt="home-page-image" />
 
               <div className="carousel-caption d-md-block">
                 <p className="slider-title">
@@ -164,7 +164,7 @@ const bannerShopNowClickHandler = (categoryId,slugName)=>{
               </div>
             </div>
               <div className="carousel-item active">
-              <img src={slider2} className="d-block w-100" alt="..." />
+              <img src={slider2} className="d-block w-100" alt="home-page-image" />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
                   Amazing Sports
@@ -178,7 +178,7 @@ const bannerShopNowClickHandler = (categoryId,slugName)=>{
               </div>
             </div>
             <div className="carousel-item">
-              <img src={slider3} className="d-block w-100" alt="..." />
+              <img src={slider3} className="d-block w-100" alt="home-page-image" />
               <div className="carousel-caption  d-md-block">
                 <p className="slider-title">
                   Amazing Sports

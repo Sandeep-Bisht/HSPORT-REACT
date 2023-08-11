@@ -271,7 +271,7 @@ const Header = () => {
               <Link rel="canonical" className="  p-0" to="/">
                 <img
                   src={logo}
-                  alt=""
+                  alt="header-image"
                   className="img-fluid mobile-logo"
                 />
               </Link>
@@ -373,7 +373,7 @@ const Header = () => {
                         <Link rel="canonical" className="navbar-brand p-0 " to="/">
                           <img
                             src={logo}
-                            alt=""
+                            alt="header-image"
                             className="img-fluid main-logo"
                           />
                         </Link>

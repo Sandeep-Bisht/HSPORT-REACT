@@ -195,6 +195,7 @@ const CancelOrder = () => {
                              <img
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer" }}
+                              alt="order-image"
                             //   src={`${baseUrl}/${item.image}`}
                             ></img> 
                           </div>

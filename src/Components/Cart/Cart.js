@@ -274,7 +274,7 @@ const Cart = () => {
                                   <img
                                     src={`${url}${item?.image}`}
                                     style={{ width: "60%" }}
-                                    alt=""
+                                    alt="cart-product-image"
                                     className="cursor-btn"
                                     onClick={() =>
                                       redirectToProductDiscriptionPage(
@@ -391,7 +391,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <div className="cart-empty-icon">
-                  <img src={Empty} alt="" className="img-fluid" />
+                  <img src={Empty} alt="empty-cart-image" className="img-fluid" />
                 </div>
                 <div>
                   <button

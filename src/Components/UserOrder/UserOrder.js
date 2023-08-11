@@ -374,7 +374,7 @@ const UserOrder = () => {
                                                 <img
                                                   src={`${baseUrl}/${item.image}`}
                                                   className="order-main-Image"
-                                                ></img>
+                                                  alt="order-image"                                                ></img>
                                               </div>
                                             </div>
                                             <div className="col-md-3 col-sm-3">
@@ -473,7 +473,7 @@ const UserOrder = () => {
                       </div>
                       <div className="order-icon col-12">
                         <div>
-                        <img src={Empty} alt="" className="img-fluid" />
+                        <img src={Empty} alt="use-order-image" className="img-fluid" />
                         </div>
                       </div>
                       <div>

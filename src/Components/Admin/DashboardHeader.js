@@ -16,7 +16,7 @@ function DashboardHeaader() {
             <img
               src={logo}
               className="dashboard-logo"
-              alt="image"
+              alt="dashboard-header-image"
             />
           </Link>
         </div>

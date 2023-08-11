@@ -338,7 +338,7 @@ const ProductCard = (props) => {
                               )
                             }
                             className="img-fluid"
-                            alt="..."
+                            alt="product-card-image"
                           />
                           <div className="product-content-lower">
                             <ul>
@@ -427,7 +427,7 @@ const ProductCard = (props) => {
                               )
                             }
                             className="img-fluid"
-                            alt="..."
+                            alt="product-card-image"
                           />
                           <div className="product-content-lower">
                             <ul>
@@ -523,7 +523,7 @@ const ProductCard = (props) => {
                                 )
                               }
                               className="img-fluid"
-                              alt="..."
+                              alt="product-card-image"
                             />
                             <div className="product-content-lower">
                               <ul>

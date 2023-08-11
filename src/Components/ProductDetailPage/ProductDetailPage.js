@@ -403,13 +403,13 @@ const ProductDetailPage = () => {
                   <img
                   src={imageUrl}
                   className="img-fluid"
-                  alt=""
+                  alt="product-detail-image"
                 />
                 :
                 <img
                 src={`${url}${ productDetail?.image?.[0]?.path }`}
                 className="img-fluid"
-                alt=""
+                alt="product-detail-image"
               />
                 }
 
@@ -435,7 +435,7 @@ const ProductDetailPage = () => {
                 className="img-fluid other-Images-carousl"
                 onClick={() => imageOnClickHandler(`${url}${item.path}`)}
                 src={`${url}${item.path}`}
-                alt="Image"
+                alt="product-detail-image"
               />
                         </span>
                     );

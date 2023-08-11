@@ -228,6 +228,7 @@ const ShippedOrder = () => {
                               onClick={() => imageHandler(item.productid)}
                               style={{ cursor: "pointer",width:"40px",height:"40px" }}
                               src={`${baseUrl}/${item.image}`}
+                              alt="order-image"
                             ></img> 
                           </div>
                         </td>
