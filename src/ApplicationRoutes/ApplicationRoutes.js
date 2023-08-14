@@ -76,7 +76,7 @@ const ApplicationRoutes = () => {
         <Route path='/dashboard/order/canceled' element={<CancelOrder/>} />
         <Route/>
         </Route>
-      <Route path="/PageNotFound" element={ <PageNotFound />} />
+      <Route path="*" element={ <PageNotFound />} />
       <Route path="/terms&condition" element={ <TermsConditions />} />
       <Route path="/return&refund" element={ <ReturnRefund />} />
       <Route path="/shippingPolicy" element={ <ShippingPolicy />} />
