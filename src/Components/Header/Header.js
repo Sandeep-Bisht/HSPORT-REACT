@@ -708,6 +708,9 @@ const Header = () => {
                           <div className="text-center">
                             <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
+                          <div className="text-center pt-3 cursor-btn">
+                              <h2 className="forget-password f1">Forget Password</h2>
+                            </div>
                           <div className="text-center text-danger error-text-form">
                             <p>
                               {errorMsg}
