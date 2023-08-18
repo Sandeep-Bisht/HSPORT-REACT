@@ -362,7 +362,9 @@ input::-webkit-inner-spin-button {
 .single-footer-widget .newsletter-form .input-newsletter {
     padding: 10px;
 }
-
+.forget-password{
+    font-size: 15px;
+}
 
 
 /* -----------------------media query-------------- */

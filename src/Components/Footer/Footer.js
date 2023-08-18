@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import BaseLine from "../baseLine/BaseLine";
+import { baseUrl } from "../../Utils/Service";
+import axios from "axios";
 
 const Footer = () => {
   const [msg, setMsg] = useState();
@@ -40,30 +42,31 @@ const Footer = () => {
   });
 
   const Subscribed = async (data) => {
-    // try {
-    //   const response = await axios.post(
-    //     `${baseUrl}/api/subscribed/subscribed`,
-    //     {
-    //       email: data.email,
-    //     }
-    //   );
-    //   if (response && response.data.success === 200) {
-    //     setMessage(response.data.message);
-    //     setInterval(function() {
-    //       setMessage("");
-    //     }, 5000);
-    //   } else {
-    //     setMsg(response.data.message);
-    //     setInterval(function() {
-    //       setMsg("");
-    //     }, 5000);
-    //   }
-    // } catch (error) {
-    //   setMessage("User already subscribed");
-    //   setInterval(function() {
-    //     setMessage("");
-    //   }, 5000);
-    // }
+    try {
+      const response = await axios.post(
+        `${baseUrl}/api/subscribed/subscribed`,
+        {
+          email: data.email,
+        }
+      );
+      if (response && response.data.success === 200) {
+        setMessage(response.data.message);
+        console.log(response.data.token,"check the subscribed token")
+        setInterval(function() {
+          setMessage("");
+        }, 5000);
+      } else {
+        setMsg(response.data.message);
+        setInterval(function() {
+          setMsg("");
+        }, 5000);
+      }
+    } catch (error) {
+      setMessage("User already subscribed");
+      setInterval(function() {
+        setMessage("");
+      }, 5000);
+    }
     reset();
   };
   return (

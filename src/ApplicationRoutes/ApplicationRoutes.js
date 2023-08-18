@@ -35,6 +35,7 @@ import ContactUs from '../Components/ContactUS/ContactUs';
 import Cookies from 'js-cookie';
 import UserProfile from '../Components/UserProfile/userprofile';
 import NeedAndSupport from '../Components/NeedSupport/NeedSupport';
+import VerifyToken from '../Components/VerifyToken/VerifyToken';
 
 
 
@@ -76,7 +77,7 @@ const ApplicationRoutes = () => {
         <Route path='/dashboard/order/canceled' element={<CancelOrder/>} />
         <Route/>
         </Route>
-      <Route path="/PageNotFound" element={ <PageNotFound />} />
+      <Route path="*" element={ <PageNotFound />} />
       <Route path="/terms&condition" element={ <TermsConditions />} />
       <Route path="/return&refund" element={ <ReturnRefund />} />
       <Route path="/shippingPolicy" element={ <ShippingPolicy />} />
@@ -96,6 +97,8 @@ const ApplicationRoutes = () => {
       <Route path='/contact-us' element={<ContactUs />} />
       <Route path='/userProfile' element={<UserProfile/>} />
       <Route path='/needAndSupport' element={<NeedAndSupport/>} />
+      <Route path='/subscribed/:token' element={<VerifyToken/>} />
+
     </Routes>
   )
 }
