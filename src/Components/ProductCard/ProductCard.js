@@ -304,17 +304,15 @@ const ProductCard = (props) => {
                 Related Products
               </h1>
               :
+                featuredProductList && (featuredProductList.length || featuredProductList==true) ? 
+                <h1 className="common-heading text-center mb-lg-5">
+                Featured Products
+              </h1>
+              :
               <h1 className="common-heading text-center mb-lg-5">
               Our Products
             </h1>
               }
-                            {
-                featuredProductList && (featuredProductList.length || featuredProductList==true) && 
-                <h1 className="common-heading text-center mb-lg-5">
-                Featured Products
-              </h1>
-              }
-
             </div>
           </div>
           <div className="row">

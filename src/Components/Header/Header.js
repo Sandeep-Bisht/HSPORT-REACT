@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import * as ACTIONS from "./Action"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { IoIosArrowDown } from "react-icons/io";
@@ -32,14 +32,15 @@ const Header = () => {
   const [subCategoryList, setSubCategoryList] = useState();
   const [activeLogin, setActiveLogin] = useState(true);
   const [userCartItem, setUserCartItem] = useState(null)
-  const [guestData,setGuestData]=useState()
-  const [logout,setLogout]=useState(false);
+  const [guestData, setGuestData] = useState()
+  const [logout, setLogout] = useState(false);
 
   let loginState = useSelector((state) => state.UserCartReducer)
-  let cartItemState = useSelector((state) =>
-  { 
+  let cartItemState = useSelector((state) => {
     return state.CartReducer
-  }) 
+  })
+
+  const location = useLocation();
 
   useEffect(() => {
     const storedData = localStorage.getItem('guestData');
@@ -47,7 +48,7 @@ const Header = () => {
       setGuestData(storedData);
       getUserCart(storedData);
     }
-  },[logout]);
+  }, [logout]);
 
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const Header = () => {
   const getUserCart = async (userid) => {
     try {
       let url = "http://localhost:8080/api/cart/cart_by_id";
-      let response = await axios.post(url, {userid: userid } );
+      let response = await axios.post(url, { userid: userid });
       if (response) {
         if (response?.data) {
           dispatch(ACTIONS.getCartDetails(response?.data.data));
@@ -147,19 +148,21 @@ const Header = () => {
       if (response) {
         if (response?.data?.success === 200) {
           resetLoginForm();
-          
           setUserdata(response.data.user)
           getUserCart(response.data.user._id);
           dispatch(ACTIONS.getUserDetails(response.data.user));
           Cookies.set("hsports_token", response?.data.token, { expires: 7 }); // 'expires' sets the expiration time in days
           Cookies.set("userdata", encodeURIComponent(JSON.stringify(response?.data.user)), { expires: 7 });
           localStorage.removeItem("guestData");
+          if (location.pathname.includes("/forgetpassword")) {
+            navigate("/")
+          }
           loginModalRef.current.click();
         } else {
           setErrorMsg(response.data.error)
-          setTimeout(()=>{
+          setTimeout(() => {
             setErrorMsg("");
-          },2000);
+          }, 2000);
         }
 
       }
@@ -187,7 +190,7 @@ const Header = () => {
       confirmPassword: "",
     },
     mode: "onBlur",
-    
+
   });
   const handleRegistration = async (data) => {
     data["role"] = "user";
@@ -198,9 +201,9 @@ const Header = () => {
       if (response) {
         resetRegistration();
         setSuccessMsg(`${response?.data.msg} Please login to enjoy shopping`);
-        setTimeout(()=>{
+        setTimeout(() => {
           setSuccessMsg("");
-        },2000)
+        }, 2000)
       }
     } catch (error) {
       console.log(error);
@@ -411,8 +414,8 @@ const Header = () => {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                           {
                             userCartItem == null || userCartItem == "" ?
-                            "":
-                            <span className="cart-top-items">{userCartItem}</span>
+                              "" :
+                              <span className="cart-top-items">{userCartItem}</span>
                           }
                           <Link rel="canonical"
                             className="nav-link header-right-link me-lg-4"
@@ -520,8 +523,10 @@ const Header = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#staticBackdrop"
                               type="button"
-                              onClick={()=>{resetLoginForm()
-                              resetRegistration()}}
+                              onClick={() => {
+                                resetLoginForm()
+                                resetRegistration()
+                              }}
                             >
                               <span>
                                 <AiOutlineUser />
@@ -611,9 +616,11 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-home"
                           aria-selected="true"
-                          onClick={() =>{ setSuccessMsg("")
-                          setActiveLogin(true);
-                        resetLoginForm()}}
+                          onClick={() => {
+                            setSuccessMsg("")
+                            setActiveLogin(true);
+                            resetLoginForm()
+                          }}
                         >
                           LOGIN
                         </button>
@@ -628,9 +635,11 @@ const Header = () => {
                           role="tab"
                           aria-controls="pills-profile"
                           aria-selected="false"
-                          onClick={() =>{ setErrorMsg()
+                          onClick={() => {
+                            setErrorMsg()
                             setActiveLogin(false);
-                          resetRegistration()}}
+                            resetRegistration()
+                          }}
                         >
                           SIGNUP
                         </button>
@@ -709,8 +718,18 @@ const Header = () => {
                             <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
                           <div className="text-center pt-3 cursor-btn">
-                              <h2 className="forget-password f1">Forget Password</h2>
-                            </div>
+                            <h2 className="forget-password f1">
+                              <button
+                                ref={loginModalRef}
+                                type="button"
+                                className="forget-password-btn"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <Link to="/forgetpassword">Forget Password</Link>
+                              </button>
+                            </h2>
+                          </div>
                           <div className="text-center text-danger error-text-form">
                             <p>
                               {errorMsg}
@@ -737,7 +756,7 @@ const Header = () => {
                                     placeholder="Enter your name"
                                     className="form-control placeholder-text"
                                     {...registrationRegister("username", {
-                                      required: true,                                     
+                                      required: true,
                                     })}
                                     onInput={(event) =>
                                       (event.target.value = event.target.value.toLowerCase())
@@ -748,7 +767,7 @@ const Header = () => {
                                       This field is required
                                     </p>
                                   )}
-                                 
+
                                 </div>
 
                                 <div className="form-fields">
