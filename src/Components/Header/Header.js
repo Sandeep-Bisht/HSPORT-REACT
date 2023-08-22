@@ -69,10 +69,16 @@ const Header = () => {
     if (Cookies.get("userdata")) {
       let userdata = JSON.parse(decodeURIComponent(Cookies.get("userdata")));
       setUserdata(userdata);
-      getUserCart(userdata._id);
+      // getUserCart(userdata._id);
       dispatch(ACTIONS.getUserDetails(userdata));
     }
   }, []);
+
+  useEffect(()=>{
+    if(userdata){
+    getUserCart(userdata._id);
+    }
+  },[userdata])
 
   const getAllCategory = async () => {
     let url = "http://localhost:8080/api/category/all_category";
@@ -241,23 +247,6 @@ const Header = () => {
       <header>
         <nav className="navbar navbar-expand-sm">
           <div className="container-fluid nav-wrapper">
-
-            {/* <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-
-            >
-              <span className="navbar-toggler-icon" >
-                <CgMenuGridR/>
-              </span>
-            </button> */}
-
-
             <div className="all-sports-toggler" onClick={() => setToggle(true)}>
               <div className="me-2">
                 <HiOutlineBars3BottomLeft className="text-white" />
@@ -295,15 +284,6 @@ const Header = () => {
                             <li className="nav-item" role="presentation">
                               <button className="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">All Sports</button>
                             </li>
-                            {/* <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                              <button className="nav-link" id="pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#pills-disabled" type="button" role="tab" aria-controls="pills-disabled" aria-selected="false" disabled>Disabled</button>
-                            </li> */}
                           </ul>
                           <div className="tab-content mega-menu-tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="pills-home"
@@ -344,25 +324,19 @@ const Header = () => {
                                     );
                                   })}
                               </div>
-
-
                             </div>
                             <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabIndex={0}>...</div>
                             <div className="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabIndex={0}>...</div>
                             <div className="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabIndex={0}>...</div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             )}
-
-
-            <div
+              <div
               className=" navbar-collapse"
               id="navbarSupportedContent"
             >
@@ -371,9 +345,7 @@ const Header = () => {
                   <div className="col-lg-12 px-0">
                     <div className="header-wrapper">
                       <div className="header-left">
-
-
-                        <Link rel="canonical" className="navbar-brand p-0 " to="/">
+                          <Link rel="canonical" className="navbar-brand p-0 " to="/">
                           <img
                             src={logo}
                             alt="header-image"
@@ -401,9 +373,6 @@ const Header = () => {
                               }
                             }}
                           />
-
-
-
                           <button className="search-btn" type="submit">
                             <AiOutlineSearch />
                           </button>
@@ -546,7 +515,6 @@ const Header = () => {
           </div>
         </nav>
       </header>
-
       {/* <!-- Modal --> */}
       <div
         className="modal fade login-sign-modal"
@@ -596,9 +564,7 @@ const Header = () => {
                       </div>
                     </div>
                   }
-
                 </div>
-
                 <div className="col-md-6 col-sm-6 mx-auto mt-3">
                   <div className="row">
                     <ul
@@ -672,20 +638,17 @@ const Header = () => {
                                         /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
                                     })}
                                   />
-
                                   {errors?.email?.type === "required" && (
                                     <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
                                   )}
-
                                   {errors?.email?.type === "pattern" && (
                                     <p className="text-danger error-text-form">
                                       Please enter Valid email Address
                                     </p>
                                   )}
                                 </div>
-
                                 <div className="form-fields">
                                   <input
                                     type="password"
@@ -697,14 +660,12 @@ const Header = () => {
                                       required: true,
                                     })}
                                   />
-
                                   {errors?.password?.type === "required" && (
                                     <p className="text-danger error-text-form">
                                       This field is required
                                     </p>
                                   )}
                                 </div>
-
                                 <div className="form-fields">
                                   <button className="common-btn w-100 login-btn">
                                     LOGIN
@@ -713,7 +674,6 @@ const Header = () => {
                               </div>
                             </div>
                           </form>
-
                           <div className="text-center">
                             <span className="endOfLogin-text">NEW TO HINDUSTAN SPORTS ?</span>
                           </div>
@@ -767,9 +727,7 @@ const Header = () => {
                                       This field is required
                                     </p>
                                   )}
-
                                 </div>
-
                                 <div className="form-fields">
                                   <input
                                     type="text"
@@ -784,14 +742,12 @@ const Header = () => {
                                         /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
                                     })}
                                   />
-
                                   {registrationError?.email?.type ===
                                     "required" && (
                                       <p className="text-danger error-text-form">
                                         This field is required
                                       </p>
                                     )}
-
                                   {registrationError?.email?.type ===
                                     "pattern" && (
                                       <p className="text-danger error-text-form">
@@ -799,7 +755,6 @@ const Header = () => {
                                       </p>
                                     )}
                                 </div>
-
                                 <div className="form-fields">
                                   <input
                                     type="number"
@@ -831,7 +786,6 @@ const Header = () => {
                                     </p>
                                   )}
                                 </div>
-
                                 <div className="form-fields">
                                   <input
                                     type="password"
@@ -860,7 +814,6 @@ const Header = () => {
                                       </p>
                                     )}
                                 </div>
-
                                 <div className="form-fields">
                                   <input
                                     type="password"
@@ -893,7 +846,6 @@ const Header = () => {
                                       </p>
                                     )}
                                 </div>
-
                                 <div className="form-fields">
                                   <button className="common-btn w-100 login-btn"
                                   >
@@ -903,7 +855,6 @@ const Header = () => {
                               </div>
                             </div>
                           </form>
-
                           <div className="text-center">
                             <span className="endOfLogin-text">ALREADY HAVE AN ACCOUNT LOGIN ?</span>
                           </div>
@@ -923,5 +874,4 @@ const Header = () => {
     </>
   );
 };
-
 export default Header;

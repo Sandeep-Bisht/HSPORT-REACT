@@ -30,6 +30,7 @@ const ProductDetailPage = () => {
   const [order, Setorder] = useState([]);
   const [isLoading,setIsLoading]=useState(true);
   const [categoryId,setCategoryId] = useState("");
+  const [subCategoryName,setSubCategoryName]=useState("");
   const [guestData,setGuestData]=useState()
   const [allRelatedCategory,setAllRelatedCategory] = useState([]);
   const [categorySlugName,setCategorySlugName]=useState()
@@ -79,6 +80,7 @@ const ProductDetailPage = () => {
       if (response) {
         setProductDetail(response?.data?.data[0]);
         setCategoryId(response?.data?.data[0]?.category?._id);
+        setSubCategoryName(response?.data?.data[0]?.subcategory.name)
         setCategorySlugName(response?.data?.data[0]?.category?.slug)
         setIsLoading(false);
       }
@@ -93,7 +95,7 @@ const ProductDetailPage = () => {
       const response = await axios.get(url);
       const relatedCategory =  response?.data.data.filter((item)=>
       {
-        return categoryId==item?.category._id;
+        return subCategoryName==item?.subcategory.name;
       }
       )
       setAllRelatedCategory(relatedCategory)

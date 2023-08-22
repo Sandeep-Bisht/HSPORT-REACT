@@ -463,7 +463,7 @@ const UserOrder = () => {
                   <div className="text-center mt-4 no-order-page">
                     <div className="cart-card container">
                       <p className="order-card-text col-12">
-                        <span className="common-heading">YOUR ORDERS IS EMPTY</span>
+                        <span className="common-heading">YOU HAVE NO ORDERS</span>
                       </p>
                       <div className="col-12 ">
                         <p className="m-0 order-para">
