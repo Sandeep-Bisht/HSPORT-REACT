@@ -106,7 +106,7 @@ const Footer = () => {
             </div>
             <div className="col-lg-3 col-sm-6 col-md-6 col-6">
               <div className="single-footer-widget">
-                <h3 className="footer-heading f1">Information</h3>
+                <h3 className="footer-heading f1">Quick links</h3>
                 <ul className="link-list footer-contact-info px-0">
                   <li>
                     <Link rel="canonical" to="/about-us" className="footer-links f2">
@@ -116,38 +116,6 @@ const Footer = () => {
                   <li>
                     <Link rel="canonical" to="/contact-us" className="footer-links f2">
                       Contact Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link rel="canonical" to="/privacy&policy" className="footer-links f2">
-                      Privacy Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <Link rel="canonical" to="/terms&condition" className="footer-links f2">
-                      Terms &amp; Conditions
-                    </Link>
-                  </li>
-                  <li>
-                    <Link rel="canonical" to="/shippingPolicy" className="footer-links f2">
-                      Shipping Policy
-                    </Link>
-                  </li>
-                  {/* <li>
-                    <Link rel="canonical" to="/return&refund" className="footer-links f2">
-                      Return & Refund
-                    </Link>
-                  </li> */}
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-3 col-sm-6 col-md-6 col-6">
-              <div className="single-footer-widget single-footer-widget-newslatter">
-                <h3 className="footer-heading f1">Customer Care</h3>
-                <ul className="link-list footer-contact-info px-0">
-                  <li>
-                    <Link rel="canonical" to="/Faq" className="footer-links f2">
-                      FAQs
                     </Link>
                   </li>
                   <div>
@@ -190,6 +158,33 @@ const Footer = () => {
                   <li>
                     <Link rel="canonical" to="/needAndSupport" className="footer-links f2">
                       Need Support?
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-3 col-sm-6 col-md-6 col-6">
+              <div className="single-footer-widget single-footer-widget-newslatter">
+                <h3 className="footer-heading f1">Policies</h3>
+                <ul className="link-list footer-contact-info px-0">
+                <li>
+                    <Link rel="canonical" to="/privacy&policy" className="footer-links f2">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link rel="canonical" to="/terms&condition" className="footer-links f2">
+                      Terms &amp; Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link rel="canonical" to="/shippingPolicy" className="footer-links f2">
+                      Shipping Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link rel="canonical" to="/Faq" className="footer-links f2">
+                      FAQs
                     </Link>
                   </li>
                 </ul>

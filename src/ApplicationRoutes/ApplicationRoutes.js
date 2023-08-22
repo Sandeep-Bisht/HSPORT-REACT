@@ -36,6 +36,7 @@ import Cookies from 'js-cookie';
 import UserProfile from '../Components/UserProfile/userprofile';
 import NeedAndSupport from '../Components/NeedSupport/NeedSupport';
 import VerifyToken from '../Components/VerifyToken/VerifyToken';
+import ForgetPassword from '../Components/ForgetPassword/ForgetPassword';
 
 
 
@@ -98,6 +99,7 @@ const ApplicationRoutes = () => {
       <Route path='/userProfile' element={<UserProfile/>} />
       <Route path='/needAndSupport' element={<NeedAndSupport/>} />
       <Route path='/subscribed/:token' element={<VerifyToken/>} />
+      <Route path='/forgetpassword' element={<ForgetPassword/>} />
 
     </Routes>
   )

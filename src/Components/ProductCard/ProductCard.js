@@ -38,25 +38,24 @@ const ProductCard = (props) => {
   }, [productList]);
 
   useEffect(() => { 
-    if (cartState.userCartDetails) {
-      if (cartState.userCartDetails[0]?.order?.length > 0) {
+    if (cartState?.userCartDetails) {
         setUserCart(cartState.userCartDetails[0]?.order);
         setSetUserCartDetail(cartState.userCartDetails[0])
-      }
     }
   }, [cartState.userCartDetails]);
-  
 
   let url = "http://localhost:8080/";
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (cartState?.userDetail) {
-      const userDetail = cartState?.userDetail;
+    if (cartState) {
+    const userDetail = cartState?.userDetail;
     setUserdata(userDetail);
     getUserWishlist(userdata?._id);
     }
-  }, [cartState.userDetail]);
+  }, [cartState]);
+
+
 
   useEffect(() => {
     const storedData = localStorage.getItem('guestData');
@@ -168,7 +167,8 @@ const ProductCard = (props) => {
         status: "Pending",
         delivery_time: "No Status",
       };
-      if (userCart == null || userCart == []) {
+
+      if ((userCart == null || userCart == [] || !userCartDetail)) {
         for (var i = 0; i < order.length; i++) {
           if (userCart.order[i].productid == newItemObj.productid) {
             userCart.order[i].quantity += newItemObj.quantity;
@@ -181,7 +181,7 @@ const ProductCard = (props) => {
           setQuantity(1);
           AddtoCart();
         }
-      } else {
+     } else {
         for (var i = 0; i < userCart.length; i++) {
           if (userCart[i].productid == newItemObj.productid) {
             userCart[i].quantity += newItemObj.quantity;
@@ -199,7 +199,6 @@ const ProductCard = (props) => {
       }
     }
   };
-
   // cart by id
 
   const CartById = async () => {
@@ -304,17 +303,15 @@ const ProductCard = (props) => {
                 Related Products
               </h1>
               :
+                featuredProductList && (featuredProductList.length || featuredProductList==true) ? 
+                <h1 className="common-heading text-center mb-lg-5">
+                Featured Products
+              </h1>
+              :
               <h1 className="common-heading text-center mb-lg-5">
               Our Products
             </h1>
               }
-                            {
-                featuredProductList && (featuredProductList.length || featuredProductList==true) && 
-                <h1 className="common-heading text-center mb-lg-5">
-                Featured Products
-              </h1>
-              }
-
             </div>
           </div>
           <div className="row">

@@ -365,7 +365,15 @@ input::-webkit-inner-spin-button {
 .forget-password{
     font-size: 15px;
 }
-
+.forget-password .forget-password-btn{
+    background-color: #fff!important;
+    border: none;
+}
+.forget-password a{
+    color: #0f131b!important;
+    font-weight: 600!important;
+    text-decoration: none!important;
+}
 
 /* -----------------------media query-------------- */
 

@@ -261,7 +261,6 @@ const Cart = () => {
                     </div>
                     <div className="col-1"></div>
                   </div>
-
                   {userCart &&
                     userCart?.length > 0 &&
                     userCart.map((item, index) => {
@@ -375,7 +374,6 @@ const Cart = () => {
                           </button>
                         </div>
                     }
-
                   </div>
                 </div>
               </>
@@ -459,7 +457,6 @@ const Cart = () => {
                                   /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.com+$/,
                               })}
                             />
-
                             {errors?.email?.type ===
                               "required" && (
                                 <p className="text-danger error-text-form">
@@ -506,7 +503,6 @@ const Cart = () => {
                               </p>
                             )}
                           </div>
-
                           <div className="form-fields checkout-form-fields">
                             <input
                               type="password"
@@ -535,7 +531,6 @@ const Cart = () => {
                                 </p>
                               )}
                           </div>
-
                           <div className="form-fields checkout-form-fields">
                             <input
                               type="password"
