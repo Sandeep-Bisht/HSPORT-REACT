@@ -97,7 +97,7 @@ const ApplicationRoutes = () => {
       <Route path='/PaymentSuccessfull' element={<PaymentSuccessfull />} />
       <Route path='/contact-us' element={<ContactUs />} />
       <Route path='/userProfile' element={<UserProfile/>} />
-      <Route path='/needAndSupport' element={<NeedAndSupport/>} />
+      {/* <Route path='/needAndSupport' element={<NeedAndSupport/>} /> */}
       <Route path='/subscribed/:token' element={<VerifyToken/>} />
       <Route path='/forgetpassword' element={<ForgetPassword/>} />
 

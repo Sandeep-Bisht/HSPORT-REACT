@@ -155,11 +155,11 @@ const Footer = () => {
                         </button>
                     }
                   </div>
-                  <li>
+                  {/* <li>
                     <Link rel="canonical" to="/needAndSupport" className="footer-links f2">
                       Need Support?
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

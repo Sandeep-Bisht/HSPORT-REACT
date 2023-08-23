@@ -48,7 +48,7 @@ function VerifyToken() {
   </div> :
   <div className="bg-gray-100 h-screen mt-5">
   <div className="bg-white p-6  d-flex justify-content-center">
-    <div className='subscribed-successfull-check'>
+    <div className='subscribed-successfull-cross'>
   <RxCross2 className='subscribed-check-icon'/>
   </div>
     </div>
