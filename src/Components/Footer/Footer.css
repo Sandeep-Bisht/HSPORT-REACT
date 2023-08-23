@@ -104,6 +104,12 @@
     margin-bottom: 14px;
     padding-left: 0px;
 }
+.sendSubscribeError{
+    color:red
+}
+.sendSubscribeLink{
+    color:green
+}
 @media only screen and (max-width : 991px) {
     .footer-heading{
         font-size: 15px;
